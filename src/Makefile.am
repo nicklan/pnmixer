@@ -10,7 +10,8 @@ bin_PROGRAMS = obmixer
 obmixer_SOURCES = \
 	support.c support.h \
 	main.c main.h \
-	callbacks.c callbacks.h
+	callbacks.c callbacks.h \
+	prefs.c prefs.h
 
 obmixer_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

@@ -15,6 +15,7 @@
 #include <gtk/gtk.h>
 
 #include "support.h"
+#include "prefs.h"
 
 GtkWidget*
 lookup_widget                          (GtkWidget       *widget,
@@ -142,3 +143,17 @@ glade_set_atk_action_description       (AtkAction       *action,
     }
 }
 
+
+/* lookup icons based on theme */
+GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
+  GError *err = NULL;
+  GdkPixbuf *return_buf = NULL;
+  if (icon_theme == NULL) 
+    get_icon_theme();
+  return_buf = gtk_icon_theme_load_icon(icon_theme,filename,size,0,&err);
+  if (err != NULL) {
+    fprintf (stderr, "Unable to load icon %s: %s\n", filename, err->message);
+    g_error_free (err);
+  }
+  return return_buf;
+}
