@@ -1,0 +1,5 @@
+To install this program cd to this directory and run;
+
+./autogen.sh
+make
+sudo make install
