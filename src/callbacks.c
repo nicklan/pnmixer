@@ -24,35 +24,29 @@ GtkAdjustment *vol_adjustment;
 int volume;
 extern int volume;
 
-void
-on_checkbutton1_clicked                (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
-	gtk_widget_hide (window1);
-	setmute();
-	get_mute_state();
-
+void on_checkbutton1_clicked(GtkButton *button,
+			     gpointer  user_data) {
+  gtk_widget_hide (window1);
+  setmute();
+  get_mute_state();
 }
 
-gboolean
-on_hscale1_value_change_event        (GtkWidget       *widget,
-                                        GdkEventButton  *event,
-                                        gpointer         user_data)
-{
-	int volumeset;
-	volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
+gboolean on_hscale1_value_change_event(GtkWidget      *widget,
+				       GdkEventButton *event,
+				       gpointer       user_data) {
+  int volumeset;
+  volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
 	
-	setvol(volumeset);
-	if (get_mute_state() == 0) {
-		setmute();
-		get_mute_state();
-	}
+  setvol(volumeset);
+  if (get_mute_state() == 0) {
+    setmute();
+    get_mute_state();
+  }
 	
-	return FALSE;
+  return FALSE;
 }
 
-gboolean on_scroll (GtkWidget *widget, GdkEventScroll *event) {
+gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   if (event->direction == GDK_SCROLL_UP)
     setvol(getvol()+scroll_step);
   else
@@ -68,10 +62,8 @@ gboolean on_scroll (GtkWidget *widget, GdkEventScroll *event) {
   return TRUE;
 }
 
-void
-on_ok_button_clicked                   (GtkButton       *button,
-                                        gpointer         user_data)
-{
+void on_ok_button_clicked(GtkButton *button,
+			  gpointer  user_data) {
   gsize len;
   GError *err = NULL;
 
@@ -122,9 +114,7 @@ on_ok_button_clicked                   (GtkButton       *button,
   get_mute_state();
 }
 
-void
-on_cancel_button_clicked                   (GtkButton       *button,
-					    gpointer         user_data)
-{
+void on_cancel_button_clicked(GtkButton *button,
+			      gpointer  user_data) {
   gtk_widget_destroy(user_data);
 }

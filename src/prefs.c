@@ -16,11 +16,11 @@
 #include "support.h"
 #include "main.h"
 
-#define GLADE_HOOKUP_OBJECT(component,widget,name) \
-  g_object_set_data_full (G_OBJECT (component), name, \
-    gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
+#define GLADE_HOOKUP_OBJECT(component,widget,name)			\
+  g_object_set_data_full (G_OBJECT (component), name,			\
+			  gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
 
-#define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
+#define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name)	\
   g_object_set_data (G_OBJECT (component), name, widget)
 
 #define DEFAULT_PREFS "[PNMixer]\n\
@@ -168,9 +168,7 @@ void on_middle_changed(GtkComboBox* box, gpointer user_data) {
   gtk_widget_set_sensitive(entry,cust);
 }
 
-GtkWidget*
-create_prefs_window (void)
-{
+GtkWidget* create_prefs_window (void) {
   GtkWidget *prefs_window;
   GtkWidget *vbox1;
   GtkWidget *vol_frame;
