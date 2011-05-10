@@ -5,13 +5,13 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@PACKAGE_CFLAGS@
 
-bin_PROGRAMS = obmixer
+bin_PROGRAMS = pnmixer
 
-obmixer_SOURCES = \
+pnmixer_SOURCES = \
 	support.c support.h \
 	main.c main.h \
 	callbacks.c callbacks.h \
 	prefs.c prefs.h
 
-obmixer_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+pnmixer_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

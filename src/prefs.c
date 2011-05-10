@@ -23,7 +23,7 @@
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
   g_object_set_data (G_OBJECT (component), name, widget)
 
-#define DEFAULT_PREFS "[OBMixer]\n\
+#define DEFAULT_PREFS "[PNMixer]\n\
 DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
 MouseScrollStep=1\n\
@@ -50,8 +50,8 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
   theme = gtk_icon_theme_get_default();
   index_file = g_key_file_new();
 
-  if (g_key_file_has_key(keyFile,"OBMixer","IconTheme",NULL)) {
-    active_theme_name = g_key_file_get_string(keyFile,"OBMixer","IconTheme",NULL);
+  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
+    active_theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
   } else {
     settings = gtk_settings_get_default();
     g_object_get(settings,"gtk-icon-theme-name",&active_theme_name,NULL);
@@ -107,7 +107,7 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
 
 void load_prefs(void) {
   GError* err = NULL;
-  gchar* filename = g_strconcat(g_get_user_config_dir(), "/obmixer", NULL);
+  gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
 
   if (keyFile != NULL)
     g_key_file_free(keyFile);
@@ -133,16 +133,16 @@ void load_prefs(void) {
 
 void apply_prefs() {
   scroll_step = 1;
-  if (g_key_file_has_key(keyFile,"OBMixer","MouseScrollStep",NULL))
-    scroll_step = g_key_file_get_integer(keyFile,"OBMixer","MouseScrollStep",NULL);
+  if (g_key_file_has_key(keyFile,"PNMixer","MouseScrollStep",NULL))
+    scroll_step = g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL);
   get_icon_theme();
   load_status_icons();
   update_vol_text();
 }
 
 void get_icon_theme() {
-  if (g_key_file_has_key(keyFile,"OBMixer","IconTheme",NULL)) {
-    gchar* theme_name = g_key_file_get_string(keyFile,"OBMixer","IconTheme",NULL);
+  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
+    gchar* theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
     if (icon_theme == NULL)
       icon_theme = gtk_icon_theme_new();
     gtk_icon_theme_set_custom_theme(icon_theme,theme_name);
@@ -226,7 +226,7 @@ create_prefs_window (void)
   gtk_container_add (GTK_CONTAINER (alignment1), vbox2);
 
   vol_text_check = gtk_check_button_new_with_mnemonic (_("Display Text Volume"));
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(vol_text_check),g_key_file_get_boolean(keyFile,"OBMixer","DisplayTextVolume",NULL));
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(vol_text_check),g_key_file_get_boolean(keyFile,"PNMixer","DisplayTextVolume",NULL));
   gtk_widget_show (vol_text_check);
   gtk_box_pack_start (GTK_BOX (vbox2), vol_text_check, FALSE, FALSE, 0);
   g_signal_connect(G_OBJECT(vol_text_check), "toggled",G_CALLBACK(on_vol_text_toggle), prefs_window);
@@ -247,7 +247,7 @@ create_prefs_window (void)
   gtk_combo_box_append_text (GTK_COMBO_BOX (vol_pos_combo), _("Bottom"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (vol_pos_combo), _("Left"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (vol_pos_combo), _("Right"));
-  gtk_combo_box_set_active (GTK_COMBO_BOX (vol_pos_combo),g_key_file_get_integer(keyFile,"OBMixer","TextVolumePosition",NULL));
+  gtk_combo_box_set_active (GTK_COMBO_BOX (vol_pos_combo),g_key_file_get_integer(keyFile,"PNMixer","TextVolumePosition",NULL));
 
   vol_frame_label = gtk_label_new (_("<b>Volume Display</b>"));
   gtk_widget_show (vol_frame_label);
@@ -276,7 +276,7 @@ create_prefs_window (void)
   icon_theme_combo = gtk_combo_box_new_text ();
   gtk_widget_show (icon_theme_combo);
   gtk_container_add (GTK_CONTAINER (alignment2), icon_theme_combo);
-  gtk_combo_box_append_text (GTK_COMBO_BOX (icon_theme_combo), _("OBMixer Icons"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (icon_theme_combo), _("PNMixer Icons"));
   load_icon_themes(icon_theme_combo);
 
   label3 = gtk_label_new (_("<b>Icon Theme</b>"));
@@ -318,7 +318,7 @@ create_prefs_window (void)
 
   scroll_step_spin_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 0);
   scroll_step_spin = gtk_spin_button_new (GTK_ADJUSTMENT (scroll_step_spin_adj), 1, 0);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(scroll_step_spin),g_key_file_get_integer(keyFile,"OBMixer","MouseScrollStep",NULL));
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(scroll_step_spin),g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL));
   gtk_widget_show (scroll_step_spin);
   gtk_table_attach (GTK_TABLE (table1), scroll_step_spin, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
@@ -333,7 +333,7 @@ create_prefs_window (void)
   gtk_combo_box_append_text (GTK_COMBO_BOX (middle_click_combo), _("Show Preferences"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (middle_click_combo), _("Volume Control"));
   gtk_combo_box_append_text (GTK_COMBO_BOX (middle_click_combo), _("Custom (set below)"));
-  gtk_combo_box_set_active (GTK_COMBO_BOX (middle_click_combo),g_key_file_get_integer(keyFile,"OBMixer","MiddleClickAction",NULL));
+  gtk_combo_box_set_active (GTK_COMBO_BOX (middle_click_combo),g_key_file_get_integer(keyFile,"PNMixer","MiddleClickAction",NULL));
   g_signal_connect(G_OBJECT(middle_click_combo), "changed",G_CALLBACK(on_middle_changed), prefs_window);
 
   label7 = gtk_label_new (_("Custom Command:"));
@@ -350,7 +350,7 @@ create_prefs_window (void)
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (0), 0, 0);
   gtk_entry_set_invisible_char (GTK_ENTRY (custom_entry), 8226);
-  gtk_entry_set_text (GTK_ENTRY (custom_entry),g_key_file_get_string(keyFile,"OBMixer","CustomCommand",NULL));
+  gtk_entry_set_text (GTK_ENTRY (custom_entry),g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL));
 
   if (gtk_combo_box_get_active (GTK_COMBO_BOX(middle_click_combo)) == 3) {
     gtk_widget_set_sensitive(label7,TRUE);

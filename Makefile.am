@@ -3,9 +3,7 @@
 SUBDIRS = src po
 
 EXTRA_DIST = \
-	autogen.sh \
-	obmixer.glade \
-	obmixer.gladep
+	autogen.sh 
 
 install-data-local:
 	@$(NORMAL_INSTALL)

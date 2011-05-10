@@ -1,5 +1,6 @@
 /* callbacks.c
- * OBmixer was programmed by Lee Ferrett, derived 
+ * PNmixer is written by Nick Lanham, a fork of OBmixer
+ * which was programmed by Lee Ferrett, derived 
  * from the program "AbsVolume" by Paul Sherman
  * This program is free software; you can redistribute 
  * it and/or modify it under the terms of the GNU General 
@@ -79,36 +80,36 @@ on_ok_button_clicked                   (GtkButton       *button,
   // show vol text
   GtkWidget* vtc = lookup_widget(user_data,"vol_text_check");
   gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vtc));
-  g_key_file_set_boolean(keyFile,"OBMixer","DisplayTextVolume",active);
+  g_key_file_set_boolean(keyFile,"PNMixer","DisplayTextVolume",active);
   
   // vol pos
   GtkWidget* vpc = lookup_widget(user_data,"vol_pos_combo");
   gint idx = gtk_combo_box_get_active(GTK_COMBO_BOX(vpc));
-  g_key_file_set_integer(keyFile,"OBMixer","TextVolumePosition",idx);
+  g_key_file_set_integer(keyFile,"PNMixer","TextVolumePosition",idx);
 
   // icon theme
   GtkWidget* icon_combo = lookup_widget(user_data,"icon_theme_combo");
   gchar* theme_name = gtk_combo_box_get_active_text (GTK_COMBO_BOX(icon_combo));
-  g_key_file_set_string(keyFile,"OBMixer","IconTheme",theme_name);
+  g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
   g_free(theme_name);
 
   // scroll step
   GtkWidget* sss = lookup_widget(user_data,"scroll_step_spin");
   gint spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(sss));
-  g_key_file_set_integer(keyFile,"OBMixer","MouseScrollStep",spin);
+  g_key_file_set_integer(keyFile,"PNMixer","MouseScrollStep",spin);
 
   // middle click
   GtkWidget* mcc = lookup_widget(user_data,"middle_click_combo");
   idx = gtk_combo_box_get_active(GTK_COMBO_BOX(mcc));
-  g_key_file_set_integer(keyFile,"OBMixer","MiddleClickAction",idx);
+  g_key_file_set_integer(keyFile,"PNMixer","MiddleClickAction",idx);
 
   // custom command
   GtkWidget* ce = lookup_widget(user_data,"custom_entry");
   const gchar* cc = gtk_entry_get_text (GTK_ENTRY(ce));
-  g_key_file_set_string(keyFile,"OBMixer","CustomCommand",cc);
+  g_key_file_set_string(keyFile,"PNMixer","CustomCommand",cc);
 
 
-  gchar* filename = g_strconcat(g_get_user_config_dir(), "/obmixer", NULL);
+  gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
   gchar* data = g_key_file_to_data(keyFile,&len,NULL);
   g_file_set_contents(filename,data,len,&err);
   if (err != NULL) {

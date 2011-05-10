@@ -1,10 +1,11 @@
 /* main.c
- * OBmixer was programmed by Lee Ferrett, derived 
+ * PNmixer is written by Nick Lanham, a fork of OBmixer
+ * which was programmed by Lee Ferrett, derived 
  * from the program "AbsVolume" by Paul Sherman
  * This program is free software; you can redistribute 
  * it and/or modify it under the terms of the GNU General 
  * Public License v2. source code is available at 
- * <http://www.jpegserv.com>
+ * <http://github.com/nicklan/pnmixer>
  */
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -207,8 +208,8 @@ gtk_widget_hide (window1);
 void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointer user_data) {
   if (event->button == 2) {
     gint act = 0;
-    if (g_key_file_has_key(keyFile,"OBMixer","MiddleClickAction",NULL)) 
-      act = g_key_file_get_integer(keyFile,"OBMixer","MiddleClickAction",NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","MiddleClickAction",NULL)) 
+      act = g_key_file_get_integer(keyFile,"PNMixer","MiddleClickAction",NULL);
     switch (act) {
     case 0: // mute/unmute
       setmute();
@@ -221,8 +222,8 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
       on_mixer();
       break;
     case 3:
-      if (g_key_file_has_key(keyFile,"OBMixer","CustomCommand",NULL)) {
-	gchar* cc = g_key_file_get_string(keyFile,"OBMixer","CustomCommand",NULL);
+      if (g_key_file_has_key(keyFile,"PNMixer","CustomCommand",NULL)) {
+	gchar* cc = g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL);
 	if (cc != NULL) {
 	  gchar* cmd = g_strconcat(cc, "&", NULL);
 	  if (system(cmd))  
@@ -435,17 +436,17 @@ create_about (void)
 	GtkWidget *label1;
 
 	about = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (about), _("About OBMixer"));
+	gtk_window_set_title (GTK_WINDOW (about), _("About PNMixer"));
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
 	gtk_container_add (GTK_CONTAINER (about), vbox1);
 
-	about_image = create_pixmap (about, "obmixer-sp.png");
+	about_image = create_pixmap (about, "pnmixer-sp.png");
 	gtk_widget_show (about_image);
 	gtk_box_pack_start (GTK_BOX (vbox1), about_image, TRUE, TRUE, 16);
 
-	label1 = gtk_label_new (_("A GTK mixer Applet for window mangers\n\nhttp://www.jpegserv.com/obmixer"));;
+	label1 = gtk_label_new (_("A mixer for the system tray.  http://github.com/nicklan/pnmixer"));;
 
 	gtk_widget_show (label1);
 	gtk_box_pack_start (GTK_BOX (vbox1), label1, FALSE, FALSE, 0);
@@ -517,12 +518,12 @@ void load_status_icons() {
 
 void update_vol_text() {
   gboolean show = TRUE;
-  if (g_key_file_has_key(keyFile,"OBMixer","DisplayTextVolume",NULL))
-    show = g_key_file_get_boolean(keyFile,"OBMixer","DisplayTextVolume",NULL);
+  if (g_key_file_has_key(keyFile,"PNMixer","DisplayTextVolume",NULL))
+    show = g_key_file_get_boolean(keyFile,"PNMixer","DisplayTextVolume",NULL);
   if (show) {
     GtkPositionType pos = GTK_POS_RIGHT;
-    if (g_key_file_has_key(keyFile,"OBMixer","TextVolumePosition",NULL)) {
-      gint pi = g_key_file_get_integer(keyFile,"OBMixer","TextVolumePosition",NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","TextVolumePosition",NULL)) {
+      gint pi = g_key_file_get_integer(keyFile,"PNMixer","TextVolumePosition",NULL);
       pos = 
 	pi==0?GTK_POS_TOP:
 	pi==1?GTK_POS_BOTTOM:
