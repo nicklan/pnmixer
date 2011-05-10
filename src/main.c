@@ -403,7 +403,7 @@ GtkWidget* create_about (void) {
   GtkWidget *about;
   GtkWidget *vbox1;
   GtkWidget *about_image;
-  GtkWidget *label1;
+  GtkWidget *label1,*title_label;
 
   about = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (about), _("About PNMixer"));
@@ -412,11 +412,19 @@ GtkWidget* create_about (void) {
   gtk_widget_show (vbox1);
   gtk_container_add (GTK_CONTAINER (about), vbox1);
 
-  about_image = create_pixmap (about, "pnmixer-sp.png");
+  title_label = gtk_label_new (_("<span font_size=\"x-large\" font_weight=\"bold\">PNMixer</span>"));
+
+  gtk_widget_show (title_label);
+  gtk_box_pack_start (GTK_BOX (vbox1), title_label, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (title_label), TRUE);
+  gtk_widget_set_size_request (title_label, 250, 70);
+  gtk_label_set_justify (GTK_LABEL (title_label), GTK_JUSTIFY_CENTER);
+
+  about_image = create_pixmap (about, "pnmixer-about.png");
   gtk_widget_show (about_image);
   gtk_box_pack_start (GTK_BOX (vbox1), about_image, TRUE, TRUE, 16);
 
-  label1 = gtk_label_new (_("A mixer for the system tray.  http://github.com/nicklan/pnmixer"));;
+  label1 = gtk_label_new (_("A mixer for the system tray.\nhttp://github.com/nicklan/pnmixer"));
 
   gtk_widget_show (label1);
   gtk_box_pack_start (GTK_BOX (vbox1), label1, FALSE, FALSE, 0);
@@ -476,10 +484,17 @@ void hide_me() {
 }
 
 void load_status_icons() {
-  status_icons[0] = get_stock_pixbuf("audio-volume-muted",48);
-  status_icons[1] = get_stock_pixbuf("audio-volume-low",48);
-  status_icons[2] = get_stock_pixbuf("audio-volume-medium",48);
-  status_icons[3] = get_stock_pixbuf("audio-volume-high",48);
+  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
+    status_icons[0] = get_stock_pixbuf("audio-volume-muted",48);
+    status_icons[1] = get_stock_pixbuf("audio-volume-low",48);
+    status_icons[2] = get_stock_pixbuf("audio-volume-medium",48);
+    status_icons[3] = get_stock_pixbuf("audio-volume-high",48);
+  } else {
+    status_icons[0] = create_pixbuf("pnmixer-muted.png");
+    status_icons[1] = create_pixbuf("pnmixer-low.png");
+    status_icons[2] = create_pixbuf("pnmixer-medium.png");
+    status_icons[3] = create_pixbuf("pnmixer-high.png");
+  }
 }
 
 void update_vol_text() {
@@ -519,6 +534,7 @@ main (int argc, char *argv[]) {
   gtk_init (&argc, &argv);
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
+  add_pixmap_directory ("./pixmaps");
   window1 = create_window1 ();
 
   load_prefs();

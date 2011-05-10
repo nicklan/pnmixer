@@ -81,9 +81,14 @@ void on_ok_button_clicked(GtkButton *button,
 
   // icon theme
   GtkWidget* icon_combo = lookup_widget(user_data,"icon_theme_combo");
-  gchar* theme_name = gtk_combo_box_get_active_text (GTK_COMBO_BOX(icon_combo));
-  g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
-  g_free(theme_name);
+  idx = gtk_combo_box_get_active (GTK_COMBO_BOX(icon_combo));
+  if (idx == 0) { // internal theme
+    g_key_file_remove_key(keyFile,"PNMixer","IconTheme",NULL);
+  } else {
+    gchar* theme_name = gtk_combo_box_get_active_text (GTK_COMBO_BOX(icon_combo));
+    g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
+    g_free(theme_name);
+  }
 
   // scroll step
   GtkWidget* sss = lookup_widget(user_data,"scroll_step_spin");

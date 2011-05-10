@@ -50,12 +50,10 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
   theme = gtk_icon_theme_get_default();
   index_file = g_key_file_new();
 
-  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
+  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) 
     active_theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
-  } else {
-    settings = gtk_settings_get_default();
-    g_object_get(settings,"gtk-icon-theme-name",&active_theme_name,NULL);
-  }
+  else 
+    active_theme_name = NULL;
   act = 1;
   
 
@@ -92,7 +90,7 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
 	    !g_key_file_get_boolean(index_file,"Icon Theme","Hidden",NULL)) {
 	  theme_name = g_key_file_get_string (index_file, "Icon Theme","Name",NULL);
 	  gtk_combo_box_append_text (GTK_COMBO_BOX (icon_theme_combo), _(theme_name));
-	  if (g_strcmp0(theme_name,active_theme_name) == 0) 
+	  if ((active_theme_name != NULL) && g_strcmp0(theme_name,active_theme_name) == 0)
 	    gtk_combo_box_set_active (GTK_COMBO_BOX (icon_theme_combo), act);
 	  else
 	    act++;
@@ -102,12 +100,17 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
     }
   }
   g_key_file_free(index_file);
-  g_free(active_theme_name);
+  if (active_theme_name != NULL)
+    g_free(active_theme_name);
+  else
+    gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
 }
 
 void load_prefs(void) {
   GError* err = NULL;
   gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
+  gchar *default_theme_name;
+  GtkSettings *settings;
 
   if (keyFile != NULL)
     g_key_file_free(keyFile);
@@ -127,6 +130,10 @@ void load_prefs(void) {
       g_key_file_free(keyFile);
       keyFile = NULL;
     }
+    settings = gtk_settings_get_default();
+    g_object_get(settings,"gtk-icon-theme-name",&default_theme_name,NULL);
+    g_key_file_set_string(keyFile,"PNMixer","IconTheme",default_theme_name);
+    g_free(default_theme_name);
   }
   g_free(filename);
 }
@@ -201,7 +208,7 @@ GtkWidget* create_prefs_window (void) {
   load_prefs();
 
   prefs_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (prefs_window), _("OB Mixer Preferences"));
+  gtk_window_set_title (GTK_WINDOW (prefs_window), _("PNMixer Preferences"));
 
   vbox1 = gtk_vbox_new (FALSE, 10);
   gtk_widget_show (vbox1);
