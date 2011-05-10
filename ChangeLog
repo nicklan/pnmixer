@@ -1,20 +1,23 @@
+Entries are sorted chronologically from oldest to youngest.  Starting with
+PNMixer entries are labeled with release version.
 
-Friday 28 August 2009 - 
+version 0.2:
+ - First release of forked project, adds:
+	- Volume adjustment with the scroll wheel
+	- Texual display of volume level in popup window
+	- Continous volume adjustment when dragging the slider (not just
+	  when you let go)
+	- Use system icon theme for icons and use mute/low/medium/high
+	  volume icons
+	- Configurable middle click action
+	- Preferences for:
+		- volume text display
+		- volume text position
+		- icon theme
+		- amount to adjust per scoll
+		- middle click action
 
-Initial version created/realesed based on the code from AbsVolume,
-which was written by Paul Sherman and Rob Eberts.
-
-Changes from the previous program which have taken place include;
-
- - New UI similar to gnomes mixer applet.
- - New callbacks such as close/hide when focus is lost.
- - Mixer now uses the master control to enable compatibility 
-   with pulse audio as well as alsa.
- - New Icons which indicate if mute is enabled
- - Program now calls pavucontrol rather than alsa mixer but 
-   this will be configurable in future versions.
-
-Thursday 03 September 2009 - 
+Thursday 03 September 2009 -
 
 Changes from the previous version;
 
@@ -24,6 +27,18 @@ Changes from the previous version;
  - As interfacing with ALSA slows the application down, volume
    changes now only take affect when the scale is released.
 
-Changes to come;
 
- - Interface with GLib to provide graphical configurtion.
+Friday 28 August 2009 -
+
+Initial version created/realesed based on the code from AbsVolume,
+which was written by Paul Sherman and Rob Eberts.
+
+Changes from the previous program which have taken place include;
+
+ - New UI similar to gnomes mixer applet.
+ - New callbacks such as close/hide when focus is lost.
+ - Mixer now uses the master control to enable compatibility
+   with pulse audio as well as alsa.
+ - New Icons which indicate if mute is enabled
+ - Program now calls pavucontrol rather than alsa mixer but
+   this will be configurable in future versions.
