@@ -106,7 +106,7 @@ void on_ok_button_clicked(GtkButton *button,
   g_key_file_set_string(keyFile,"PNMixer","CustomCommand",cc);
 
 
-  gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
+  gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);
   gchar* data = g_key_file_to_data(keyFile,&len,NULL);
   g_file_set_contents(filename,data,len,&err);
   if (err != NULL) {

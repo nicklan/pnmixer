@@ -537,6 +537,7 @@ main (int argc, char *argv[]) {
   add_pixmap_directory ("./pixmaps");
   window1 = create_window1 ();
 
+  ensure_prefs_dir();
   load_prefs();
   apply_prefs();
 

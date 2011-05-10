@@ -6,6 +6,7 @@ int scroll_step;
 GtkIconTheme* icon_theme;
 
 GtkWidget* create_prefs_window (void);
+void ensure_prefs_dir(void);
 void apply_prefs(void);
 void load_prefs(void);
 void get_icon_theme();

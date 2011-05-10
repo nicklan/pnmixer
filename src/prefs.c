@@ -106,9 +106,22 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
     gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
 }
 
+void ensure_prefs_dir(void) {
+  gchar* prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
+  if (!g_file_test(prefs_dir,G_FILE_TEST_IS_DIR)) {
+    if (g_file_test(prefs_dir,G_FILE_TEST_EXISTS)) 
+      fprintf(stderr,"Error: %s exists but is not a directory, will not be able to save preferences",prefs_dir);
+    else {
+      if (g_mkdir(prefs_dir,S_IRWXU))
+	perror("Couldn't make prefs directory:");
+    }
+  }
+  g_free(prefs_dir);
+}
+
 void load_prefs(void) {
   GError* err = NULL;
-  gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
+  gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);
   gchar *default_theme_name;
   GtkSettings *settings;
 
