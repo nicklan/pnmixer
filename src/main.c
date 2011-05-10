@@ -412,7 +412,7 @@ GtkWidget* create_about (void) {
   gtk_widget_show (vbox1);
   gtk_container_add (GTK_CONTAINER (about), vbox1);
 
-  title_label = gtk_label_new (_("<span font_size=\"x-large\" font_weight=\"bold\">PNMixer</span>"));
+  title_label = gtk_label_new (_("<span font_size=\"x-large\" font_weight=\"bold\">PNMixer 0.2</span>"));
 
   gtk_widget_show (title_label);
   gtk_box_pack_start (GTK_BOX (vbox1), title_label, FALSE, FALSE, 0);
