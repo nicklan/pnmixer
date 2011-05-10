@@ -143,7 +143,7 @@ void apply_prefs() {
 void get_icon_theme() {
   if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
     gchar* theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
-    if (icon_theme == NULL)
+    if (icon_theme == NULL || (icon_theme == gtk_icon_theme_get_default()))
       icon_theme = gtk_icon_theme_new();
     gtk_icon_theme_set_custom_theme(icon_theme,theme_name);
     g_free(theme_name);
