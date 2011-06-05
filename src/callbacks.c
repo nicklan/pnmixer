@@ -47,10 +47,14 @@ gboolean on_hscale1_value_change_event(GtkWidget      *widget,
 }
 
 gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
+  int cv = getvol();
+  printf("dir: %i  cur: %i\n",event->direction,cv);
   if (event->direction == GDK_SCROLL_UP)
     setvol(getvol()+scroll_step);
-  else
-    setvol(getvol()-scroll_step);
+  else {
+    printf("decreasing\n");
+    setvol(cv-scroll_step);
+  }
 
   if (get_mute_state() == 0) {
     setmute();
@@ -59,6 +63,8 @@ gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
 
   // this will set the slider value
   get_current_levels();
+  cv = getvol();
+  printf("at end: %i\n",cv);
   return TRUE;
 }
 
@@ -66,6 +72,7 @@ void on_ok_button_clicked(GtkButton *button,
 			  gpointer  user_data) {
   gsize len;
   GError *err = NULL;
+  gint alsa_change = 0;
 
   // pull out various prefs
 
@@ -78,6 +85,30 @@ void on_ok_button_clicked(GtkButton *button,
   GtkWidget* vpc = lookup_widget(user_data,"vol_pos_combo");
   gint idx = gtk_combo_box_get_active(GTK_COMBO_BOX(vpc));
   g_key_file_set_integer(keyFile,"PNMixer","TextVolumePosition",idx);
+
+  // alsa card
+  GtkWidget *acc = lookup_widget(user_data, "card_combo");
+  gchar *old_card = get_selected_card();
+  gchar *card = gtk_combo_box_get_active_text (GTK_COMBO_BOX(acc));
+  if (old_card && strcmp(old_card,card))
+      alsa_change = 1;
+  g_key_file_set_string(keyFile,"PNMixer","AlsaCard",card);
+
+  // channel
+  GtkWidget *ccc = lookup_widget(user_data, "chan_combo");
+  gchar* old_channel = NULL;
+  if (old_card)
+    old_channel = get_selected_channel(old_card);
+  gchar* chan = gtk_combo_box_get_active_text (GTK_COMBO_BOX(ccc));
+  if (old_channel) {
+    if (strcmp(old_channel,chan))
+      alsa_change = 1;
+    g_free(old_card);
+    g_free(old_channel);
+  }
+  g_key_file_set_string(keyFile,card,"Channel",chan);
+  g_free(card);
+  g_free(chan);
 
   // icon theme
   GtkWidget* icon_combo = lookup_widget(user_data,"icon_theme_combo");
@@ -112,8 +143,8 @@ void on_ok_button_clicked(GtkButton *button,
   if (err != NULL) {
     fprintf (stderr, "Couldn't write preferences file: %s\n", err->message);
     g_error_free (err);
-  } else
-    apply_prefs();
+  } else 
+    apply_prefs(alsa_change);
   g_free(filename);
   gtk_widget_destroy(user_data);
   get_mute_state();

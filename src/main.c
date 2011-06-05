@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <math.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include "alsa.h"
@@ -406,8 +405,6 @@ void update_vol_text() {
 }
 
 main (int argc, char *argv[]) {
-  alsa_init();
-
   GtkWidget *window1;
   GtkWidget *menu;
 
@@ -422,11 +419,12 @@ main (int argc, char *argv[]) {
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   add_pixmap_directory ("./pixmaps");
-  window1 = create_window1 ();
 
   ensure_prefs_dir();
   load_prefs();
-  apply_prefs();
+  alsa_init();
+  window1 = create_window1 ();
+  apply_prefs(0);
 
   gtk_widget_realize(window1);
   gtk_widget_hide(window1);

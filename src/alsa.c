@@ -8,60 +8,165 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+#include <alsa.h>
+#include <prefs.h>
+
+#include <math.h>
 #include <alsa/asoundlib.h>
 
 static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
-static char card[64] = "default";
 static snd_mixer_elem_t *elem;
 static snd_mixer_t *handle;
 
+static GSList* get_channels(gchar* card);
 
-static snd_mixer_elem_t* alsa_get_mixer_elem(snd_mixer_t *mixer, char *name, int index) {
-  snd_mixer_selem_id_t *selem_id;
-  snd_mixer_elem_t* elem;
-  snd_mixer_selem_id_alloca(&selem_id);
+// partly based on get_cards function in alsamixer
+static void get_cards() {
+  int err, num;
+  snd_ctl_card_info_t *info;
+  snd_ctl_t *ctl;
+  char buf[10];
+  struct acard *cur_card, *default_card;
+  
+  cards = NULL;
 
-  if (index != -1)
-    snd_mixer_selem_id_set_index(selem_id, index);
-  if (name != NULL)
-    snd_mixer_selem_id_set_name(selem_id, name);
+  default_card = malloc(sizeof(struct acard));
+  default_card->name = "(default)";
+  default_card->dev = "default";
+  default_card->channels = get_channels("default");
 
-  elem = snd_mixer_find_selem(mixer, selem_id);
+  cards = g_slist_append(cards,default_card);
 
-  return elem;
+  snd_ctl_card_info_alloca(&info);
+  num = -1;
+  for (;;) {
+    err = snd_card_next(&num); 
+    if (err < 0) {
+      error("Can't get sounds cards: %s\n",snd_strerror(err));
+      return;
+    }
+    if (num < 0)
+      break;
+    sprintf(buf, "hw:%d", num);
+    if (snd_ctl_open(&ctl,buf, 0) < 0)
+      continue;
+    err = snd_ctl_card_info(ctl,info);
+    snd_ctl_close(ctl);
+    if (err < 0)
+      continue;
+    cur_card = malloc(sizeof(struct acard));
+    cur_card->name = strdup(snd_ctl_card_info_get_name(info));
+    sprintf(buf,"hw:%d",num);
+    cur_card->dev = strdup(buf);
+    cur_card->channels = get_channels(buf);
+    cards = g_slist_append(cards,cur_card);
+  }
 }
 
-static int alsaset() {
-  smixer_options.device = card;
-  int level = 1;
-  int err;
-  snd_mixer_selem_id_t *sid;
-  snd_mixer_selem_id_alloca(&sid);
+// TODO: Warn when selected card can't be found
+char* selected_card_dev(gchar* selected_card) {
+  gchar *ret = NULL;
+  struct acard* c;
+  if (selected_card) {
+    GSList *cur_card = cards;
+    while (cur_card) {
+      c = cur_card->data;
+      if (!strcmp(c->name,selected_card)) {
+	ret = c->dev;
+	break;
+      }
+      cur_card = cur_card->next;
+    }
+  }
+  if (!ret) {
+    c = cards->data;
+    ret = c->dev;
+  }
+  return ret;
+}
 
-  if ((err = snd_mixer_open(&handle, 0)) < 0) {
+static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_regopt* opts,int level) {
+  int err;
+  if ((err = snd_mixer_open(mixer, 0)) < 0) {
     error("Mixer %s open error: %s", card, snd_strerror(err));
     return err;
   }
-  if (smixer_level == 0 && (err = snd_mixer_attach(handle, card)) < 0) {
+  if (level == 0 && (err = snd_mixer_attach(*mixer, card)) < 0) {
     error("Mixer attach %s error: %s", card, snd_strerror(err));
-    snd_mixer_close(handle);
+    snd_mixer_close(*mixer);
     return err;
   }
-  if ((err = snd_mixer_selem_register(handle, smixer_level > 0 ? &smixer_options : NULL, NULL)) < 0) {
+  if ((err = snd_mixer_selem_register(*mixer, level > 0 ? opts : NULL, NULL)) < 0) {
     error("Mixer register error: %s", snd_strerror(err));
-    snd_mixer_close(handle);
+    snd_mixer_close(*mixer);
     return err;
   }
-  err = snd_mixer_load(handle);
-  if (err < 0) {
+  if ((err = snd_mixer_load(*mixer)) < 0) {
     error("Mixer %s load error: %s", card, snd_strerror(err));
-    snd_mixer_close(handle);
+    snd_mixer_close(*mixer);
     return err;
+  }
+}
+
+static int close_mixer(snd_mixer_t **mixer) {
+  int err;
+  if ((err = snd_mixer_close(*mixer)) < 0) 
+    error("Mixer close error: %s", snd_strerror(err));
+  return err;
+}
+
+
+static GSList* get_channels(gchar* card) {
+  int ccount,i,err;
+  snd_mixer_t *mixer;
+  snd_mixer_elem_t *telem;
+  GSList *channels = NULL;
+
+  open_mixer(&mixer,card,NULL,0);
+
+  ccount = snd_mixer_get_count(mixer);
+  telem = snd_mixer_first_elem(mixer);
+
+  for(i = 0;i < ccount;i++) {
+    if(snd_mixer_selem_has_playback_volume(telem))
+      channels = g_slist_append(channels,strdup(snd_mixer_selem_get_name(telem)));
+    telem = snd_mixer_elem_next(telem);
   }
 
-  elem = snd_mixer_first_elem(handle);
-  snd_mixer_selem_get_id(elem, sid);
+  close_mixer(&mixer);
+
+  return channels;
+}
+
+static int alsaset() {
+  int level = 1;
+  int err;
+  snd_mixer_selem_id_t *sid;
+  gchar *card,*channel;
+  char *card_dev;
+
+  get_cards();
+  card = get_selected_card();
+  card_dev = selected_card_dev(card);
+  smixer_options.device = card_dev;
+
+  open_mixer(&handle,card_dev,&smixer_options,smixer_level);
+
+  // now set the channel
+  snd_mixer_selem_id_alloca(&sid);
+  channel = get_selected_channel(card);
+  if (channel == NULL)
+    elem = snd_mixer_first_elem(handle);
+  else {
+    snd_mixer_selem_id_set_name(sid, channel);
+    elem = snd_mixer_find_selem(handle, sid);
+    g_free(channel);
+  }
+  //snd_mixer_selem_id_free(sid);
+
+  if (card)
+    g_free(card);
 
   return 0;
 }
@@ -128,8 +233,13 @@ int getvol() {
 
 }
 
+static gint inited = 0;
 void alsa_init() {
+  if (inited) { // re-init, need to close down first
+    close_mixer(&handle);
+  }
   alsaset();
+  inited = 1;
 }
 
 void alsa_close() {

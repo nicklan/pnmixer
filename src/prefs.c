@@ -8,9 +8,10 @@
 #include <string.h>
 #include <stdio.h>
 
+#include <glib.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 
+#include "alsa.h"
 #include "callbacks.h"
 #include "prefs.h"
 #include "support.h"
@@ -28,7 +29,8 @@ DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
 MouseScrollStep=1\n\
 MiddleClickAction=0\n\
-CustomCommand="
+CustomCommand=\n\
+AlsaCard=default"
 
 /* Get available icon themes.
    This code is based on code from xfce4-appearance-settings */
@@ -151,11 +153,13 @@ void load_prefs(void) {
   g_free(filename);
 }
 
-void apply_prefs() {
+void apply_prefs(gint alsa_change) {
   scroll_step = 1;
   if (g_key_file_has_key(keyFile,"PNMixer","MouseScrollStep",NULL))
     scroll_step = g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL);
   get_icon_theme();
+  if (alsa_change)
+    alsa_init();
   load_status_icons();
   update_vol_text();
 }
@@ -170,6 +174,79 @@ void get_icon_theme() {
   }
   else 
     icon_theme = gtk_icon_theme_get_default();
+}
+
+gchar* get_selected_card() {
+  return g_key_file_get_string(keyFile,"PNMixer","AlsaCard",NULL);
+}
+
+gchar* get_selected_channel(gchar* card) {
+  return g_key_file_get_string(keyFile,card,"Channel",NULL);
+}
+
+
+void fill_channel_combo(GSList *channels, GtkWidget *combo, gchar* selected) {
+  int idx=0,sidx=0;
+  gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model GTK_COMBO_BOX(combo)));
+  while(channels) {
+    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), channels->data);
+    if (selected && !strcmp(channels->data,selected))
+      sidx = idx;
+    idx++;
+    channels = channels->next;
+  }
+  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), sidx);
+}
+
+void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
+  struct acard* c;
+  GSList *cur_card;
+  gchar* selected_card;
+  int fs=0,idx,sidx=0;
+
+  cur_card = cards;
+  selected_card = get_selected_card();
+  idx = 0;
+  while (cur_card) {
+    c = cur_card->data;
+    if (!c->channels) {
+      cur_card = cur_card->next;
+      continue;
+    }
+    if (selected_card && !strcmp(c->name,selected_card)) {
+      gchar *sel_chan = get_selected_channel(c->name);
+      sidx = idx;
+      fill_channel_combo(c->channels,channels_combo,sel_chan);
+      fs = 1;
+      if (sel_chan)
+	g_free(sel_chan);
+    }
+    gtk_combo_box_append_text (GTK_COMBO_BOX (combo), c->name);
+    cur_card = cur_card->next;
+    idx++;
+  }
+  if (!fs) {
+    gchar *sel_chan;
+    c = cards->data;
+    sel_chan = get_selected_channel(c->name);
+    fill_channel_combo(c->channels,channels_combo,sel_chan);
+    if (sel_chan)
+      g_free(sel_chan);
+  }
+  gtk_combo_box_set_active (GTK_COMBO_BOX (combo),sidx);
+  if (selected_card)
+    g_free(selected_card);
+}
+
+void on_card_changed(GtkComboBox* box, gpointer user_data) {
+  gint idx = gtk_combo_box_get_active (GTK_COMBO_BOX(box));
+  GSList *card = g_slist_nth(cards,idx);
+  struct acard *c = card->data;
+  GtkWidget* channels_combo = lookup_widget(user_data,"chan_combo");
+  gchar *sel_chan = get_selected_channel(c->name);
+  fill_channel_combo(c->channels,channels_combo,sel_chan);
+  if (sel_chan)
+    g_free(sel_chan);  
 }
 
 void on_vol_text_toggle(GtkToggleButton* button, gpointer user_data) {
@@ -199,6 +276,14 @@ GtkWidget* create_prefs_window (void) {
   GtkWidget *vol_pos_label;
   GtkWidget *vol_pos_combo;
   GtkWidget *vol_frame_label;
+  GtkWidget *device_frame;
+  GtkWidget *device_frame_label;
+  GtkWidget *device_align;
+  GtkWidget *device_table;
+  GtkWidget *card_label;
+  GtkWidget *card_combo;
+  GtkWidget *chan_label;
+  GtkWidget *chan_combo;
   GtkWidget *frame2;
   GtkWidget *alignment2;
   GtkWidget *icon_theme_combo;
@@ -218,7 +303,7 @@ GtkWidget* create_prefs_window (void) {
   GtkWidget *cancel_button;
   GtkWidget *ok_button;
 
-  load_prefs();
+  //load_prefs();
 
   prefs_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (prefs_window), _("PNMixer Preferences"));
@@ -279,6 +364,59 @@ GtkWidget* create_prefs_window (void) {
     gtk_widget_set_sensitive(vol_pos_label,FALSE);
     gtk_widget_set_sensitive(vol_pos_combo,FALSE);
   }
+
+  device_frame = gtk_frame_new (NULL);
+  gtk_widget_show (device_frame);
+  gtk_box_pack_start (GTK_BOX (vbox1), device_frame, TRUE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (device_frame), GTK_SHADOW_IN);
+
+  device_align = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_show (device_align);
+  gtk_container_add (GTK_CONTAINER (device_frame), device_align);
+  gtk_container_set_border_width (GTK_CONTAINER (device_align), 3);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (device_align), 0, 0, 12, 0);
+
+  device_table = gtk_table_new (2, 2, FALSE);
+  gtk_widget_show (device_table);
+  gtk_container_add (GTK_CONTAINER (device_align), device_table);
+  gtk_table_set_row_spacings (GTK_TABLE(device_table), 5);
+
+  card_label = gtk_label_new (_("Card:"));
+  gtk_widget_show (card_label);
+  gtk_table_attach (GTK_TABLE (device_table), card_label, 0, 1, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (card_label), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (card_label), 5, 0);
+
+  card_combo = gtk_combo_box_new_text ();
+  gtk_widget_show (card_combo);
+  gtk_table_attach (GTK_TABLE (device_table), card_combo, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_FILL), 0, 0);
+
+  chan_label = gtk_label_new (_("Channel:"));
+  gtk_widget_show (chan_label);
+  gtk_table_attach (GTK_TABLE (device_table), chan_label, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (0), 0, 0);
+  gtk_misc_set_alignment (GTK_MISC (chan_label), 0, 0.5);
+  gtk_misc_set_padding (GTK_MISC (chan_label), 5, 0);
+
+  chan_combo = gtk_combo_box_new_text ();
+  gtk_widget_show (chan_combo);
+  gtk_table_attach (GTK_TABLE (device_table), chan_combo, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_FILL), 0, 0);
+
+  fill_card_combo(card_combo,chan_combo);
+  g_signal_connect(G_OBJECT(card_combo), "changed", G_CALLBACK(on_card_changed), prefs_window);
+
+  device_frame_label = gtk_label_new (_("<b>Alsa Device</b>"));
+  gtk_widget_show (device_frame_label);
+  gtk_frame_set_label_widget (GTK_FRAME (device_frame), device_frame_label);
+  gtk_label_set_use_markup (GTK_LABEL (device_frame_label), TRUE);
+
 
   frame2 = gtk_frame_new (NULL);
   gtk_widget_show (frame2);
@@ -417,6 +555,8 @@ GtkWidget* create_prefs_window (void) {
   GLADE_HOOKUP_OBJECT (prefs_window, vol_pos_label, "vol_pos_label");
   GLADE_HOOKUP_OBJECT (prefs_window, vol_pos_combo, "vol_pos_combo");
   GLADE_HOOKUP_OBJECT (prefs_window, vol_frame_label, "vol_frame_label");
+  GLADE_HOOKUP_OBJECT (prefs_window, card_combo, "card_combo");
+  GLADE_HOOKUP_OBJECT (prefs_window, chan_combo, "chan_combo");
   GLADE_HOOKUP_OBJECT (prefs_window, frame2, "frame2");
   GLADE_HOOKUP_OBJECT (prefs_window, alignment2, "alignment2");
   GLADE_HOOKUP_OBJECT (prefs_window, icon_theme_combo, "icon_theme_combo");
