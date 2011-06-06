@@ -211,10 +211,25 @@ static int convert_prange(long val, long min, long max) {
 }
 
 int setvol(int vol) {
-  long pmin = 0, pmax = 0, target;
+  long pmin = 0, pmax = 0, target, current;
+  int cur_perc;
   snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
 
+  snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &current);
+  cur_perc = convert_prange(current,pmin,pmax);
+
   target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
+  while(target == current) { // deal with channels that have fewer than 100 steps
+    if (cur_perc < vol)
+      vol++;
+    else
+      vol--;
+    target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
+    if (target == pmin || target == pmax)
+      break;
+  }
+  target = (target < pmin)?pmin:target;
+  target = (target > pmax)?pmax:target;
 
   snd_mixer_selem_set_playback_volume_all(elem, target);
   snd_mixer_selem_set_playback_volume_all(elem, target);
