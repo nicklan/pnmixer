@@ -109,6 +109,33 @@ static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_re
   }
 }
 
+static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
+  get_current_levels();
+  return 0;
+}
+
+static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer data) {
+  snd_mixer_handle_events(handle);
+  return TRUE;
+}
+
+static void set_io_watch(snd_mixer_t *mixer) {
+  int pcount;
+
+  pcount = snd_mixer_poll_descriptors_count(mixer);
+  if (pcount) {
+    int i;
+    struct pollfd fds[pcount];
+    pcount = snd_mixer_poll_descriptors(mixer,fds,pcount);
+    if (pcount <= 0)
+      fprintf(stderr,"Warning: Couldn't get any poll descriptors.  Won't respond to external volume changes");
+    for (i = 0;i < pcount;i++) {
+      GIOChannel *gioc = g_io_channel_unix_new(fds[i].fd);
+      g_io_add_watch(gioc,G_IO_IN,poll_cb,NULL);
+    }
+  }
+}
+
 static int close_mixer(snd_mixer_t **mixer) {
   int err;
   if ((err = snd_mixer_close(*mixer)) < 0) 
@@ -153,6 +180,9 @@ static int alsaset() {
 
   open_mixer(&handle,card_dev,&smixer_options,smixer_level);
 
+  // set watch for volume changes
+  set_io_watch(handle);
+
   // now set the channel
   snd_mixer_selem_id_alloca(&sid);
   channel = get_selected_channel(card);
@@ -163,7 +193,8 @@ static int alsaset() {
     elem = snd_mixer_find_selem(handle, sid);
     g_free(channel);
   }
-  //snd_mixer_selem_id_free(sid);
+  assert(elem != NULL);
+  snd_mixer_elem_set_callback(elem, alsa_cb);
 
   if (card)
     g_free(card);
