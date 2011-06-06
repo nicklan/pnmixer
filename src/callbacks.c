@@ -4,8 +4,8 @@
  * from the program "AbsVolume" by Paul Sherman
  * This program is free software; you can redistribute 
  * it and/or modify it under the terms of the GNU General 
- * Public License v2. source code is available at 
- * <http://www.jpegserv.com>
+ * Public License v3. source code is available at 
+ * <http://github.com/nicklan/pnmixer>
  */
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
