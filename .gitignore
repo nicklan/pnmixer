@@ -15,9 +15,10 @@
 /missing
 /mkinstalldirs
 /pixmaps/pnmixer.xcf
-/po
 /src/Makefile
 /src/Makefile.in
 /src/TAGS
 /src/pnmixer
 /stamp-h1
+/po/Makefile
+/po/de.gmo
