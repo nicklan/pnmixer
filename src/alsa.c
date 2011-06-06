@@ -111,6 +111,7 @@ static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_re
 
 static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
   get_current_levels();
+  get_mute_state();
   return 0;
 }
 
