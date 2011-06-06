@@ -48,13 +48,10 @@ gboolean on_hscale1_value_change_event(GtkWidget      *widget,
 
 gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   int cv = getvol();
-  printf("dir: %i  cur: %i\n",event->direction,cv);
   if (event->direction == GDK_SCROLL_UP)
     setvol(getvol()+scroll_step);
-  else {
-    printf("decreasing\n");
+  else 
     setvol(cv-scroll_step);
-  }
 
   if (get_mute_state() == 0) {
     setmute();
@@ -64,7 +61,6 @@ gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   // this will set the slider value
   get_current_levels();
   cv = getvol();
-  printf("at end: %i\n",cv);
   return TRUE;
 }
 
