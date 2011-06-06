@@ -359,7 +359,7 @@ int get_mute_state() {
     sprintf(tooltip, "Volume: %d %%\nMuted", tmpvol);
   }
 	
-  gtk_status_icon_set_tooltip(tray_icon, tooltip);
+  gtk_status_icon_set_tooltip_text(tray_icon, tooltip);
   gtk_status_icon_set_from_pixbuf(tray_icon, icon);
   return muted;
 }
