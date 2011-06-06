@@ -21,4 +21,5 @@
 /src/pnmixer
 /stamp-h1
 /po/Makefile
+/po/Makefile.in
 /po/de.gmo
