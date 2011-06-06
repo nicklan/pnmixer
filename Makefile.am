@@ -5,6 +5,10 @@ SUBDIRS = src po
 EXTRA_DIST = \
 	autogen.sh 
 
+uninstall-local:
+	@$(NORMAL_UNINSTALL)
+	rm -rf $(DESTDIR)$(pkgdatadir)	
+
 install-data-local:
 	@$(NORMAL_INSTALL)
 	if test -d $(srcdir)/pixmaps; then \
