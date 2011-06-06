@@ -18,10 +18,12 @@ void
 on_checkbutton1_clicked                (GtkButton       *button,
                                         gpointer         user_data);
 
-gboolean
-on_hscale1_value_change_event        (GtkWidget       *widget,
-                                        GdkEventButton  *event,
-                                        gpointer         user_data);
+
+gboolean 
+vol_scroll_event(GtkRange     *range,
+		 GtkScrollType scroll,
+		 gdouble       value,
+		 gpointer      user_data);
 
 void
 on_ok_button_clicked                   (GtkButton       *button,

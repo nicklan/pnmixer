@@ -31,25 +31,26 @@ void on_checkbutton1_clicked(GtkButton *button,
   get_mute_state();
 }
 
-gboolean on_hscale1_value_change_event(GtkWidget      *widget,
-				       GdkEventButton *event,
-				       gpointer       user_data) {
+
+gboolean vol_scroll_event(GtkRange     *range,
+			  GtkScrollType scroll,
+			  gdouble       value,
+			  gpointer      user_data) {
   int volumeset;
   volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
-	
+  
   setvol(volumeset);
   if (get_mute_state() == 0) {
     setmute();
     get_mute_state();
   }
-	
   return FALSE;
 }
 
 gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   int cv = getvol();
   if (event->direction == GDK_SCROLL_UP)
-    setvol(getvol()+scroll_step);
+    setvol(cv+scroll_step);
   else 
     setvol(cv-scroll_step);
 
@@ -60,7 +61,6 @@ gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
 
   // this will set the slider value
   get_current_levels();
-  cv = getvol();
   return TRUE;
 }
 

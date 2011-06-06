@@ -190,7 +190,7 @@ GtkWidget* create_window1 (void) {
   g_signal_connect ((gpointer) window1, "focus-out-event",G_CALLBACK (hide_me),NULL);
   g_signal_connect ((gpointer) window1, "button_release_event",G_CALLBACK (hide_me),NULL);
   g_signal_connect ((gpointer) hscale1, "key_press_event",G_CALLBACK (hide_me),NULL);
-  g_signal_connect ((gpointer) hscale1, "value-changed",G_CALLBACK (on_hscale1_value_change_event),NULL);
+  g_signal_connect ((gpointer) hscale1, "change-value",G_CALLBACK (vol_scroll_event),NULL);
   g_signal_connect ((gpointer) checkbutton1, "pressed",G_CALLBACK (on_checkbutton1_clicked),NULL);
   g_signal_connect ((gpointer) button1, "button_press_event",G_CALLBACK (on_mixer),NULL);
 
