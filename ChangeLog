@@ -1,6 +1,13 @@
 Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
+version 0.3:
+ - Allow selection of Alsa channel/card
+ - Track volume when it's changed externally
+ - Deal with cards that have fewer than 100 steps
+ - Start using translations and add a German translation
+ - General code clean-up and bug fixing
+
 version 0.2:
  - First release of forked project, adds:
 	- Volume adjustment with the scroll wheel

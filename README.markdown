@@ -9,6 +9,7 @@ been used quite a lot with tint2.
 PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with a number of additions.  These include:
 
 - Volume adjustment with the scroll wheel
+- Select which ALSA device and channel to use
 - Texual display of volume level in popup window
 - Continous volume adjustment when dragging the slider (not just when you let go)
 - Use system icon theme for icons and use mute/low/medium/high
@@ -32,8 +33,10 @@ Latest version can always be found at:
 
 Compilation and Install
 -----------------------
-To install this program cd to this directory and run;
+To install this program cd to this directory and run:
 
 ./autogen.sh
+
 make
+
 sudo make install
