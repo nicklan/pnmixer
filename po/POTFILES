@@ -1,0 +1,4 @@
+	../src/main.c \
+	../src/callbacks.c \
+	../src/support.c \
+	../src/prefs.c
