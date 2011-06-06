@@ -202,45 +202,29 @@ static int alsaset() {
   return 0;
 }
 
-static int convert_prange(int val, int min, int max) {
-  int range = max - min;
-  int tmp;
-
+static int convert_prange(long val, long min, long max) {
+  long range = max - min;
   if (range == 0)
     return 0;
   val -= min;
-  tmp = rint((double)val/(double)range * 100);
-  return tmp;
-}
-
-
-static int get_percent(int val, int min, int max) {
-  static char str[32];
-  int p;
-	
-  p = ceil((val) * ((max) - (min)) * 0.01 + (min));
-  return p;
+  return rint(val/(double)range * 100);
 }
 
 int setvol(int vol) {
-  long pmin = 0, pmax = 0;
+  long pmin = 0, pmax = 0, target;
   snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
 
-  vol = get_percent(vol,pmin,pmax);
+  target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
 
-  snd_mixer_selem_set_playback_volume(elem, SND_MIXER_SCHN_FRONT_LEFT,vol);
-  snd_mixer_selem_set_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT,vol);
+  snd_mixer_selem_set_playback_volume_all(elem, target);
+  snd_mixer_selem_set_playback_volume_all(elem, target);
 }
 
 void setmute() {
-  int muted;
-  snd_mixer_selem_get_playback_switch(elem, SND_MIXER_SCHN_FRONT_LEFT, &muted);
-
-  if (muted == 1) {
-    snd_mixer_selem_set_playback_switch(elem, SND_MIXER_SCHN_FRONT_LEFT,0);
-  } else {
-    snd_mixer_selem_set_playback_switch(elem, SND_MIXER_SCHN_FRONT_LEFT,1);
-  }
+  if (ismuted())
+    snd_mixer_selem_set_playback_switch_all(elem, 0);
+  else
+    snd_mixer_selem_set_playback_switch_all(elem, 1);
 }
 
 int ismuted() {
@@ -253,15 +237,9 @@ int getvol() {
   long pmin = 0, pmax = 0;
   snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
 
-  int rr;
-  long lr = rr;
-  snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &lr);
-  rr = lr;
-  int vol;
-  vol=convert_prange(rr,pmin,pmax);
-
-  return vol;
-
+  long val;
+  snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &val);
+  return convert_prange(val,pmin,pmax);
 }
 
 static gint inited = 0;
