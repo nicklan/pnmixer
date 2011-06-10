@@ -115,8 +115,28 @@ static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
   return 0;
 }
 
+
+static gchar sbuf[256];
+static GIOChannelError *serr = NULL;
+static gsize sread = 1;
 static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer data) {
   snd_mixer_handle_events(handle);
+
+  sread = 1;
+  while (sread) {
+    /* This handles the case where alsa_cb doesn't read all the data on source.
+       If we don't clear it out we'll go into an infinite callback loop since there
+       will be data on the channel forever */
+    GIOStatus stat = g_io_channel_read_chars(source,sbuf,256,&sread,(GError**)&serr);
+    if (stat == G_IO_STATUS_AGAIN) // normal, means alsa_cb cleared out the channel
+      continue;
+    else if(stat == G_IO_STATUS_NORMAL) // actually bad, alsa failed to clear channel
+      fprintf(stderr,"Warning: Connection to sound system failed, you probably need to restart pnmixer\n");
+    else if (stat == G_IO_STATUS_ERROR || G_IO_STATUS_EOF)
+      fprintf(stderr,"Error: GIO error has occured.  Won't respond to external volume changes anymore\n");
+    else
+      fprintf(stderr,"Error: Unknown status from g_io_channel_read_chars\n");
+  }
   return TRUE;
 }
 
