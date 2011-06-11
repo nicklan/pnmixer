@@ -406,9 +406,18 @@ void update_vol_text() {
     gtk_scale_set_draw_value (GTK_SCALE (hscale1), FALSE);
 }
 
+static gboolean version = FALSE;
+static GOptionEntry args[] = 
+  {
+    { "version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit", NULL },
+    { NULL }
+  };
+
 main (int argc, char *argv[]) {
   GtkWidget *window1;
   GtkWidget *menu;
+  GError *error = NULL;
+  GOptionContext *context;
 
 #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -417,7 +426,16 @@ main (int argc, char *argv[]) {
 #endif
 
   gtk_set_locale ();
+  context = g_option_context_new (_("- A mixer for the system tray."));
+  g_option_context_add_main_entries (context, args, GETTEXT_PACKAGE);
+  g_option_context_add_group (context, gtk_get_option_group (TRUE));
+  g_option_context_parse (context, &argc, &argv, &error);
   gtk_init (&argc, &argv);
+
+  if (version) {
+    printf("%s version: %s\n",PACKAGE,VERSION);
+    exit(0);
+  }
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   add_pixmap_directory ("./pixmaps");
