@@ -24,6 +24,7 @@ void ensure_prefs_dir(void);
 void apply_prefs(gint);
 void load_prefs(void);
 void get_icon_theme();
+gchar* get_vol_command();
 gchar* get_selected_card();
 gchar* get_selected_channel(gchar*);
 

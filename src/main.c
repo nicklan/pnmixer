@@ -13,6 +13,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdarg.h>
@@ -68,24 +69,53 @@ void report_error(char* err,...) {
   va_end(ap);
 }
 
-void on_mixer(void) {	
-  int no_pavucontrol = system("which pavucontrol | grep /pavucontrol");
-  int no_alsamixer = system("which alsamixergui | grep /alsamixergui");
+void on_mixer(void) {
+  pid_t pid;
+  int status;
+  gchar* cmd = get_vol_command();
 
-  if (no_pavucontrol) {
-    if (no_alsamixer) {
-      report_error("\nNo mixer application was not found on your system.\n\nYou will need to install either pavucontrol or alsamixergui if you wish to use a mixer from the volume control.");
-    } else {
-      const char *cmd1 = "alsamixergui&";
-      if (system(cmd1)) {
-	report_error("Failed to execute: \"alsamixer\"");
-      }
+  if (cmd) {
+    pid = fork();
+
+    if (pid == 0) {
+      if (execlp (cmd, cmd, NULL))
+	_exit(errno);
+      _exit (EXIT_FAILURE);
     }
-  } else {
-    const char *cmd = "pavucontrol&";
-    if (system(cmd)) 
-      report_error("Failed to execute \"pavucontrol\"");
-  }
+    else if (pid < 0)
+      status = -1;
+    else {
+      /* this is a bit hacky, but seems the best way to
+	 figure out launching the command failed.  this
+	 is basically a waitpid with a timeout (.5 seconds)
+	 to give time for the command to try and start.
+	 if it hasn't failed within 0.5 seconds we assume
+	 it started okay. */
+      int wr;
+      int tl = 5;
+      do {
+	wr = waitpid (pid, &status, WNOHANG);
+	if (wr && wr != pid) {
+	  status = -1;
+	  break;
+	}
+	usleep(100000);
+	tl--;
+      }	while(!wr && tl);
+      if (!tl)
+	status = 0;
+    }
+
+    if (status) {
+      if (status == -1)
+	report_error("An unknown error occured trying to launch your volume control command");
+      else 
+	report_error("Unable to launch volume command \"%s\".\n\n%s",cmd,strerror(WEXITSTATUS(status)));
+    }
+
+    g_free(cmd);
+  } else 
+    report_error("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control.");
 
   gtk_widget_hide (window1);
 }

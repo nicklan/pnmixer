@@ -275,6 +275,27 @@ void on_middle_changed(GtkComboBox* box, gpointer user_data) {
   gtk_widget_set_sensitive(entry,cust);
 }
 
+static const char* vol_cmds[] = {"pavucontrol",
+				 "gnome-alsamixer",
+				 "xfce4-mixer",
+				 "alsamixergui",
+				 NULL};
+
+gchar* get_vol_command() {
+  if (g_key_file_has_key(keyFile,"PNMixer","VolumeControlCommand",NULL)) 
+    return g_key_file_get_string(keyFile,"PNMixer","VolumeControlCommand",NULL);
+  else {
+    gchar buf[256];
+    const char** cmd = vol_cmds;
+    while (*cmd) {
+      snprintf(buf, 256, "which %s | grep /%s > /dev/null",*cmd,*cmd);
+      if (!system(buf))
+	return g_strdup(*cmd);
+    }
+    return NULL;
+  }
+}
+
 GtkWidget* create_prefs_window (void) {
   GtkWidget *prefs_window;
   GtkWidget *vbox1;
@@ -294,6 +315,10 @@ GtkWidget* create_prefs_window (void) {
   GtkWidget *card_combo;
   GtkWidget *chan_label;
   GtkWidget *chan_combo;
+  GtkWidget *vol_control_frame;
+  GtkWidget *vol_control_alignment;
+  GtkWidget *vol_control_entry;
+  GtkWidget *vol_control_title;
   GtkWidget *frame2;
   GtkWidget *alignment2;
   GtkWidget *icon_theme_combo;
@@ -313,7 +338,7 @@ GtkWidget* create_prefs_window (void) {
   GtkWidget *cancel_button;
   GtkWidget *ok_button;
 
-  //load_prefs();
+  gchar* vol_cmd;
 
   prefs_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (prefs_window), _("PNMixer Preferences"));
@@ -427,6 +452,32 @@ GtkWidget* create_prefs_window (void) {
   gtk_frame_set_label_widget (GTK_FRAME (device_frame), device_frame_label);
   gtk_label_set_use_markup (GTK_LABEL (device_frame_label), TRUE);
 
+  vol_control_frame = gtk_frame_new (NULL);
+  gtk_widget_show (vol_control_frame);
+  gtk_box_pack_start (GTK_BOX (vbox1), vol_control_frame, TRUE, TRUE, 0);
+  gtk_frame_set_shadow_type (GTK_FRAME (vol_control_frame), GTK_SHADOW_IN);
+
+  vol_control_alignment = gtk_alignment_new (0.5, 0.5, 1, 1);
+  gtk_widget_show (vol_control_alignment);
+  gtk_container_add (GTK_CONTAINER (vol_control_frame), vol_control_alignment);
+  gtk_container_set_border_width (GTK_CONTAINER (vol_control_alignment), 3);
+  gtk_alignment_set_padding (GTK_ALIGNMENT (vol_control_alignment), 0, 0, 12, 0);
+
+  vol_control_entry = gtk_entry_new ();
+  gtk_widget_show (vol_control_entry);
+  gtk_container_add (GTK_CONTAINER (vol_control_alignment), vol_control_entry);
+  gtk_entry_set_invisible_char (GTK_ENTRY (vol_control_entry), 8226);
+
+  vol_cmd = get_vol_command();
+  if (vol_cmd) {
+    gtk_entry_set_text (GTK_ENTRY (vol_control_entry),vol_cmd);
+    g_free(vol_cmd);
+  }
+
+  vol_control_title = gtk_label_new (_("<b>Volume Control Command</b>"));
+  gtk_widget_show (vol_control_title);
+  gtk_frame_set_label_widget (GTK_FRAME (vol_control_frame), vol_control_title);
+  gtk_label_set_use_markup (GTK_LABEL (vol_control_title), TRUE);
 
   frame2 = gtk_frame_new (NULL);
   gtk_widget_show (frame2);
@@ -569,6 +620,7 @@ GtkWidget* create_prefs_window (void) {
   GLADE_HOOKUP_OBJECT (prefs_window, chan_combo, "chan_combo");
   GLADE_HOOKUP_OBJECT (prefs_window, frame2, "frame2");
   GLADE_HOOKUP_OBJECT (prefs_window, alignment2, "alignment2");
+  GLADE_HOOKUP_OBJECT (prefs_window, vol_control_entry, "vol_control_entry");
   GLADE_HOOKUP_OBJECT (prefs_window, icon_theme_combo, "icon_theme_combo");
   GLADE_HOOKUP_OBJECT (prefs_window, label3, "label3");
   GLADE_HOOKUP_OBJECT (prefs_window, frame3, "frame3");

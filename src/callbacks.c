@@ -117,6 +117,11 @@ void on_ok_button_clicked(GtkButton *button,
     g_free(theme_name);
   }
 
+  // volume control command
+  GtkWidget* ve = lookup_widget(user_data,"vol_control_entry");
+  const gchar* vc = gtk_entry_get_text (GTK_ENTRY(ve));
+  g_key_file_set_string(keyFile,"PNMixer","VolumeControlCommand",vc);
+
   // scroll step
   GtkWidget* sss = lookup_widget(user_data,"scroll_step_spin");
   gint spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(sss));
