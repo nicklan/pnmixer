@@ -343,7 +343,7 @@ GtkWidget* create_prefs_window (void) {
   prefs_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (prefs_window), _("PNMixer Preferences"));
 
-  vbox1 = gtk_vbox_new (FALSE, 10);
+  vbox1 = gtk_vbox_new (FALSE, 20);
   gtk_widget_show (vbox1);
   gtk_container_add (GTK_CONTAINER (prefs_window), vbox1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox1), 5);
@@ -351,7 +351,7 @@ GtkWidget* create_prefs_window (void) {
   vol_frame = gtk_frame_new (NULL);
   gtk_widget_show (vol_frame);
   gtk_box_pack_start (GTK_BOX (vbox1), vol_frame, TRUE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (vol_frame), GTK_SHADOW_IN);
+  gtk_frame_set_shadow_type (GTK_FRAME (vol_frame), GTK_SHADOW_NONE);
 
   alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_show (alignment1);
@@ -403,7 +403,7 @@ GtkWidget* create_prefs_window (void) {
   device_frame = gtk_frame_new (NULL);
   gtk_widget_show (device_frame);
   gtk_box_pack_start (GTK_BOX (vbox1), device_frame, TRUE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (device_frame), GTK_SHADOW_IN);
+  gtk_frame_set_shadow_type (GTK_FRAME (device_frame), GTK_SHADOW_NONE);
 
   device_align = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_show (device_align);
@@ -455,7 +455,7 @@ GtkWidget* create_prefs_window (void) {
   vol_control_frame = gtk_frame_new (NULL);
   gtk_widget_show (vol_control_frame);
   gtk_box_pack_start (GTK_BOX (vbox1), vol_control_frame, TRUE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (vol_control_frame), GTK_SHADOW_IN);
+  gtk_frame_set_shadow_type (GTK_FRAME (vol_control_frame), GTK_SHADOW_NONE);
 
   vol_control_alignment = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_show (vol_control_alignment);
@@ -482,7 +482,7 @@ GtkWidget* create_prefs_window (void) {
   frame2 = gtk_frame_new (NULL);
   gtk_widget_show (frame2);
   gtk_box_pack_start (GTK_BOX (vbox1), frame2, TRUE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_IN);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_NONE);
 
   alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_show (alignment2);
@@ -504,7 +504,7 @@ GtkWidget* create_prefs_window (void) {
   frame3 = gtk_frame_new (NULL);
   gtk_widget_show (frame3);
   gtk_box_pack_start (GTK_BOX (vbox1), frame3, TRUE, TRUE, 0);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_IN);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_NONE);
 
   alignment3 = gtk_alignment_new (0.5, 0.5, 1, 1);
   gtk_widget_show (alignment3);
