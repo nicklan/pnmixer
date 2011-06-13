@@ -16,6 +16,7 @@ GtkWidget* create_menu (void);
 GtkWidget* create_about (void);
 GtkWidget* do_prefs (void);
 
+void report_error(char*,...);
 void get_current_levels();
 int update_mute_state();
 void hide_me();

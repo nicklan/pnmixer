@@ -131,11 +131,11 @@ static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer dat
     if (stat == G_IO_STATUS_AGAIN) // normal, means alsa_cb cleared out the channel
       continue;
     else if(stat == G_IO_STATUS_NORMAL) // actually bad, alsa failed to clear channel
-      fprintf(stderr,"Warning: Connection to sound system failed, you probably need to restart pnmixer\n");
+      report_error("Warning: Connection to sound system failed, you probably need to restart pnmixer\n");
     else if (stat == G_IO_STATUS_ERROR || G_IO_STATUS_EOF)
-      fprintf(stderr,"Error: GIO error has occured.  Won't respond to external volume changes anymore\n");
+      report_error("Error: GIO error has occured.  Won't respond to external volume changes anymore\n");
     else
-      fprintf(stderr,"Error: Unknown status from g_io_channel_read_chars\n");
+      report_error("Error: Unknown status from g_io_channel_read_chars\n");
   }
   return TRUE;
 }
@@ -149,7 +149,7 @@ static void set_io_watch(snd_mixer_t *mixer) {
     struct pollfd fds[pcount];
     pcount = snd_mixer_poll_descriptors(mixer,fds,pcount);
     if (pcount <= 0)
-      fprintf(stderr,"Warning: Couldn't get any poll descriptors.  Won't respond to external volume changes");
+      report_error("Warning: Couldn't get any poll descriptors.  Won't respond to external volume changes");
     for (i = 0;i < pcount;i++) {
       GIOChannel *gioc = g_io_channel_unix_new(fds[i].fd);
       g_io_add_watch(gioc,G_IO_IN,poll_cb,NULL);

@@ -114,8 +114,8 @@ GdkPixbuf* create_pixbuf(const gchar *filename) {
   pixbuf = gdk_pixbuf_new_from_file (pathname, &error);
   if (!pixbuf)
     {
-      fprintf (stderr, "Failed to load pixbuf file: %s: %s\n",
-               pathname, error->message);
+      report_error("Failed to load pixbuf file: %s: %s\n",
+		   pathname, error->message);
       g_error_free (error);
     }
   g_free (pathname);
@@ -145,7 +145,7 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
     get_icon_theme();
   return_buf = gtk_icon_theme_load_icon(icon_theme,filename,size,0,&err);
   if (err != NULL) {
-    fprintf (stderr, "Unable to load icon %s: %s\n", filename, err->message);
+    report_error("Unable to load icon %s: %s\n", filename, err->message);
     g_error_free (err);
   }
   return return_buf;

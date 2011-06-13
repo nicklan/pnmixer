@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <errno.h>
 
 #include <glib.h>
 #include <gdk/gdkkeysyms.h>
@@ -121,10 +122,10 @@ void ensure_prefs_dir(void) {
   gchar* prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
   if (!g_file_test(prefs_dir,G_FILE_TEST_IS_DIR)) {
     if (g_file_test(prefs_dir,G_FILE_TEST_EXISTS)) 
-      fprintf(stderr,"Error: %s exists but is not a directory, will not be able to save preferences",prefs_dir);
+      report_error("\nError: %s exists but is not a directory, will not be able to save preferences",prefs_dir);
     else {
       if (g_mkdir(prefs_dir,S_IRWXU))
-	perror("Couldn't make prefs directory:");
+	report_error("\nCouldn't make prefs directory: %s\n",strerror(errno));
     }
   }
   g_free(prefs_dir);
@@ -141,7 +142,7 @@ void load_prefs(void) {
   keyFile = g_key_file_new();
   if (g_file_test(filename,G_FILE_TEST_EXISTS)) {
     if (!g_key_file_load_from_file(keyFile,filename,0,&err)) {
-      fprintf (stderr, "Couldn't load preferences file: %s\n", err->message);
+      report_error("\nCouldn't load preferences file: %s\n", err->message);
       g_error_free(err);
       g_key_file_free(keyFile);
       keyFile = NULL;
@@ -149,7 +150,7 @@ void load_prefs(void) {
   }
   else {
     if (!g_key_file_load_from_data(keyFile,DEFAULT_PREFS,strlen(DEFAULT_PREFS),0,&err)) {
-      fprintf (stderr, "Couldn't load default preferences: %s\n", err->message);
+      report_error ("\nCouldn't load default preferences: %s\n", err->message);
       g_error_free(err);
       g_key_file_free(keyFile);
       keyFile = NULL;

@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -48,15 +49,23 @@ GtkAdjustment *vol_adjustment;
 GdkPixbuf *icon0;
 static GdkPixbuf* status_icons[4];
 
+static char err_buf[512];
 
-void report_error(char* err) {
-  GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
-					      GTK_DIALOG_DESTROY_WITH_PARENT,
-					      GTK_MESSAGE_ERROR,
-					      GTK_BUTTONS_CLOSE,
-					      err);
-  gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_destroy (dialog);
+void report_error(char* err,...) {
+  va_list ap;
+  va_start(ap, err);
+  vsnprintf(err_buf,512,err,ap);
+  if (window1) {
+    GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
+						GTK_DIALOG_DESTROY_WITH_PARENT,
+						GTK_MESSAGE_ERROR,
+						GTK_BUTTONS_CLOSE,
+						err_buf);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+  } else 
+    fprintf(stderr,err_buf);
+  va_end(ap);
 }
 
 void on_mixer(void) {	
@@ -68,11 +77,14 @@ void on_mixer(void) {
       report_error("\nNo mixer application was not found on your system.\n\nYou will need to install either pavucontrol or alsamixergui if you wish to use a mixer from the volume control.");
     } else {
       const char *cmd1 = "alsamixergui&";
-      if (system(cmd1)) { printf ("Failed to execute command \"alsamixergui\" \n"); }
+      if (system(cmd1)) {
+	report_error("Failed to execute: \"alsamixer\"");
+      }
     }
   } else {
     const char *cmd = "pavucontrol&";
-    if (system(cmd)) { printf ("Failed to execute command \"pavucontrol\" \n"); }
+    if (system(cmd)) 
+      report_error("Failed to execute \"pavucontrol\"");
   }
 
   gtk_widget_hide (window1);
@@ -99,8 +111,8 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
 	gchar* cc = g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL);
 	if (cc != NULL) {
 	  gchar* cmd = g_strconcat(cc, "&", NULL);
-	  if (system(cmd))  
-	    fprintf(stderr,"Couldn't execute custom command: %s\n",cc);
+	  if (system(cmd)) 
+	    report_error("Couldn't execute custom command: \"%s\"\n",cc);
 	  g_free(cmd);
 	  g_free(cc);
 	}
@@ -440,6 +452,8 @@ main (int argc, char *argv[]) {
     printf("%s version: %s\n",PACKAGE,VERSION);
     exit(0);
   }
+
+  window1 = NULL;
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   add_pixmap_directory ("./pixmaps");
