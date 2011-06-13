@@ -258,7 +258,7 @@ static GtkWidget *create_popupmenu(void) {
   menuitem_mute = item;
   g_signal_connect(item, "activate",G_CALLBACK(on_checkbutton1_clicked), NULL);
 
-  image = gtk_image_new_from_pixbuf (get_stock_pixbuf("audio-volume-high",GTK_ICON_SIZE_MENU));
+  image = gtk_image_new_from_pixbuf (get_stock_pixbuf("gtk-execute",GTK_ICON_SIZE_MENU));
   item = gtk_image_menu_item_new_with_label(_("Volume Control"));
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
   gtk_widget_show(item);
