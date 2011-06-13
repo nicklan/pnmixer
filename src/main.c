@@ -49,19 +49,23 @@ GdkPixbuf *icon0;
 static GdkPixbuf* status_icons[4];
 
 
+void report_error(char* err) {
+  GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
+					      GTK_DIALOG_DESTROY_WITH_PARENT,
+					      GTK_MESSAGE_ERROR,
+					      GTK_BUTTONS_CLOSE,
+					      err);
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+}
+
 void on_mixer(void) {	
   int no_pavucontrol = system("which pavucontrol | grep /pavucontrol");
   int no_alsamixer = system("which alsamixergui | grep /alsamixergui");
 
   if (no_pavucontrol) {
     if (no_alsamixer) {
-      GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
-						  GTK_DIALOG_DESTROY_WITH_PARENT,
-						  GTK_MESSAGE_ERROR,
-						  GTK_BUTTONS_CLOSE,
-						  "\nNo mixer application was not found on your system.\n\nYou will need to install either pavucontrol or alsamixergui if you wish to use a mixer from the volume control.");
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
+      report_error("\nNo mixer application was not found on your system.\n\nYou will need to install either pavucontrol or alsamixergui if you wish to use a mixer from the volume control.");
     } else {
       const char *cmd1 = "alsamixergui&";
       if (system(cmd1)) { printf ("Failed to execute command \"alsamixergui\" \n"); }
