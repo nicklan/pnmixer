@@ -5,10 +5,12 @@ AM_INIT_AUTOMAKE(pnmixer, 0.4-dev)
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
+OLD_CFLAGS=$CFLAGS
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
+CFLAGS=$OLD_CXXFLAGS
 
 pkg_modules="gtk+-2.0 >= 2.0.0"
 
@@ -20,6 +22,30 @@ else
         echo "no"
         AC_MSG_ERROR(alsa not found)
 fi
+
+##########################################################################
+# debug compilation support
+##########################################################################
+
+AC_MSG_CHECKING([whether to build with debug information])
+AC_ARG_ENABLE([debug],
+    [AS_HELP_STRING([--enable-debug],
+        [enable debug data generation (def=no)])],
+    [debugit="$enableval"],
+    [debugit=no])
+AC_MSG_RESULT([$debugit])
+
+if test x"$debugit" = x"yes"; then
+    AC_DEFINE([DEBUG],[],[Debug Mode])
+    AM_CFLAGS="$AM_CFLAGS -g -Wall -Werror -Wno-uninitialized -O0"
+else
+    AC_DEFINE([NDEBUG],[],[No-debug Mode])
+    AM_CFLAGS="$AM_CFLAGS -O2"
+fi
+
+##########################################################################
+
+AC_SUBST([AM_CFLAGS])
 
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
