@@ -20,7 +20,7 @@ struct acard {
 };
 GSList* cards;
 
-int setvol(int vol);
+void setvol(int vol);
 void setmute();
 int getvol();
 int ismuted();

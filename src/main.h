@@ -11,13 +11,16 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include <gtk/gtk.h>
+
 GtkWidget* create_window1 (void);
 GtkWidget* create_menu (void);
-GtkWidget* create_about (void);
-GtkWidget* do_prefs (void);
+void create_about (void);
+void do_prefs (void);
 
 void report_error(char*,...);
 void get_current_levels();
+int get_mute_state();
 int update_mute_state();
 void hide_me();
 void load_status_icons();

@@ -8,8 +8,9 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
-#include <alsa.h>
-#include <prefs.h>
+#include "alsa.h"
+#include "main.h"
+#include "prefs.h"
 
 #include <math.h>
 #include <alsa/asoundlib.h>
@@ -43,7 +44,7 @@ static void get_cards() {
   for (;;) {
     err = snd_card_next(&num); 
     if (err < 0) {
-      error("Can't get sounds cards: %s\n",snd_strerror(err));
+      report_error("Can't get sounds cards: %s\n",snd_strerror(err));
       return;
     }
     if (num < 0)
@@ -89,24 +90,25 @@ char* selected_card_dev(gchar* selected_card) {
 static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_regopt* opts,int level) {
   int err;
   if ((err = snd_mixer_open(mixer, 0)) < 0) {
-    error("Mixer %s open error: %s", card, snd_strerror(err));
+    report_error("Mixer %s open error: %s", card, snd_strerror(err));
     return err;
   }
   if (level == 0 && (err = snd_mixer_attach(*mixer, card)) < 0) {
-    error("Mixer attach %s error: %s", card, snd_strerror(err));
+    report_error("Mixer attach %s error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
     return err;
   }
   if ((err = snd_mixer_selem_register(*mixer, level > 0 ? opts : NULL, NULL)) < 0) {
-    error("Mixer register error: %s", snd_strerror(err));
+    report_error("Mixer register error: %s", snd_strerror(err));
     snd_mixer_close(*mixer);
     return err;
   }
   if ((err = snd_mixer_load(*mixer)) < 0) {
-    error("Mixer %s load error: %s", card, snd_strerror(err));
+    report_error("Mixer %s load error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
     return err;
   }
+  return 0;
 }
 
 static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
@@ -160,13 +162,13 @@ static void set_io_watch(snd_mixer_t *mixer) {
 static int close_mixer(snd_mixer_t **mixer) {
   int err;
   if ((err = snd_mixer_close(*mixer)) < 0) 
-    error("Mixer close error: %s", snd_strerror(err));
+    report_error("Mixer close error: %s", snd_strerror(err));
   return err;
 }
 
 
 static GSList* get_channels(gchar* card) {
-  int ccount,i,err;
+  int ccount,i;
   snd_mixer_t *mixer;
   snd_mixer_elem_t *telem;
   GSList *channels = NULL;
@@ -188,8 +190,6 @@ static GSList* get_channels(gchar* card) {
 }
 
 static int alsaset() {
-  int level = 1;
-  int err;
   snd_mixer_selem_id_t *sid;
   gchar *card,*channel;
   char *card_dev;
@@ -231,7 +231,7 @@ static int convert_prange(long val, long min, long max) {
   return rint(val/(double)range * 100);
 }
 
-int setvol(int vol) {
+void setvol(int vol) {
   long pmin = 0, pmax = 0, target, current;
   int cur_perc;
   snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);

@@ -13,6 +13,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -21,7 +22,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 #include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
@@ -326,12 +326,12 @@ static GtkWidget *create_popupmenu(void) {
   return menu;
 }
 
-GtkWidget* do_prefs (void) {
+void do_prefs (void) {
   GtkWidget* pref_window = create_prefs_window();
   gtk_widget_show(pref_window);
 }
 
-GtkWidget* create_about (void) {
+void create_about (void) {
   GtkWidget *about;
   GtkWidget *vbox1;
   GtkWidget *about_image;
@@ -459,7 +459,7 @@ static GOptionEntry args[] =
     { NULL }
   };
 
-main (int argc, char *argv[]) {
+int main (int argc, char *argv[]) {
   GtkWidget *window1;
   GtkWidget *menu;
   GError *error = NULL;

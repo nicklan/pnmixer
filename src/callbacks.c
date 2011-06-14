@@ -13,6 +13,7 @@
 
 #include <gtk/gtk.h>
 #include <alsa/asoundlib.h>
+#include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
 #include "support.h"

@@ -14,11 +14,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
 
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "alsa.h"
@@ -56,7 +58,6 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
   gboolean      is_dup;
   GtkIconTheme* theme;
   gchar         **path;
-  GtkSettings*  settings;
 
 
   theme = gtk_icon_theme_get_default();
