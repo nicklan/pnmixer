@@ -61,11 +61,12 @@ void report_error(char* err,...) {
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_CLOSE,
+						"%s",
 						err_buf);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
   } else 
-    fprintf(stderr,err_buf);
+    fprintf(stderr,"%s",err_buf);
   va_end(ap);
 }
 
