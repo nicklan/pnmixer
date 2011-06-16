@@ -8,6 +8,10 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include "alsa.h"
 #include "main.h"
 #include "prefs.h"
@@ -89,6 +93,11 @@ char* selected_card_dev(gchar* selected_card) {
 
 static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_regopt* opts,int level) {
   int err;
+
+
+  DEBUG_PRINT("Opening mixer for card: %s\n",card);
+
+
   if ((err = snd_mixer_open(mixer, 0)) < 0) {
     report_error("Mixer %s open error: %s", card, snd_strerror(err));
     return err;
@@ -186,6 +195,19 @@ static GSList* get_channels(gchar* card) {
 
   close_mixer(&mixer);
 
+#ifdef DEBUG
+  GSList *tmp = channels;
+  if (tmp) {
+    printf("Channels for card: %s\n",card);
+    while (tmp) {
+      printf("\t%s\n",(char*)tmp->data);
+      tmp = tmp->next;
+    }
+  } else {
+    printf("%s has no playable channels\n",card);
+  }
+#endif
+
   return channels;
 }
 
@@ -240,17 +262,25 @@ void setvol(int vol) {
   cur_perc = convert_prange(current,pmin,pmax);
 
   target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
+
+  DEBUG_PRINT("Setting volume.  cur: %li  tar: %li  curp: %i  tp: %i\n",current,target,cur_perc,vol);
+
   while(target == current) { // deal with channels that have fewer than 100 steps
     if (cur_perc < vol)
       vol++;
     else
       vol--;
     target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
+
+    DEBUG_PRINT("In while:  New target: %li  New perc: %i\n",target, vol);
+
     if (target == pmin || target == pmax)
       break;
   }
   target = (target < pmin)?pmin:target;
   target = (target > pmax)?pmax:target;
+
+  DEBUG_PRINT("Final target: %li\n",target);
 
   snd_mixer_selem_set_playback_volume_all(elem, target);
   snd_mixer_selem_set_playback_volume_all(elem, target);
@@ -275,6 +305,7 @@ int getvol() {
 
   long val;
   snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &val);
+  DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li\n",val,pmin,pmax);
   return convert_prange(val,pmin,pmax);
 }
 
