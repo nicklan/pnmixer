@@ -266,16 +266,17 @@ void setvol(int vol) {
   DEBUG_PRINT("Setting volume.  cur: %li  tar: %li  curp: %i  tp: %i\n",current,target,cur_perc,vol);
 
   while(target == current) { // deal with channels that have fewer than 100 steps
-    if (cur_perc < vol)
+    if (cur_perc < vol) {
+      if (target == pmax) break;
       vol++;
-    else
+    }
+    else {
+      if (target == pmin) break;
       vol--;
+    }
     target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
 
     DEBUG_PRINT("In while:  New target: %li  New perc: %i\n",target, vol);
-
-    if (target == pmin || target == pmax)
-      break;
   }
   target = (target < pmin)?pmin:target;
   target = (target > pmax)?pmax:target;
