@@ -55,18 +55,18 @@ static char err_buf[512];
 void report_error(char* err,...) {
   va_list ap;
   va_start(ap, err);
-  vsnprintf(err_buf,512,err,ap);
   if (window1) {
+    vsnprintf(err_buf,512,err,ap);
     GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_CLOSE,
-						"%s",
-						err_buf);
+						NULL);
+    g_object_set(dialog,"text",err_buf,NULL);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
   } else 
-    fprintf(stderr,"%s",err_buf);
+    vfprintf(stderr,err,ap);
   va_end(ap);
 }
 
