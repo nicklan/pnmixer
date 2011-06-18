@@ -192,6 +192,7 @@ gchar* get_selected_card() {
 }
 
 gchar* get_selected_channel(gchar* card) {
+  if (!card) return NULL;
   return g_key_file_get_string(keyFile,card,"Channel",NULL);
 }
 
