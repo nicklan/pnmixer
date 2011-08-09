@@ -83,6 +83,16 @@ void on_ok_button_clicked(GtkButton *button,
   gint idx = gtk_combo_box_get_active(GTK_COMBO_BOX(vpc));
   g_key_file_set_integer(keyFile,"PNMixer","TextVolumePosition",idx);
 
+  // show vol meter
+  GtkWidget* dvc = lookup_widget(user_data,"draw_vol_check");
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dvc));
+  g_key_file_set_boolean(keyFile,"PNMixer","DrawVolMeter",active);
+  
+  // vol meter pos
+  GtkWidget* vmps = lookup_widget(user_data,"vol_meter_pos_spin");
+  gint vmpos = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(vmps));
+  g_key_file_set_integer(keyFile,"PNMixer","VolMeterPos",vmpos);
+
   // alsa card
   GtkWidget *acc = lookup_widget(user_data, "card_combo");
   gchar *old_card = get_selected_card();
@@ -149,7 +159,6 @@ void on_ok_button_clicked(GtkButton *button,
     apply_prefs(alsa_change);
   g_free(filename);
   gtk_widget_destroy(user_data);
-  get_mute_state();
 }
 
 void on_cancel_button_clicked(GtkButton *button,

@@ -32,7 +32,7 @@
   g_object_set_data_full (G_OBJECT (component), name, gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name)	\
   g_object_set_data (G_OBJECT (component), name, widget)
-GtkStatusIcon *tray_icon;
+GtkStatusIcon *tray_icon = NULL;
 GtkWidget *window1;
 GtkWidget *vbox1;
 GtkWidget *hbox2;
@@ -164,18 +164,28 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   }
 }
 
+gint tray_icon_size() {
+  if(tray_icon && gtk_status_icon_is_embedded(tray_icon))
+    return gtk_status_icon_get_size(tray_icon);
+  return 48;
+}
+
+
+static gboolean tray_icon_resized(GtkStatusIcon *status_icon,
+				  gint           size,
+				  gpointer       user_data) {
+  update_status_icons();
+}
 
 GtkStatusIcon *create_tray_icon() {
   tray_icon = gtk_status_icon_new();
 
-  get_mute_state();
-
   /* catch scroll-wheel events */
-  g_signal_connect ((gpointer) tray_icon, "scroll_event", G_CALLBACK (on_scroll),NULL);
+  g_signal_connect ((gpointer) tray_icon, "scroll_event", G_CALLBACK (on_scroll), NULL);
+  g_signal_connect ((gpointer) tray_icon, "size-changed", G_CALLBACK (tray_icon_resized), NULL);
 
   gtk_status_icon_set_visible(tray_icon, TRUE);
   return tray_icon;
-
 }
 
 
@@ -384,16 +394,46 @@ void get_current_levels() {
   gtk_adjustment_set_value(GTK_ADJUSTMENT(vol_adjustment), (double) tmpvol);
 }
 
+static float vol_div_factor;
+static guchar* vol_meter_row = NULL;
+static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h, guchar red, guchar green, guchar blue, guchar alpha) {
+  int width, height, rowstride, n_channels,i;
+  guchar *pixels, *p;
 
+  n_channels = gdk_pixbuf_get_n_channels (pixbuf);
+
+  g_assert (gdk_pixbuf_get_colorspace (pixbuf) == GDK_COLORSPACE_RGB);
+  g_assert (gdk_pixbuf_get_bits_per_sample (pixbuf) == 8);
+  g_assert (gdk_pixbuf_get_has_alpha (pixbuf));
+  g_assert (n_channels == 4);
+
+  width = gdk_pixbuf_get_width (pixbuf);
+  height = gdk_pixbuf_get_height (pixbuf);
+
+  g_assert (x >= 0 && x < width);
+  g_assert ((y+h) >= 0 && y < height);
+
+  rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  pixels = gdk_pixbuf_get_pixels (pixbuf);
+
+  y = (height - y);
+  for (i = 0;i < h;i++) {
+    p = pixels + (y-i) * rowstride + x * n_channels;
+    memcpy(p,vol_meter_row,40);
+  }
+}
+
+static int draw_offset = 0;
+static GdkPixbuf *icon_copy = NULL;
 int get_mute_state() {
   int muted;
   int tmpvol = getvol();
   char tooltip [60];
-  GdkPixbuf* icon;
   
   muted = ismuted();
 
   if( muted == 1 ) {
+    GdkPixbuf *icon;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton1), FALSE);
     if (tmpvol < 33) 
       icon = status_icons[1];
@@ -402,14 +442,22 @@ int get_mute_state() {
     else 
       icon = status_icons[3];
     sprintf(tooltip, "Volume: %d %%", tmpvol);
+
+    if (vol_meter_row) {
+      GdkPixbuf* old_icon = icon_copy;
+      icon_copy = gdk_pixbuf_copy(icon);
+      draw_vol_meter(icon_copy,draw_offset,5,(tmpvol*vol_div_factor),255,0,0,255);
+      if (old_icon) 
+	g_object_unref(old_icon);
+      gtk_status_icon_set_from_pixbuf(tray_icon, icon_copy);
+    } else
+      gtk_status_icon_set_from_pixbuf(tray_icon, icon);
   } else {
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton1), TRUE);
-    icon = status_icons[0];
+    gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[0]);
     sprintf(tooltip, "Volume: %d %%\nMuted", tmpvol);
   }
-	
   gtk_status_icon_set_tooltip_text(tray_icon, tooltip);
-  gtk_status_icon_set_from_pixbuf(tray_icon, icon);
   return muted;
 }
 
@@ -418,18 +466,45 @@ void hide_me() {
   gtk_widget_hide(window1);
 }
 
-void load_status_icons() {
+void update_status_icons() {
+  int i;
+  GdkPixbuf* old_icons[4];
+  int size = tray_icon_size();
+  for(i=0;i<4;i++)
+    old_icons[i] = status_icons[i];
   if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
-    status_icons[0] = get_stock_pixbuf("audio-volume-muted",48);
-    status_icons[1] = get_stock_pixbuf("audio-volume-low",48);
-    status_icons[2] = get_stock_pixbuf("audio-volume-medium",48);
-    status_icons[3] = get_stock_pixbuf("audio-volume-high",48);
+    status_icons[0] = get_stock_pixbuf("audio-volume-muted",size);
+    status_icons[1] = get_stock_pixbuf("audio-volume-low",size);
+    status_icons[2] = get_stock_pixbuf("audio-volume-medium",size);
+    status_icons[3] = get_stock_pixbuf("audio-volume-high",size);
   } else {
     status_icons[0] = create_pixbuf("pnmixer-muted.png");
     status_icons[1] = create_pixbuf("pnmixer-low.png");
     status_icons[2] = create_pixbuf("pnmixer-medium.png");
     status_icons[3] = create_pixbuf("pnmixer-high.png");
   }
+  vol_div_factor = ((size-10)/100.0);
+  if (!vol_meter_row &&  g_key_file_get_boolean(keyFile,"PNMixer","DrawVolMeter",NULL)) {
+    vol_meter_row = malloc(40*sizeof(guchar));
+    for(i=0;i<10;i++) {
+      vol_meter_row[i*4]   = 232;
+      vol_meter_row[i*4+1] = 110;
+      vol_meter_row[i*4+2] = 110;
+      vol_meter_row[i*4+3] = 255;
+    }
+  } else if (vol_meter_row && !g_key_file_get_boolean(keyFile,"PNMixer","DrawVolMeter",NULL)) {
+    free(vol_meter_row);
+    vol_meter_row = NULL;
+    if (icon_copy)
+      g_object_unref(icon_copy);
+    icon_copy = NULL;
+  }
+  draw_offset = g_key_file_get_integer(keyFile,"PNMixer","VolMeterPos",NULL);
+  if (tray_icon)
+    get_mute_state();
+  for(i = 0;i < 4;i++)
+    if(old_icons[i]) 
+      g_object_unref(old_icons[i]);
 }
 
 void update_vol_text() {
@@ -461,7 +536,6 @@ static GOptionEntry args[] =
   };
 
 int main (int argc, char *argv[]) {
-  GtkWidget *window1;
   GtkWidget *menu;
   GError *error = NULL;
   GOptionContext *context;
@@ -481,12 +555,16 @@ int main (int argc, char *argv[]) {
   g_option_context_parse (context, &argc, &argv, &error);
   gtk_init (&argc, &argv);
 
+  g_option_context_free(context);
+
+
   if (version) {
     printf("%s version: %s\n",PACKAGE,VERSION);
     exit(0);
   }
 
   window1 = NULL;
+  status_icons[0] = status_icons[1] = status_icons[2] = status_icons[3] = NULL;
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   add_pixmap_directory ("./pixmaps");
@@ -496,9 +574,6 @@ int main (int argc, char *argv[]) {
   alsa_init();
   window1 = create_window1 ();
   apply_prefs(0);
-
-  gtk_widget_realize(window1);
-  gtk_widget_hide(window1);
 
   tray_icon = create_tray_icon();        
   menu = create_popupmenu();

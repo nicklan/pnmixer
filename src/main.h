@@ -29,7 +29,8 @@ void get_current_levels();
 int get_mute_state();
 int update_mute_state();
 void hide_me();
-void load_status_icons();
+gint tray_icon_size();
+void update_status_icons();
 void update_vol_text();
 
 #endif // MAIN_H
