@@ -49,8 +49,8 @@ msgid "About PNMixer"
 msgstr "Info zu PNMixer"
 
 #: ../src/main.c:415
-msgid "<span font_size=\"x-large\" font_weight=\"bold\">PNMixer 0.2</span>"
-msgstr "<span font_size=\"x-large\" font_weight=\"bold\">PNMixer 0.2</span>"
+msgid "<span font_size=\"x-large\" font_weight=\"bold\">PNMixer %s</span>"
+msgstr "<span font_size=\"x-large\" font_weight=\"bold\">PNMixer %s</span>"
 
 #: ../src/main.c:427
 msgid ""
