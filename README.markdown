@@ -12,6 +12,7 @@ PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with a number o
 - Select which ALSA device and channel to use
 - Texual display of volume level in popup window
 - Continous volume adjustment when dragging the slider (not just when you let go)
+- Draw a volume level onto system tray icon
 - Use system icon theme for icons and use mute/low/medium/high
   volume icons
 - Configurable middle click action
@@ -21,6 +22,7 @@ PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with a number o
 	- icon theme
 	- amount to adjust per scoll
 	- middle click action
+	- drawing of volume level on tray icon
 
 Source and so on are at:
 [https://github.com/nicklan/pnmixer](https://github.com/nicklan/pnmixer)
