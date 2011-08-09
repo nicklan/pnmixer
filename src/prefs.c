@@ -431,32 +431,6 @@ GtkWidget* create_prefs_window (void) {
   gtk_widget_show (vol_meter_pos_spin);
   gtk_box_pack_start (GTK_BOX (vol_meter_pos_hbox), vol_meter_pos_spin, FALSE, FALSE, 0);  
 
-  vol_meter_color_hbox = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (vol_meter_color_hbox);
-  gtk_box_pack_start (GTK_BOX (vbox2), vol_meter_color_hbox, TRUE, TRUE, 0);
-
-  vol_meter_color_label = gtk_label_new (_("Volume Meter Color: "));
-  gtk_widget_show (vol_meter_color_label);
-  gtk_box_pack_start (GTK_BOX (vol_meter_color_hbox), vol_meter_color_label, FALSE, FALSE, 0);
-  gtk_misc_set_padding (GTK_MISC (vol_meter_color_label), 0, 0);
-
-  /*
-  vol_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",NULL);
-  if (vol_clrs)
-    vol_meter_color_button = gtk_
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(vol_meter_color_spin),g_key_file_get_integer(keyFile,"PNMixer","VolMeterColor",NULL));
-  gtk_widget_show (vol_meter_color_spin);
-  gtk_box_pack_start (GTK_BOX (vol_meter_color_hbox), vol_meter_color_spin, FALSE, FALSE, 0);  
-
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(draw_vol_check))) {
-    gtk_widget_set_sensitive(vol_meter_pos_label,TRUE);
-    gtk_widget_set_sensitive(vol_meter_pos_spin,TRUE);
-  } else {
-    gtk_widget_set_sensitive(vol_meter_pos_label,FALSE);
-    gtk_widget_set_sensitive(vol_meter_pos_spin,FALSE);
-  }
-  */
-
   vol_frame_label = gtk_label_new (_("<b>Display</b>"));
   gtk_widget_show (vol_frame_label);
   gtk_frame_set_label_widget (GTK_FRAME (vol_frame), vol_frame_label);
