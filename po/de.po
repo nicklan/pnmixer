@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-04 23:09+0200\n"
-"PO-Revision-Date: 2011-06-04 22:32+0100\n"
+"POT-Creation-Date: 2011-08-10 19:27+0200\n"
+"PO-Revision-Date: 2011-08-10 19:32+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: \n"
@@ -16,43 +16,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/main.c:178
+#: ../src/main.c:235
 msgid "Mute"
 msgstr "Stumm"
 
-#: ../src/main.c:184
+#: ../src/main.c:241
 msgid "Volume Control..."
 msgstr "Lautstärkeregler …"
 
-#: ../src/main.c:238 ../src/prefs.c:497
+#: ../src/main.c:295 ../src/prefs.c:585
 msgid "Mute/Unmute"
 msgstr "Stumm (ein/aus)"
 
-#: ../src/main.c:246 ../src/prefs.c:499
+#: ../src/main.c:303 ../src/prefs.c:587
 msgid "Volume Control"
 msgstr "Lautstärkeregler"
 
-#: ../src/main.c:368
+#: ../src/main.c:311
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../src/main.c:376
+#: ../src/main.c:319
 msgid "About"
 msgstr "Info"
 
-#: ../src/main.c:388
+#: ../src/main.c:331
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../src/main.c:409
+#: ../src/main.c:353
 msgid "About PNMixer"
 msgstr "Info zu PNMixer"
 
-#: ../src/main.c:415
-msgid "<span font_size=\"x-large\" font_weight=\"bold\">PNMixer %s</span>"
-msgstr "<span font_size=\"x-large\" font_weight=\"bold\">PNMixer %s</span>"
-
-#: ../src/main.c:427
+#: ../src/main.c:372
 msgid ""
 "A mixer for the system tray.\n"
 "http://github.com/nicklan/pnmixer"
@@ -60,83 +56,103 @@ msgstr ""
 "Ein Mixer für das Benachrichtigungsfeld.\n"
 "http://github.com/nicklan/pnmixer"
 
-#: ../src/support.c:82 ../src/support.c:104
+#: ../src/main.c:552
+msgid "- A mixer for the system tray."
+msgstr "- Ein Mixer für das Benachrichtigungsfeld."
+
+#: ../src/support.c:89 ../src/support.c:111
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Pixmap-Datei konnte nicht gefunden werden: %s"
 
-#: ../src/prefs.c:224
+#: ../src/prefs.c:359
 msgid "PNMixer Preferences"
 msgstr "PNMixer-Einstellungen"
 
-#: ../src/prefs.c:246
+#: ../src/prefs.c:381
 msgid "Display Text Volume"
 msgstr "Lautstärke als Text anzeigen"
 
-#: ../src/prefs.c:256
-msgid "Volume Text Position:"
-msgstr "Textposition:"
+#: ../src/prefs.c:391
+msgid "Volume Text Position: "
+msgstr "Lautstärkeregler-Textposition:"
 
-#: ../src/prefs.c:264
+#: ../src/prefs.c:399
 msgid "Top"
 msgstr "Oben"
 
-#: ../src/prefs.c:265
+#: ../src/prefs.c:400
 msgid "Bottom"
 msgstr "Unten"
 
-#: ../src/prefs.c:266
+#: ../src/prefs.c:401
 msgid "Left"
 msgstr "Links"
 
-#: ../src/prefs.c:267
+#: ../src/prefs.c:402
 msgid "Right"
 msgstr "Rechts"
 
-#: ../src/prefs.c:270
-msgid "<b>Volume Display</b>"
-msgstr "<b>Anzeige der Lautstärke</b>"
+#: ../src/prefs.c:413
+msgid ""
+"Draw Volume Meter on Tray Icon\n"
+"(will cause slightly higher mem/cpu usage)"
+msgstr ""
+"Lautstärkeskala im Benachrichtigungsfeld anzeigen\n"
+"(verursacht geringfügig höhere CPU-/Speicherlast)"
 
-#: ../src/prefs.c:297
-msgid "PNMixer Icons"
-msgstr "PNMixer-Symbole"
+#: ../src/prefs.c:423
+msgid "Volume Meter Offset: "
+msgstr "Lautstärkeskala-Versatz:"
 
-#: ../src/prefs.c:300
-msgid "<b>Icon Theme</b>"
-msgstr "<b>Symbolthema</b>"
+#: ../src/prefs.c:434
+msgid "<b>Display</b>"
+msgstr "<b>Anzeige</b>"
 
-#: ../src/prefs.c:321
-msgid "Mouse Scroll Step:"
-msgstr "Schrittweite des Mausrades:"
-
-#: ../src/prefs.c:329
-msgid "Middle Click Action:"
-msgstr "Aktion bei Mittelklick:"
-
-#: ../src/prefs.c:351
-msgid "Show Preferences"
-msgstr "Einstellungen anzeigen"
-
-#: ../src/prefs.c:353
-msgid "Custom (set below)"
-msgstr "Benutzerdefiniert (siehe unten)"
-
-#: ../src/prefs.c:357
-msgid "Custom Command:"
-msgstr "Benutzerdefinierter Befehl:"
-
-#: ../src/prefs.c:381
-msgid "<b>Mouse</b>"
-msgstr "<b>Maus</b>"
-
-#: ../src/prefs.c:424
-msgid "<b>Alsa Device</b>"
-msgstr "<b>Alsa Gerät</b>"
-
-#: ../src/prefs.c:393
+#: ../src/prefs.c:455
 msgid "Card:"
 msgstr "Karte:"
 
-#: ../src/prefs.c:407
+#: ../src/prefs.c:469
 msgid "Channel:"
 msgstr "Kanal:"
+
+#: ../src/prefs.c:486
+msgid "<b>Alsa Device</b>"
+msgstr "<b>Alsa-Gerät</b>"
+
+#: ../src/prefs.c:513
+msgid "<b>Volume Control Command</b>"
+msgstr "<b>Befehl zur Lautstärkeregelung</b>"
+
+#: ../src/prefs.c:532
+msgid "PNMixer Icons"
+msgstr "PNMixer-Symbole"
+
+#: ../src/prefs.c:535
+msgid "<b>Icon Theme</b>"
+msgstr "<b>Symbolthema</b>"
+
+#: ../src/prefs.c:556
+msgid "Mouse Scroll Step:"
+msgstr "Schrittweite des Mausrades:"
+
+#: ../src/prefs.c:564
+msgid "Middle Click Action:"
+msgstr "Aktion bei Mittelklick:"
+
+#: ../src/prefs.c:586
+msgid "Show Preferences"
+msgstr "Einstellungen anzeigen"
+
+#: ../src/prefs.c:588
+msgid "Custom (set below)"
+msgstr "Benutzerdefiniert (siehe unten)"
+
+#: ../src/prefs.c:592
+msgid "Custom Command:"
+msgstr "Benutzerdefinierter Befehl:"
+
+#: ../src/prefs.c:616
+msgid "<b>Mouse</b>"
+msgstr "<b>Maus</b>"
