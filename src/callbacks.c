@@ -93,6 +93,15 @@ void on_ok_button_clicked(GtkButton *button,
   gint vmpos = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(vmps));
   g_key_file_set_integer(keyFile,"PNMixer","VolMeterPos",vmpos);
 
+  GtkWidget* vcb = lookup_widget(user_data,"vol_meter_color_button");
+  GdkColor color;
+  gtk_color_button_get_color(GTK_COLOR_BUTTON(vcb),&color);
+  gint colints[3];
+  colints[0] = color.red;
+  colints[1] = color.green;
+  colints[2] = color.blue;
+  g_key_file_set_integer_list(keyFile,"PNMixer","VolMeterColor",colints,3);
+
   // alsa card
   GtkWidget *acc = lookup_widget(user_data, "card_combo");
   gchar *old_card = get_selected_card();

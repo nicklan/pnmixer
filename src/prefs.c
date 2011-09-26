@@ -119,6 +119,22 @@ load_icon_themes(GtkWidget* icon_theme_combo) {
     gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
 }
 
+gint* get_vol_meter_colors() {
+  gsize numcols = 3;
+  gint* vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+  if (!vol_meter_clrs || (numcols != 3)) {
+    if (vol_meter_clrs) { // corrupt value somehow
+      report_error("Invalid color for volume meter in config file.  Reverting to default.");
+      g_free(vol_meter_clrs);
+    }
+    vol_meter_clrs = g_malloc(3*sizeof(gint));
+    vol_meter_clrs[0] = 59624;
+    vol_meter_clrs[1] = 28270;
+    vol_meter_clrs[2] = 28270;
+  }
+  return vol_meter_clrs;
+}
+
 void ensure_prefs_dir(void) {
   gchar* prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
   if (!g_file_test(prefs_dir,G_FILE_TEST_IS_DIR)) {
@@ -165,12 +181,16 @@ void load_prefs(void) {
 }
 
 void apply_prefs(gint alsa_change) {
+  gint* vol_meter_clrs;
   scroll_step = 1;
   if (g_key_file_has_key(keyFile,"PNMixer","MouseScrollStep",NULL))
     scroll_step = g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL);
   get_icon_theme();
   if (alsa_change)
     alsa_init();
+  vol_meter_clrs = get_vol_meter_colors();
+  set_vol_meter_color(vol_meter_clrs[0],vol_meter_clrs[1],vol_meter_clrs[2]);
+  g_free(vol_meter_clrs);
   update_status_icons();
   update_vol_text();
 }
@@ -272,9 +292,13 @@ void on_vol_text_toggle(GtkToggleButton* button, gpointer user_data) {
 void on_draw_vol_toggle(GtkToggleButton* button, gpointer user_data) {
   GtkWidget* label = lookup_widget(user_data,"vol_meter_pos_label");
   GtkWidget* spin = lookup_widget(user_data,"vol_meter_pos_spin");
+  GtkWidget* clabel = lookup_widget(user_data,"vol_meter_color_label");
+  GtkWidget* cbutton = lookup_widget(user_data,"vol_meter_color_button");
   gboolean active  = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(label,active);
   gtk_widget_set_sensitive(spin,active);
+  gtk_widget_set_sensitive(clabel,active);
+  gtk_widget_set_sensitive(cbutton,active);
 }
 
 void on_middle_changed(GtkComboBox* box, gpointer user_data) {
@@ -318,6 +342,10 @@ GtkWidget* create_prefs_window (void) {
   GtkWidget *vol_meter_pos_label;
   GtkObject *vol_meter_pos_spin_adj;
   GtkWidget *vol_meter_pos_spin;
+  GtkWidget *vol_meter_color_hbox;
+  GtkWidget *vol_meter_color_label;
+  GtkWidget *vol_meter_color_button;
+  GdkColor   vol_meter_color_button_color;
   GtkWidget *hbox1;
   GtkWidget *vol_pos_label;
   GtkWidget *vol_pos_combo;
@@ -353,7 +381,8 @@ GtkWidget* create_prefs_window (void) {
   GtkWidget *cancel_button;
   GtkWidget *ok_button;
 
-  gchar* vol_cmd;
+  gchar *vol_cmd;
+  gint *vol_meter_clrs;
 
   prefs_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (prefs_window), _("PNMixer Preferences"));
@@ -430,6 +459,36 @@ GtkWidget* create_prefs_window (void) {
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(vol_meter_pos_spin),g_key_file_get_integer(keyFile,"PNMixer","VolMeterPos",NULL));
   gtk_widget_show (vol_meter_pos_spin);
   gtk_box_pack_start (GTK_BOX (vol_meter_pos_hbox), vol_meter_pos_spin, FALSE, FALSE, 0);  
+
+  vol_meter_color_hbox = gtk_hbox_new (FALSE, 0);
+  gtk_widget_show (vol_meter_color_hbox);
+  gtk_box_pack_start (GTK_BOX (vbox2), vol_meter_color_hbox, TRUE, TRUE, 10);
+
+  vol_meter_color_label = gtk_label_new (_("Volume Meter Color:  "));
+  gtk_widget_show (vol_meter_color_label);
+  gtk_box_pack_start (GTK_BOX (vol_meter_color_hbox), vol_meter_color_label, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (vol_meter_color_label), 0, 0);
+
+  vol_meter_clrs = get_vol_meter_colors();
+  vol_meter_color_button_color.red = vol_meter_clrs[0];
+  vol_meter_color_button_color.green = vol_meter_clrs[1];
+  vol_meter_color_button_color.blue = vol_meter_clrs[2];
+  vol_meter_color_button = gtk_color_button_new_with_color (&vol_meter_color_button_color);
+  g_free(vol_meter_clrs);
+  gtk_widget_show (vol_meter_color_button);
+  gtk_box_pack_start (GTK_BOX (vol_meter_color_hbox), vol_meter_color_button, FALSE, FALSE, 0);  
+
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(draw_vol_check))) {
+    gtk_widget_set_sensitive(vol_meter_pos_label,TRUE);
+    gtk_widget_set_sensitive(vol_meter_pos_spin,TRUE);
+    gtk_widget_set_sensitive(vol_meter_color_label,TRUE);
+    gtk_widget_set_sensitive(vol_meter_color_button,TRUE);
+  } else {
+    gtk_widget_set_sensitive(vol_meter_pos_label,FALSE);
+    gtk_widget_set_sensitive(vol_meter_pos_spin,FALSE);
+    gtk_widget_set_sensitive(vol_meter_color_label,FALSE);
+    gtk_widget_set_sensitive(vol_meter_color_button,FALSE);
+  }
 
   vol_frame_label = gtk_label_new (_("<b>Display</b>"));
   gtk_widget_show (vol_frame_label);
@@ -654,6 +713,8 @@ GtkWidget* create_prefs_window (void) {
   GLADE_HOOKUP_OBJECT (prefs_window, vol_pos_combo, "vol_pos_combo");
   GLADE_HOOKUP_OBJECT (prefs_window, vol_meter_pos_label, "vol_meter_pos_label");
   GLADE_HOOKUP_OBJECT (prefs_window, vol_meter_pos_spin, "vol_meter_pos_spin");
+  GLADE_HOOKUP_OBJECT (prefs_window, vol_meter_color_label, "vol_meter_color_label");
+  GLADE_HOOKUP_OBJECT (prefs_window, vol_meter_color_button, "vol_meter_color_button");
   GLADE_HOOKUP_OBJECT (prefs_window, vol_frame_label, "vol_frame_label");
   GLADE_HOOKUP_OBJECT (prefs_window, card_combo, "card_combo");
   GLADE_HOOKUP_OBJECT (prefs_window, chan_combo, "chan_combo");
