@@ -26,6 +26,14 @@ static snd_mixer_t *handle;
 
 static GSList* get_channels(gchar* card);
 
+static void card_free(gpointer data) {
+  struct acard* c = (struct acard*)data;
+  g_free(c->name);
+  g_free(c->dev);
+  g_slist_free_full(c->channels,g_free);
+  g_free(data);
+}
+
 // partly based on get_cards function in alsamixer
 static void get_cards() {
   int err, num;
@@ -34,15 +42,19 @@ static void get_cards() {
   char buf[10];
   struct acard *cur_card, *default_card;
   
+  if (cards != NULL)
+    g_slist_free_full(cards,card_free);
+
   cards = NULL;
 
-  default_card = malloc(sizeof(struct acard));
-  default_card->name = "(default)";
-  default_card->dev = "default";
+  default_card = g_malloc(sizeof(struct acard));
+  default_card->name = g_strdup("(default)");
+  default_card->dev = g_strdup("default");
   default_card->channels = get_channels("default");
 
   cards = g_slist_append(cards,default_card);
 
+  // don't need to free this as it's alloca'd
   snd_ctl_card_info_alloca(&info);
   num = -1;
   for (;;) {
@@ -60,10 +72,10 @@ static void get_cards() {
     snd_ctl_close(ctl);
     if (err < 0)
       continue;
-    cur_card = malloc(sizeof(struct acard));
-    cur_card->name = strdup(snd_ctl_card_info_get_name(info));
+    cur_card = g_malloc(sizeof(struct acard));
+    cur_card->name = g_strdup(snd_ctl_card_info_get_name(info));
     sprintf(buf,"hw:%d",num);
-    cur_card->dev = strdup(buf);
+    cur_card->dev = g_strdup(buf);
     cur_card->channels = get_channels(buf);
     cards = g_slist_append(cards,cur_card);
   }
@@ -139,18 +151,24 @@ static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer dat
        If we don't clear it out we'll go into an infinite callback loop since there
        will be data on the channel forever */
     GIOStatus stat = g_io_channel_read_chars(source,sbuf,256,&sread,(GError**)&serr);
+    if (serr) {
+      g_error_free((GError*)serr);
+      serr = NULL;
+    }
     if (stat == G_IO_STATUS_AGAIN) // normal, means alsa_cb cleared out the channel
       continue;
     else if(stat == G_IO_STATUS_NORMAL) // actually bad, alsa failed to clear channel
-      report_error("Warning: Connection to sound system failed, you probably need to restart pnmixer\n");
+      warn_sound_conn_lost();
     else if (stat == G_IO_STATUS_ERROR || G_IO_STATUS_EOF)
       report_error("Error: GIO error has occured.  Won't respond to external volume changes anymore\n");
     else
       report_error("Error: Unknown status from g_io_channel_read_chars\n");
+    return TRUE;
   }
   return TRUE;
 }
 
+GIOChannel *gioc = NULL;
 static void set_io_watch(snd_mixer_t *mixer) {
   int pcount;
 
@@ -162,14 +180,21 @@ static void set_io_watch(snd_mixer_t *mixer) {
     if (pcount <= 0)
       report_error("Warning: Couldn't get any poll descriptors.  Won't respond to external volume changes");
     for (i = 0;i < pcount;i++) {
-      GIOChannel *gioc = g_io_channel_unix_new(fds[i].fd);
+      if (gioc) {	
+	g_io_channel_unref(gioc);
+	gioc = NULL;
+      }
+      gioc = g_io_channel_unix_new(fds[i].fd);
       g_io_add_watch(gioc,G_IO_IN,poll_cb,NULL);
     }
   }
 }
 
-static int close_mixer(snd_mixer_t **mixer) {
+static int close_mixer(snd_mixer_t **mixer, const char* card) {
   int err;
+  if ((err = snd_mixer_detach(*mixer,card)) < 0) 
+    report_error("Mixer detach error: %s", snd_strerror(err));
+  snd_mixer_free(*mixer);
   if ((err = snd_mixer_close(*mixer)) < 0) 
     report_error("Mixer close error: %s", snd_strerror(err));
   return err;
@@ -193,7 +218,7 @@ static GSList* get_channels(gchar* card) {
     telem = snd_mixer_elem_next(telem);
   }
 
-  close_mixer(&mixer);
+  close_mixer(&mixer,card);
 
 #ifdef DEBUG
   GSList *tmp = channels;
@@ -313,7 +338,14 @@ int getvol() {
 static gint inited = 0;
 void alsa_init() {
   if (inited) { // re-init, need to close down first
-    close_mixer(&handle);
+    gchar *card;
+    char *card_dev;
+    card = get_selected_card();
+    if (card) {
+      card_dev = selected_card_dev(card);
+      close_mixer(&handle,card_dev);
+      g_free(card);
+    }
   }
   alsaset();
   inited = 1;

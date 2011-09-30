@@ -70,6 +70,27 @@ void report_error(char* err,...) {
   va_end(ap);
 }
 
+void warn_sound_conn_lost() {
+  if (window1) {
+    gint resp;
+    GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
+						GTK_DIALOG_DESTROY_WITH_PARENT,
+						GTK_MESSAGE_ERROR,
+						GTK_BUTTONS_YES_NO,
+						"Warning: Connection to sound system failed.");
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG(dialog),
+					      "Do you want to re-initialize the connection to alsa?\n\n"
+					      "If you do not, you will either need to restart PNMixer "
+					      "or select the 'Reload Alsa' option in the right click "
+					      "menu in order for PNMixer to function.");
+    resp = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    if (resp == GTK_RESPONSE_YES)
+      do_alsa_reinit();
+  } else
+    fprintf(stderr,"Warning: Connection to sound system failed, you probably need to restart pnmixer\n");
+}
+
 void on_mixer(void) {
   pid_t pid;
   int status;
@@ -175,6 +196,7 @@ static gboolean tray_icon_resized(GtkStatusIcon *status_icon,
 				  gint           size,
 				  gpointer       user_data) {
   update_status_icons();
+  return FALSE;
 }
 
 GtkStatusIcon *create_tray_icon() {
@@ -315,6 +337,14 @@ static GtkWidget *create_popupmenu(void) {
   menuitem_prefs = item;
   g_signal_connect(item, "activate",G_CALLBACK(do_prefs), NULL);
 
+  image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
+  item = gtk_image_menu_item_new_with_label(_("Reload Alsa"));
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
+  gtk_widget_show(item);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+  menuitem_prefs = item;
+  g_signal_connect(item, "activate",G_CALLBACK(do_alsa_reinit), NULL);
+
   image = gtk_image_new_from_stock (GTK_STOCK_ABOUT, GTK_ICON_SIZE_MENU);
   item = gtk_image_menu_item_new_with_label(_("About"));
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
@@ -340,6 +370,13 @@ static GtkWidget *create_popupmenu(void) {
 void do_prefs (void) {
   GtkWidget* pref_window = create_prefs_window();
   gtk_widget_show(pref_window);
+}
+
+void do_alsa_reinit (void) {
+  alsa_init();
+  update_status_icons();
+  update_vol_text();
+  get_mute_state();
 }
 
 void create_about (void) {
@@ -583,6 +620,7 @@ int main (int argc, char *argv[]) {
 
   ensure_prefs_dir();
   load_prefs();
+  cards = NULL; // so we don't try and free on first run
   alsa_init();
   window1 = create_window1 ();
   apply_prefs(0);

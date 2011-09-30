@@ -23,8 +23,10 @@ GtkWidget* create_window1 (void);
 GtkWidget* create_menu (void);
 void create_about (void);
 void do_prefs (void);
+void do_alsa_reinit (void);
 
 void report_error(char*,...);
+void warn_sound_conn_lost(void);
 void get_current_levels();
 int get_mute_state();
 int update_mute_state();
