@@ -325,6 +325,7 @@ gchar* get_vol_command() {
       snprintf(buf, 256, "which %s | grep /%s > /dev/null",*cmd,*cmd);
       if (!system(buf))
 	return g_strdup(*cmd);
+      cmd++;
     }
     return NULL;
   }
