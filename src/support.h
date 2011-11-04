@@ -42,20 +42,30 @@
 #  define N_(String) (String)
 #endif
 
+typedef struct {
+  GtkWidget* prefs_window;
+  GtkWidget* card_combo;
+  GtkWidget* chan_combo;
+  GtkWidget* vol_pos_label;
+  GtkWidget* vol_pos_combo;
+  GtkWidget* vol_meter_pos_label;
+  GtkWidget* vol_meter_pos_spin;
+  GtkWidget* vol_meter_color_label;
+  GtkWidget* vol_meter_color_button;
+  GtkWidget* custom_label;
+  GtkWidget* custom_entry;
+  GtkWidget* vol_text_check;
+  GtkWidget* draw_vol_check;
+  GtkWidget* icon_theme_combo;
+  GtkWidget* vol_control_entry;
+  GtkWidget* scroll_step_spin;
+  GtkWidget* middle_click_combo;
+} PrefsData;
+
 
 /*
  * Public Functions.
  */
-
-/*
- * This function returns a widget in a component created by Glade.
- * Call it with the toplevel widget in the component (i.e. a window/dialog),
- * or alternatively any widget in the component, and the name of the widget
- * you want returned.
- */
-GtkWidget*  lookup_widget              (GtkWidget       *widget,
-                                        const gchar     *widget_name);
-
 
 /* Use this function to set the directory containing installed pixmaps. */
 void        add_pixmap_directory       (const gchar     *directory);

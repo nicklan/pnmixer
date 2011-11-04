@@ -40,7 +40,7 @@ if test x"$debugit" = x"yes"; then
     AM_CFLAGS="$AM_CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0"
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
-    AM_CFLAGS="$AM_CFLAGS -O2"
+    AM_CFLAGS="$AM_CFLAGS -O2 -export-dynamic"
 fi
 
 ##########################################################################

@@ -273,17 +273,6 @@ GtkWidget* create_window1 (void) {
   g_signal_connect ((gpointer) checkbutton1, "pressed",G_CALLBACK (on_checkbutton1_clicked),NULL);
   g_signal_connect ((gpointer) button1, "button_press_event",G_CALLBACK (on_mixer),NULL);
 
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
-  GLADE_HOOKUP_OBJECT (window1, vbox1, "vbox1");
-  GLADE_HOOKUP_OBJECT (window1, hbox2, "hbox2");
-  GLADE_HOOKUP_OBJECT (window1, image1, "image1");
-  GLADE_HOOKUP_OBJECT (window1, hscale1, "hscale1");
-  GLADE_HOOKUP_OBJECT (window1, image2, "image2");
-  GLADE_HOOKUP_OBJECT (window1, hbox1, "hbox1");
-  GLADE_HOOKUP_OBJECT (window1, checkbutton1, "checkbutton1");
-  GLADE_HOOKUP_OBJECT (window1, button1, "button1");
-
   gtk_widget_grab_focus (hscale1);
   return window1;
 }
@@ -414,12 +403,6 @@ void create_about (void) {
   gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_CENTER);
 
   g_signal_connect ((gpointer) about, "delete_event",G_CALLBACK (gtk_widget_destroy),NULL);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). */
-  GLADE_HOOKUP_OBJECT_NO_REF (about, about, "about");
-  GLADE_HOOKUP_OBJECT (about, vbox1, "vbox1");
-  GLADE_HOOKUP_OBJECT (about, about_image, "about_image");
-  GLADE_HOOKUP_OBJECT (about, label1, "label1");
 
   gtk_widget_show(about);
 

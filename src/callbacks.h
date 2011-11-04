@@ -11,6 +11,7 @@
 #ifndef CALLBACKS_H_
 #define CALLBACKS_H_
 
+#include "support.h"
 #include <gtk/gtk.h>
 
 
@@ -27,11 +28,11 @@ vol_scroll_event(GtkRange     *range,
 
 void
 on_ok_button_clicked                   (GtkButton       *button,
-                                        gpointer         user_data);
+                                        PrefsData       *data);
 
 void
 on_cancel_button_clicked                   (GtkButton       *button,
-					    gpointer         user_data);
+					    PrefsData       *data);
 
 gboolean on_scroll (GtkWidget *widget, GdkEventScroll *event);
 
