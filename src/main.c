@@ -33,20 +33,11 @@
 #define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name)	\
   g_object_set_data (G_OBJECT (component), name, widget)
 GtkStatusIcon *tray_icon = NULL;
-GtkWidget *window1;
-GtkWidget *vbox1;
-GtkWidget *hbox2;
-GtkWidget *image1;
-GtkWidget *hscale1;
-GtkWidget *image2;
-GtkWidget *hbox1;
-GtkWidget *checkbutton1;
-GtkWidget *button1;
+
 static GtkWidget *menuitem_mute = NULL;
 static GtkWidget *menuitem_about = NULL;
 static GtkWidget *menuitem_vol = NULL;
 static GtkWidget *menuitem_prefs = NULL;
-GtkAdjustment *vol_adjustment;
 GdkPixbuf *icon0;
 static GdkPixbuf* status_icons[4];
 
@@ -55,9 +46,9 @@ static char err_buf[512];
 void report_error(char* err,...) {
   va_list ap;
   va_start(ap, err);
-  if (window1) {
+  if (popup_window) {
     vsnprintf(err_buf,512,err,ap);
-    GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
+    GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(popup_window),
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_CLOSE,
@@ -71,9 +62,9 @@ void report_error(char* err,...) {
 }
 
 void warn_sound_conn_lost() {
-  if (window1) {
+  if (popup_window) {
     gint resp;
-    GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(window1),
+    GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(popup_window),
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_YES_NO,
@@ -139,7 +130,7 @@ void on_mixer(void) {
   } else 
     report_error("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control.");
 
-  gtk_widget_hide (window1);
+  gtk_widget_hide (popup_window);
 }
 
 void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointer user_data) {
@@ -177,11 +168,11 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
 
 void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   get_current_levels();
-  if (!GTK_WIDGET_VISIBLE(window1)) {
-    gtk_widget_grab_focus(hscale1);
-    gtk_widget_show(window1);
+  if (!GTK_WIDGET_VISIBLE(popup_window)) {
+    gtk_widget_grab_focus(vol_scale);
+    gtk_widget_show(popup_window);
   } else {
-    gtk_widget_hide (window1);
+    gtk_widget_hide (popup_window);
   }
 }
 
@@ -211,70 +202,29 @@ GtkStatusIcon *create_tray_icon() {
 }
 
 
-GtkWidget* create_window1 (void) {
-  window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_size_request (window1, 285, 82);
-  GTK_WIDGET_SET_FLAGS (window1, GTK_CAN_FOCUS);
-  gtk_window_set_position (GTK_WINDOW (window1), GTK_WIN_POS_MOUSE);
-  gtk_window_set_resizable (GTK_WINDOW (window1), FALSE);
-  gtk_window_set_decorated (GTK_WINDOW (window1), FALSE);
-  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (window1), TRUE);
-  gtk_window_set_skip_pager_hint (GTK_WINDOW (window1), TRUE);
-  gtk_window_set_type_hint (GTK_WINDOW (window1), GDK_WINDOW_TYPE_HINT_DIALOG);
+GtkWidget* create_popup_window (void) {
+  GtkBuilder *builder;
+  GError     *error = NULL;
+  builder = gtk_builder_new();
+  if( ! gtk_builder_add_from_file( builder, "data/popup_window.glade", &error ) ) {
+    g_warning("%s",error->message);
+    g_free(error);
+    return NULL;
+  }
 
-  vbox1 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (vbox1);
-  gtk_container_add (GTK_CONTAINER (window1), vbox1);
-
-  hbox2 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (hbox2);
-  gtk_box_pack_start (GTK_BOX (vbox1), hbox2, TRUE, TRUE, 0);
-
-  image1 = gtk_image_new_from_stock ("gtk-remove", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image1);
-  gtk_box_pack_start (GTK_BOX (hbox2), image1, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (image1, 40, -1);
-
-  vol_adjustment=GTK_ADJUSTMENT (gtk_adjustment_new (1, 0, 100, 1, 10, 0));
+  vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder,"vol_scale_adjustment"));
   /* get original adjustments */
   get_current_levels();
 
-  hscale1 = gtk_hscale_new (GTK_ADJUSTMENT (vol_adjustment));
-  gtk_widget_show (hscale1);
-  gtk_box_pack_start (GTK_BOX (hbox2), hscale1, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (hscale1, 205, -1);
-  gtk_scale_set_digits (GTK_SCALE (hscale1), 0);
+  vol_scale = GTK_WIDGET(gtk_builder_get_object(builder,"vol_scale"));
+  mute_check = GTK_WIDGET(gtk_builder_get_object(builder,"mute_check"));
+  popup_window = GTK_WIDGET(gtk_builder_get_object(builder,"popup_window"));
 
-  image2 = gtk_image_new_from_stock ("gtk-add", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image2);
-  gtk_box_pack_start (GTK_BOX (hbox2), image2, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (image2, 40, -1);
+  gtk_builder_connect_signals(builder, NULL);
+  g_object_unref (G_OBJECT (builder));
 
-  hbox1 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (hbox1);
-  gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
-
-  checkbutton1 = gtk_check_button_new_with_mnemonic (_("Mute"));
-  gtk_widget_show (checkbutton1);
-  gtk_box_pack_start (GTK_BOX (hbox1), checkbutton1, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (checkbutton1, 97, 18);
-  gtk_container_set_border_width (GTK_CONTAINER (checkbutton1), 8);
-
-  button1 = gtk_button_new_with_mnemonic (_("Volume Control..."));
-  gtk_widget_show (button1);
-  gtk_box_pack_start (GTK_BOX (hbox1), button1, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (button1, 185, 19);
-  gtk_container_set_border_width (GTK_CONTAINER (button1), 6);
-
-  g_signal_connect ((gpointer) window1, "focus-out-event",G_CALLBACK (hide_me),NULL);
-  g_signal_connect ((gpointer) window1, "button_release_event",G_CALLBACK (hide_me),NULL);
-  g_signal_connect ((gpointer) hscale1, "key_press_event",G_CALLBACK (hide_me),NULL);
-  g_signal_connect ((gpointer) hscale1, "change-value",G_CALLBACK (vol_scroll_event),NULL);
-  g_signal_connect ((gpointer) checkbutton1, "pressed",G_CALLBACK (on_checkbutton1_clicked),NULL);
-  g_signal_connect ((gpointer) button1, "button_press_event",G_CALLBACK (on_mixer),NULL);
-
-  gtk_widget_grab_focus (hscale1);
-  return window1;
+  gtk_widget_grab_focus (vol_scale);
+  return popup_window;
 }
 
 
@@ -287,7 +237,7 @@ static void popup_callback(GObject *widget, guint button,
   gtk_widget_set_sensitive(menuitem_vol,TRUE);
   gtk_widget_set_sensitive(menuitem_mute,TRUE);
 
-  gtk_widget_hide (window1);
+  gtk_widget_hide (popup_window);
 
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL,
 		 gtk_status_icon_position_menu,
@@ -308,7 +258,7 @@ static GtkWidget *create_popupmenu(void) {
   gtk_widget_show(item);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
   menuitem_mute = item;
-  g_signal_connect(item, "activate",G_CALLBACK(on_checkbutton1_clicked), NULL);
+  g_signal_connect(item, "activate",G_CALLBACK(on_mute_clicked), NULL);
 
   image = gtk_image_new_from_pixbuf (get_stock_pixbuf("gtk-execute",GTK_ICON_SIZE_MENU));
   item = gtk_image_menu_item_new_with_label(_("Volume Control"));
@@ -454,7 +404,7 @@ int get_mute_state() {
 
   if( muted == 1 ) {
     GdkPixbuf *icon;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton1), FALSE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), FALSE);
     if (tmpvol < 33) 
       icon = status_icons[1];
     else if (tmpvol < 66)
@@ -473,7 +423,7 @@ int get_mute_state() {
     } else
       gtk_status_icon_set_from_pixbuf(tray_icon, icon);
   } else {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton1), TRUE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), TRUE);
     gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[0]);
     sprintf(tooltip, "Volume: %d %%\nMuted", tmpvol);
   }
@@ -483,7 +433,7 @@ int get_mute_state() {
 
 
 void hide_me() {
-  gtk_widget_hide(window1);
+  gtk_widget_hide(popup_window);
 }
 
 
@@ -553,11 +503,11 @@ void update_vol_text() {
 	pi==2?GTK_POS_LEFT:
 	GTK_POS_RIGHT;
     }
-    gtk_scale_set_draw_value (GTK_SCALE (hscale1), TRUE);
-    gtk_scale_set_value_pos (GTK_SCALE (hscale1), pos);
+    gtk_scale_set_draw_value (GTK_SCALE (vol_scale), TRUE);
+    gtk_scale_set_value_pos (GTK_SCALE (vol_scale), pos);
   }
   else
-    gtk_scale_set_draw_value (GTK_SCALE (hscale1), FALSE);
+    gtk_scale_set_draw_value (GTK_SCALE (vol_scale), FALSE);
 }
 
 static gboolean version = FALSE;
@@ -595,7 +545,7 @@ int main (int argc, char *argv[]) {
     exit(0);
   }
 
-  window1 = NULL;
+  popup_window = NULL;
   status_icons[0] = status_icons[1] = status_icons[2] = status_icons[3] = NULL;
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
@@ -605,7 +555,7 @@ int main (int argc, char *argv[]) {
   load_prefs();
   cards = NULL; // so we don't try and free on first run
   alsa_init();
-  window1 = create_window1 ();
+  popup_window = create_popup_window ();
   apply_prefs(0);
 
   tray_icon = create_tray_icon();        

@@ -16,8 +16,8 @@
 
 
 void
-on_checkbutton1_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
+on_mute_clicked                (GtkButton       *button,
+				gpointer         user_data);
 
 
 gboolean 

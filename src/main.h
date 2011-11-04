@@ -19,7 +19,12 @@
 #define DEBUG_PRINT(...)
 #endif
 
-GtkWidget* create_window1 (void);
+GtkWidget *popup_window;
+GtkWidget *vol_scale;
+GtkWidget *mute_check;
+GtkAdjustment *vol_adjustment;
+
+GtkWidget* create_popup_window (void);
 GtkWidget* create_menu (void);
 void create_about (void);
 void do_prefs (void);

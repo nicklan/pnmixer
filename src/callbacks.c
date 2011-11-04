@@ -19,15 +19,11 @@
 #include "support.h"
 #include "prefs.h"
 
-GtkWidget *window1;
-GtkWidget *checkbutton1;
-GtkAdjustment *vol_adjustment;
 int volume;
 extern int volume;
 
-void on_checkbutton1_clicked(GtkButton *button,
-			     gpointer  user_data) {
-  gtk_widget_hide (window1);
+void on_mute_clicked(GtkButton *button,
+		     gpointer  user_data) {
   setmute();
   get_mute_state();
 }
