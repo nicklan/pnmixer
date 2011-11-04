@@ -435,6 +435,7 @@ GtkWidget* create_prefs_window (void) {
 		    prefs_data);
 
   gtk_builder_connect_signals(builder, prefs_data);
+  g_object_unref (G_OBJECT (builder));
 
   return prefs_data->prefs_window;
 }
