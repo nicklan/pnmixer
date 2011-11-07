@@ -24,8 +24,7 @@ GtkWidget *vol_scale;
 GtkWidget *mute_check;
 GtkAdjustment *vol_adjustment;
 
-GtkWidget* create_popup_window (void);
-GtkWidget* create_menu (void);
+void create_popups (void);
 void create_about (void);
 void do_prefs (void);
 void do_alsa_reinit (void);

@@ -34,6 +34,7 @@
   g_object_set_data (G_OBJECT (component), name, widget)
 GtkStatusIcon *tray_icon = NULL;
 
+static GtkWidget *popup_menu;
 static GtkWidget *menuitem_mute = NULL;
 static GtkWidget *menuitem_about = NULL;
 static GtkWidget *menuitem_vol = NULL;
@@ -202,14 +203,13 @@ GtkStatusIcon *create_tray_icon() {
 }
 
 
-GtkWidget* create_popup_window (void) {
+void create_popups (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
   builder = gtk_builder_new();
   if( ! gtk_builder_add_from_file( builder, "data/popup_window.glade", &error ) ) {
     g_warning("%s",error->message);
     g_free(error);
-    return NULL;
   }
 
   vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder,"vol_scale_adjustment"));
@@ -219,91 +219,30 @@ GtkWidget* create_popup_window (void) {
   vol_scale = GTK_WIDGET(gtk_builder_get_object(builder,"vol_scale"));
   mute_check = GTK_WIDGET(gtk_builder_get_object(builder,"mute_check"));
   popup_window = GTK_WIDGET(gtk_builder_get_object(builder,"popup_window"));
+  popup_menu = GTK_WIDGET(gtk_builder_get_object(builder,"popup_menu"));
 
   gtk_builder_connect_signals(builder, NULL);
-  g_object_unref (G_OBJECT (builder));
+  //g_object_unref (G_OBJECT (builder));
 
   gtk_widget_grab_focus (vol_scale);
-  return popup_window;
 }
 
 
 static void popup_callback(GObject *widget, guint button,
 			   guint activate_time, gpointer user_data) {
-  GtkWidget *menu = user_data;
+  GtkWidget *menu = GTK_WIDGET(user_data);
 
+  /*
   gtk_widget_set_sensitive(menuitem_prefs,TRUE);
   gtk_widget_set_sensitive(menuitem_about,TRUE);
   gtk_widget_set_sensitive(menuitem_vol,TRUE);
   gtk_widget_set_sensitive(menuitem_mute,TRUE);
-
+  */
   gtk_widget_hide (popup_window);
 
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL,
 		 gtk_status_icon_position_menu,
 		 GTK_STATUS_ICON(widget), button, activate_time);
-}
-
-
-static GtkWidget *create_popupmenu(void) {
-  GtkWidget *menu;
-  GtkWidget *item;
-  GtkWidget *image;
-
-  menu = gtk_menu_new();
-
-  image = gtk_image_new_from_pixbuf (get_stock_pixbuf("stock_volume-mute",GTK_ICON_SIZE_MENU));
-  item = gtk_image_menu_item_new_with_label(_("Mute/Unmute"));
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  menuitem_mute = item;
-  g_signal_connect(item, "activate",G_CALLBACK(on_mute_clicked), NULL);
-
-  image = gtk_image_new_from_pixbuf (get_stock_pixbuf("gtk-execute",GTK_ICON_SIZE_MENU));
-  item = gtk_image_menu_item_new_with_label(_("Volume Control"));
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  menuitem_vol = item;
-  g_signal_connect(item, "activate",G_CALLBACK(on_mixer), NULL);
-
-  image = gtk_image_new_from_stock (GTK_STOCK_PREFERENCES, GTK_ICON_SIZE_MENU);
-  item = gtk_image_menu_item_new_with_label(_("Preferences"));
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  menuitem_prefs = item;
-  g_signal_connect(item, "activate",G_CALLBACK(do_prefs), NULL);
-
-  image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
-  item = gtk_image_menu_item_new_with_label(_("Reload Alsa"));
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  menuitem_prefs = item;
-  g_signal_connect(item, "activate",G_CALLBACK(do_alsa_reinit), NULL);
-
-  image = gtk_image_new_from_stock (GTK_STOCK_ABOUT, GTK_ICON_SIZE_MENU);
-  item = gtk_image_menu_item_new_with_label(_("About"));
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  menuitem_about = item;
-  g_signal_connect(item, "activate",G_CALLBACK(create_about), NULL);
-
-  item = gtk_separator_menu_item_new();
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-
-  image = gtk_image_new_from_stock (GTK_STOCK_QUIT, GTK_ICON_SIZE_MENU);
-  item = gtk_image_menu_item_new_with_label(_("Quit"));
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
-  gtk_widget_show(item);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  g_signal_connect(item, "activate",G_CALLBACK(gtk_exit), 0);
-
-  return menu;
 }
 
 void do_prefs (void) {
@@ -555,12 +494,12 @@ int main (int argc, char *argv[]) {
   load_prefs();
   cards = NULL; // so we don't try and free on first run
   alsa_init();
-  popup_window = create_popup_window ();
+  create_popups();
   apply_prefs(0);
 
   tray_icon = create_tray_icon();        
-  menu = create_popupmenu();
-  g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), menu);
+
+  g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), popup_menu);
   g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(tray_icon_on_click), NULL);
   g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(tray_icon_button), NULL);
 
