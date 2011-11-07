@@ -9,9 +9,9 @@ EXTRA_DIST = \
 desktopdir = $(datadir)/applications
 dist_desktop_DATA = data/pnmixer.desktop
 
-# Install .glade interface files
+# Install .xml interface files
 uidir = $(DESTDIR)$(pkgdatadir)/ui
-ui_DATA = data/about.glade data/popup_window.glade data/prefs.glade
+ui_DATA = data/about.xml data/popup_window.xml data/prefs.xml
 
 uninstall-local:
 	@$(NORMAL_UNINSTALL)

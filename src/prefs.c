@@ -339,7 +339,7 @@ GtkWidget* create_prefs_window (void) {
 
   PrefsData  *prefs_data;
 
-  uifile = get_ui_file("prefs.glade");
+  uifile = get_ui_file("prefs.xml");
   if (!uifile) {
     report_error("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n");
     return NULL;

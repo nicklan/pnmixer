@@ -198,7 +198,7 @@ void create_popups (void) {
   GError     *error = NULL;
   gchar      *uifile;
   builder = gtk_builder_new();
-  uifile = get_ui_file("popup_window.glade");
+  uifile = get_ui_file("popup_window.xml");
   if (!uifile) {
     report_error("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n");
     gtk_exit(1);
@@ -254,7 +254,7 @@ void create_about (void) {
   GtkWidget  *about;
   gchar      *uifile;
 
-  uifile = get_ui_file("about.glade");
+  uifile = get_ui_file("about.xml");
   if (!uifile) {
     report_error("Can't find about interface file.  Please insure PNMixer is installed correctly.");
     return;
