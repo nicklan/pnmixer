@@ -90,4 +90,6 @@ void        glade_set_atk_action_description (AtkAction       *action,
 
 GdkPixbuf* get_stock_pixbuf(const char* filename, gint size);
 
+gchar* get_ui_file(const char* filename);
+
 #endif // SUPPORT_H_

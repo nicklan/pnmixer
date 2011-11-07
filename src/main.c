@@ -196,13 +196,20 @@ GtkStatusIcon *create_tray_icon() {
 void create_popups (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
+  gchar      *uifile;
   builder = gtk_builder_new();
-  if( ! gtk_builder_add_from_file( builder, "data/popup_window.glade", &error ) ) {
-    g_warning("%s",error->message);
-    report_error(error->message);
-    g_error_free(error);
+  uifile = get_ui_file("popup_window.glade");
+  if (!uifile) {
+    report_error("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n");
     gtk_exit(1);
   }
+  if (!gtk_builder_add_from_file( builder, uifile, &error )) {
+    g_warning("%s",error->message);
+    report_error(error->message);
+    gtk_exit(1);
+  }
+
+  g_free(uifile);
 
   vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder,"vol_scale_adjustment"));
   /* get original adjustments */
@@ -230,7 +237,8 @@ static void popup_callback(GObject *widget, guint button,
 
 void do_prefs (void) {
   GtkWidget* pref_window = create_prefs_window();
-  gtk_widget_show(pref_window);
+  if (pref_window)
+    gtk_widget_show(pref_window);
 }
 
 void do_alsa_reinit (void) {
@@ -244,13 +252,23 @@ void create_about (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
   GtkWidget  *about;
+  gchar      *uifile;
+
+  uifile = get_ui_file("about.glade");
+  if (!uifile) {
+    report_error("Can't find about interface file.  Please insure PNMixer is installed correctly.");
+    return;
+  }
   builder = gtk_builder_new();
-  if( ! gtk_builder_add_from_file( builder, "data/about.glade", &error ) ) {
+  if (!gtk_builder_add_from_file( builder, uifile, &error)) {
     g_warning("%s",error->message);
     report_error(error->message);
     g_error_free(error);
+    g_free(uifile);
+    g_object_unref (G_OBJECT (builder));
     return;
   }
+  g_free(uifile);
   gtk_builder_connect_signals(builder, NULL);
   about = GTK_WIDGET(gtk_builder_get_object(builder,"about_dialog"));
   gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about),VERSION);

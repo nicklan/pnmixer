@@ -128,3 +128,18 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
   }
   return return_buf;
 }
+
+/* Return path to ui file, or NULL if file can't be found.
+   Looks first in PACKAGE_DATA_DIR/ui/[file] and then in ./data/[file] */
+gchar* get_ui_file(const char* filename) {
+  gchar* path;
+  path = g_build_filename(PACKAGE_DATA_DIR,"ui",filename,NULL);
+  if (g_file_test (path, G_FILE_TEST_EXISTS))
+    return path;
+  g_free(path);
+  path = g_build_filename(".","data",filename,NULL);
+  if (g_file_test (path, G_FILE_TEST_EXISTS))
+    return path;
+  g_free(path);
+  return NULL;
+}

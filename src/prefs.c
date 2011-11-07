@@ -335,16 +335,27 @@ GtkWidget* create_prefs_window (void) {
 
   GdkColor   vol_meter_color_button_color;
   gint       *vol_meter_clrs;
-  gchar      *vol_cmd;
+  gchar      *vol_cmd,*uifile;
 
   PrefsData  *prefs_data;
 
-  builder = gtk_builder_new();
-  if( ! gtk_builder_add_from_file( builder, "data/prefs.glade", &error ) ) {
-    g_warning("%s",error->message);
-    g_free(error);
+  uifile = get_ui_file("prefs.glade");
+  if (!uifile) {
+    report_error("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n");
     return NULL;
   }
+
+  builder = gtk_builder_new();
+  if (!gtk_builder_add_from_file( builder, uifile, &error)) {
+    g_warning("%s",error->message);
+    report_error(error->message);
+    g_error_free(error);
+    g_free(uifile);
+    g_object_unref (G_OBJECT (builder));
+    return NULL;
+  }
+  
+  g_free(uifile);
 
   prefs_data = g_slice_new(PrefsData);
 #define GO(name) prefs_data->name = GTK_WIDGET(gtk_builder_get_object(builder,#name))
