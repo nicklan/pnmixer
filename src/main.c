@@ -28,18 +28,8 @@
 #include "support.h"
 #include "prefs.h"
 
-#define GLADE_HOOKUP_OBJECT(component,widget,name)			\
-  g_object_set_data_full (G_OBJECT (component), name, gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
-#define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name)	\
-  g_object_set_data (G_OBJECT (component), name, widget)
-GtkStatusIcon *tray_icon = NULL;
-
+static GtkStatusIcon *tray_icon = NULL;
 static GtkWidget *popup_menu;
-static GtkWidget *menuitem_mute = NULL;
-static GtkWidget *menuitem_about = NULL;
-static GtkWidget *menuitem_vol = NULL;
-static GtkWidget *menuitem_prefs = NULL;
-GdkPixbuf *icon0;
 static GdkPixbuf* status_icons[4];
 
 static char err_buf[512];
@@ -209,7 +199,9 @@ void create_popups (void) {
   builder = gtk_builder_new();
   if( ! gtk_builder_add_from_file( builder, "data/popup_window.glade", &error ) ) {
     g_warning("%s",error->message);
-    g_free(error);
+    report_error(error->message);
+    g_error_free(error);
+    gtk_exit(1);
   }
 
   vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder,"vol_scale_adjustment"));
@@ -222,25 +214,16 @@ void create_popups (void) {
   popup_menu = GTK_WIDGET(gtk_builder_get_object(builder,"popup_menu"));
 
   gtk_builder_connect_signals(builder, NULL);
-  //g_object_unref (G_OBJECT (builder));
+  g_object_unref (G_OBJECT (builder));
 
   gtk_widget_grab_focus (vol_scale);
 }
 
 
 static void popup_callback(GObject *widget, guint button,
-			   guint activate_time, gpointer user_data) {
-  GtkWidget *menu = GTK_WIDGET(user_data);
-
-  /*
-  gtk_widget_set_sensitive(menuitem_prefs,TRUE);
-  gtk_widget_set_sensitive(menuitem_about,TRUE);
-  gtk_widget_set_sensitive(menuitem_vol,TRUE);
-  gtk_widget_set_sensitive(menuitem_mute,TRUE);
-  */
+			   guint activate_time, GtkMenu* menu) {
   gtk_widget_hide (popup_window);
-
-  gtk_menu_popup(GTK_MENU(menu), NULL, NULL,
+  gtk_menu_popup(menu, NULL, NULL,
 		 gtk_status_icon_position_menu,
 		 GTK_STATUS_ICON(widget), button, activate_time);
 }
@@ -258,43 +241,23 @@ void do_alsa_reinit (void) {
 }
 
 void create_about (void) {
-  GtkWidget *about;
-  GtkWidget *vbox1;
-  GtkWidget *about_image;
-  GtkWidget *label1,*title_label;
-  gchar title_buf[128];
+  GtkBuilder *builder;
+  GError     *error = NULL;
+  GtkWidget  *about;
+  builder = gtk_builder_new();
+  if( ! gtk_builder_add_from_file( builder, "data/about.glade", &error ) ) {
+    g_warning("%s",error->message);
+    report_error(error->message);
+    g_error_free(error);
+    return;
+  }
+  gtk_builder_connect_signals(builder, NULL);
+  about = GTK_WIDGET(gtk_builder_get_object(builder,"about_dialog"));
+  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about),VERSION);
+  g_object_unref (G_OBJECT (builder));
 
-  about = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (about), _("About PNMixer"));
-
-  vbox1 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (vbox1);
-  gtk_container_add (GTK_CONTAINER (about), vbox1);
-
-  g_snprintf(title_buf,128,"<span font_size=\"x-large\" font_weight=\"bold\">PNMixer %s</span>",VERSION);
-  title_label = gtk_label_new (_(title_buf));
-
-  gtk_widget_show (title_label);
-  gtk_box_pack_start (GTK_BOX (vbox1), title_label, FALSE, FALSE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (title_label), TRUE);
-  gtk_widget_set_size_request (title_label, 250, 70);
-  gtk_label_set_justify (GTK_LABEL (title_label), GTK_JUSTIFY_CENTER);
-
-  about_image = create_pixmap (about, "pnmixer-about.png");
-  gtk_widget_show (about_image);
-  gtk_box_pack_start (GTK_BOX (vbox1), about_image, TRUE, TRUE, 16);
-
-  label1 = gtk_label_new (_("A mixer for the system tray.\nhttp://github.com/nicklan/pnmixer"));
-
-  gtk_widget_show (label1);
-  gtk_box_pack_start (GTK_BOX (vbox1), label1, FALSE, FALSE, 0);
-  gtk_widget_set_size_request (label1, 250, 70);
-  gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_CENTER);
-
-  g_signal_connect ((gpointer) about, "delete_event",G_CALLBACK (gtk_widget_destroy),NULL);
-
-  gtk_widget_show(about);
-
+  gtk_dialog_run (GTK_DIALOG (about));
+  gtk_widget_destroy (about);
 }
 
 
