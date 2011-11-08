@@ -70,7 +70,7 @@ void warn_sound_conn_lost() {
     if (resp == GTK_RESPONSE_YES)
       do_alsa_reinit();
   } else
-    fprintf(stderr,"Warning: Connection to sound system failed, you probably need to restart pnmixer\n");
+    fprintf(stderr,_("Warning: Connection to sound system failed, you probably need to restart pnmixer\n"));
 }
 
 void on_mixer(void) {
@@ -112,14 +112,14 @@ void on_mixer(void) {
 
     if (status) {
       if (status == -1)
-	report_error("An unknown error occured trying to launch your volume control command");
+	report_error(_("An unknown error occured trying to launch your volume control command"));
       else 
-	report_error("Unable to launch volume command \"%s\".\n\n%s",cmd,strerror(WEXITSTATUS(status)));
+	report_error(_("Unable to launch volume command \"%s\".\n\n%s"),cmd,strerror(WEXITSTATUS(status)));
     }
 
     g_free(cmd);
   } else 
-    report_error("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control.");
+    report_error(_("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control."));
 
   gtk_widget_hide (popup_window);
 }
@@ -146,7 +146,7 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
 	if (cc != NULL) {
 	  gchar* cmd = g_strconcat(cc, "&", NULL);
 	  if (system(cmd)) 
-	    report_error("Couldn't execute custom command: \"%s\"\n",cc);
+	    report_error(_("Couldn't execute custom command: \"%s\"\n"),cc);
 	  g_free(cmd);
 	  g_free(cc);
 	}
@@ -200,7 +200,7 @@ void create_popups (void) {
   builder = gtk_builder_new();
   uifile = get_ui_file("popup_window.xml");
   if (!uifile) {
-    report_error("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n");
+    report_error(_("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"));
     gtk_exit(1);
   }
   if (!gtk_builder_add_from_file( builder, uifile, &error )) {
@@ -256,7 +256,7 @@ void create_about (void) {
 
   uifile = get_ui_file("about.xml");
   if (!uifile) {
-    report_error("Can't find about interface file.  Please insure PNMixer is installed correctly.");
+    report_error(_("Can't find about interface file.  Please insure PNMixer is installed correctly."));
     return;
   }
   builder = gtk_builder_new();
@@ -331,7 +331,7 @@ int get_mute_state() {
       icon = status_icons[2];
     else 
       icon = status_icons[3];
-    sprintf(tooltip, "Volume: %d %%", tmpvol);
+    sprintf(tooltip, _("Volume: %d %%"), tmpvol);
 
     if (vol_meter_row) {
       GdkPixbuf* old_icon = icon_copy;
@@ -345,7 +345,7 @@ int get_mute_state() {
   } else {
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), TRUE);
     gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[0]);
-    sprintf(tooltip, "Volume: %d %%\nMuted", tmpvol);
+    sprintf(tooltip, _("Volume: %d %%\nMuted"), tmpvol);
   }
   gtk_status_icon_set_tooltip_text(tray_icon, tooltip);
   return muted;
@@ -461,7 +461,7 @@ int main (int argc, char *argv[]) {
 
 
   if (version) {
-    printf("%s version: %s\n",PACKAGE,VERSION);
+    printf(_("%s version: %s\n"),PACKAGE,VERSION);
     exit(0);
   }
 

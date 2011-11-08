@@ -158,7 +158,7 @@ void on_ok_button_clicked(GtkButton *button,
   gchar* filedata = g_key_file_to_data(keyFile,&len,NULL);
   g_file_set_contents(filename,filedata,len,&err);
   if (err != NULL) {
-    report_error("Couldn't write preferences file: %s\n", err->message);
+    report_error(_("Couldn't write preferences file: %s\n"), err->message);
     g_error_free (err);
   } else 
     apply_prefs(alsa_change);

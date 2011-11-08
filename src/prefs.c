@@ -54,7 +54,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
 
   GtkTreeIter iter;
   gtk_list_store_append(store, &iter);
-  gtk_list_store_set(store, &iter, 0, "PNMixer Icons", -1);
+  gtk_list_store_set(store, &iter, 0, _("PNMixer Icons"), -1);
 
   theme = gtk_icon_theme_get_default();
   index_file = g_key_file_new();
@@ -121,7 +121,7 @@ gint* get_vol_meter_colors() {
   gint* vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
   if (!vol_meter_clrs || (numcols != 3)) {
     if (vol_meter_clrs) { // corrupt value somehow
-      report_error("Invalid color for volume meter in config file.  Reverting to default.");
+      report_error(_("Invalid color for volume meter in config file.  Reverting to default."));
       g_free(vol_meter_clrs);
     }
     vol_meter_clrs = g_malloc(3*sizeof(gint));
@@ -136,7 +136,7 @@ void ensure_prefs_dir(void) {
   gchar* prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
   if (!g_file_test(prefs_dir,G_FILE_TEST_IS_DIR)) {
     if (g_file_test(prefs_dir,G_FILE_TEST_EXISTS)) 
-      report_error("\nError: %s exists but is not a directory, will not be able to save preferences",prefs_dir);
+      report_error(_("\nError: %s exists but is not a directory, will not be able to save preferences"),prefs_dir);
     else {
       if (g_mkdir(prefs_dir,S_IRWXU))
 	report_error("\nCouldn't make prefs directory: %s\n",strerror(errno));
@@ -156,7 +156,7 @@ void load_prefs(void) {
   keyFile = g_key_file_new();
   if (g_file_test(filename,G_FILE_TEST_EXISTS)) {
     if (!g_key_file_load_from_file(keyFile,filename,0,&err)) {
-      report_error("\nCouldn't load preferences file: %s\n", err->message);
+      report_error(_("\nCouldn't load preferences file: %s\n"), err->message);
       g_error_free(err);
       g_key_file_free(keyFile);
       keyFile = NULL;
@@ -164,7 +164,7 @@ void load_prefs(void) {
   }
   else {
     if (!g_key_file_load_from_data(keyFile,DEFAULT_PREFS,strlen(DEFAULT_PREFS),0,&err)) {
-      report_error ("\nCouldn't load default preferences: %s\n", err->message);
+      report_error(_("\nCouldn't load default preferences: %s\n"), err->message);
       g_error_free(err);
       g_key_file_free(keyFile);
       keyFile = NULL;
@@ -341,7 +341,7 @@ GtkWidget* create_prefs_window (void) {
 
   uifile = get_ui_file("prefs.xml");
   if (!uifile) {
-    report_error("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n");
+    report_error(_("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n"));
     return NULL;
   }
 
