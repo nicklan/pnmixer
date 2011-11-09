@@ -10,7 +10,7 @@ desktopdir = $(datadir)/applications
 dist_desktop_DATA = data/pnmixer.desktop
 
 # Install .xml interface files
-uidir = $(DESTDIR)$(pkgdatadir)/ui
+uidir = $(datadir)/pnmixer/ui
 ui_DATA = data/about.xml data/popup_window.xml data/prefs.xml
 
 uninstall-local:
