@@ -4,6 +4,6 @@ src/main.c
 src/callbacks.c
 src/support.c
 src/prefs.c
-[type: gettext/glade] data/about.xml
-[type: gettext/glade] data/popup_window.xml
-[type: gettext/glade] data/prefs.xml
+data/about.xml
+data/popup_window.xml
+data/prefs.xml
