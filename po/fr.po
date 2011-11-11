@@ -36,7 +36,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Impossible de lancer la commande \"%s\" de contrôle du volume.\n
+"Impossible de lancer la commande \"%s\" de contrôle du volume.\n"
 "\n"
 "%s"
 
