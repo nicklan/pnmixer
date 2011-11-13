@@ -25,6 +25,7 @@
 #include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
+#include "hotkeys.h"
 #include "support.h"
 #include "prefs.h"
 
@@ -478,11 +479,14 @@ int main (int argc, char *argv[]) {
   create_popups();
   apply_prefs(0);
 
-  tray_icon = create_tray_icon();        
+  tray_icon = create_tray_icon();
 
   g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), popup_menu);
   g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(tray_icon_on_click), NULL);
   g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(tray_icon_button), NULL);
+
+  // bind our hotkeys
+  grab_keys(popup_window);
 
   gtk_main ();
   alsa_close();
