@@ -32,16 +32,29 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 
   if (type == KeyPress) {
     key = ((XKeyEvent *)xevent)->keycode;
-    keysym = XKeycodeToKeysym(GDK_DISPLAY(), key, 0);
 
-    printf("keycode: %i\n",key);
-    printf("caught keysym %i\n", keysym);
+    if (key == volMuteKey) {
+      setmute();
+      get_mute_state();
+      return GDK_FILTER_CONTINUE;
+    } else {
+      int cv = getvol();
+      if (key == volDownKey) {
+	setvol(cv-2);
+      } 
+      else if (key == volUpKey) {
+	setvol(cv+2);
+      }
+      else printf("Unknown hotkey\n");
 
-    switch (keysym) {
-    case 10:
-      // your key handler code
-      break;
-    } 
+      if (get_mute_state() == 0) {
+	setmute();
+	get_mute_state();
+      }
+
+      // this will set the slider value
+      get_current_levels();
+    }
     return GDK_FILTER_CONTINUE;
   }
 }
