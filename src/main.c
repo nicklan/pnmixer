@@ -21,12 +21,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <gdk/gdkkeysyms.h>
 #include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
-#include "hotkeys.h"
 #include "support.h"
+#include "hotkeys.h"
 #include "prefs.h"
 
 static GtkStatusIcon *tray_icon = NULL;
@@ -439,7 +438,6 @@ static GOptionEntry args[] =
   };
 
 int main (int argc, char *argv[]) {
-  GtkWidget *menu;
   GError *error = NULL;
   GOptionContext *context;
 
@@ -477,6 +475,7 @@ int main (int argc, char *argv[]) {
   cards = NULL; // so we don't try and free on first run
   alsa_init();
   create_popups();
+  add_filter();
   apply_prefs(0);
 
   tray_icon = create_tray_icon();
@@ -484,9 +483,6 @@ int main (int argc, char *argv[]) {
   g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), popup_menu);
   g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(tray_icon_on_click), NULL);
   g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(tray_icon_button), NULL);
-
-  // bind our hotkeys
-  grab_keys(popup_window);
 
   gtk_main ();
   alsa_close();

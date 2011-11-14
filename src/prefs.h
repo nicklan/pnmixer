@@ -15,6 +15,8 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#include "support.h"
+
 GKeyFile* keyFile;
 int scroll_step;
 GtkIconTheme* icon_theme;
@@ -27,5 +29,6 @@ void get_icon_theme();
 gchar* get_vol_command();
 gchar* get_selected_card();
 gchar* get_selected_channel(gchar*);
+void aquire_hotkey(const char*,PrefsData*);
 
 #endif // PREFS_H_

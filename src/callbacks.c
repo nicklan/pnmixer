@@ -12,6 +12,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gdk/gdkx.h>
 #include <alsa/asoundlib.h>
 #include "alsa.h"
 #include "callbacks.h"
@@ -58,6 +59,16 @@ gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
 
   // this will set the slider value
   get_current_levels();
+  return TRUE;
+}
+
+gboolean on_hotkey_button_click(GtkWidget *widget, 
+				GdkEventButton *event, 
+				PrefsData *data) {
+  if (event->button ==1 && 
+      event->type==GDK_2BUTTON_PRESS) 
+    aquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
+		  data);
   return TRUE;
 }
 
@@ -153,6 +164,33 @@ void on_ok_button_clicked(GtkButton *button,
   const gchar* cc = gtk_entry_get_text (GTK_ENTRY(ce));
   g_key_file_set_string(keyFile,"PNMixer","CustomCommand",cc);
 
+
+  // hotkey enable
+  GtkWidget* hkc = data->enable_hotkeys_check;
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hkc));
+  g_key_file_set_boolean(keyFile,"PNMixer","EnableHotKeys",active);
+
+  // scroll step
+  GtkWidget* hs = data->hotkey_spin;
+  gint hotstep = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(hs));
+  g_key_file_set_integer(keyFile,"PNMixer","HotkeyVolumeStep",hotstep);
+
+  // hotkeys
+  gint keysym,keycode;
+  GtkWidget *kl = data->mute_hotkey_label;
+  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,NULL);
+  keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+  g_key_file_set_integer(keyFile,"PNMixer","VolMuteKey",keycode);
+
+  kl = data->up_hotkey_label;
+  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,NULL);
+  keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+  g_key_file_set_integer(keyFile,"PNMixer","VolUpKey",keycode);
+
+  kl = data->down_hotkey_label;
+  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,NULL);
+  keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+  g_key_file_set_integer(keyFile,"PNMixer","VolDownKey",keycode);
 
   gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);
   gchar* filedata = g_key_file_to_data(keyFile,&len,NULL);

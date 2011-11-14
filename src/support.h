@@ -60,6 +60,13 @@ typedef struct {
   GtkWidget* vol_control_entry;
   GtkWidget* scroll_step_spin;
   GtkWidget* middle_click_combo;
+  GtkWidget* enable_hotkeys_check;
+  GtkWidget* hotkey_spin;
+  GtkWidget* hotkey_dialog;
+  GtkWidget* hotkey_key_label;
+  GtkWidget* mute_hotkey_label;
+  GtkWidget* up_hotkey_label;
+  GtkWidget* down_hotkey_label;
 } PrefsData;
 
 

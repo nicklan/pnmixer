@@ -22,19 +22,25 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
+#include <gdk/gdkx.h>
 
 #include "alsa.h"
 #include "callbacks.h"
 #include "prefs.h"
 #include "support.h"
 #include "main.h"
+#include "hotkeys.h"
 
 #define DEFAULT_PREFS "[PNMixer]\n\
 DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
 MouseScrollStep=1\n\
+HotkeyVolumeStep=1\n\
 MiddleClickAction=0\n\
 CustomCommand=\n\
+VolMuteKey=-1\n\
+VolUpKey=-1\n\
+VolDownKey=-1\n\
 AlsaCard=default"
 
 /* Get available icon themes.
@@ -182,6 +188,23 @@ void apply_prefs(gint alsa_change) {
   scroll_step = 1;
   if (g_key_file_has_key(keyFile,"PNMixer","MouseScrollStep",NULL))
     scroll_step = g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL);
+
+  if (g_key_file_get_boolean(keyFile,"PNMixer","EnableHotKeys",NULL)) {
+    gint mk,uk,dk,hstep;
+    mk = uk = dk = -1;
+    hstep = 1;
+    if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL))
+      mk = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL))
+      uk = g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL))
+      dk = g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","HotkeyVolumeStep",NULL))
+      hstep = g_key_file_get_integer(keyFile,"PNMixer", "HotkeyVolumeStep", NULL);
+    grab_keys(mk,uk,dk,hstep);
+  } else 
+    grab_keys(-1,-1,-1,1); // will actually just ungrab everything
+  
   get_icon_theme();
   if (alsa_change)
     alsa_init();
@@ -328,14 +351,99 @@ gchar* get_vol_command() {
   }
 }
 
+void aquire_hotkey(const char* widget_name,
+		   PrefsData *data) {
+  gint resp, action;
+  GtkWidget  *diag = data->hotkey_dialog;
+
+  action = 
+    (!strcmp(widget_name,"mute_eventbox"))?
+    0:
+    (!strcmp(widget_name,"up_eventbox"))?
+    1:
+    (!strcmp(widget_name,"down_eventbox"))?
+    2:-1;
+
+  if (action < 0) {
+    report_error("Invalid widget passed to aquire_hotkey: %s",widget_name);
+    return;
+  }
+
+  switch(action) {
+  case 0:
+    gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),_("Mute/Unmute"));
+    break;
+  case 1:
+    gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),_("Volume Up"));
+    break;
+  case 2:
+    gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),_("Volume Down"));
+    break;
+  default:
+    break;
+  }
+
+  // grab keyboard
+  if (G_LIKELY(gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)), TRUE, GDK_CURRENT_TIME) == GDK_GRAB_SUCCESS)) {
+    guint key;
+    resp = gtk_dialog_run(GTK_DIALOG(diag));
+    gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+    if (resp == GTK_RESPONSE_OK) {
+      const gchar* key_name = gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
+      switch(action) {
+      case 0:
+	gtk_label_set_text(GTK_LABEL(data->mute_hotkey_label),key_name);
+	break;
+      case 1:
+	gtk_label_set_text(GTK_LABEL(data->up_hotkey_label),key_name);
+	break;
+      case 2:
+	gtk_label_set_text(GTK_LABEL(data->down_hotkey_label),key_name);
+	break;
+      default:
+	break;
+      }
+    }
+  }
+  else
+    report_error("%s", _("Could not grab the keyboard."));
+  gtk_widget_hide(diag);
+}
+
+gboolean hotkey_pressed(GtkWidget   *dialog,
+			GdkEventKey *ev,
+			PrefsData   *data) {
+  gchar *key_text = gtk_accelerator_name (ev->keyval, 0);
+  gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),key_text);
+  g_free(key_text);
+  return FALSE;
+}
+
+gboolean hotkey_released(GtkWidget   *dialog,
+			 GdkEventKey *ev,
+			 PrefsData   *data) {
+  gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+  gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+  return FALSE;
+}
+
+static void set_label_for_keycode(GtkWidget* label,gint code) {
+  int keysym;
+  gchar *key_text;
+  if (code < 0) return;
+  keysym = XKeycodeToKeysym(GDK_DISPLAY(), code, 0);
+  key_text = gtk_accelerator_name (keysym, 0);
+  gtk_label_set_text(GTK_LABEL(label),key_text);
+  g_free(key_text);
+}
+
 GtkWidget* create_prefs_window (void) {
-  GtkWidget  *prefs_window;
   GtkBuilder *builder;
   GError     *error = NULL;
 
   GdkColor   vol_meter_color_button_color;
-  gint       *vol_meter_clrs;
-  gchar      *vol_cmd,*uifile;
+  gint       *vol_meter_clrs,hotkey,keysym;
+  gchar      *vol_cmd,*uifile,*key_text;
 
   PrefsData  *prefs_data;
 
@@ -376,6 +484,13 @@ GtkWidget* create_prefs_window (void) {
   GO(vol_control_entry);
   GO(scroll_step_spin);
   GO(middle_click_combo);
+  GO(enable_hotkeys_check);
+  GO(hotkey_spin);
+  GO(hotkey_dialog);
+  GO(hotkey_key_label);
+  GO(mute_hotkey_label);
+  GO(up_hotkey_label);
+  GO(down_hotkey_label);
 #undef GO
 
   // vol text display
@@ -445,9 +560,31 @@ GtkWidget* create_prefs_window (void) {
   on_middle_changed(GTK_COMBO_BOX(prefs_data->middle_click_combo),
 		    prefs_data);
 
+  // hotkeys
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
+     g_key_file_get_boolean(keyFile,"PNMixer","EnableHotKeys",NULL));
+  
+  // hotkey step
+  if (g_key_file_has_key(keyFile,"PNMixer","HotkeyVolumeStep",NULL))
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),
+			      g_key_file_get_integer(keyFile,"PNMixer","HotkeyVolumeStep",NULL));
+  else
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),1);
+
+  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL))
+    set_label_for_keycode(prefs_data->mute_hotkey_label,
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL));
+  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL))
+    set_label_for_keycode(prefs_data->up_hotkey_label,
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL));
+  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL))
+    set_label_for_keycode(prefs_data->down_hotkey_label,
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL));
+
+
   gtk_builder_connect_signals(builder, prefs_data);
   g_object_unref (G_OBJECT (builder));
 
   return prefs_data->prefs_window;
 }
-
