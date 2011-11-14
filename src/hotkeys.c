@@ -9,6 +9,7 @@
  */
 
 #include "main.h"
+#include "alsa.h"
 #include <gdk/gdkx.h>
 
 #ifdef HAVE_CONFIG_H
@@ -23,9 +24,9 @@ static int volUpKey =   123;
 GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 			   gpointer data) {
   int type;
-  int key, keysym;
+  int key;
   XKeyEvent *xevent;
-  gboolean bResult;
+  //gboolean bResult;
 
   xevent = gdk_xevent;
   type = xevent->type;
@@ -55,18 +56,28 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
       // this will set the slider value
       get_current_levels();
     }
-    return GDK_FILTER_CONTINUE;
   }
+  return GDK_FILTER_CONTINUE;
 }
 
 static char xErr;
 int errBufSize = 512;
 char *errBuf,*printBuf;
-static int tryingKey;
+static unsigned long muteSerial,downSerial,upSerial;
+static const char *muteSymStr,*downSymStr,*upSymStr;
 static int errhdl(Display *disp, XErrorEvent *ev) {
   int p;
   xErr = 1;
-  p = snprintf(printBuf,errBufSize,"%s\n",XKeysymToString(XKeycodeToKeysym(GDK_DISPLAY(), tryingKey, 0)));
+  if (ev->serial == muteSerial) 
+    p = snprintf(printBuf,errBufSize," %s\n",muteSymStr);
+  else if (ev->serial == downSerial)
+    p = snprintf(printBuf,errBufSize," %s\n",downSymStr);
+  else if (ev->serial == upSerial)
+    p = snprintf(printBuf,errBufSize," %s\n",upSymStr);
+  else {
+    p = 0;
+    g_warning("Unknown serial in X error handler\n");
+  }
   errBufSize -= p;
   printBuf = printBuf+p;
   return 0;
@@ -89,16 +100,20 @@ void grab_keys(GtkWidget* win) {
   printBuf = errBuf + snprintf(errBuf,errBufSize,"Could not bind the following hotkeys:\n");
   errBufSize -= (printBuf - errBuf);
 
+  muteSymStr = XKeysymToString(XKeycodeToKeysym(GDK_DISPLAY(), volMuteKey, 0));
+  downSymStr = XKeysymToString(XKeycodeToKeysym(GDK_DISPLAY(), volDownKey, 0));
+  upSymStr = XKeysymToString(XKeycodeToKeysym(GDK_DISPLAY(), volUpKey, 0));
+
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
 
-  tryingKey = volMuteKey;
-  XGrabKey(disp,tryingKey,0,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+  muteSerial = NextRequest(disp);
+  XGrabKey(disp,volMuteKey,0,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
 
-  tryingKey = volDownKey;
-  XGrabKey(disp,tryingKey,0,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+  downSerial = NextRequest(disp);
+  XGrabKey(disp,volDownKey,0,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
 
-  tryingKey = volUpKey;
-  XGrabKey(disp,tryingKey,0,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+  upSerial = NextRequest(disp);
+  XGrabKey(disp,volUpKey,0,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
 
   XFlush(disp);
   XSync(disp, False);
