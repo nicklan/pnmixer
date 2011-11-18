@@ -8,6 +8,7 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+#include "support.h"
 #include "main.h"
 #include "alsa.h"
 #include <gdk/gdkx.h>
@@ -123,7 +124,7 @@ void grab_keys(int mk, int uk, int dk,
   
   xErr = 0;
   errBuf = g_malloc(errBufSize*sizeof(gchar));
-  printBuf = errBuf + snprintf(errBuf,errBufSize,"Could not bind the following hotkeys:\n");
+  printBuf = errBuf + snprintf(errBuf,errBufSize,_("Could not bind the following hotkeys:\n"));
   errBufSize -= (printBuf - errBuf);
 
   if (muteSymStr) g_free(muteSymStr);
