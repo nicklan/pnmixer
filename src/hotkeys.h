@@ -12,7 +12,7 @@
 #define HOTKEYS_H_
 
 void add_filter();
-void grab_keys(int,int,int,int);
+void grab_keys(int,int,int,int,int,int,int);
 
 #endif // HOTKEYS_H
 

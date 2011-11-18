@@ -177,20 +177,24 @@ void on_ok_button_clicked(GtkButton *button,
 
   // hotkeys
   gint keysym,keycode;
+  GdkModifierType mods;
   GtkWidget *kl = data->mute_hotkey_label;
-  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,NULL);
+  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
   keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
   g_key_file_set_integer(keyFile,"PNMixer","VolMuteKey",keycode);
+  g_key_file_set_integer(keyFile,"PNMixer","VolMuteMods",mods);
 
   kl = data->up_hotkey_label;
-  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,NULL);
+  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
   keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
   g_key_file_set_integer(keyFile,"PNMixer","VolUpKey",keycode);
+  g_key_file_set_integer(keyFile,"PNMixer","VolUpMods",mods);
 
   kl = data->down_hotkey_label;
-  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,NULL);
+  gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
   keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
   g_key_file_set_integer(keyFile,"PNMixer","VolDownKey",keycode);
+  g_key_file_set_integer(keyFile,"PNMixer","VolDownMods",mods);
 
   gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);
   gchar* filedata = g_key_file_to_data(keyFile,&len,NULL);

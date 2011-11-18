@@ -190,8 +190,9 @@ void apply_prefs(gint alsa_change) {
     scroll_step = g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL);
 
   if (g_key_file_get_boolean(keyFile,"PNMixer","EnableHotKeys",NULL)) {
-    gint mk,uk,dk,hstep;
+    gint mk,uk,dk,mm,um,dm,hstep;
     mk = uk = dk = -1;
+    mm = um = dm = 0;
     hstep = 1;
     if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL))
       mk = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL);
@@ -199,11 +200,17 @@ void apply_prefs(gint alsa_change) {
       uk = g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL);
     if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL))
       dk = g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","VolMuteMods",NULL))
+      mm = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteMods", NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","VolUpMods",NULL))
+      um = g_key_file_get_integer(keyFile,"PNMixer", "VolUpMods", NULL);
+    if (g_key_file_has_key(keyFile,"PNMixer","VolDownMods",NULL))
+      dm = g_key_file_get_integer(keyFile,"PNMixer", "VolDownMods", NULL);
     if (g_key_file_has_key(keyFile,"PNMixer","HotkeyVolumeStep",NULL))
       hstep = g_key_file_get_integer(keyFile,"PNMixer", "HotkeyVolumeStep", NULL);
-    grab_keys(mk,uk,dk,hstep);
+    grab_keys(mk,uk,dk,mm,um,dm,hstep);
   } else 
-    grab_keys(-1,-1,-1,1); // will actually just ungrab everything
+    grab_keys(-1,-1,-1,0,0,0,1); // will actually just ungrab everything
   
   get_icon_theme();
   if (alsa_change)
@@ -413,7 +420,22 @@ void aquire_hotkey(const char* widget_name,
 gboolean hotkey_pressed(GtkWidget   *dialog,
 			GdkEventKey *ev,
 			PrefsData   *data) {
-  gchar *key_text = gtk_accelerator_name (ev->keyval, 0);
+  gchar *key_text;
+  guint keyval;
+  GdkModifierType state,consumed;
+
+  state = ev->state;
+  gdk_keymap_translate_keyboard_state(gdk_keymap_get_default(),
+				      ev->hardware_keycode,
+				      state,
+				      ev->group,
+				      &keyval,
+				      NULL,NULL,&consumed);
+
+  state &= ~consumed;
+  state &= gtk_accelerator_get_default_mod_mask();
+
+  key_text = gtk_accelerator_name (keyval, state);
   gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),key_text);
   g_free(key_text);
   return FALSE;
@@ -427,12 +449,12 @@ gboolean hotkey_released(GtkWidget   *dialog,
   return FALSE;
 }
 
-static void set_label_for_keycode(GtkWidget* label,gint code) {
+static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mods) {
   int keysym;
   gchar *key_text;
   if (code < 0) return;
   keysym = XKeycodeToKeysym(GDK_DISPLAY(), code, 0);
-  key_text = gtk_accelerator_name (keysym, 0);
+  key_text = gtk_accelerator_name (keysym, mods);
   gtk_label_set_text(GTK_LABEL(label),key_text);
   g_free(key_text);
 }
@@ -572,15 +594,27 @@ GtkWidget* create_prefs_window (void) {
   else
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),1);
 
-  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL))
+  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL)) {
+    gint mod = 0;
+    if (g_key_file_has_key(keyFile,"PNMixer","VolMuteMods",NULL)) 
+      mod = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteMods", NULL);
     set_label_for_keycode(prefs_data->mute_hotkey_label,
-			  g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL));
-  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL))
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL),mod);
+  }
+  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL)) {
+    gint mod = 0;
+    if (g_key_file_has_key(keyFile,"PNMixer","VolUpMods",NULL)) 
+      mod = g_key_file_get_integer(keyFile,"PNMixer", "VolUpMods", NULL);
     set_label_for_keycode(prefs_data->up_hotkey_label,
-			  g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL));
-  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL))
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL),mod);
+  }
+  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL)) {
+    gint mod = 0;
+    if (g_key_file_has_key(keyFile,"PNMixer","VolDownMods",NULL)) 
+      mod = g_key_file_get_integer(keyFile,"PNMixer", "VolDownMods", NULL);
     set_label_for_keycode(prefs_data->down_hotkey_label,
-			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL));
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL),mod);
+  }
 
 
   gtk_builder_connect_signals(builder, prefs_data);
