@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-08 12:35+0100\n"
+"POT-Creation-Date: 2011-11-18 15:43+0100\n"
 "PO-Revision-Date: 2011-08-10 19:32+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
@@ -73,16 +73,17 @@ msgid ""
 "Muted"
 msgstr ""
 
-#: ../src/main.c:454
+#: ../src/main.c:453
 msgid "- A mixer for the system tray."
 msgstr "- Ein Mixer für das Benachrichtigungsfeld."
 
-#: ../src/main.c:464
+#: ../src/main.c:463
 #, c-format
 msgid "%s version: %s\n"
 msgstr ""
 
-#: ../src/callbacks.c:161
+#: ../src/callbacks.c:203
+#, c-format
 msgid "Couldn't write preferences file: %s\n"
 msgstr ""
 
@@ -101,40 +102,61 @@ msgstr ""
 msgid "Unable to load icon %s: %s\n"
 msgstr ""
 
-#: ../src/prefs.c:57
+#: ../src/prefs.c:63
 msgid "PNMixer Icons"
 msgstr "PNMixer-Symbole"
 
 #. corrupt value somehow
-#: ../src/prefs.c:124
+#: ../src/prefs.c:130
 msgid "Invalid color for volume meter in config file.  Reverting to default."
 msgstr ""
 
-#: ../src/prefs.c:139
+#: ../src/prefs.c:145
 #, c-format
 msgid ""
 "\n"
 "Error: %s exists but is not a directory, will not be able to save preferences"
 msgstr ""
 
-#: ../src/prefs.c:159
+#: ../src/prefs.c:165
 #, c-format
 msgid ""
 "\n"
 "Couldn't load preferences file: %s\n"
 msgstr ""
 
-#: ../src/prefs.c:167
+#: ../src/prefs.c:173
 #, c-format
 msgid ""
 "\n"
 "Couldn't load default preferences: %s\n"
 msgstr ""
 
-#: ../src/prefs.c:344
+#: ../src/prefs.c:381 ../data/prefs.xml.h:31
+msgid "Mute/Unmute"
+msgstr "Stumm (ein/aus)"
+
+#: ../src/prefs.c:384
+msgid "Volume Up"
+msgstr ""
+
+#: ../src/prefs.c:387
+msgid "Volume Down"
+msgstr ""
+
+#: ../src/prefs.c:416
+msgid "Could not grab the keyboard."
+msgstr ""
+
+#: ../src/prefs.c:474
 msgid ""
 "Can't find preferences user interface file.  Please insure PNMixer is "
 "installed correctly.\n"
+msgstr ""
+
+#: ../src/hotkeys.c:127
+#, c-format
+msgid "Could not bind the following hotkeys:\n"
 msgstr ""
 
 #: ../data/about.xml.h:1
@@ -168,19 +190,22 @@ msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301, USA."
-msgstr "PNMixer ist freie Software, Sie können sie weitergeben und/oder"
-"verändern solange Sie sich an die Regeln der GNU General Public License"
-"halten, so wie sie von der Free Software Foundation festgelegt wurden;"
-"entweder in Version 3 der Lizenz oder (nach Ihrem Ermessen) in jeder folgenden Lizenz.\n"
+msgstr ""
+"PNMixer ist freie Software, Sie können sie weitergeben und/oderverändern "
+"solange Sie sich an die Regeln der GNU General Public Licensehalten, so wie "
+"sie von der Free Software Foundation festgelegt wurden;entweder in Version 3 "
+"der Lizenz oder (nach Ihrem Ermessen) in jeder folgenden Lizenz.\n"
 "\n"
 "PNMixer wurde mit dem Ziel veröffentlicht, dass Sie es nützlich finden,"
-"jedoch OHNE JEDWEDE GARANTIE, sogar ohne eine implizite Garantie"
-"der VERKAUFBARKEIT oder der NUTZBARKEIT FÜR EINEN SPEZIELLEN ZWECK."
-"Schauen Sie für weitere Informationen bitten in der GNU General Public License (GNU GPL) nach.\n"
+"jedoch OHNE JEDWEDE GARANTIE, sogar ohne eine implizite Garantieder "
+"VERKAUFBARKEIT oder der NUTZBARKEIT FÜR EINEN SPEZIELLEN ZWECK.Schauen Sie "
+"für weitere Informationen bitten in der GNU General Public License (GNU GPL) "
+"nach.\n"
 "\n"
-"Mit PNMixer sollten Sie außerdem eine Kopie der GNU General Public License erhalten"
-"haben. Wenn dem nicht so ist, so schreiben Sie bitte an die Free Software Foundation, Inc.,"
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+"Mit PNMixer sollten Sie außerdem eine Kopie der GNU General Public License "
+"erhaltenhaben. Wenn dem nicht so ist, so schreiben Sie bitte an die Free "
+"Software Foundation, Inc.,51 Franklin Street, Fifth Floor, Boston, MA "
+"02110-1301, USA."
 
 #: ../data/popup_window.xml.h:1
 msgid "About"
@@ -218,71 +243,99 @@ msgstr "Lautstärkeregler …"
 msgid "_Mute/Unmute"
 msgstr "Stumm (ein/aus)"
 
-#: ../data/popup_window.xml.h:11
+#: ../data/popup_window.xml.h:10
 msgid "_Reload Alsa"
 msgstr ""
 
-#: ../data/popup_window.xml.h:12
+#: ../data/popup_window.xml.h:11
 msgid "_Volume Control"
 msgstr "Lautstärkeregler"
 
 #: ../data/prefs.xml.h:1
+msgid "(None)"
+msgstr ""
+
+#: ../data/prefs.xml.h:2
+msgid "(Unknown)"
+msgstr ""
+
+#: ../data/prefs.xml.h:3
+msgid "<b>HotKey Settings</b>"
+msgstr ""
+
+#: ../data/prefs.xml.h:4
+msgid "<b>Hotkeys</b>"
+msgstr ""
+
+#: ../data/prefs.xml.h:5
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Symbolthema</b>"
 
-#: ../data/prefs.xml.h:2
+#: ../data/prefs.xml.h:6
 msgid "<b>Mouse</b>"
 msgstr "<b>Maus</b>"
 
-#: ../data/prefs.xml.h:3
+#: ../data/prefs.xml.h:7
 msgid "<b>Sound Device</b>"
 msgstr "<b>Alsa-Gerät</b>"
 
-#: ../data/prefs.xml.h:4
+#: ../data/prefs.xml.h:8
 msgid "<b>Text</b>"
 msgstr "<b>Text</b>"
 
-#: ../data/prefs.xml.h:5
+#: ../data/prefs.xml.h:9
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Befehl zur Lautstärkeregelung</b>"
 
-#: ../data/prefs.xml.h:6
+#: ../data/prefs.xml.h:10
 msgid "<b>Volume Meter</b>"
 msgstr ""
 
-#: ../data/prefs.xml.h:7
+#: ../data/prefs.xml.h:11
 msgid "Behavior"
 msgstr ""
 
-#: ../data/prefs.xml.h:8
+#: ../data/prefs.xml.h:12
 msgid "Bottom"
 msgstr "Unten"
 
-#: ../data/prefs.xml.h:9
+#: ../data/prefs.xml.h:13
 msgid "Card:"
 msgstr "Karte:"
 
-#: ../data/prefs.xml.h:10
+#: ../data/prefs.xml.h:14
 msgid "Channel:"
 msgstr "Kanal:"
 
-#: ../data/prefs.xml.h:11
+#: ../data/prefs.xml.h:15
+msgid "Command"
+msgstr ""
+
+#: ../data/prefs.xml.h:16
 msgid "Custom (set below)"
 msgstr "Benutzerdefiniert (siehe unten)"
 
-#: ../data/prefs.xml.h:12
+#: ../data/prefs.xml.h:17
 msgid "Custom Command:"
 msgstr "Benutzerdefinierter Befehl:"
 
-#: ../data/prefs.xml.h:13
+#: ../data/prefs.xml.h:18
+msgid "Defining HotKey"
+msgstr ""
+
+#: ../data/prefs.xml.h:19
 msgid "Device"
 msgstr ""
 
-#: ../data/prefs.xml.h:14
+#: ../data/prefs.xml.h:20
 msgid "Display Text Volume"
 msgstr "Lautstärke als Text anzeigen"
 
-#: ../data/prefs.xml.h:15
+#: ../data/prefs.xml.h:21
+msgid "Double click a HotKey to assign a new Hotkey"
+msgstr ""
+
+#: ../data/prefs.xml.h:22
 msgid ""
 "Draw Volume Meter on Tray Icon\n"
 "(Will cause slightly higher CPU usage)"
@@ -290,54 +343,86 @@ msgstr ""
 "Lautstärkeskala im Benachrichtigungsfeld anzeigen\n"
 "(verursacht geringfügig höhere CPU-/Speicherlast)"
 
-#: ../data/prefs.xml.h:17
-msgid "Left"
-msgstr "Links"
-
-#: ../data/prefs.xml.h:18
-msgid "Middle Click Action:"
-msgstr "Aktion bei Mittelklick:"
-
-#: ../data/prefs.xml.h:19
-msgid "Mouse Scroll Step:"
-msgstr "Schrittweite des Mausrades:"
-
-#: ../data/prefs.xml.h:20
-msgid "Mute/Unmute"
-msgstr "Stumm (ein/aus)"
-
-#: ../data/prefs.xml.h:21
-msgid "PNMixer Prefrences"
-msgstr "PNMixer-Einstellungen"
-
-#: ../data/prefs.xml.h:22
-msgid "Right"
-msgstr "Rechts"
-
-#: ../data/prefs.xml.h:23
-msgid "Show Preferences"
-msgstr "Einstellungen anzeigen"
-
 #: ../data/prefs.xml.h:24
-msgid "Top"
-msgstr "Oben"
+msgid "Enable HotKeys"
+msgstr ""
 
 #: ../data/prefs.xml.h:25
-msgid "View"
+msgid "HotKey"
 msgstr ""
 
 #: ../data/prefs.xml.h:26
+msgid "HotKey Volume Step:"
+msgstr ""
+
+#: ../data/prefs.xml.h:27
+msgid "Hotkeys"
+msgstr ""
+
+#: ../data/prefs.xml.h:28
+msgid "Left"
+msgstr "Links"
+
+#: ../data/prefs.xml.h:29
+msgid "Middle Click Action:"
+msgstr "Aktion bei Mittelklick:"
+
+#: ../data/prefs.xml.h:30
+msgid "Mouse Scroll Step:"
+msgstr "Schrittweite des Mausrades:"
+
+#: ../data/prefs.xml.h:32
+msgid "Mute/Unmute:"
+msgstr "Stumm (ein/aus)"
+
+#: ../data/prefs.xml.h:33
+msgid "PNMixer Preferences"
+msgstr "PNMixer-Einstellungen"
+
+#: ../data/prefs.xml.h:34
+msgid "Press new HotKey for:"
+msgstr ""
+
+#: ../data/prefs.xml.h:35
+msgid "Right"
+msgstr "Rechts"
+
+#: ../data/prefs.xml.h:36
+msgid "Set Hotkey"
+msgstr ""
+
+#: ../data/prefs.xml.h:37
+msgid "Show Preferences"
+msgstr "Einstellungen anzeigen"
+
+#: ../data/prefs.xml.h:38
+msgid "Top"
+msgstr "Oben"
+
+#: ../data/prefs.xml.h:39
+msgid "View"
+msgstr ""
+
+#: ../data/prefs.xml.h:40
 msgid "Volume Control"
 msgstr "Lautstärkeregler"
 
-#: ../data/prefs.xml.h:27
+#: ../data/prefs.xml.h:41
+msgid "Volume Down:"
+msgstr ""
+
+#: ../data/prefs.xml.h:42
 msgid "Volume Meter Color:"
 msgstr "Lautstärkeskala-Farbe:"
 
-#: ../data/prefs.xml.h:28
+#: ../data/prefs.xml.h:43
 msgid "Volume Meter Offset:"
 msgstr "Lautstärkeskala-Versatz:"
 
-#: ../data/prefs.xml.h:29
+#: ../data/prefs.xml.h:44
 msgid "Volume Text Position:"
 msgstr "Lautstärkeregler-Textposition:"
+
+#: ../data/prefs.xml.h:45
+msgid "Volume Up:"
+msgstr ""

@@ -4,6 +4,7 @@ src/main.c
 src/callbacks.c
 src/support.c
 src/prefs.c
+src/hotkeys.c
 data/about.xml
 data/popup_window.xml
 data/prefs.xml
