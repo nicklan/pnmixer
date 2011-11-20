@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-09 11:15+0100\n"
+"POT-Creation-Date: 2011-11-18 15:43+0100\n"
 "PO-Revision-Date: 2011-09-04 22:32+0100\n"
-"Last-Translator: Matthieu Bresson <apoptose@talkr.im>\n"
+"Last-Translator: Matthieu Bresson <apoptose@jappix.com>\n"
 "Language-Team: Français <gnome-fr@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,14 @@ msgid ""
 "Warning: Connection to sound system failed, you probably need to restart "
 "pnmixer\n"
 msgstr ""
-"Attention : la connection au système sonore a échoué, vous avez sans doute besoin de relancer "
-"PNMixer.\n"
+"Attention : la connection au système sonore a échoué, vous avez sans doute "
+"besoin de relancer PNMixer.\n"
 
 #: ../src/main.c:115
 msgid "An unknown error occured trying to launch your volume control command"
-msgstr "Erreur d'origine inconnue rencontrée au moment de lancer votre commande de contrôle du volume."
+msgstr ""
+"Erreur d'origine inconnue rencontrée au moment de lancer votre commande de "
+"contrôle du volume."
 
 #: ../src/main.c:117
 #, c-format
@@ -51,8 +53,8 @@ msgstr ""
 "\n"
 "Aucun mixeur audio n'a été trouvé sur votre système.\n"
 "\n"
-"Veuillez renseigner dans les paramètres de PNMixer la commande que vous souhaitez employer pour contrôler le volume "
-"sonore."
+"Veuillez renseigner dans les paramètres de PNMixer la commande que vous "
+"souhaitez employer pour contrôler le volume sonore."
 
 #: ../src/main.c:149
 #, c-format
@@ -63,16 +65,17 @@ msgstr "Impossible d'exécuter la commande suivante : \"%s\".\n"
 msgid ""
 "Can't find main user interface file.  Please insure PNMixer is installed "
 "correctly.  Exiting\n"
-msgstr "Fichier d'interface \"popup_window.xml\" manquant. Veuillez vous assurer que PNMixer est correctement "
-"installé. Arrêt.\n"
+msgstr ""
+"Fichier d'interface \"popup_window.xml\" manquant. Veuillez vous assurer que "
+"PNMixer est correctement installé. Arrêt.\n"
 
 #: ../src/main.c:259
 msgid ""
 "Can't find about interface file.  Please insure PNMixer is installed "
 "correctly."
 msgstr ""
-"Fichier d'interface \"about.xml\" manquant. Veuillez vous assurer que PNMixer est correctement "
-"installé."
+"Fichier d'interface \"about.xml\" manquant. Veuillez vous assurer que "
+"PNMixer est correctement installé."
 
 #: ../src/main.c:334
 #, c-format
@@ -84,19 +87,20 @@ msgstr "Volume : %d %%"
 msgid ""
 "Volume: %d %%\n"
 "Muted"
-msgstr "Volume : %d %%\n"
+msgstr ""
+"Volume : %d %%\n"
 "Muet actif."
 
-#: ../src/main.c:454
+#: ../src/main.c:453
 msgid "- A mixer for the system tray."
 msgstr "- Un mixeur audio pour la zone de notifications."
 
-#: ../src/main.c:464
+#: ../src/main.c:463
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s en version %s.\n"
 
-#: ../src/callbacks.c:161
+#: ../src/callbacks.c:203
 #, c-format
 msgid "Couldn't write preferences file: %s\n"
 msgstr "Impossible d'écrire dans le fichier des paramètres \"%s\".\n"
@@ -116,25 +120,29 @@ msgstr "Le chargement du fichier pixbuf \"%s\" a échoué : %s\n"
 msgid "Unable to load icon %s: %s\n"
 msgstr "Impossible de charger l'icône \"%s\" : %s\n"
 
-#: ../src/prefs.c:57
+#: ../src/prefs.c:63
 msgid "PNMixer Icons"
 msgstr "Jeu d'icônes PNMixer"
 
 #. corrupt value somehow
-#: ../src/prefs.c:124
+#: ../src/prefs.c:130
 msgid "Invalid color for volume meter in config file.  Reverting to default."
-msgstr "Couleur invalide renseignée dans le fichier de configuration pour l'échelle du volume. Retour aux valeurs par défaut."
+msgstr ""
+"Couleur invalide renseignée dans le fichier de configuration pour l'échelle "
+"du volume. Retour aux valeurs par défaut."
 
-#: ../src/prefs.c:139
+#: ../src/prefs.c:145
 #, c-format
 msgid ""
 "\n"
 "Error: %s exists but is not a directory, will not be able to save preferences"
 msgstr ""
 "\n"
-"\nErreur : \"%s\" existe mais n'est pas un répertoire. Impossible de sauvegarder les paramètres"
+"\n"
+"Erreur : \"%s\" existe mais n'est pas un répertoire. Impossible de "
+"sauvegarder les paramètres"
 
-#: ../src/prefs.c:159
+#: ../src/prefs.c:165
 #, c-format
 msgid ""
 "\n"
@@ -143,7 +151,7 @@ msgstr ""
 "\n"
 "Impossible de charger le fichier des paramètres : %s\n"
 
-#: ../src/prefs.c:167
+#: ../src/prefs.c:173
 #, c-format
 msgid ""
 "\n"
@@ -152,12 +160,34 @@ msgstr ""
 "\n"
 "Impossible de charger les paramètres par défaut : %s\n"
 
-#: ../src/prefs.c:344
+#: ../src/prefs.c:381 ../data/prefs.xml.h:31
+msgid "Mute/Unmute"
+msgstr "Muet actif/inactif"
+
+#: ../src/prefs.c:384
+msgid "Volume Up"
+msgstr "Augmenter le volume"
+
+#: ../src/prefs.c:387
+msgid "Volume Down"
+msgstr "Diminuer le volume"
+
+#: ../src/prefs.c:416
+msgid "Could not grab the keyboard."
+msgstr "Impossible d'accéder au clavier."
+
+#: ../src/prefs.c:474
 msgid ""
 "Can't find preferences user interface file.  Please insure PNMixer is "
 "installed correctly.\n"
 msgstr ""
-"Impossible de trouver le fichier d'interface \"prefs.xml\". Veuillez vous assurer que PNMixer est correctement installé.\n"
+"Impossible de trouver le fichier d'interface \"prefs.xml\". Veuillez vous "
+"assurer que PNMixer est correctement installé.\n"
+
+#: ../src/hotkeys.c:127
+#, c-format
+msgid "Could not bind the following hotkeys:\n"
+msgstr "Impossible d'assigner les touches suivantes :\n"
 
 #: ../data/about.xml.h:1
 msgid "A mixer for the system tray."
@@ -250,117 +280,178 @@ msgid "_Volume Control"
 msgstr "_Contrôle du volume"
 
 #: ../data/prefs.xml.h:1
+msgid "(None)"
+msgstr "(Indéfini)"
+
+#: ../data/prefs.xml.h:2
+msgid "(Unknown)"
+msgstr "(Inconnu)"
+
+#: ../data/prefs.xml.h:3
+msgid "<b>HotKey Settings</b>"
+msgstr "<b>Paramètres des touches multimédia</b>"
+
+#: ../data/prefs.xml.h:4
+msgid "<b>Hotkeys</b>"
+msgstr "<b>Touches multimédia</b>"
+
+#: ../data/prefs.xml.h:5
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Thème d'icônes</b>"
 
-#: ../data/prefs.xml.h:2
+#: ../data/prefs.xml.h:6
 msgid "<b>Mouse</b>"
 msgstr "<b>Souris</b>"
 
-#: ../data/prefs.xml.h:3
+#: ../data/prefs.xml.h:7
 msgid "<b>Sound Device</b>"
 msgstr "<b>Matériel audio</b>"
 
-#: ../data/prefs.xml.h:4
+#: ../data/prefs.xml.h:8
 msgid "<b>Text</b>"
 msgstr "<b>Texte</b>"
 
-#: ../data/prefs.xml.h:5
+#: ../data/prefs.xml.h:9
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Commande pour le contrôle du volume</b>"
 
-#: ../data/prefs.xml.h:6
+#: ../data/prefs.xml.h:10
 msgid "<b>Volume Meter</b>"
 msgstr "<b>Échelle du volume</b>"
 
-#: ../data/prefs.xml.h:7
+#: ../data/prefs.xml.h:11
 msgid "Behavior"
 msgstr "Comportement"
 
-#: ../data/prefs.xml.h:8
+#: ../data/prefs.xml.h:12
 msgid "Bottom"
 msgstr "En bas"
 
-#: ../data/prefs.xml.h:9
+#: ../data/prefs.xml.h:13
 msgid "Card:"
 msgstr "Carte :"
 
-#: ../data/prefs.xml.h:10
+#: ../data/prefs.xml.h:14
 msgid "Channel:"
 msgstr "Canal :"
 
-#: ../data/prefs.xml.h:11
+#: ../data/prefs.xml.h:15
+msgid "Command"
+msgstr "Commande"
+
+#: ../data/prefs.xml.h:16
 msgid "Custom (set below)"
 msgstr "Autre (renseigner en-dessous)"
 
-#: ../data/prefs.xml.h:12
+#: ../data/prefs.xml.h:17
 msgid "Custom Command:"
 msgstr "Commande personnalisée :"
 
-#: ../data/prefs.xml.h:13
+#: ../data/prefs.xml.h:18
+msgid "Defining HotKey"
+msgstr "Définition du raccourci"
+
+#: ../data/prefs.xml.h:19
 msgid "Device"
 msgstr "Matériel"
 
-#: ../data/prefs.xml.h:14
+#: ../data/prefs.xml.h:20
 msgid "Display Text Volume"
 msgstr "Afficher un texte pour le volume sonore"
 
-#: ../data/prefs.xml.h:15
+#: ../data/prefs.xml.h:21
+msgid "Double click a HotKey to assign a new Hotkey"
+msgstr "Double cliquer sur un raccourci pour l'assigner"
+
+#: ../data/prefs.xml.h:22
 msgid ""
 "Draw Volume Meter on Tray Icon\n"
 "(Will cause slightly higher CPU usage)"
 msgstr ""
-"Afficher une illustration du volume sonore sur l'icône de la zone de notifications\n"
+"Afficher une illustration du volume sonore sur l'icône de la zone de "
+"notifications\n"
 "(utilisera un peu plus le CPU)"
 
-#: ../data/prefs.xml.h:17
+#: ../data/prefs.xml.h:24
+msgid "Enable HotKeys"
+msgstr "Autoriser les touches multimédia"
+
+#: ../data/prefs.xml.h:25
+msgid "HotKey"
+msgstr "Raccourci"
+
+#: ../data/prefs.xml.h:26
+msgid "HotKey Volume Step:"
+msgstr "Pas d'incrément du volume sur appui d'une touche :"
+
+#: ../data/prefs.xml.h:27
+msgid "Hotkeys"
+msgstr "Touches multimédia"
+
+#: ../data/prefs.xml.h:28
 msgid "Left"
 msgstr "À gauche"
 
-#: ../data/prefs.xml.h:18
+#: ../data/prefs.xml.h:29
 msgid "Middle Click Action:"
 msgstr "Action du clic du milieu :"
 
-#: ../data/prefs.xml.h:19
+#: ../data/prefs.xml.h:30
 msgid "Mouse Scroll Step:"
-msgstr "Influence de la molette sur le volume :"
+msgstr "Pas d'incrément du volume à la molette :"
 
-#: ../data/prefs.xml.h:20
-msgid "Mute/Unmute"
-msgstr "Muet actif/inactif"
+#: ../data/prefs.xml.h:32
+msgid "Mute/Unmute:"
+msgstr "Muet actif/inactif:"
 
-#: ../data/prefs.xml.h:21
+#: ../data/prefs.xml.h:33
 msgid "PNMixer Preferences"
 msgstr "Paramètres de PNMixer"
 
-#: ../data/prefs.xml.h:22
+#: ../data/prefs.xml.h:34
+msgid "Press new HotKey for:"
+msgstr "Choisir la touche multimédia pour :"
+
+#: ../data/prefs.xml.h:35
 msgid "Right"
 msgstr "À droite"
 
-#: ../data/prefs.xml.h:23
+#: ../data/prefs.xml.h:36
+msgid "Set Hotkey"
+msgstr "Assignation d'une touche multimédia"
+
+#: ../data/prefs.xml.h:37
 msgid "Show Preferences"
 msgstr "Montrer les paramètres"
 
-#: ../data/prefs.xml.h:24
+#: ../data/prefs.xml.h:38
 msgid "Top"
 msgstr "En haut"
 
-#: ../data/prefs.xml.h:25
+#: ../data/prefs.xml.h:39
 msgid "View"
 msgstr "Affichage"
 
-#: ../data/prefs.xml.h:26
+#: ../data/prefs.xml.h:40
 msgid "Volume Control"
 msgstr "Contrôle du volume"
 
-#: ../data/prefs.xml.h:27
+#: ../data/prefs.xml.h:41
+msgid "Volume Down:"
+msgstr "Diminuer le volume"
+
+#: ../data/prefs.xml.h:42
 msgid "Volume Meter Color:"
 msgstr "Couleur de l'échelle de volume :"
 
-#: ../data/prefs.xml.h:28
+#: ../data/prefs.xml.h:43
 msgid "Volume Meter Offset:"
 msgstr "Décalage horizontal de l'échelle du volume :"
 
-#: ../data/prefs.xml.h:29
+#: ../data/prefs.xml.h:44
 msgid "Volume Text Position:"
 msgstr "Position du texte pour le volume sonore :"
+
+#: ../data/prefs.xml.h:45
+msgid "Volume Up:"
+msgstr "Augmenter le volume"
