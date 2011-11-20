@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-18 15:43+0100\n"
 "PO-Revision-Date: 2011-09-04 22:32+0100\n"
-"Last-Translator: Matthieu Bresson <apoptose@talkr.im>\n"
+"Last-Translator: Matthieu Bresson <apoptose@jappix.com>\n"
 "Language-Team: Français <gnome-fr@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -166,15 +166,15 @@ msgstr "Muet actif/inactif"
 
 #: ../src/prefs.c:384
 msgid "Volume Up"
-msgstr ""
+msgstr "Augmenter le volume"
 
 #: ../src/prefs.c:387
 msgid "Volume Down"
-msgstr ""
+msgstr "Diminuer le volume"
 
 #: ../src/prefs.c:416
 msgid "Could not grab the keyboard."
-msgstr ""
+msgstr "Impossible d'accéder au clavier."
 
 #: ../src/prefs.c:474
 msgid ""
@@ -187,7 +187,7 @@ msgstr ""
 #: ../src/hotkeys.c:127
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
-msgstr ""
+msgstr "Impossible d'assigner les touches suivantes :\n"
 
 #: ../data/about.xml.h:1
 msgid "A mixer for the system tray."
@@ -281,19 +281,19 @@ msgstr "_Contrôle du volume"
 
 #: ../data/prefs.xml.h:1
 msgid "(None)"
-msgstr ""
+msgstr "(Indéfini)"
 
 #: ../data/prefs.xml.h:2
 msgid "(Unknown)"
-msgstr ""
+msgstr "(Inconnu)"
 
 #: ../data/prefs.xml.h:3
 msgid "<b>HotKey Settings</b>"
-msgstr ""
+msgstr "<b>Paramètres des touches multimédia</b>"
 
 #: ../data/prefs.xml.h:4
 msgid "<b>Hotkeys</b>"
-msgstr ""
+msgstr "<b>Touches multimédia</b>"
 
 #: ../data/prefs.xml.h:5
 msgid "<b>Icon Theme</b>"
@@ -349,7 +349,7 @@ msgstr "Commande personnalisée :"
 
 #: ../data/prefs.xml.h:18
 msgid "Defining HotKey"
-msgstr ""
+msgstr "Définition du raccourci"
 
 #: ../data/prefs.xml.h:19
 msgid "Device"
@@ -361,7 +361,7 @@ msgstr "Afficher un texte pour le volume sonore"
 
 #: ../data/prefs.xml.h:21
 msgid "Double click a HotKey to assign a new Hotkey"
-msgstr ""
+msgstr "Double cliquer sur un raccourci pour l'assigner"
 
 #: ../data/prefs.xml.h:22
 msgid ""
@@ -374,19 +374,19 @@ msgstr ""
 
 #: ../data/prefs.xml.h:24
 msgid "Enable HotKeys"
-msgstr ""
+msgstr "Autoriser les touches multimédia"
 
 #: ../data/prefs.xml.h:25
 msgid "HotKey"
-msgstr ""
+msgstr "Raccourci"
 
 #: ../data/prefs.xml.h:26
 msgid "HotKey Volume Step:"
-msgstr ""
+msgstr "Pas d'incrément du volume sur appui d'une touche :"
 
 #: ../data/prefs.xml.h:27
 msgid "Hotkeys"
-msgstr ""
+msgstr "Touches multimédia"
 
 #: ../data/prefs.xml.h:28
 msgid "Left"
@@ -398,7 +398,7 @@ msgstr "Action du clic du milieu :"
 
 #: ../data/prefs.xml.h:30
 msgid "Mouse Scroll Step:"
-msgstr "Influence de la molette sur le volume :"
+msgstr "Pas d'incrément du volume à la molette :"
 
 #: ../data/prefs.xml.h:32
 msgid "Mute/Unmute:"
@@ -410,7 +410,7 @@ msgstr "Paramètres de PNMixer"
 
 #: ../data/prefs.xml.h:34
 msgid "Press new HotKey for:"
-msgstr ""
+msgstr "Choisir la touche multimédia pour :"
 
 #: ../data/prefs.xml.h:35
 msgid "Right"
@@ -418,7 +418,7 @@ msgstr "À droite"
 
 #: ../data/prefs.xml.h:36
 msgid "Set Hotkey"
-msgstr ""
+msgstr "Assignation d'une touche"
 
 #: ../data/prefs.xml.h:37
 msgid "Show Preferences"
@@ -438,7 +438,7 @@ msgstr "Contrôle du volume"
 
 #: ../data/prefs.xml.h:41
 msgid "Volume Down:"
-msgstr ""
+msgstr "Diminuer le volume"
 
 #: ../data/prefs.xml.h:42
 msgid "Volume Meter Color:"
@@ -454,4 +454,4 @@ msgstr "Position du texte pour le volume sonore :"
 
 #: ../data/prefs.xml.h:45
 msgid "Volume Up:"
-msgstr ""
+msgstr "Augmenter le volume"
