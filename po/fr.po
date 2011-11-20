@@ -418,7 +418,7 @@ msgstr "À droite"
 
 #: ../data/prefs.xml.h:36
 msgid "Set Hotkey"
-msgstr "Assignation d'une touche multimédia"
+msgstr "Assignation d'une touche"
 
 #: ../data/prefs.xml.h:37
 msgid "Show Preferences"
