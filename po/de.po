@@ -22,10 +22,30 @@ msgid ""
 "Warning: Connection to sound system failed, you probably need to restart "
 "pnmixer\n"
 msgstr ""
+"Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
+"Wahrscheinlich müssen Sie PNmixer neustarten\n"
+
+#: ../src/main.c:62
+msgid "Warning: Connection to sound system failed."
+msgstr "Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
+
+#: ../src/main.c:64
+#, c-format
+msgid ""
+"Do you want to re-initialize the connection to alsa?\n\n"
+"If you do not, you will either need to restart PNMixer "
+"or select the 'Reload Alsa' option in the right click "
+"menu in order for PNMixer to function."
+msgstr ""
+"Möchten Sie die Verbindung zu Alsa wieder aufbauen?\n\n"
+"Wenn nicht, müssen Sie weder PNMixer neustarten noch "
+"die 'Alsa Neuladen' option im rechtsclickmenu auswählen "
+"damit PNMixer funktioniert."
 
 #: ../src/main.c:115
 msgid "An unknown error occured trying to launch your volume control command"
-msgstr ""
+msgstr "Ein unbekannter Fehler ist aufgetreten bei dem Versuch volume control"
+" command zu öffnen"
 
 #: ../src/main.c:117
 #, c-format
@@ -34,6 +54,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Volume Befehl konnte nicht geöffnet werden \"%s\".\n"
+"\n"
+"%s"
 
 #: ../src/main.c:122
 msgid ""
@@ -43,35 +66,44 @@ msgid ""
 "Please open preferences and set the command you want to run for volume "
 "control."
 msgstr ""
+"\n"
+"Es konnte keine mixer application auf Ihrem Computer gefunden werden.\n"
+"\n"
+"Bitte öffen Sie Einstellungen und wählen Sie den Befehl für den Betrieb"
+" von Volume Control"
 
 #: ../src/main.c:149
 #, c-format
 msgid "Couldn't execute custom command: \"%s\"\n"
-msgstr ""
+msgstr "Benutzerdefiniert Befehl konnte nicht geöffnet werden \"%s\".\n"
 
 #: ../src/main.c:203
 msgid ""
 "Can't find main user interface file.  Please insure PNMixer is installed "
 "correctly.  Exiting\n"
 msgstr ""
+"Konnte die Datei Hauptbenutzeroberfläche nicht finden.  Bitte stellen Sie sicher, dass "
+"PNMixer korrekt installiert ist.  Programm wird beendet.\n"
 
 #: ../src/main.c:259
 msgid ""
 "Can't find about interface file.  Please insure PNMixer is installed "
 "correctly."
-msgstr ""
+msgstr "Konnte die Datei Info-Oberfläche nicht finden.  Bitte stellen Sie sicher, dass "
+"PNMixer korrekt installiert ist."
 
 #: ../src/main.c:334
 #, c-format
 msgid "Volume: %d %%"
-msgstr ""
+msgstr "Lautstärke: %d %%"
 
 #: ../src/main.c:348
 #, c-format
 msgid ""
 "Volume: %d %%\n"
 "Muted"
-msgstr ""
+msgstr "Lautstärke: %d %%\n"
+"Stumm geschaltet"
 
 #: ../src/main.c:453
 msgid "- A mixer for the system tray."
@@ -80,12 +112,12 @@ msgstr "- Ein Mixer für das Benachrichtigungsfeld."
 #: ../src/main.c:463
 #, c-format
 msgid "%s version: %s\n"
-msgstr ""
+msgstr "%s version: %s\n"
 
 #: ../src/callbacks.c:203
 #, c-format
 msgid "Couldn't write preferences file: %s\n"
-msgstr ""
+msgstr "Konnte keine Datei Einstellungen herstellen: %s\n"
 
 #: ../src/support.c:66 ../src/support.c:88
 #, c-format
@@ -95,12 +127,12 @@ msgstr "Pixmap-Datei konnte nicht gefunden werden: %s"
 #: ../src/support.c:95
 #, c-format
 msgid "Failed to load pixbuf file: %s: %s\n"
-msgstr ""
+msgstr "Pixbuf-Datei konnte nicht geladen werden: %s: %s\n"
 
 #: ../src/support.c:112
 #, c-format
 msgid "Unable to load icon %s: %s\n"
-msgstr ""
+msgstr "Symbol konnte nicht geladen werden: %s: %s\n"
 
 #: ../src/prefs.c:63
 msgid "PNMixer Icons"
@@ -109,7 +141,8 @@ msgstr "PNMixer-Symbole"
 #. corrupt value somehow
 #: ../src/prefs.c:130
 msgid "Invalid color for volume meter in config file.  Reverting to default."
-msgstr ""
+msgstr "Ungültige Farbe für Lautstärkeskala im Konfiguration. Zurückkehren zu "
+"der Standard Einstellungen"
 
 #: ../src/prefs.c:145
 #, c-format
@@ -117,6 +150,9 @@ msgid ""
 "\n"
 "Error: %s exists but is not a directory, will not be able to save preferences"
 msgstr ""
+"\n"
+"Fehler: %s existiert aber ist kein Ordner.  Einstellungen konnten nicht "
+"gespeichert werden"
 
 #: ../src/prefs.c:165
 #, c-format
@@ -124,6 +160,8 @@ msgid ""
 "\n"
 "Couldn't load preferences file: %s\n"
 msgstr ""
+"\n"
+"Datei Einstellungen konnte nicht geladen werden: %s\n"
 
 #: ../src/prefs.c:173
 #, c-format
@@ -131,6 +169,8 @@ msgid ""
 "\n"
 "Couldn't load default preferences: %s\n"
 msgstr ""
+"\n"
+"Standard Einstellungen konnten nicht geladen werden: %s\n"
 
 #: ../src/prefs.c:381 ../data/prefs.xml.h:31
 msgid "Mute/Unmute"
@@ -138,26 +178,28 @@ msgstr "Stumm (ein/aus)"
 
 #: ../src/prefs.c:384
 msgid "Volume Up"
-msgstr ""
+msgstr "Lauter"
 
 #: ../src/prefs.c:387
 msgid "Volume Down"
-msgstr ""
+msgstr "Leiser"
 
 #: ../src/prefs.c:416
 msgid "Could not grab the keyboard."
-msgstr ""
+msgstr "Konnte nicht auf das Keyboard zugreifen."
 
 #: ../src/prefs.c:474
 msgid ""
 "Can't find preferences user interface file.  Please insure PNMixer is "
 "installed correctly.\n"
 msgstr ""
+"Konnte die Datei Oberfläche Einstellungen nicht finden.  Bitte stellen Sie sicher, dass "
+"PNMixer korrekt installiert ist.\n"
 
 #: ../src/hotkeys.c:127
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
-msgstr ""
+msgstr "Folgende Hotkeys konnten nicht belegt werden:\n"
 
 #: ../data/about.xml.h:1
 msgid "A mixer for the system tray."
@@ -165,7 +207,7 @@ msgstr "Ein Mixer für das Benachrichtigungsfeld."
 
 #: ../data/about.xml.h:2
 msgid "Copyright © 2010-2011 Nick Lanham"
-msgstr ""
+msgstr "Copyright © 2010-2011 Nick Lanham"
 
 #: ../data/about.xml.h:3
 msgid ""
@@ -221,7 +263,7 @@ msgstr "Stumm (ein/aus)"
 
 #: ../data/popup_window.xml.h:4
 msgid "Open Volume Control"
-msgstr ""
+msgstr "Lautstärkeregler öffenen"
 
 #: ../data/popup_window.xml.h:5
 msgid "Preferences"
@@ -233,7 +275,7 @@ msgstr "Beenden"
 
 #: ../data/popup_window.xml.h:7
 msgid "Reload Alsa"
-msgstr ""
+msgstr "Alsa Neuladen"
 
 #: ../data/popup_window.xml.h:8
 msgid "Volume Control..."
@@ -241,31 +283,31 @@ msgstr "Lautstärkeregler …"
 
 #: ../data/popup_window.xml.h:9
 msgid "_Mute/Unmute"
-msgstr "Stumm (ein/aus)"
+msgstr "_Stumm (ein/aus)"
 
 #: ../data/popup_window.xml.h:10
 msgid "_Reload Alsa"
-msgstr ""
+msgstr "Alsa _Neuladen"
 
 #: ../data/popup_window.xml.h:11
 msgid "_Volume Control"
-msgstr "Lautstärkeregler"
+msgstr "_Lautstärkeregler"
 
 #: ../data/prefs.xml.h:1
 msgid "(None)"
-msgstr ""
+msgstr "(Keine)"
 
 #: ../data/prefs.xml.h:2
 msgid "(Unknown)"
-msgstr ""
+msgstr "(Unbekant)"
 
 #: ../data/prefs.xml.h:3
 msgid "<b>HotKey Settings</b>"
-msgstr ""
+msgstr "<b>HotKey Einstellung</b>"
 
 #: ../data/prefs.xml.h:4
 msgid "<b>Hotkeys</b>"
-msgstr ""
+msgstr "<b>Hotkeys</b>"
 
 #: ../data/prefs.xml.h:5
 msgid "<b>Icon Theme</b>"
@@ -289,11 +331,11 @@ msgstr "<b>Befehl zur Lautstärkeregelung</b>"
 
 #: ../data/prefs.xml.h:10
 msgid "<b>Volume Meter</b>"
-msgstr ""
+msgstr "<b>Lautstärkeskala</b>"
 
 #: ../data/prefs.xml.h:11
 msgid "Behavior"
-msgstr ""
+msgstr "Verhalten"
 
 #: ../data/prefs.xml.h:12
 msgid "Bottom"
@@ -309,7 +351,7 @@ msgstr "Kanal:"
 
 #: ../data/prefs.xml.h:15
 msgid "Command"
-msgstr ""
+msgstr "Befehl"
 
 #: ../data/prefs.xml.h:16
 msgid "Custom (set below)"
@@ -321,11 +363,11 @@ msgstr "Benutzerdefinierter Befehl:"
 
 #: ../data/prefs.xml.h:18
 msgid "Defining HotKey"
-msgstr ""
+msgstr "HotKey Definieren"
 
 #: ../data/prefs.xml.h:19
 msgid "Device"
-msgstr ""
+msgstr "Gerät"
 
 #: ../data/prefs.xml.h:20
 msgid "Display Text Volume"
@@ -333,7 +375,7 @@ msgstr "Lautstärke als Text anzeigen"
 
 #: ../data/prefs.xml.h:21
 msgid "Double click a HotKey to assign a new Hotkey"
-msgstr ""
+msgstr "Um einen neuen HotKey festzulegen, doppelklick auf einen HotKey"
 
 #: ../data/prefs.xml.h:22
 msgid ""
@@ -345,19 +387,19 @@ msgstr ""
 
 #: ../data/prefs.xml.h:24
 msgid "Enable HotKeys"
-msgstr ""
+msgstr "HotKeys Aktivieren"
 
 #: ../data/prefs.xml.h:25
 msgid "HotKey"
-msgstr ""
+msgstr "HotKey"
 
 #: ../data/prefs.xml.h:26
 msgid "HotKey Volume Step:"
-msgstr ""
+msgstr "HotKey Volume Schrittweite:"
 
 #: ../data/prefs.xml.h:27
 msgid "Hotkeys"
-msgstr ""
+msgstr "Hotkeys"
 
 #: ../data/prefs.xml.h:28
 msgid "Left"
@@ -381,7 +423,7 @@ msgstr "PNMixer-Einstellungen"
 
 #: ../data/prefs.xml.h:34
 msgid "Press new HotKey for:"
-msgstr ""
+msgstr "Druken Sie neue HotKey für:"
 
 #: ../data/prefs.xml.h:35
 msgid "Right"
@@ -389,7 +431,7 @@ msgstr "Rechts"
 
 #: ../data/prefs.xml.h:36
 msgid "Set Hotkey"
-msgstr ""
+msgstr "Einstellen Hotkey"
 
 #: ../data/prefs.xml.h:37
 msgid "Show Preferences"
@@ -401,7 +443,7 @@ msgstr "Oben"
 
 #: ../data/prefs.xml.h:39
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: ../data/prefs.xml.h:40
 msgid "Volume Control"
@@ -409,7 +451,7 @@ msgstr "Lautstärkeregler"
 
 #: ../data/prefs.xml.h:41
 msgid "Volume Down:"
-msgstr ""
+msgstr "Leiser"
 
 #: ../data/prefs.xml.h:42
 msgid "Volume Meter Color:"
@@ -425,4 +467,4 @@ msgstr "Lautstärkeregler-Textposition:"
 
 #: ../data/prefs.xml.h:45
 msgid "Volume Up:"
-msgstr ""
+msgstr "Lauter"
