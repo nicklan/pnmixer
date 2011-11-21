@@ -44,6 +44,7 @@ void report_error(char* err,...) {
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_CLOSE,
 						NULL);
+    gtk_window_set_title(GTK_WINDOW(dialog),_("PNMixer Error"));
     g_object_set(dialog,"text",err_buf,NULL);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
@@ -65,6 +66,7 @@ void warn_sound_conn_lost() {
 						"If you do not, you will either need to restart PNMixer "
 						"or select the 'Reload Alsa' option in the right click "
 						"menu in order for PNMixer to function."));
+    gtk_window_set_title(GTK_WINDOW(dialog),_("PNMixer Error"));
     resp = gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     if (resp == GTK_RESPONSE_YES)

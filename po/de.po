@@ -16,20 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/main.c:73
-#, c-format
-msgid ""
-"Warning: Connection to sound system failed, you probably need to restart "
-"pnmixer\n"
-msgstr ""
-"Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
-"Wahrscheinlich müssen Sie PNmixer neustarten\n"
+#: ../src/main.c:47 ../src/main.c:69
+msgid "PNMixer Error"
+msgstr "PNMixer Fehler"
 
-#: ../src/main.c:62
+#: ../src/main.c:63
 msgid "Warning: Connection to sound system failed."
 msgstr "Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
 
-#: ../src/main.c:64
+#: ../src/main.c:65
 #, c-format
 msgid ""
 "Do you want to re-initialize the connection to alsa?\n\n"
@@ -41,6 +36,15 @@ msgstr ""
 "Wenn nicht, müssen Sie weder PNMixer neustarten noch "
 "die 'Alsa Neuladen' option im rechtsclickmenu auswählen "
 "damit PNMixer funktioniert."
+
+#: ../src/main.c:73
+#, c-format
+msgid ""
+"Warning: Connection to sound system failed, you probably need to restart "
+"pnmixer\n"
+msgstr ""
+"Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
+"Wahrscheinlich müssen Sie PNmixer neustarten\n"
 
 #: ../src/main.c:115
 msgid "An unknown error occured trying to launch your volume control command"
