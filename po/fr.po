@@ -16,6 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../src/main.c:62
+msgid "Warning: Connection to sound system failed."
+msgstr "Attention : la connection au système sonore a échoué."
+
+#: ../src/main.c:64
+#, c-format
+msgid ""
+"Do you want to re-initialize the connection to alsa?\n\n"
+"If you do not, you will either need to restart PNMixer "
+"or select the 'Reload Alsa' option in the right click "
+"menu in order for PNMixer to function."
+msgstr ""
+"Voulez-vous ré-initialiser la connexion à Alsa ?\n\n"
+"Si vous ne le faites pas, vous aurez besoin de relancer PNMixer "
+"ou de cliquer sur 'Recharger Alsa' dans le menu clic droit "
+"pour que PNMixer puisse fonctionner correctement."
+
 #: ../src/main.c:73
 #, c-format
 msgid ""
