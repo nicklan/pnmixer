@@ -140,8 +140,10 @@ void on_ok_button_clicked(GtkButton *button,
     g_key_file_remove_key(keyFile,"PNMixer","IconTheme",NULL);
   } else {
     gchar* theme_name = gtk_combo_box_get_active_text (GTK_COMBO_BOX(icon_combo));
-    g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
-    g_free(theme_name);
+    if (theme_name) {
+      g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
+      g_free(theme_name);
+    }
   }
 
   // volume control command
