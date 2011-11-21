@@ -176,7 +176,7 @@ void on_ok_button_clicked(GtkButton *button,
   g_key_file_set_integer(keyFile,"PNMixer","HotkeyVolumeStep",hotstep);
 
   // hotkeys
-  gint keysym,keycode;
+  guint keysym,keycode;
   GdkModifierType mods;
   GtkWidget *kl = data->mute_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);

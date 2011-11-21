@@ -392,7 +392,6 @@ void aquire_hotkey(const char* widget_name,
 
   // grab keyboard
   if (G_LIKELY(gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)), TRUE, GDK_CURRENT_TIME) == GDK_GRAB_SUCCESS)) {
-    guint key;
     resp = gtk_dialog_run(GTK_DIALOG(diag));
     gdk_keyboard_ungrab (GDK_CURRENT_TIME);
     if (resp == GTK_RESPONSE_OK) {
@@ -464,8 +463,8 @@ GtkWidget* create_prefs_window (void) {
   GError     *error = NULL;
 
   GdkColor   vol_meter_color_button_color;
-  gint       *vol_meter_clrs,hotkey,keysym;
-  gchar      *vol_cmd,*uifile,*key_text;
+  gint       *vol_meter_clrs;
+  gchar      *vol_cmd,*uifile;
 
   PrefsData  *prefs_data;
 
