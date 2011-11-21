@@ -285,6 +285,7 @@ void get_current_levels() {
 }
 
 static float vol_div_factor;
+static int vol_meter_width;
 static guchar* vol_meter_row = NULL;
 static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
   int width, height, rowstride, n_channels,i;
@@ -309,7 +310,7 @@ static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
   y = (height - y);
   for (i = 0;i < h;i++) {
     p = pixels + (y-i) * rowstride + x * n_channels;
-    memcpy(p,vol_meter_row,40);
+    memcpy(p,vol_meter_row,vol_meter_width);
   }
 }
 
@@ -369,7 +370,7 @@ void set_vol_meter_color(guint16 nr,guint16 ng,guint16 nb) {
 }
 
 void update_status_icons() {
-  int i;
+  int i,icon_width;
   GdkPixbuf* old_icons[4];
   int size = tray_icon_size();
   for(i=0;i<4;i++)
@@ -385,10 +386,15 @@ void update_status_icons() {
     status_icons[2] = create_pixbuf("pnmixer-medium.png");
     status_icons[3] = create_pixbuf("pnmixer-high.png");
   }
-  vol_div_factor = ((size-10)/100.0);
+  icon_width = gdk_pixbuf_get_height(status_icons[0]);
+  vol_div_factor = ((gdk_pixbuf_get_height(status_icons[0])-10)/100.0);
+  vol_meter_width = 1.25*icon_width;
+  if (vol_meter_width%4 != 0)
+    vol_meter_width -= (vol_meter_width%4);
   if (!vol_meter_row &&  g_key_file_get_boolean(keyFile,"PNMixer","DrawVolMeter",NULL)) {
-    vol_meter_row = g_malloc(40*sizeof(guchar));
-    for(i=0;i<10;i++) {
+    int lim = vol_meter_width/4;
+    vol_meter_row = g_malloc(vol_meter_width*sizeof(guchar));
+    for(i=0;i<lim;i++) {
       vol_meter_row[i*4]   = vol_meter_red;
       vol_meter_row[i*4+1] = vol_meter_green;
       vol_meter_row[i*4+2] = vol_meter_blue;
