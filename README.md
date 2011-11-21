@@ -10,6 +10,8 @@ PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with a number o
 
 - Volume adjustment with the scroll wheel
 - Select which ALSA device and channel to use
+- Detect disconnect from sound system and re-connect if requested
+- Bind and use HotKeys for volume control
 - Texual display of volume level in popup window
 - Continous volume adjustment when dragging the slider (not just when you let go)
 - Draw a volume level onto system tray icon

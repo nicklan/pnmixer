@@ -1,6 +1,17 @@
 Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
+version 0.5:
+ - Bug fixes (including but not limited to):
+	- Infinite loop if pavucontrol isn't installed
+	- Draw volume meter on different sized icons
+	- Better error handling
+ - Allow changing of volume meter color
+ - Move to using GtkBuilder for UI specification
+ - Add HotKey support
+ - Add .desktop file so PNMixer will show up in program
+   lists
+
 version 0.4:
  - Numerous bug fixes including (but not limited to)
 	- fix stuck volume when vol is at max
