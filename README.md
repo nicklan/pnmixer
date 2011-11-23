@@ -3,10 +3,12 @@ PNMixer
 
 PNMixer is a simple mixer application designed to run in your system
 tray.  It integrates nicely into desktop environments that don't have
-a panel and therefore can't run a mixer applet.  In particular it's
-been used quite a lot with tint2.
+a panel that supports applets, and therefore can't run a mixer applet.
+In particular it's been used quite a lot with fbpanel and tint2, but
+should run fine in any system tray.
 
-PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with a number of additions.  These include:
+PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with
+a number of additions.  These include: 
 
 - Volume adjustment with the scroll wheel
 - Select which ALSA device and channel to use
