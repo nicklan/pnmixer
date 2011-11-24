@@ -24,6 +24,7 @@
 #include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
+#include "notify.h"
 #include "support.h"
 #include "hotkeys.h"
 #include "prefs.h"
@@ -482,6 +483,7 @@ int main (int argc, char *argv[]) {
   load_prefs();
   cards = NULL; // so we don't try and free on first run
   alsa_init();
+  init_libnotify();
   create_popups();
   add_filter();
   apply_prefs(0);
@@ -494,5 +496,6 @@ int main (int argc, char *argv[]) {
 
   gtk_main ();
   alsa_close();
+  uninit_libnotify();
   return 0;
 }

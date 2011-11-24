@@ -14,6 +14,7 @@
 
 #include "alsa.h"
 #include "main.h"
+#include "notify.h"
 #include "prefs.h"
 
 #include <math.h>
@@ -310,13 +311,20 @@ void setvol(int vol) {
 
   snd_mixer_selem_set_playback_volume_all(elem, target);
   snd_mixer_selem_set_playback_volume_all(elem, target);
+
+  if (cur_perc != vol)
+    do_notify(vol,FALSE);
 }
 
 void setmute() {
-  if (ismuted())
+  if (ismuted()) {
     snd_mixer_selem_set_playback_switch_all(elem, 0);
-  else
+    do_notify(getvol(),TRUE);
+  }
+  else {
     snd_mixer_selem_set_playback_switch_all(elem, 1);
+    do_notify(getvol(),FALSE);
+  }
 }
 
 int ismuted() {

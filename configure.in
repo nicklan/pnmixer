@@ -45,6 +45,29 @@ fi
 
 ##########################################################################
 
+#######################
+# Check for libnotify #
+#######################
+AC_ARG_WITH(libnotify,
+   [AS_HELP_STRING([--with-libnotify],
+      [Enable sending of notifications @<:@default=check@:>@])],
+   [with_libnotify=$withval],
+   [with_libnotify="check"])
+
+AS_IF([test "x$with_libnotify" != xno],
+  [PKG_CHECK_EXISTS([libnotify], HAVE_LIBN=1, )]
+,)
+
+if test "$with_libnotify" = "yes" || test "$HAVE_LIBN" = "1"; then
+   PKG_CHECK_MODULES(LIBNOTIFY, [libnotify], 
+                     [],
+                     AS_IF([test "x$with_libnotify" != xcheck],[AC_MSG_FAILURE(["--with-libnotify was given but test for libnotify failed"])]))
+   HAVE_LIBN=1
+   AC_SUBST(LIBNOTIFY_CFLAGS)
+   AC_SUBST(LIBNOTIFY_LIBS)
+   AC_DEFINE([HAVE_LIBN],1,[Defined if you have libnotify])
+fi
+
 AC_SUBST([AM_CFLAGS])
 
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
@@ -64,4 +87,11 @@ Makefile
 src/Makefile
 po/Makefile.in
 ])
+
+if test "$HAVE_LIBN" != "1"; then
+  AS_ECHO(["-----------------------------------------------NOTICE-------------------------------------------------"])
+  AS_ECHO(["| libnotify not found on your system, or explicitly disabled.  Notification support will be disabled |"])
+  AS_ECHO(["------------------------------------------------------------------------------------------------------"])
+fi
+
 
