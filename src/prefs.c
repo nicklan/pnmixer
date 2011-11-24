@@ -361,11 +361,13 @@ void on_middle_changed(GtkComboBox* box, PrefsData* data) {
 }
 
 void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
+#ifdef HAVE_LIBN
   gboolean active  = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->hotkey_noti_check,active);
   gtk_widget_set_sensitive(data->mouse_noti_check,active);
   gtk_widget_set_sensitive(data->popup_noti_check,active);
   gtk_widget_set_sensitive(data->external_noti_check,active);
+#endif
 }
 
 static const char* vol_cmds[] = {"pavucontrol",
