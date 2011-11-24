@@ -198,6 +198,29 @@ void on_ok_button_clicked(GtkButton *button,
   g_key_file_set_integer(keyFile,"PNMixer","VolDownKey",keycode);
   g_key_file_set_integer(keyFile,"PNMixer","VolDownMods",mods);
 
+#ifdef HAVE_LIBN
+  // notification prefs
+  GtkWidget* nc = data->enable_noti_check;
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
+  g_key_file_set_boolean(keyFile,"PNMixer","EnableNotifications",active);
+  
+  nc = data->hotkey_noti_check;
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
+  g_key_file_set_boolean(keyFile,"PNMixer","HotkeyNotifications",active);
+
+  nc = data->mouse_noti_check;
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
+  g_key_file_set_boolean(keyFile,"PNMixer","MouseNotifications",active);
+
+  nc = data->popup_noti_check;
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
+  g_key_file_set_boolean(keyFile,"PNMixer","PopupNotifications",active);
+
+  nc = data->external_noti_check;
+  active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
+  g_key_file_set_boolean(keyFile,"PNMixer","ExternalNotifications",active);
+#endif
+
   gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);
   gchar* filedata = g_key_file_to_data(keyFile,&len,NULL);
   g_file_set_contents(filename,filedata,len,&err);

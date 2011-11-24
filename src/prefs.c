@@ -336,6 +336,14 @@ void on_middle_changed(GtkComboBox* box, PrefsData* data) {
   gtk_widget_set_sensitive(data->custom_entry,cust);
 }
 
+void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
+  gboolean active  = gtk_toggle_button_get_active (button);
+  gtk_widget_set_sensitive(data->hotkey_noti_check,active);
+  gtk_widget_set_sensitive(data->mouse_noti_check,active);
+  gtk_widget_set_sensitive(data->popup_noti_check,active);
+  gtk_widget_set_sensitive(data->external_noti_check,active);
+}
+
 static const char* vol_cmds[] = {"pavucontrol",
 				 "gnome-alsamixer",
 				 "xfce4-mixer",
@@ -458,6 +466,20 @@ static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mo
   g_free(key_text);
 }
 
+static gboolean g_key_file_get_boolean_with_default(GKeyFile *keyFile,
+						   gchar *group,
+						   gchar *key,
+						   gboolean def) {
+  gboolean ret;
+  GError *error = NULL;
+  ret = g_key_file_get_boolean(keyFile,group,key,&error);
+  if (error) {
+    g_error_free(error);
+    return def;
+  }
+  return ret;
+}
+
 GtkWidget* create_prefs_window (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
@@ -512,6 +534,13 @@ GtkWidget* create_prefs_window (void) {
   GO(mute_hotkey_label);
   GO(up_hotkey_label);
   GO(down_hotkey_label);
+#ifdef HAVE_LIBN
+  GO(enable_noti_check);
+  GO(hotkey_noti_check);
+  GO(mouse_noti_check);
+  GO(popup_noti_check);
+  GO(external_noti_check);
+#endif
 #undef GO
 
   // vol text display
@@ -615,6 +644,35 @@ GtkWidget* create_prefs_window (void) {
 			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL),mod);
   }
 
+
+  gtk_notebook_append_page(GTK_NOTEBOOK(gtk_builder_get_object(builder,"notebook1")),
+#ifdef HAVE_LIBN
+			   GTK_WIDGET(gtk_builder_get_object(builder,"notification_vbox")),			   
+#else
+			   GTK_WIDGET(gtk_builder_get_object(builder,"no_notification_label")),
+#endif
+			   gtk_label_new("Notifications"));
+
+#ifdef HAVE_LIBN
+  // notification checkboxes
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableNotifications",FALSE));
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->hotkey_noti_check),
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","HotkeyNotifications",TRUE));
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->mouse_noti_check),
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","MouseNotifications",FALSE));
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->popup_noti_check),
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","PopupNotifications",TRUE));
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->external_noti_check),
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","ExternalNotifications",FALSE));
+  on_notification_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),
+			 prefs_data);
+#endif
 
   gtk_builder_connect_signals(builder, prefs_data);
   g_object_unref (G_OBJECT (builder));

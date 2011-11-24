@@ -67,6 +67,13 @@ typedef struct {
   GtkWidget* mute_hotkey_label;
   GtkWidget* up_hotkey_label;
   GtkWidget* down_hotkey_label;
+#ifdef HAVE_LIBN
+  GtkWidget* enable_noti_check;
+  GtkWidget* hotkey_noti_check;
+  GtkWidget* mouse_noti_check;
+  GtkWidget* popup_noti_check;
+  GtkWidget* external_noti_check;
+#endif
 } PrefsData;
 
 
