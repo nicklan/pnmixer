@@ -183,6 +183,28 @@ void load_prefs(void) {
   g_free(filename);
 }
 
+static gboolean g_key_file_get_boolean_with_default(GKeyFile *keyFile,
+						    gchar *group,
+						    gchar *key,
+						    gboolean def) {
+  gboolean ret;
+  GError *error = NULL;
+  ret = g_key_file_get_boolean(keyFile,group,key,&error);
+  if (error) {
+    g_error_free(error);
+    return def;
+  }
+  return ret;
+}
+
+static void set_notifications_booleans() {
+  enable_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableNotifications",FALSE);
+  hotkey_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","HotkeyNotifications",TRUE);
+  mouse_noti    = g_key_file_get_boolean_with_default(keyFile,"PNMixer","MouseNotifications",TRUE);
+  popup_noti    = g_key_file_get_boolean_with_default(keyFile,"PNMixer","PopupNotifications",FALSE);
+  external_noti = g_key_file_get_boolean_with_default(keyFile,"PNMixer","ExternalNotifications",FALSE);
+}
+
 void apply_prefs(gint alsa_change) {
   gint* vol_meter_clrs;
   scroll_step = 1;
@@ -212,6 +234,8 @@ void apply_prefs(gint alsa_change) {
   } else 
     grab_keys(-1,-1,-1,0,0,0,1); // will actually just ungrab everything
   
+  set_notifications_booleans();
+
   get_icon_theme();
   if (alsa_change)
     alsa_init();
@@ -466,20 +490,6 @@ static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mo
   g_free(key_text);
 }
 
-static gboolean g_key_file_get_boolean_with_default(GKeyFile *keyFile,
-						   gchar *group,
-						   gchar *key,
-						   gboolean def) {
-  gboolean ret;
-  GError *error = NULL;
-  ret = g_key_file_get_boolean(keyFile,group,key,&error);
-  if (error) {
-    g_error_free(error);
-    return def;
-  }
-  return ret;
-}
-
 GtkWidget* create_prefs_window (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
@@ -655,23 +665,13 @@ GtkWidget* create_prefs_window (void) {
 
 #ifdef HAVE_LIBN
   // notification checkboxes
-  gtk_toggle_button_set_active
-    (GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),
-     g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableNotifications",FALSE));
-  gtk_toggle_button_set_active
-    (GTK_TOGGLE_BUTTON(prefs_data->hotkey_noti_check),
-     g_key_file_get_boolean_with_default(keyFile,"PNMixer","HotkeyNotifications",TRUE));
-  gtk_toggle_button_set_active
-    (GTK_TOGGLE_BUTTON(prefs_data->mouse_noti_check),
-     g_key_file_get_boolean_with_default(keyFile,"PNMixer","MouseNotifications",FALSE));
-  gtk_toggle_button_set_active
-    (GTK_TOGGLE_BUTTON(prefs_data->popup_noti_check),
-     g_key_file_get_boolean_with_default(keyFile,"PNMixer","PopupNotifications",TRUE));
-  gtk_toggle_button_set_active
-    (GTK_TOGGLE_BUTTON(prefs_data->external_noti_check),
-     g_key_file_get_boolean_with_default(keyFile,"PNMixer","ExternalNotifications",FALSE));
-  on_notification_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),
-			 prefs_data);
+  set_notifications_booleans();
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),enable_noti);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->hotkey_noti_check),hotkey_noti);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->mouse_noti_check),mouse_noti);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->popup_noti_check),popup_noti);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->external_noti_check),external_noti);
+  on_notification_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),prefs_data);
 #endif
 
   gtk_builder_connect_signals(builder, prefs_data);

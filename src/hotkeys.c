@@ -10,6 +10,7 @@
 
 #include "support.h"
 #include "main.h"
+#include "prefs.h"
 #include "alsa.h"
 #include <gdk/gdkx.h>
 
@@ -41,23 +42,21 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
     state = ((XKeyEvent *)xevent)->state;
 
     if (key == volMuteKey && state == volMuteMods) {
-      setmute();
-      get_mute_state();
+      setmute(enable_noti&&hotkey_noti);
+      get_mute_state(TRUE);
       return GDK_FILTER_CONTINUE;
     } else {
       int cv = getvol();
       if (key == volUpKey && state == volUpMods) {
-	setvol(cv+volStep);
+	setvol(cv+volStep,enable_noti&&hotkey_noti);
       }
       else if (key == volDownKey && state == volDownMods) {
-	setvol(cv-volStep);
+	setvol(cv-volStep,enable_noti&&hotkey_noti);
       } 
       // just ignore unknown hotkeys
 
-      if (get_mute_state() == 0) {
-	setmute();
-	get_mute_state();
-      }
+      if (get_mute_state(TRUE) == 0)
+	setmute(enable_noti&&hotkey_noti);
 
       // this will set the slider value
       get_current_levels();

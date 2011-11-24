@@ -15,9 +15,9 @@
 #include <gtk/gtk.h>
 
 
-void
-on_mute_clicked                (GtkButton       *button,
-				gpointer         user_data);
+gboolean on_mute_clicked(GtkButton *button,
+			 GdkEvent  *event,
+			 gpointer  user_data);
 
 
 gboolean 

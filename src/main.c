@@ -134,8 +134,8 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
       act = g_key_file_get_integer(keyFile,"PNMixer","MiddleClickAction",NULL);
     switch (act) {
     case 0: // mute/unmute
-      setmute();
-      get_mute_state();
+      setmute(mouse_noti);
+      get_mute_state(TRUE);
       break;
     case 1:
       do_prefs();
@@ -248,7 +248,7 @@ void do_alsa_reinit (void) {
   alsa_init();
   update_status_icons();
   update_vol_text();
-  get_mute_state();
+  get_mute_state(TRUE);
 }
 
 void create_about (void) {
@@ -319,7 +319,7 @@ static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
 
 static int draw_offset = 0;
 static GdkPixbuf *icon_copy = NULL;
-int get_mute_state() {
+int get_mute_state(gboolean set_check) {
   int muted;
   int tmpvol = getvol();
   char tooltip [60];
@@ -328,7 +328,8 @@ int get_mute_state() {
 
   if( muted == 1 ) {
     GdkPixbuf *icon;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), FALSE);
+    if (set_check)
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), FALSE);
     if (tmpvol < 33) 
       icon = status_icons[1];
     else if (tmpvol < 66)
@@ -347,7 +348,8 @@ int get_mute_state() {
     } else
       gtk_status_icon_set_from_pixbuf(tray_icon, icon);
   } else {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), TRUE);
+    if (set_check)
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), TRUE);
     gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[0]);
     sprintf(tooltip, _("Volume: %d %%\nMuted"), tmpvol);
   }
@@ -412,7 +414,7 @@ void update_status_icons() {
   }
   draw_offset = g_key_file_get_integer(keyFile,"PNMixer","VolMeterPos",NULL);
   if (tray_icon)
-    get_mute_state();
+    get_mute_state(TRUE);
   for(i = 0;i < 4;i++)
     if(old_icons[i]) 
       g_object_unref(old_icons[i]);

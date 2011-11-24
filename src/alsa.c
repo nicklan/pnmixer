@@ -134,8 +134,16 @@ static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_re
 }
 
 static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
+  int muted;
   get_current_levels();
-  get_mute_state();
+  muted = get_mute_state(TRUE);
+  if (enable_noti && external_noti) {
+    int vol = getvol();
+    if (muted)
+      do_notify(vol,FALSE);
+    else
+      do_notify(vol,TRUE);
+  }
   return 0;
 }
 
@@ -279,7 +287,7 @@ static int convert_prange(long val, long min, long max) {
   return rint(val/(double)range * 100);
 }
 
-void setvol(int vol) {
+void setvol(int vol, gboolean notify) {
   long pmin = 0, pmax = 0, target, current;
   int cur_perc;
   snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
@@ -312,18 +320,20 @@ void setvol(int vol) {
   snd_mixer_selem_set_playback_volume_all(elem, target);
   snd_mixer_selem_set_playback_volume_all(elem, target);
 
-  if (cur_perc != vol)
+  if (enable_noti && notify && cur_perc != vol)
     do_notify(vol,FALSE);
 }
 
-void setmute() {
+void setmute(gboolean notify) {
   if (ismuted()) {
     snd_mixer_selem_set_playback_switch_all(elem, 0);
-    do_notify(getvol(),TRUE);
+    if (enable_noti && notify)
+      do_notify(getvol(),TRUE);
   }
   else {
     snd_mixer_selem_set_playback_switch_all(elem, 1);
-    do_notify(getvol(),FALSE);
+    if (enable_noti && notify)
+      do_notify(getvol(),FALSE);
   }
 }
 

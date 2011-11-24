@@ -20,8 +20,8 @@ struct acard {
 };
 GSList* cards;
 
-void setvol(int vol);
-void setmute();
+void setvol(int vol,gboolean notify);
+void setmute(gboolean notify);
 int getvol();
 int ismuted();
 void alsa_init();

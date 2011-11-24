@@ -23,10 +23,12 @@
 int volume;
 extern int volume;
 
-void on_mute_clicked(GtkButton *button,
-		     gpointer  user_data) {
-  setmute();
-  get_mute_state();
+gboolean on_mute_clicked(GtkButton *button,
+			 GdkEvent  *event,
+			 gpointer  user_data) {
+  setmute(popup_noti);
+  get_mute_state(FALSE);
+  return TRUE;
 }
 
 
@@ -37,10 +39,10 @@ gboolean vol_scroll_event(GtkRange     *range,
   int volumeset;
   volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
   
-  setvol(volumeset);
-  if (get_mute_state() == 0) {
-    setmute();
-    get_mute_state();
+  setvol(volumeset,popup_noti);
+  if (get_mute_state(TRUE) == 0) {
+    setmute(popup_noti);
+    get_mute_state(TRUE);
   }
   return FALSE;
 }
@@ -48,13 +50,13 @@ gboolean vol_scroll_event(GtkRange     *range,
 gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   int cv = getvol();
   if (event->direction == GDK_SCROLL_UP)
-    setvol(cv+scroll_step);
+    setvol(cv+scroll_step,mouse_noti);
   else 
-    setvol(cv-scroll_step);
+    setvol(cv-scroll_step,mouse_noti);
 
-  if (get_mute_state() == 0) {
-    setmute();
-    get_mute_state();
+  if (get_mute_state(TRUE) == 0) {
+    setmute(mouse_noti);
+    get_mute_state(TRUE);
   }
 
   // this will set the slider value

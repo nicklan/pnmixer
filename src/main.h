@@ -32,7 +32,7 @@ void do_alsa_reinit (void);
 void report_error(char*,...);
 void warn_sound_conn_lost(void);
 void get_current_levels();
-int get_mute_state();
+int get_mute_state(gboolean);
 int update_mute_state();
 void hide_me();
 gint tray_icon_size();
