@@ -77,7 +77,7 @@ void warn_sound_conn_lost() {
 }
 
 static gboolean idle_report_error(gpointer data) {
-  report_error("Failed to start volume control command:\n%s",data);
+  report_error("Error running command:\n%s",data);
   g_free(data);
   return FALSE;
 }
@@ -97,10 +97,9 @@ static void mix_hdlr(int sig, siginfo_t *siginfo, void *context) {
   }
 }
 
-void on_mixer(void) {
+void run_command(gchar* cmd) {
   pid_t pid;
   int status;
-  gchar* cmd = get_vol_command();
 
   if (cmd) {
     struct sigaction act;
@@ -108,24 +107,32 @@ void on_mixer(void) {
     act.sa_flags = SA_SIGINFO;
 
     if (sigaction(SIGCHLD, &act, NULL) < 0) {
-      report_error(_("Unable to launch volume control command: sigaction failed: %s"),strerror(errno));
-      g_free(cmd);
+      report_error(_("Unable to run command: sigaction failed: %s"),strerror(errno));
       return;
     }
 
     pid = fork();
     
-    if (pid < 0) 
-      report_error(_("Unable to launch volume control command: fork failed"));
+    if (pid < 0)
+      report_error(_("Unable to run command: fork failed"));
     else if (pid == 0) { // child command, try to exec
       if (execlp (cmd, cmd, NULL))
 	_exit(errno);
       _exit (EXIT_FAILURE);
     }
-    g_free(cmd);
-  } else 
-    report_error(_("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control."));
+  }
+
   gtk_widget_hide (popup_window);
+}
+
+void on_mixer(void) {
+  gchar* cmd = get_vol_command();
+  if (cmd) {
+    run_command(cmd);
+    g_free(cmd);
+  }
+  else
+    report_error(_("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control."));
 }
 
 void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointer user_data) {
@@ -141,20 +148,21 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
     case 1:
       do_prefs();
       break;
-    case 2:
+    case 2: {
       on_mixer();
       break;
+    }
     case 3:
       if (g_key_file_has_key(keyFile,"PNMixer","CustomCommand",NULL)) {
-	gchar* cc = g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL);
-	if (cc != NULL) {
-	  gchar* cmd = g_strconcat(cc, "&", NULL);
-	  if (system(cmd)) 
-	    report_error(_("Couldn't execute custom command: \"%s\"\n"),cc);
+	gchar* cmd = g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL);
+	if (cmd) {
+	  run_command(cmd);
 	  g_free(cmd);
-	  g_free(cc);
-	}
+	}  else // This shouldn't ever happen, so let's just write to console
+	  g_warning("KeyFile has CustomCommand key, but get_string returned NULL");
       }
+      else
+	report_error(_("You have not specified a custom command to run, please specify one in preferences."));
       break;
     default: {} // nothing
     }
