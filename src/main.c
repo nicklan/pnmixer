@@ -76,54 +76,55 @@ void warn_sound_conn_lost() {
     fprintf(stderr,_("Warning: Connection to sound system failed, you probably need to restart pnmixer\n"));
 }
 
+static gboolean idle_report_error(gpointer data) {
+  report_error("Failed to start volume control command:\n%s",data);
+  g_free(data);
+  return FALSE;
+}
+
+static void mix_hdlr(int sig, siginfo_t *siginfo, void *context) {
+  int stat;
+  signed char exit_stat;
+  switch(sig) {
+  case SIGCHLD:
+    waitpid(siginfo->si_pid,&stat,0);
+    exit_stat = (signed char)(WEXITSTATUS(stat));
+    if (exit_stat) 
+      g_idle_add(idle_report_error, g_strdup(strerror(exit_stat)));
+    break;
+  default:
+    g_warning("Unexpected signal received: %i\n",sig);
+  }
+}
+
 void on_mixer(void) {
   pid_t pid;
   int status;
   gchar* cmd = get_vol_command();
 
   if (cmd) {
-    pid = fork();
+    struct sigaction act;
+    act.sa_sigaction = &mix_hdlr;
+    act.sa_flags = SA_SIGINFO;
 
-    if (pid == 0) {
+    if (sigaction(SIGCHLD, &act, NULL) < 0) {
+      report_error(_("Unable to launch volume control command: sigaction failed: %s"),strerror(errno));
+      g_free(cmd);
+      return;
+    }
+
+    pid = fork();
+    
+    if (pid < 0) 
+      report_error(_("Unable to launch volume control command: fork failed"));
+    else if (pid == 0) { // child command, try to exec
       if (execlp (cmd, cmd, NULL))
 	_exit(errno);
       _exit (EXIT_FAILURE);
     }
-    else if (pid < 0)
-      status = -1;
-    else {
-      /* this is a bit hacky, but seems the best way to
-	 figure out launching the command failed.  this
-	 is basically a waitpid with a timeout (.5 seconds)
-	 to give time for the command to try and start.
-	 if it hasn't failed within 0.5 seconds we assume
-	 it started okay. */
-      int wr;
-      int tl = 5;
-      do {
-	wr = waitpid (pid, &status, WNOHANG);
-	if (wr && wr != pid) {
-	  status = -1;
-	  break;
-	}
-	usleep(100000);
-	tl--;
-      }	while(!wr && tl);
-      if (!tl)
-	status = 0;
-    }
-
-    if (status) {
-      if (status == -1)
-	report_error(_("An unknown error occured trying to launch your volume control command"));
-      else 
-	report_error(_("Unable to launch volume command \"%s\".\n\n%s"),cmd,strerror(WEXITSTATUS(status)));
-    }
-
     g_free(cmd);
   } else 
     report_error(_("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control."));
-
   gtk_widget_hide (popup_window);
 }
 
