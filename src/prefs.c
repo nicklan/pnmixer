@@ -51,7 +51,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
   GKeyFile      *index_file;
   const gchar   *file;
   gchar         *index_filename;
-  const gchar   *theme_name;
+  gchar         *theme_name;
   gchar         *active_theme_name;
   gint          i,j,n,act;
   gboolean      is_dup;
@@ -65,10 +65,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
   theme = gtk_icon_theme_get_default();
   index_file = g_key_file_new();
 
-  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) 
-    active_theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
-  else 
-    active_theme_name = NULL;
+  active_theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
   act = 1;
   
 
@@ -104,12 +101,15 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
 	if (g_key_file_has_key(index_file,"Icon Theme","Directories",NULL) &&
 	    !g_key_file_get_boolean(index_file,"Icon Theme","Hidden",NULL)) {
 	  theme_name = g_key_file_get_string (index_file, "Icon Theme","Name",NULL);
-	  gtk_list_store_append(store, &iter);
-	  gtk_list_store_set(store, &iter, 0, _(theme_name), -1);
-	  if ((active_theme_name != NULL) && g_strcmp0(theme_name,active_theme_name) == 0)
-	    gtk_combo_box_set_active (GTK_COMBO_BOX (icon_theme_combo), act);
-	  else
-	    act++;
+	  if (theme_name) {
+	    gtk_list_store_append(store, &iter);
+	    gtk_list_store_set(store, &iter, 0, _(theme_name), -1);
+	    if ((active_theme_name != NULL) && g_strcmp0(theme_name,active_theme_name) == 0)
+	      gtk_combo_box_set_active (GTK_COMBO_BOX (icon_theme_combo), act);
+	    else
+	      act++;
+	    g_free(theme_name);
+	  }
 	}
       }
       g_free(index_filename);
@@ -124,7 +124,9 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
 
 gint* get_vol_meter_colors() {
   gsize numcols = 3;
-  gint* vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+  gint* vol_meter_clrs = NULL;
+  if (g_key_file_has_key(keyFile,"PNMixer","VolMeterColor",NULL))
+    vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
   if (!vol_meter_clrs || (numcols != 3)) {
     if (vol_meter_clrs) { // corrupt value somehow
       report_error(_("Invalid color for volume meter in config file.  Reverting to default."));
@@ -197,6 +199,20 @@ static gboolean g_key_file_get_boolean_with_default(GKeyFile *keyFile,
   return ret;
 }
 
+static gint g_key_file_get_integer_with_default(GKeyFile *keyFile,
+						gchar *group,
+						gchar *key,
+						gint def) {
+  gboolean ret;
+  GError *error = NULL;
+  ret = g_key_file_get_integer(keyFile,group,key,&error);
+  if (error) {
+    g_error_free(error);
+    return def;
+  }
+  return ret;
+}
+
 static void set_notifications_booleans() {
   enable_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableNotifications",FALSE);
   hotkey_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","HotkeyNotifications",TRUE);
@@ -207,29 +223,17 @@ static void set_notifications_booleans() {
 
 void apply_prefs(gint alsa_change) {
   gint* vol_meter_clrs;
-  scroll_step = 1;
-  if (g_key_file_has_key(keyFile,"PNMixer","MouseScrollStep",NULL))
-    scroll_step = g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL);
+  scroll_step = g_key_file_get_integer_with_default(keyFile,"PNMixer","MouseScrollStep",1);
 
-  if (g_key_file_get_boolean(keyFile,"PNMixer","EnableHotKeys",NULL)) {
+  if (g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE)) {
     gint mk,uk,dk,mm,um,dm,hstep;
-    mk = uk = dk = -1;
-    mm = um = dm = 0;
-    hstep = 1;
-    if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL))
-      mk = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL);
-    if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL))
-      uk = g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL);
-    if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL))
-      dk = g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL);
-    if (g_key_file_has_key(keyFile,"PNMixer","VolMuteMods",NULL))
-      mm = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteMods", NULL);
-    if (g_key_file_has_key(keyFile,"PNMixer","VolUpMods",NULL))
-      um = g_key_file_get_integer(keyFile,"PNMixer", "VolUpMods", NULL);
-    if (g_key_file_has_key(keyFile,"PNMixer","VolDownMods",NULL))
-      dm = g_key_file_get_integer(keyFile,"PNMixer", "VolDownMods", NULL);
-    if (g_key_file_has_key(keyFile,"PNMixer","HotkeyVolumeStep",NULL))
-      hstep = g_key_file_get_integer(keyFile,"PNMixer", "HotkeyVolumeStep", NULL);
+    mk = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolMuteKey", -1);
+    uk = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolUpKey", -1);
+    dk = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolDownKey", -1);
+    mm = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolMuteMods", 0);
+    um = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolUpMods", 0);
+    dm = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolDownMods", 0);
+    hstep = g_key_file_get_integer_with_default(keyFile,"PNMixer", "HotkeyVolumeStep", 1);
     grab_keys(mk,uk,dk,mm,um,dm,hstep);
   } else 
     grab_keys(-1,-1,-1,0,0,0,1); // will actually just ungrab everything
@@ -498,7 +502,7 @@ GtkWidget* create_prefs_window (void) {
 
   GdkColor   vol_meter_color_button_color;
   gint       *vol_meter_clrs;
-  gchar      *vol_cmd,*uifile;
+  gchar      *vol_cmd,*uifile,*custcmd;
 
   PrefsData  *prefs_data;
 
@@ -558,21 +562,21 @@ GtkWidget* create_prefs_window (void) {
   // vol text display
   gtk_toggle_button_set_active
     (GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
-     g_key_file_get_boolean(keyFile,"PNMixer","DisplayTextVolume",NULL));
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","DisplayTextVolume",FALSE));
   gtk_combo_box_set_active
     (GTK_COMBO_BOX (prefs_data->vol_pos_combo),
-     g_key_file_get_integer(keyFile,"PNMixer","TextVolumePosition",NULL));
+     g_key_file_get_integer_with_default(keyFile,"PNMixer","TextVolumePosition",0));
 
   // volume meter
   gtk_toggle_button_set_active
     (GTK_TOGGLE_BUTTON(prefs_data->draw_vol_check),
-     g_key_file_get_boolean(keyFile,"PNMixer","DrawVolMeter",NULL));
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","DrawVolMeter",FALSE));
   gtk_adjustment_set_upper
     (GTK_ADJUSTMENT(gtk_builder_get_object(builder,"vol_meter_pos_adjustment")),
      tray_icon_size()-10);
   gtk_spin_button_set_value
     (GTK_SPIN_BUTTON(prefs_data->vol_meter_pos_spin),
-     g_key_file_get_integer(keyFile,"PNMixer","VolMeterPos",NULL));
+     g_key_file_get_integer_with_default(keyFile,"PNMixer","VolMeterPos",0));
 
   // load available icon themes into icon theme combo box.  also sets active
   load_icon_themes(prefs_data->icon_theme_combo,
@@ -601,19 +605,20 @@ GtkWidget* create_prefs_window (void) {
 
   // mouse scroll step
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->scroll_step_spin),
-			    g_key_file_get_integer(keyFile,"PNMixer","MouseScrollStep",NULL));
+			    g_key_file_get_integer_with_default(keyFile,"PNMixer","MouseScrollStep",1));
 
   //  middle click
   gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->middle_click_combo),
-			   g_key_file_get_integer(keyFile,"PNMixer","MiddleClickAction",NULL));
+			   g_key_file_get_integer_with_default(keyFile,"PNMixer","MiddleClickAction",0));
 
   // custom command
   gtk_entry_set_invisible_char(GTK_ENTRY(prefs_data->custom_entry), 8226);
-  // MEMORY LEAK
-  gtk_entry_set_text(GTK_ENTRY(prefs_data->custom_entry),
-		     g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL));
 
-
+  custcmd =  g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL);
+  if (custcmd) {
+    gtk_entry_set_text(GTK_ENTRY(prefs_data->custom_entry),custcmd);
+    g_free(custcmd);
+  }
 
   on_vol_text_toggle(GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
 		     prefs_data);
@@ -625,36 +630,26 @@ GtkWidget* create_prefs_window (void) {
   // hotkeys
   gtk_toggle_button_set_active
     (GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
-     g_key_file_get_boolean(keyFile,"PNMixer","EnableHotKeys",NULL));
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE));
   
   // hotkey step
-  if (g_key_file_has_key(keyFile,"PNMixer","HotkeyVolumeStep",NULL))
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),
-			      g_key_file_get_integer(keyFile,"PNMixer","HotkeyVolumeStep",NULL));
-  else
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),1);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),
+			    g_key_file_get_integer_with_default(keyFile,"PNMixer","HotkeyVolumeStep",1));
 
-  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL)) {
-    gint mod = 0;
-    if (g_key_file_has_key(keyFile,"PNMixer","VolMuteMods",NULL)) 
-      mod = g_key_file_get_integer(keyFile,"PNMixer", "VolMuteMods", NULL);
+
+  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL)) 
     set_label_for_keycode(prefs_data->mute_hotkey_label,
-			  g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL),mod);
-  }
-  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL)) {
-    gint mod = 0;
-    if (g_key_file_has_key(keyFile,"PNMixer","VolUpMods",NULL)) 
-      mod = g_key_file_get_integer(keyFile,"PNMixer", "VolUpMods", NULL);
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL),
+			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolMuteMods", 0));
+
+  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL)) 
     set_label_for_keycode(prefs_data->up_hotkey_label,
-			  g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL),mod);
-  }
-  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL)) {
-    gint mod = 0;
-    if (g_key_file_has_key(keyFile,"PNMixer","VolDownMods",NULL)) 
-      mod = g_key_file_get_integer(keyFile,"PNMixer", "VolDownMods", NULL);
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL),
+			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolUpMods", 0));
+  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL)) 
     set_label_for_keycode(prefs_data->down_hotkey_label,
-			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL),mod);
-  }
+			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL),
+			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolDownMods", 0));
 
 
   gtk_notebook_append_page(GTK_NOTEBOOK(gtk_builder_get_object(builder,"notebook1")),
