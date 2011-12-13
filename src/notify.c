@@ -45,6 +45,9 @@ void do_notify(gint level,gboolean muted) {
   gchar  *summary, *icon;
   GError *error = NULL;
 
+  if (level < 0) level = 0;
+  if (level > 100) level = 100;
+
   if (muted)
     summary = g_strdup("Volume muted");
   else 
