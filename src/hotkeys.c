@@ -13,6 +13,7 @@
 #include "prefs.h"
 #include "alsa.h"
 #include <gdk/gdkx.h>
+#include <X11/XKBlib.h>
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -129,9 +130,9 @@ void grab_keys(int mk, int uk, int dk,
   if (muteSymStr) g_free(muteSymStr);
   if (upSymStr)   g_free(upSymStr);
   if (downSymStr) g_free(downSymStr);
-  muteSymStr = gtk_accelerator_name(XKeycodeToKeysym(GDK_DISPLAY(), volMuteKey, 0),volMuteMods);
-  upSymStr = gtk_accelerator_name(XKeycodeToKeysym(GDK_DISPLAY(),volUpKey,0),volUpMods);
-  downSymStr = gtk_accelerator_name(XKeycodeToKeysym(GDK_DISPLAY(), volDownKey, 0),volDownMods);
+  muteSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(), volMuteKey, 0, 0),volMuteMods);
+  upSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(),volUpKey,0, 0),volUpMods);
+  downSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(), volDownKey, 0, 0),volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
   if (volMuteKey > 0) {

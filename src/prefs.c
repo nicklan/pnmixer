@@ -23,6 +23,7 @@
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
+#include <X11/XKBlib.h>
 
 #include "alsa.h"
 #include "callbacks.h"
@@ -490,7 +491,7 @@ static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mo
   int keysym;
   gchar *key_text;
   if (code < 0) return;
-  keysym = XKeycodeToKeysym(GDK_DISPLAY(), code, 0);
+  keysym = XkbKeycodeToKeysym(GDK_DISPLAY(), code, 0, 0);
   key_text = gtk_accelerator_name (keysym, mods);
   gtk_label_set_text(GTK_LABEL(label),key_text);
   g_free(key_text);
