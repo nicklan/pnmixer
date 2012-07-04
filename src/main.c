@@ -99,7 +99,6 @@ static void mix_hdlr(int sig, siginfo_t *siginfo, void *context) {
 
 void run_command(gchar* cmd) {
   pid_t pid;
-  int status;
 
   if (cmd) {
     struct sigaction act;
