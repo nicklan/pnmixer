@@ -1,14 +1,12 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(configure.in)
-AM_INIT_AUTOMAKE(pnmixer, 0.6-dev)
-AM_CONFIG_HEADER(config.h)
+AC_INIT([pnmixer], 0.6-dev)
+AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
 OLD_CFLAGS=$CFLAGS
 AC_ISC_POSIX
 AC_PROG_CC
-AM_PROG_CC_STDC
 AC_HEADER_STDC
 CFLAGS=$OLD_CXXFLAGS
 

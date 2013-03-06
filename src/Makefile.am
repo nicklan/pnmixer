@@ -2,7 +2,7 @@
 
 AM_CFLAGS = @AM_CFLAGS@
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@LIBNOTIFY_CFLAGS@ \
