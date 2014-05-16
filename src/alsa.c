@@ -325,6 +325,8 @@ void setvol(int vol, gboolean notify) {
 }
 
 void setmute(gboolean notify) {
+  if (!snd_mixer_selem_has_playback_switch(elem))
+    return;
   if (ismuted()) {
     snd_mixer_selem_set_playback_switch_all(elem, 0);
     if (enable_noti && notify)
@@ -338,8 +340,9 @@ void setmute(gboolean notify) {
 }
 
 int ismuted() {
-  int muted;
-  snd_mixer_selem_get_playback_switch(elem, SND_MIXER_SCHN_FRONT_LEFT, &muted);
+  int muted = 1;
+  if (snd_mixer_selem_has_playback_switch(elem))
+    snd_mixer_selem_get_playback_switch(elem, SND_MIXER_SCHN_FRONT_LEFT, &muted);
   return muted;
 }
 
