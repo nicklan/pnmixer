@@ -435,6 +435,9 @@ void aquire_hotkey(const char* widget_name,
     gdk_keyboard_ungrab (GDK_CURRENT_TIME);
     if (resp == GTK_RESPONSE_OK) {
       const gchar* key_name = gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
+      if (!strcasecmp(key_name, "<Primary>c")) {
+	key_name = "(None)";
+      }
       switch(action) {
       case 0:
 	gtk_label_set_text(GTK_LABEL(data->mute_hotkey_label),key_name);
