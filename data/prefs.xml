@@ -1022,13 +1022,14 @@ enabled at compile time</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="draw_indicator">True</property>
+				    <signal name="toggled" handler="on_hotkey_toggle" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="right_attach">2</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label23">
+                                  <object class="GtkLabel" id="hotkey_vol_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0.079999998211860657</property>
@@ -1040,7 +1041,7 @@ enabled at compile time</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="hotkey_spin">
+                                  <object class="GtkSpinButton" id="hotkey_vol_spin">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="invisible_char">•</property>

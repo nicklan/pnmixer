@@ -375,6 +375,12 @@ void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
 #endif
 }
 
+void on_hotkey_toggle(GtkToggleButton* button, PrefsData* data) {
+  gboolean active  = gtk_toggle_button_get_active (button);
+  gtk_widget_set_sensitive(data->hotkey_vol_label,active);
+  gtk_widget_set_sensitive(data->hotkey_vol_spin,active);
+}
+
 static const char* vol_cmds[] = {"pavucontrol",
 				 "gnome-alsamixer",
 				 "xfce4-mixer",
@@ -548,7 +554,8 @@ GtkWidget* create_prefs_window (void) {
   GO(scroll_step_spin);
   GO(middle_click_combo);
   GO(enable_hotkeys_check);
-  GO(hotkey_spin);
+  GO(hotkey_vol_label);
+  GO(hotkey_vol_spin);
   GO(hotkey_dialog);
   GO(hotkey_key_label);
   GO(mute_hotkey_label);
@@ -637,7 +644,7 @@ GtkWidget* create_prefs_window (void) {
      g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE));
   
   // hotkey step
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_spin),
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_vol_spin),
 			    g_key_file_get_integer_with_default(keyFile,"PNMixer","HotkeyVolumeStep",1));
 
 
@@ -654,6 +661,8 @@ GtkWidget* create_prefs_window (void) {
     set_label_for_keycode(prefs_data->down_hotkey_label,
 			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL),
 			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolDownMods", 0));
+
+  on_hotkey_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check), prefs_data);
 
 
   gtk_notebook_append_page(GTK_NOTEBOOK(gtk_builder_get_object(builder,"notebook1")),

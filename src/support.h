@@ -61,7 +61,8 @@ typedef struct {
   GtkWidget* scroll_step_spin;
   GtkWidget* middle_click_combo;
   GtkWidget* enable_hotkeys_check;
-  GtkWidget* hotkey_spin;
+  GtkWidget* hotkey_vol_label;
+  GtkWidget* hotkey_vol_spin;
   GtkWidget* hotkey_dialog;
   GtkWidget* hotkey_key_label;
   GtkWidget* mute_hotkey_label;

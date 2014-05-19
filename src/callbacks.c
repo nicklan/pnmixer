@@ -175,7 +175,7 @@ void on_ok_button_clicked(GtkButton *button,
   g_key_file_set_boolean(keyFile,"PNMixer","EnableHotKeys",active);
 
   // scroll step
-  GtkWidget* hs = data->hotkey_spin;
+  GtkWidget* hs = data->hotkey_vol_spin;
   gint hotstep = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(hs));
   g_key_file_set_integer(keyFile,"PNMixer","HotkeyVolumeStep",hotstep);
 
