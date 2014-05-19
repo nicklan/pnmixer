@@ -24,6 +24,7 @@ static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
 static snd_mixer_elem_t *elem;
 static snd_mixer_t *handle;
+static gchar *card;
 
 static GSList* get_channels(gchar* card);
 
@@ -201,6 +202,9 @@ static void set_io_watch(snd_mixer_t *mixer) {
 
 static int close_mixer(snd_mixer_t **mixer, const char* card) {
   int err;
+
+  DEBUG_PRINT("Closing mixer for card: %s\n",card);
+
   if ((err = snd_mixer_detach(*mixer,card)) < 0) 
     report_error("Mixer detach error: %s", snd_strerror(err));
   snd_mixer_free(*mixer);
@@ -247,7 +251,7 @@ static GSList* get_channels(gchar* card) {
 
 static int alsaset() {
   snd_mixer_selem_id_t *sid;
-  gchar *card,*channel;
+  gchar *channel;
   char *card_dev;
 
   get_cards();
@@ -273,10 +277,17 @@ static int alsaset() {
   assert(elem != NULL);
   snd_mixer_elem_set_callback(elem, alsa_cb);
 
-  if (card)
-    g_free(card);
-
   return 0;
+}
+
+static void alsaunset() {
+    char *card_dev;
+    if (card) {
+      card_dev = selected_card_dev(card);
+      close_mixer(&handle,card_dev);
+      g_free(card);
+      card = NULL;
+    }
 }
 
 static int convert_prange(long val, long min, long max) {
@@ -356,20 +367,10 @@ int getvol() {
   return convert_prange(val,pmin,pmax);
 }
 
-static gint inited = 0;
 void alsa_init() {
-  if (inited) { // re-init, need to close down first
-    gchar *card;
-    char *card_dev;
-    card = get_selected_card();
-    if (card) {
-      card_dev = selected_card_dev(card);
-      close_mixer(&handle,card_dev);
-      g_free(card);
-    }
-  }
+  if (card) // re-init, need to close down first
+    alsaunset();
   alsaset();
-  inited = 1;
 }
 
 void alsa_close() {
