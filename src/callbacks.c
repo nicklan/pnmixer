@@ -184,21 +184,27 @@ void on_ok_button_clicked(GtkButton *button,
   GdkModifierType mods;
   GtkWidget *kl = data->mute_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
-  keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
-  g_key_file_set_integer(keyFile,"PNMixer","VolMuteKey",keycode);
-  g_key_file_set_integer(keyFile,"PNMixer","VolMuteMods",mods);
+  if (keysym != 0) {
+    keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+    g_key_file_set_integer(keyFile,"PNMixer","VolMuteKey",keycode);
+    g_key_file_set_integer(keyFile,"PNMixer","VolMuteMods",mods);
+  }
 
   kl = data->up_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
-  keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
-  g_key_file_set_integer(keyFile,"PNMixer","VolUpKey",keycode);
-  g_key_file_set_integer(keyFile,"PNMixer","VolUpMods",mods);
+  if (keysym != 0) {
+    keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+    g_key_file_set_integer(keyFile,"PNMixer","VolUpKey",keycode);
+    g_key_file_set_integer(keyFile,"PNMixer","VolUpMods",mods);
+  }
 
   kl = data->down_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
-  keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
-  g_key_file_set_integer(keyFile,"PNMixer","VolDownKey",keycode);
-  g_key_file_set_integer(keyFile,"PNMixer","VolDownMods",mods);
+  if (keysym != 0) {
+    keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+    g_key_file_set_integer(keyFile,"PNMixer","VolDownKey",keycode);
+    g_key_file_set_integer(keyFile,"PNMixer","VolDownMods",mods);
+  }
 
 #ifdef HAVE_LIBN
   // notification prefs
