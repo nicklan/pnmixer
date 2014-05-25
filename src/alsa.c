@@ -24,7 +24,7 @@ static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
 static snd_mixer_elem_t *elem;
 static snd_mixer_t *handle;
-static gchar *card;
+static gchar *card = NULL;
 
 static GSList* get_channels(gchar* card);
 
