@@ -63,7 +63,12 @@ void do_notify(gint level,gboolean muted) {
     icon = "audio-volume-high";
   
   if (notification == NULL)
-    notification = notify_notification_new(summary,NULL,icon);
+    notification = notify_notification_new(summary,NULL,icon
+#if NOTIFY_CHECK_VERSION (0, 7, 0)
+      );
+#else
+  ,NULL);
+#endif
   else
     notify_notification_update(notification,summary,NULL,icon);
 
