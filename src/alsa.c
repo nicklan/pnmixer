@@ -169,7 +169,8 @@ static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer dat
       continue;
     else if(stat == G_IO_STATUS_NORMAL) // actually bad, alsa failed to clear channel
       warn_sound_conn_lost();
-    else if (stat == G_IO_STATUS_ERROR || G_IO_STATUS_EOF)
+    else if (stat == G_IO_STATUS_ERROR ||
+			stat == G_IO_STATUS_EOF)
       report_error("Error: GIO error has occured.  Won't respond to external volume changes anymore\n");
     else
       report_error("Error: Unknown status from g_io_channel_read_chars\n");
