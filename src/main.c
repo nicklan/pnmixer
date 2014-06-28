@@ -116,9 +116,12 @@ void run_command(gchar* cmd) {
     if (pid < 0)
       report_error(_("Unable to run command: fork failed"));
     else if (pid == 0) { // child command, try to exec
-      if (execlp (cmd, cmd, NULL))
-	_exit(errno);
-      _exit (EXIT_FAILURE);
+      gchar **cmdargc = g_strsplit(cmd," ",2);
+      gchar **cmdargv = g_strsplit(cmd," ",0);
+      execvp (cmdargc[0], cmdargv);
+      g_strfreev(cmdargc);
+      g_strfreev(cmdargv);
+      _exit(errno);
     }
   }
 
