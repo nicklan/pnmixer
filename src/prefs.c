@@ -438,7 +438,7 @@ void aquire_hotkey(const char* widget_name,
   // grab keyboard
   if (G_LIKELY(
 			  gdk_device_grab(gtk_get_current_event_device(),
-				  gtk_widget_get_root_window(GTK_WIDGET(diag)),
+				  gdk_screen_get_root_window(gdk_screen_get_default()),
 				  GDK_OWNERSHIP_APPLICATION,
 				  TRUE,
 				  GDK_ALL_EVENTS_MASK,
