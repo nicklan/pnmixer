@@ -42,14 +42,16 @@ AC_ARG_ENABLE([minimal-flags],
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
 	if test "$minimalflags" = "no" ; then
-	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0 -export-dynamic"
+	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0"
 	fi
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
 	if test "$minimalflags" = "no" ; then
-	    CFLAGS="$CFLAGS -O2 -export-dynamic"
+	    CFLAGS="$CFLAGS -O2"
 	fi
 fi
+
+LDFLAGS="$LDFLAGS -rdynamic"
 
 ##########################################################################
 
