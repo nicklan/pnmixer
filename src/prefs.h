@@ -30,6 +30,6 @@ void get_icon_theme();
 gchar* get_vol_command();
 gchar* get_selected_card();
 gchar* get_selected_channel(gchar*);
-void aquire_hotkey(const char*,PrefsData*);
+void acquire_hotkey(const char*,PrefsData*);
 
 #endif // PREFS_H_
