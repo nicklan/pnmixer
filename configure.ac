@@ -35,10 +35,10 @@ AC_MSG_RESULT([$debugit])
 
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
-    AM_CFLAGS="$AM_CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0 -export-dynamic"
+    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0 -export-dynamic"
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
-    AM_CFLAGS="$AM_CFLAGS -O2 -export-dynamic"
+    CFLAGS="$CFLAGS -O2 -export-dynamic"
 fi
 
 ##########################################################################
@@ -71,8 +71,6 @@ if test "$with_libnotify" = "yes" || test "$HAVE_LIBN" = "1"; then
    AC_SUBST(LIBNOTIFY_LIBS)
    AC_DEFINE([HAVE_LIBN],1,[Defined if you have libnotify])
 fi
-
-AC_SUBST([AM_CFLAGS])
 
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
