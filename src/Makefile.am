@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_CFLAGS = @AM_CFLAGS@
-
 AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
