@@ -42,16 +42,16 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
     key = ((XKeyEvent *)xevent)->keycode;
     state = ((XKeyEvent *)xevent)->state;
 
-    if (key == volMuteKey && state == volMuteMods) {
+    if ((int)key == volMuteKey && (int)state == volMuteMods) {
       setmute(enable_noti&&hotkey_noti);
       get_mute_state(TRUE);
       return GDK_FILTER_CONTINUE;
     } else {
       int cv = getvol();
-      if (key == volUpKey && state == volUpMods) {
+      if ((int)key == volUpKey && (int)state == volUpMods) {
 	setvol(cv+volStep,enable_noti&&hotkey_noti);
       }
-      else if (key == volDownKey && state == volDownMods) {
+      else if ((int)key == volDownKey && (int)state == volDownMods) {
 	setvol(cv-volStep,enable_noti&&hotkey_noti);
       } 
       // just ignore unknown hotkeys
