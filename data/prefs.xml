@@ -405,7 +405,6 @@ enabled at compile time</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="show_border">False</property>
-                <property name="tab_border">5</property>
                 <child>
                   <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
@@ -632,15 +631,12 @@ enabled at compile time</property>
                             <property name="bottom_padding">5</property>
                             <property name="left_padding">12</property>
                             <child>
-                              <object class="GtkComboBox" id="icon_theme_combo">
+                              <object class="GtkComboBoxText" id="icon_theme_combo">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">icon_theme_liststore</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="icon_text_rend"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
                                 </child>
                               </object>
                             </child>
@@ -721,16 +717,13 @@ enabled at compile time</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="card_combo">
+                                  <object class="GtkComboBoxText" id="card_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="model">card_liststore</property>
                                     <signal name="changed" handler="on_card_changed" swapped="no"/>
                                     <child>
                                       <object class="GtkCellRendererText" id="card_text_rend"/>
-                                      <attributes>
-                                        <attribute name="text">0</attribute>
-                                      </attributes>
                                     </child>
                                   </object>
                                   <packing>
@@ -740,15 +733,12 @@ enabled at compile time</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="chan_combo">
+                                  <object class="GtkComboBoxText" id="chan_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="model">chan_liststore</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="chan_text_rend"/>
-                                      <attributes>
-                                        <attribute name="text">0</attribute>
-                                      </attributes>
                                     </child>
                                   </object>
                                   <packing>

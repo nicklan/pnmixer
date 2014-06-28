@@ -36,7 +36,7 @@ int get_mute_state(gboolean);
 int update_mute_state();
 void hide_me();
 gint tray_icon_size();
-void set_vol_meter_color(guint16 nr,guint16 ng,guint16 nb);
+void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb);
 void update_status_icons();
 void update_vol_text();
 

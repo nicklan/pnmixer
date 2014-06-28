@@ -49,10 +49,11 @@ gboolean vol_scroll_event(GtkRange     *range,
 
 gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   int cv = getvol();
-  if (event->direction == GDK_SCROLL_UP)
-    setvol(cv+scroll_step,mouse_noti);
-  else 
-    setvol(cv-scroll_step,mouse_noti);
+  if (event->direction == GDK_SCROLL_UP) {
+    setvol(cv + scroll_step,mouse_noti);
+  } else if (event->direction == GDK_SCROLL_DOWN) {
+    setvol(cv - scroll_step,mouse_noti);
+  }
 
   if (get_mute_state(TRUE) == 0) {
     setmute(mouse_noti);
@@ -103,18 +104,18 @@ void on_ok_button_clicked(GtkButton *button,
   g_key_file_set_integer(keyFile,"PNMixer","VolMeterPos",vmpos);
 
   GtkWidget* vcb = data->vol_meter_color_button;
-  GdkColor color;
-  gtk_color_button_get_color(GTK_COLOR_BUTTON(vcb),&color);
-  gint colints[3];
+  GdkRGBA color;
+  gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(vcb),&color);
+  gdouble colints[3];
   colints[0] = color.red;
   colints[1] = color.green;
   colints[2] = color.blue;
-  g_key_file_set_integer_list(keyFile,"PNMixer","VolMeterColor",colints,3);
+  g_key_file_set_double_list(keyFile,"PNMixer","VolMeterColor",colints,3);
 
   // alsa card
   GtkWidget *acc = data->card_combo;
   gchar *old_card = get_selected_card();
-  gchar *card = gtk_combo_box_get_active_text (GTK_COMBO_BOX(acc));
+  gchar *card = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(acc));
   if (old_card && strcmp(old_card,card))
       alsa_change = 1;
   g_key_file_set_string(keyFile,"PNMixer","AlsaCard",card);
@@ -124,7 +125,7 @@ void on_ok_button_clicked(GtkButton *button,
   gchar* old_channel = NULL;
   if (old_card)
     old_channel = get_selected_channel(old_card);
-  gchar* chan = gtk_combo_box_get_active_text (GTK_COMBO_BOX(ccc));
+  gchar* chan = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(ccc));
   if (old_channel) {
     if (strcmp(old_channel,chan))
       alsa_change = 1;
@@ -141,7 +142,7 @@ void on_ok_button_clicked(GtkButton *button,
   if (idx == 0) { // internal theme
     g_key_file_remove_key(keyFile,"PNMixer","IconTheme",NULL);
   } else {
-    gchar* theme_name = gtk_combo_box_get_active_text (GTK_COMBO_BOX(icon_combo));
+    gchar* theme_name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(icon_combo));
     if (theme_name) {
       g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
       g_free(theme_name);
@@ -186,7 +187,7 @@ void on_ok_button_clicked(GtkButton *button,
   GtkWidget *kl = data->mute_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
   if (keysym != 0)
-    keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+    keycode = XKeysymToKeycode(gdk_x11_get_default_xdisplay(),keysym);
   else
     keycode = -1;
   g_key_file_set_integer(keyFile,"PNMixer","VolMuteKey",keycode);
@@ -195,7 +196,7 @@ void on_ok_button_clicked(GtkButton *button,
   kl = data->up_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
   if (keysym != 0)
-    keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+    keycode = XKeysymToKeycode(gdk_x11_get_default_xdisplay(),keysym);
   else
     keycode = -1;
   g_key_file_set_integer(keyFile,"PNMixer","VolUpKey",keycode);
@@ -204,7 +205,7 @@ void on_ok_button_clicked(GtkButton *button,
   kl = data->down_hotkey_label;
   gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)),&keysym,&mods);
   if (keysym != 0)
-    keycode = XKeysymToKeycode(GDK_DISPLAY(),keysym);
+    keycode = XKeysymToKeycode(gdk_x11_get_default_xdisplay(),keysym);
   else
     keycode = -1;
   g_key_file_set_integer(keyFile,"PNMixer","VolDownKey",keycode);

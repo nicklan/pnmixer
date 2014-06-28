@@ -7,7 +7,6 @@
     <property name="border_width">5</property>
     <property name="icon_name">help-about</property>
     <property name="type_hint">dialog</property>
-    <property name="has_separator">True</property>
     <property name="program_name">PNMixer</property>
     <property name="copyright" translatable="yes">Copyright © 2010-2011 Nick Lanham</property>
     <property name="comments" translatable="yes">A mixer for the system tray.</property>

@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <locale.h>
 #include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
@@ -170,7 +171,7 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
 
 void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   get_current_levels();
-  if (!GTK_WIDGET_VISIBLE(popup_window)) {
+  if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
     gtk_widget_grab_focus(vol_scale);
     gtk_widget_show(popup_window);
   } else {
@@ -212,12 +213,12 @@ void create_popups (void) {
   uifile = get_ui_file("popup_window.xml");
   if (!uifile) {
     report_error(_("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"));
-    gtk_exit(1);
+    exit(1);
   }
   if (!gtk_builder_add_from_file( builder, uifile, &error )) {
     g_warning("%s",error->message);
     report_error(error->message);
-    gtk_exit(1);
+    exit(1);
   }
 
   g_free(uifile);
@@ -373,10 +374,10 @@ void hide_me() {
 
 static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
 
-void set_vol_meter_color(guint16 nr,guint16 ng,guint16 nb) {
-  vol_meter_red = nr/257;
-  vol_meter_green = ng/257;
-  vol_meter_blue = nb/257;
+void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
+  vol_meter_red = nr * 256;
+  vol_meter_green = ng * 256;
+  vol_meter_blue = nb * 256;
   if (vol_meter_row)
     g_free(vol_meter_row);
   vol_meter_row = NULL;
@@ -468,7 +469,7 @@ int main (int argc, char *argv[]) {
 
   DEBUG_PRINT("[Debugging Mode Build]\n");
 
-  gtk_set_locale ();
+  setlocale(LC_ALL, "");
   context = g_option_context_new (_("- A mixer for the system tray."));
   g_option_context_add_main_entries (context, args, GETTEXT_PACKAGE);
   g_option_context_add_group (context, gtk_get_option_group (TRUE));

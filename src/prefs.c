@@ -123,20 +123,20 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
     gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
 }
 
-gint* get_vol_meter_colors() {
+gdouble* get_vol_meter_colors() {
   gsize numcols = 3;
-  gint* vol_meter_clrs = NULL;
+  gdouble* vol_meter_clrs = NULL;
   if (g_key_file_has_key(keyFile,"PNMixer","VolMeterColor",NULL))
-    vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+    vol_meter_clrs = g_key_file_get_double_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
   if (!vol_meter_clrs || (numcols != 3)) {
     if (vol_meter_clrs) { // corrupt value somehow
       report_error(_("Invalid color for volume meter in config file.  Reverting to default."));
       g_free(vol_meter_clrs);
     }
     vol_meter_clrs = g_malloc(3*sizeof(gint));
-    vol_meter_clrs[0] = 59624;
-    vol_meter_clrs[1] = 28270;
-    vol_meter_clrs[2] = 28270;
+    vol_meter_clrs[0] = 0.909803921569;
+    vol_meter_clrs[1] = 0.43137254902;
+    vol_meter_clrs[2] = 0.43137254902;
   }
   return vol_meter_clrs;
 }
@@ -223,7 +223,7 @@ static void set_notifications_booleans() {
 }
 
 void apply_prefs(gint alsa_change) {
-  gint* vol_meter_clrs;
+  gdouble* vol_meter_clrs;
   scroll_step = g_key_file_get_integer_with_default(keyFile,"PNMixer","MouseScrollStep",1);
 
   if (g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE)) {
@@ -436,9 +436,19 @@ void aquire_hotkey(const char* widget_name,
   }
 
   // grab keyboard
-  if (G_LIKELY(gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)), TRUE, GDK_CURRENT_TIME) == GDK_GRAB_SUCCESS)) {
+  if (G_LIKELY(
+			  gdk_device_grab(gtk_get_current_event_device(),
+				  gtk_widget_get_root_window(GTK_WIDGET(diag)),
+				  GDK_OWNERSHIP_APPLICATION,
+				  TRUE,
+				  GDK_ALL_EVENTS_MASK,
+				  NULL,
+				  GDK_CURRENT_TIME
+				  ) == GDK_GRAB_SUCCESS
+			  )
+		  ) {
     resp = gtk_dialog_run(GTK_DIALOG(diag));
-    gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+    gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
     if (resp == GTK_RESPONSE_OK) {
       const gchar* key_name = gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
       if (!strcasecmp(key_name, "<Primary>c")) {
@@ -491,7 +501,7 @@ gboolean hotkey_pressed(GtkWidget   *dialog,
 gboolean hotkey_released(GtkWidget   *dialog,
 			 GdkEventKey *ev,
 			 PrefsData   *data) {
-  gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+  gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
   gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
   return FALSE;
 }
@@ -500,7 +510,7 @@ static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mo
   int keysym;
   gchar *key_text;
   if (code < 0) return;
-  keysym = XkbKeycodeToKeysym(GDK_DISPLAY(), code, 0, 0);
+  keysym = XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(), code, 0, 0);
   key_text = gtk_accelerator_name (keysym, mods);
   gtk_label_set_text(GTK_LABEL(label),key_text);
   g_free(key_text);
@@ -510,8 +520,8 @@ GtkWidget* create_prefs_window (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
 
-  GdkColor   vol_meter_color_button_color;
-  gint       *vol_meter_clrs;
+  GdkRGBA   vol_meter_color_button_color;
+  gdouble       *vol_meter_clrs;
   gchar      *vol_cmd,*uifile,*custcmd;
 
   PrefsData  *prefs_data;
@@ -599,7 +609,7 @@ GtkWidget* create_prefs_window (void) {
   vol_meter_color_button_color.red = vol_meter_clrs[0];
   vol_meter_color_button_color.green = vol_meter_clrs[1];
   vol_meter_color_button_color.blue = vol_meter_clrs[2];
-  gtk_color_button_set_color(GTK_COLOR_BUTTON(prefs_data->vol_meter_color_button),
+  gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(prefs_data->vol_meter_color_button),
 			     &vol_meter_color_button_color);
   g_free(vol_meter_clrs);
 

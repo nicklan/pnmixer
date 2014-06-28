@@ -10,7 +10,7 @@ AC_PROG_CC
 AC_HEADER_STDC
 CFLAGS=$OLD_CXXFLAGS
 
-pkg_modules="gtk+-2.0 >= 2.16.0"
+pkg_modules="gtk+-3.0 >= 3.6.0"
 
 echo -n "checking for alsasound ... "
 if pkg-config --exists  alsa ; then

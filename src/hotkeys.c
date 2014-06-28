@@ -67,8 +67,10 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 }
 
 void add_filter() {
-  gdk_window_add_filter(gdk_window_foreign_new(GDK_ROOT_WINDOW()),
-			key_filter,NULL);
+  gdk_window_add_filter(
+		  gdk_x11_window_foreign_new_for_display(gdk_display_get_default(),
+			  GDK_ROOT_WINDOW()),
+		  key_filter,NULL);
 }
 
 static char xErr;
@@ -104,7 +106,7 @@ static gboolean idle_report_error(gpointer data) {
 void grab_keys(int mk, int uk, int dk,
 	       int mm, int um, int dm,
 	       int step) {
-  Display* disp = GDK_DISPLAY();
+  Display* disp = gdk_x11_get_default_xdisplay();
 
   // ungrab any previous keys
   XUngrabKey(disp, AnyKey, AnyModifier, GDK_ROOT_WINDOW());
@@ -130,9 +132,19 @@ void grab_keys(int mk, int uk, int dk,
   if (muteSymStr) g_free(muteSymStr);
   if (upSymStr)   g_free(upSymStr);
   if (downSymStr) g_free(downSymStr);
-  muteSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(), volMuteKey, 0, 0),volMuteMods);
-  upSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(),volUpKey,0, 0),volUpMods);
-  downSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(), volDownKey, 0, 0),volDownMods);
+
+  muteSymStr =
+	  gtk_accelerator_name(
+			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+				  volMuteKey, 0, 0),volMuteMods);
+  upSymStr =
+	  gtk_accelerator_name(
+			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+				  volUpKey, 0, 0),volUpMods);
+  downSymStr =
+	  gtk_accelerator_name(
+			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+				  volDownKey, 0, 0),volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
   if (volMuteKey > 0) {
