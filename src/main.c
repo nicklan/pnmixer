@@ -183,7 +183,7 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
 }
 
 gint tray_icon_size() {
-  if(tray_icon && gtk_status_icon_is_embedded(tray_icon))
+  if(tray_icon && GTK_IS_STATUS_ICON(tray_icon))  // gtk_status_icon_is_embedded returns false until the prefs window is opened on gtk3
     return gtk_status_icon_get_size(tray_icon);
   return 48;
 }
@@ -500,9 +500,9 @@ int main (int argc, char *argv[]) {
   init_libnotify();
   create_popups();
   add_filter();
-  apply_prefs(0);
 
   tray_icon = create_tray_icon();
+  apply_prefs(0);
 
   g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), popup_menu);
   g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(tray_icon_on_click), NULL);
