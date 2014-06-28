@@ -33,12 +33,22 @@ AC_ARG_ENABLE([debug],
     [debugit=no])
 AC_MSG_RESULT([$debugit])
 
+AC_ARG_ENABLE([minimal-flags],
+			  [AS_HELP_STRING([--enable-minimal-flags],
+							  [respect system CFLAGS (def=no)])],
+			  [minimalflags="$enableval"],
+			  [minimalflags=no])
+
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
-    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0 -export-dynamic"
+	if test "$minimalflags" = "no" ; then
+	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0 -export-dynamic"
+	fi
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
-    CFLAGS="$CFLAGS -O2 -export-dynamic"
+	if test "$minimalflags" = "no" ; then
+	    CFLAGS="$CFLAGS -O2 -export-dynamic"
+	fi
 fi
 
 ##########################################################################
