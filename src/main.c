@@ -454,7 +454,7 @@ static gboolean version = FALSE;
 static GOptionEntry args[] = 
   {
     { "version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit", NULL },
-    { NULL }
+    { NULL, 0, 0, 0, NULL, NULL, NULL }
   };
 
 int main (int argc, char *argv[]) {
