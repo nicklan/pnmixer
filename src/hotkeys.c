@@ -26,7 +26,24 @@ static int volMuteMods = -1;
 static int volDownMods = -1;
 static int volUpMods   = -1;
 static int volStep    = 1;
- 
+
+// `xmodmap -pm`
+static uint keymasks [] = {
+    0,					/* No Modkey */
+    GDK_MOD2_MASK, 			/* Numlock */
+    GDK_LOCK_MASK, 			/* Capslock */
+    GDK_MOD2_MASK | GDK_LOCK_MASK 	/* Both */
+ };
+
+static
+gboolean checkModKey(int got, int want) {
+  int i;
+  for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
+    if (want|keymasks[i]==got) return TRUE;
+  }
+  return FALSE;
+}
+
 static
 GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 			   gpointer data) {
@@ -42,16 +59,16 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
     key = ((XKeyEvent *)xevent)->keycode;
     state = ((XKeyEvent *)xevent)->state;
 
-    if ((int)key == volMuteKey && (int)state == volMuteMods) {
+    if ((int)key == volMuteKey && checkModKey(state, volMuteMods)) {
       setmute(enable_noti&&hotkey_noti);
       get_mute_state(TRUE);
       return GDK_FILTER_CONTINUE;
     } else {
       int cv = getvol();
-      if ((int)key == volUpKey && (int)state == volUpMods) {
+      if ((int)key == volUpKey && checkModKey(state, volUpMods)) {
 	setvol(cv+volStep,enable_noti&&hotkey_noti);
       }
-      else if ((int)key == volDownKey && (int)state == volDownMods) {
+      else if ((int)key == volDownKey && checkModKey(state, volDownMods)) {
 	setvol(cv-volStep,enable_noti&&hotkey_noti);
       } 
       // just ignore unknown hotkeys
@@ -147,19 +164,22 @@ void grab_keys(int mk, int uk, int dk,
 				  volDownKey, 0, 0),volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
-  if (volMuteKey > 0) {
-    muteSerial = NextRequest(disp);
-    XGrabKey(disp,volMuteKey,volMuteMods,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
-  }
+  int i;
+  for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
+    if (volMuteKey > 0) {
+      muteSerial = NextRequest(disp);
+      XGrabKey(disp,volMuteKey,volMuteMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    }
 
-  if (volUpKey > 0) {
-    upSerial = NextRequest(disp);
-    XGrabKey(disp,volUpKey,volUpMods,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
-  }
+    if (volUpKey > 0) {
+      upSerial = NextRequest(disp);
+      XGrabKey(disp,volUpKey,volUpMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    }
 
-  if (volDownKey > 0) {
-    downSerial = NextRequest(disp);
-    XGrabKey(disp,volDownKey,volDownMods,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    if (volDownKey > 0) {
+      downSerial = NextRequest(disp);
+      XGrabKey(disp,volDownKey,volDownMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    }
   }
 
   XFlush(disp);
