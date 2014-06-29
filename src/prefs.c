@@ -403,7 +403,7 @@ gchar* get_vol_command() {
   }
 }
 
-void aquire_hotkey(const char* widget_name,
+void acquire_hotkey(const char* widget_name,
 		   PrefsData *data) {
   gint resp, action;
   GtkWidget  *diag = data->hotkey_dialog;
@@ -417,7 +417,7 @@ void aquire_hotkey(const char* widget_name,
     2:-1;
 
   if (action < 0) {
-    report_error("Invalid widget passed to aquire_hotkey: %s",widget_name);
+    report_error("Invalid widget passed to acquire_hotkey: %s",widget_name);
     return;
   }
 

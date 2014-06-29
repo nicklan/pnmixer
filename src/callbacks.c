@@ -70,7 +70,7 @@ gboolean on_hotkey_button_click(GtkWidget *widget,
 				PrefsData *data) {
   if (event->button ==1 && 
       event->type==GDK_2BUTTON_PRESS) 
-    aquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
+    acquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
 		  data);
   return TRUE;
 }
