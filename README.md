@@ -8,7 +8,7 @@ In particular it's been used quite a lot with fbpanel and tint2, but
 should run fine in any system tray.
 
 PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with
-a number of additions.  These include: 
+a number of additions.  These include:
 
 - Volume adjustment with the scroll wheel
 - Select which ALSA device and channel to use
@@ -39,6 +39,17 @@ Latest version can always be found at:
 
 Compilation and Install
 -----------------------
+Needed dependencies:
+* >=gtk+-3.6 (or >=gtk+-2.22 via --without-gtk3)
+* glib-2
+* alsa-lib
+* libX11
+* libnotify (optional, disable via --without-libnotify)
+* gettext (build-time only)
+* pkg-config (build-time only)
+* autoconf (build-time only)
+* automake (build-time only)
+
 To install this program cd to this directory and run:
 
 ./autogen.sh
