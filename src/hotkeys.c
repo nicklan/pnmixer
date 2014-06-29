@@ -39,7 +39,7 @@ static
 gboolean checkModKey(int got, int want) {
   int i;
   for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
-    if (want|keymasks[i]==got) return TRUE;
+    if ((want|keymasks[i])==got) return TRUE;
   }
   return FALSE;
 }
