@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <alsa/asoundlib.h>
+#include <string.h>
 
 static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
