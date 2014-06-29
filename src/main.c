@@ -507,7 +507,7 @@ int main (int argc, char *argv[]) {
   g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(tray_icon_button), NULL);
 
   gtk_main ();
-  alsa_close();
   uninit_libnotify();
+  alsa_close();
   return 0;
 }

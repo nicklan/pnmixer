@@ -235,7 +235,7 @@
                         <property name="tooltip_text" translatable="yes">Quit</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="exit" swapped="no"/>
+                        <signal name="activate" handler="gtk_main_quit" swapped="no"/>
                       </object>
                     </child>
                   </object>
