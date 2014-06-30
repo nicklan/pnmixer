@@ -376,9 +376,9 @@ void hide_me() {
 static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
 
 void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
-  vol_meter_red = nr * 256;
-  vol_meter_green = ng * 256;
-  vol_meter_blue = nb * 256;
+  vol_meter_red = nr * 255;
+  vol_meter_green = ng * 255;
+  vol_meter_blue = nb * 255;
   if (vol_meter_row)
     g_free(vol_meter_row);
   vol_meter_row = NULL;
