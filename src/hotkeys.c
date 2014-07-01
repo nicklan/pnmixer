@@ -39,7 +39,7 @@ static
 gboolean checkModKey(int got, int want) {
   unsigned int i;
   for (i=0; i < G_N_ELEMENTS(keymasks); i++)
-    if ((want | keymasks[i]) == got)
+    if ((int)(want | keymasks[i]) == got)
 		return TRUE;
   return FALSE;
 }
@@ -164,7 +164,7 @@ void grab_keys(int mk, int uk, int dk,
 				  volDownKey, 0, 0),volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
-  int i;
+  unsigned int i;
   for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
     if (volMuteKey > 0) {
       muteSerial = NextRequest(disp);
