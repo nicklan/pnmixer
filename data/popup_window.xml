@@ -29,12 +29,12 @@
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
-    <property name="type_hint">dialog</property>
+    <property name="type">popup</property>
+    <property name="type_hint">popup-menu</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
-    <signal name="button-release-event" handler="hide_me" swapped="no"/>
-    <signal name="focus-out-event" handler="hide_me" swapped="no"/>
+    <signal name="show" handler="popup_grab_focus" swapped="no"/>
     <child>
       <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
@@ -51,7 +51,6 @@
             <property name="round_digits">0</property>
             <property name="digits">0</property>
             <signal name="change-value" handler="vol_scroll_event" swapped="no"/>
-            <signal name="key-press-event" handler="hide_me" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>

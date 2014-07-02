@@ -173,11 +173,28 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
 void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   get_current_levels();
   if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
-    gtk_widget_grab_focus(vol_scale);
-    gtk_widget_show(popup_window);
+	gtk_widget_show(popup_window);
   } else {
     gtk_widget_hide (popup_window);
   }
+}
+
+void popup_grab_focus(GtkWidget *w, gpointer user_data) {
+	/* ungrabbed in hide_popup_window */
+	if (GDK_GRAB_SUCCESS !=
+			gdk_device_grab(gtk_get_current_event_device(),
+				gtk_widget_get_window(GTK_WIDGET(w)),
+				GDK_OWNERSHIP_NONE,
+				TRUE,
+				GDK_BUTTON_PRESS_MASK,
+				NULL,
+				GDK_CURRENT_TIME))
+			fprintf(stderr, "Failed to grab device!\n");
+
+	g_signal_connect(G_OBJECT(w),
+			"button-press-event",
+			G_CALLBACK(hide_popup_window),
+			NULL);
 }
 
 gint tray_icon_size() {
@@ -235,8 +252,6 @@ void create_popups (void) {
 
   gtk_builder_connect_signals(builder, NULL);
   g_object_unref (G_OBJECT (builder));
-
-  gtk_widget_grab_focus (vol_scale);
 }
 
 
@@ -367,11 +382,17 @@ int get_mute_state(gboolean set_check) {
   return muted;
 }
 
+void hide_popup_window(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
+	GdkDevice *device = gtk_get_current_event_device();
+	gint x, y;
 
-void hide_me() {
-  gtk_widget_hide(popup_window);
+	if (event->type == GDK_BUTTON_PRESS &&
+			!gdk_device_get_window_at_position(device, &x, &y)) {
+		gtk_widget_hide(widget);
+
+		gdk_device_ungrab(device, GDK_CURRENT_TIME);
+	}
 }
-
 
 static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
 
