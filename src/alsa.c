@@ -25,6 +25,7 @@
 #  include <config.h>
 #endif
 
+#define _GNU_SOURCE
 #include "alsa.h"
 #include "main.h"
 #include "notify.h"
@@ -34,7 +35,6 @@
 #include <alsa/asoundlib.h>
 #include <string.h>
 
-#define _GNU_SOURCE
 #define MAX_LINEAR_DB_SCALE	24
 #define PLAYBACK 0
 
@@ -365,7 +365,7 @@ static int convert_prange(long val, long min, long max) {
 }
 
 int setvol(int vol, gboolean notify) {
-  long min = 0, max = 0, target, current, value;
+  long min = 0, max = 0, value;
   int cur_perc = getvol();
   double dvol = 0.01 * vol;
 

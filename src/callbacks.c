@@ -171,8 +171,9 @@ void on_ok_button_clicked(GtkButton *button,
 
   // normalize volume
   GtkWidget* vnorm = data->normalize_vol_check;
-  vnorm = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vnorm));
-  g_key_file_set_boolean(keyFile,"PNMixer","NormalizeVolume",vnorm);
+  gboolean is_pressed;
+  is_pressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vnorm));
+  g_key_file_set_boolean(keyFile,"PNMixer","NormalizeVolume",is_pressed);
 
   // hotkey enable
   GtkWidget* hkc = data->enable_hotkeys_check;

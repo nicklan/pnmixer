@@ -31,5 +31,6 @@ gchar* get_vol_command();
 gchar* get_selected_card();
 gchar* get_selected_channel(gchar*);
 void acquire_hotkey(const char*,PrefsData*);
+gboolean normalize_vol(void);
 
 #endif // PREFS_H_
