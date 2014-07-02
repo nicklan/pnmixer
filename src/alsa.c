@@ -1,11 +1,24 @@
 /* alsa.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
+ */
+
+/*
+ * ALSA volume normalization code adapted from original alsa source:
+ *
+ *    volume_mapping.c
+ *
+ * Copyright (c) 2010 Clemens Ladisch <clemens@ladisch.de>
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -21,6 +34,13 @@
 #include <alsa/asoundlib.h>
 #include <string.h>
 
+#define _GNU_SOURCE
+#define MAX_LINEAR_DB_SCALE	24
+#define PLAYBACK 0
+
+static inline gboolean use_linear_dB_scale(long dBmin, long dBmax){
+	return dBmax - dBmin <= MAX_LINEAR_DB_SCALE * 100;
+}
 static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
 static snd_mixer_elem_t *elem;
@@ -28,6 +48,16 @@ static snd_mixer_t *handle;
 static gchar *card = NULL;
 
 static GSList* get_channels(gchar* card);
+
+static long lrint_dir(double x, int dir)
+{
+	if (dir > 0)
+		return lrint(ceil(x));
+	else if (dir < 0)
+		return lrint(floor(x));
+	else
+		return lrint(x);
+}
 
 static void card_free(gpointer data) {
   struct acard* c = (struct acard*)data;
@@ -44,7 +74,7 @@ static void get_cards() {
   snd_ctl_t *ctl;
   char buf[10];
   struct acard *cur_card, *default_card;
-  
+
   if (cards != NULL)
     g_slist_free_full(cards,card_free);
 
@@ -61,7 +91,7 @@ static void get_cards() {
   snd_ctl_card_info_alloca(&info);
   num = -1;
   for (;;) {
-    err = snd_card_next(&num); 
+    err = snd_card_next(&num);
     if (err < 0) {
       report_error("Can't get sounds cards: %s\n",snd_strerror(err));
       return;
@@ -192,7 +222,7 @@ static void set_io_watch(snd_mixer_t *mixer) {
     if (pcount <= 0)
       report_error("Warning: Couldn't get any poll descriptors.  Won't respond to external volume changes");
     for (i = 0;i < pcount;i++) {
-      if (gioc) {	
+      if (gioc) {
 	g_io_channel_unref(gioc);
 	gioc = NULL;
       }
@@ -207,10 +237,10 @@ static int close_mixer(snd_mixer_t **mixer, const char* card) {
 
   DEBUG_PRINT("Closing mixer for card: %s\n",card);
 
-  if ((err = snd_mixer_detach(*mixer,card)) < 0) 
+  if ((err = snd_mixer_detach(*mixer,card)) < 0)
     report_error("Mixer detach error: %s", snd_strerror(err));
   snd_mixer_free(*mixer);
-  if ((err = snd_mixer_close(*mixer)) < 0) 
+  if ((err = snd_mixer_close(*mixer)) < 0)
     report_error("Mixer close error: %s", snd_strerror(err));
   return err;
 }
@@ -292,6 +322,40 @@ static void alsaunset() {
     }
 }
 
+static double get_normalized_volume(snd_mixer_elem_t *elem, snd_mixer_selem_channel_id_t channel) {
+    long min, max, value;
+    double normalized, min_norm;
+    int err;
+
+    err = snd_mixer_selem_get_playback_dB_range(elem, &min, &max);
+    if (err < 0 || min >= max) {
+        err = snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
+        if (err < 0 || min == max)
+            return 0;
+
+        err = snd_mixer_selem_get_playback_volume(elem, channel, &value);
+        if (err < 0)
+            return 0;
+
+        return (value - min) / (double)(max - min);
+    }
+
+    err = snd_mixer_selem_get_playback_dB(elem, channel, &value);
+    if (err < 0)
+        return 0;
+
+    if (use_linear_dB_scale(min, max))
+        return (value - min) / (double)(max - min);
+
+    normalized = exp10((value - max) / 6000.0);
+    if (min != SND_CTL_TLV_DB_GAIN_MUTE) {
+        min_norm = exp10((min - max) / 6000.0);
+        normalized = (normalized - min_norm) / (1 - min_norm);
+    }
+
+    return normalized;
+}
+
 static int convert_prange(long val, long min, long max) {
   long range = max - min;
   if (range == 0)
@@ -300,41 +364,36 @@ static int convert_prange(long val, long min, long max) {
   return rint(val/(double)range * 100);
 }
 
-void setvol(int vol, gboolean notify) {
-  long pmin = 0, pmax = 0, target, current;
-  int cur_perc;
-  snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+int setvol(int vol, gboolean notify) {
+  long min = 0, max = 0, target, current, value;
+  int cur_perc = getvol();
+  double dvol = 0.01 * vol;
 
-  snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &current);
-  cur_perc = convert_prange(current,pmin,pmax);
-
-  target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
-
-  DEBUG_PRINT("Setting volume.  cur: %li  tar: %li  curp: %i  tp: %i\n",current,target,cur_perc,vol);
-
-  while(target == current) { // deal with channels that have fewer than 100 steps
-    if (cur_perc < vol) {
-      if (target == pmax) break;
-      vol++;
-    }
-    else {
-      if (target == pmin) break;
-      vol--;
-    }
-    target = ceil((vol) * ((pmax) - (pmin)) * 0.01 + (pmin));
-
-    DEBUG_PRINT("In while:  New target: %li  New perc: %i\n",target, vol);
+  int err = snd_mixer_selem_get_playback_dB_range(elem, &min, &max);
+  if (err < 0 || min >= max || !normalize_vol()) {
+    err = snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
+    value = lrint_dir(dvol * (max - min), PLAYBACK) + min;
+    snd_mixer_selem_set_playback_volume_all(elem, value);
+    if (enable_noti && notify && cur_perc != getvol())
+      do_notify(getvol(),FALSE);
+    return snd_mixer_selem_set_playback_volume_all(elem, value); // intentionally set twice
   }
-  target = (target < pmin)?pmin:target;
-  target = (target > pmax)?pmax:target;
 
-  DEBUG_PRINT("Final target: %li\n",target);
+  if (use_linear_dB_scale(min, max)) {
+    value = lrint_dir(dvol * (max - min), PLAYBACK) + min;
+    return snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK);
+  }
 
-  snd_mixer_selem_set_playback_volume_all(elem, target);
-  snd_mixer_selem_set_playback_volume_all(elem, target);
+  if (min != SND_CTL_TLV_DB_GAIN_MUTE) {
+    double min_norm = exp10((min - max) / 6000.0);
+    dvol = dvol * (1 - min_norm) + min_norm;
+  }
 
-  if (enable_noti && notify && cur_perc != vol)
-    do_notify(vol,FALSE);
+  value = lrint_dir(6000.0 * log10(dvol), PLAYBACK) + max;
+  snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK);
+  if (enable_noti && notify && cur_perc != getvol())
+    do_notify(getvol(),FALSE);
+  return snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK); // intentionally set twice
 }
 
 void setmute(gboolean notify) {
@@ -360,13 +419,15 @@ int ismuted() {
 }
 
 int getvol() {
-  long pmin = 0, pmax = 0;
-  snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
-
-  long val;
-  snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &val);
-  DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li\n",val,pmin,pmax);
-  return convert_prange(val,pmin,pmax);
+  if (normalize_vol()) {
+      return lrint(get_normalized_volume(elem,SND_MIXER_SCHN_FRONT_RIGHT)*100);
+  } else {
+      long val, pmin = 0, pmax = 0;
+      snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+      snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &val);
+      DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li\n",val,pmin,pmax);
+      return convert_prange(val,pmin,pmax);
+  }
 }
 
 void alsa_init() {

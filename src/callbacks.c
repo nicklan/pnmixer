@@ -1,10 +1,10 @@
 /* callbacks.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
 #ifdef HAVE_CONFIG_H
@@ -38,7 +38,7 @@ gboolean vol_scroll_event(GtkRange     *range,
 			  gpointer      user_data) {
   int volumeset;
   volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
-  
+
   setvol(volumeset,popup_noti);
   if (get_mute_state(TRUE) == 0) {
     setmute(popup_noti);
@@ -65,11 +65,11 @@ gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   return TRUE;
 }
 
-gboolean on_hotkey_button_click(GtkWidget *widget, 
-				GdkEventButton *event, 
+gboolean on_hotkey_button_click(GtkWidget *widget,
+				GdkEventButton *event,
 				PrefsData *data) {
-  if (event->button ==1 && 
-      event->type==GDK_2BUTTON_PRESS) 
+  if (event->button ==1 &&
+      event->type==GDK_2BUTTON_PRESS)
     acquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
 		  data);
   return TRUE;
@@ -87,7 +87,7 @@ void on_ok_button_clicked(GtkButton *button,
   GtkWidget* vtc = data->vol_text_check;
   gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vtc));
   g_key_file_set_boolean(keyFile,"PNMixer","DisplayTextVolume",active);
-  
+
   // vol pos
   GtkWidget* vpc = data->vol_pos_combo;
   gint idx = gtk_combo_box_get_active(GTK_COMBO_BOX(vpc));
@@ -97,7 +97,7 @@ void on_ok_button_clicked(GtkButton *button,
   GtkWidget* dvc = data->draw_vol_check;
   active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dvc));
   g_key_file_set_boolean(keyFile,"PNMixer","DrawVolMeter",active);
-  
+
   // vol meter pos
   GtkWidget* vmps = data->vol_meter_pos_spin;
   gint vmpos = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(vmps));
@@ -169,6 +169,10 @@ void on_ok_button_clicked(GtkButton *button,
   const gchar* cc = gtk_entry_get_text (GTK_ENTRY(ce));
   g_key_file_set_string(keyFile,"PNMixer","CustomCommand",cc);
 
+  // normalize volume
+  GtkWidget* vnorm = data->normalize_vol_check;
+  vnorm = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vnorm));
+  g_key_file_set_boolean(keyFile,"PNMixer","NormalizeVolume",vnorm);
 
   // hotkey enable
   GtkWidget* hkc = data->enable_hotkeys_check;
@@ -216,7 +220,7 @@ void on_ok_button_clicked(GtkButton *button,
   GtkWidget* nc = data->enable_noti_check;
   active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
   g_key_file_set_boolean(keyFile,"PNMixer","EnableNotifications",active);
-  
+
   nc = data->hotkey_noti_check;
   active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
   g_key_file_set_boolean(keyFile,"PNMixer","HotkeyNotifications",active);
@@ -240,7 +244,7 @@ void on_ok_button_clicked(GtkButton *button,
   if (err != NULL) {
     report_error(_("Couldn't write preferences file: %s\n"), err->message);
     g_error_free (err);
-  } else 
+  } else
     apply_prefs(alsa_change);
   g_free(filename);
   gtk_widget_destroy(data->prefs_window);
