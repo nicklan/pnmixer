@@ -28,7 +28,7 @@ static int volUpMods   = -1;
 static int volStep    = 1;
 
 // `xmodmap -pm`
-static uint keymasks [] = {
+static guint keymasks [] = {
     0,					/* No Modkey */
     GDK_MOD2_MASK, 			/* Numlock */
     GDK_LOCK_MASK, 			/* Capslock */
@@ -37,7 +37,7 @@ static uint keymasks [] = {
 
 static
 gboolean checkModKey(int got, int want) {
-  unsigned int i;
+  guint i;
   for (i=0; i < G_N_ELEMENTS(keymasks); i++)
     if ((int)(want | keymasks[i]) == got)
 		return TRUE;
@@ -48,7 +48,7 @@ static
 GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 			   gpointer data) {
   int type;
-  unsigned int key,state;
+  guint key,state;
   XKeyEvent *xevent;
   //gboolean bResult;
 
@@ -164,7 +164,7 @@ void grab_keys(int mk, int uk, int dk,
 				  volDownKey, 0, 0),volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
-  unsigned int i;
+  guint i;
   for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
     if (volMuteKey > 0) {
       muteSerial = NextRequest(disp);
