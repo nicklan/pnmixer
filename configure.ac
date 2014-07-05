@@ -8,7 +8,20 @@ AC_ISC_POSIX
 AC_PROG_CC
 AC_HEADER_STDC
 
-pkg_modules="gtk+-3.0 >= 3.6.0"
+
+AC_ARG_WITH([gtk3],
+			  [AS_HELP_STRING([--with-gtk3],
+							  [use gtk3 as toolkit (def=yes)])],
+			  [with_gtk3="$withval"],
+			  [with_gtk3=yes])
+
+if test "$with_gtk3" = "yes" ; then
+	pkg_modules="gtk+-3.0 >= 3.6.0"
+	AC_DEFINE([WITH_GTK3], [], [Gtk3 mode])
+else
+	pkg_modules="gtk+-2.0 >= 2.16.0"
+fi
+AM_CONDITIONAL([WITH_GTK3], [test "$with_gtk3" = "yes"])
 
 echo -n "checking for alsasound ... "
 if pkg-config --exists  alsa ; then

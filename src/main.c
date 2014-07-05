@@ -182,14 +182,25 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
 void popup_grab_focus(GtkWidget *w, gpointer user_data) {
 	/* ungrabbed in hide_popup_window */
 	if (GDK_GRAB_SUCCESS !=
+#ifdef WITH_GTK3
 			gdk_device_grab(gtk_get_current_event_device(),
 				gtk_widget_get_window(GTK_WIDGET(w)),
 				GDK_OWNERSHIP_NONE,
 				TRUE,
 				GDK_BUTTON_PRESS_MASK,
 				NULL,
-				GDK_CURRENT_TIME))
+				GDK_CURRENT_TIME)
+#else
+		gdk_pointer_grab(gtk_widget_get_window(GTK_WIDGET(w)),
+					TRUE,
+					GDK_BUTTON_PRESS_MASK,
+					NULL,
+					NULL,
+					GDK_CURRENT_TIME)
+#endif
+	   )
 			fprintf(stderr, "Failed to grab device!\n");
+
 
 	g_signal_connect(G_OBJECT(w),
 			"button-press-event",
@@ -228,7 +239,11 @@ void create_popups (void) {
   GError     *error = NULL;
   gchar      *uifile;
   builder = gtk_builder_new();
-  uifile = get_ui_file("popup_window.xml");
+#ifdef WITH_GTK3
+  uifile = get_ui_file("popup_window-gtk3.xml");
+#else
+  uifile = get_ui_file("popup_window-gtk2.xml");
+#endif
   if (!uifile) {
     report_error(_("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"));
     exit(1);
@@ -282,7 +297,11 @@ void create_about (void) {
   GtkWidget  *about;
   gchar      *uifile;
 
-  uifile = get_ui_file("about.xml");
+#ifdef WITH_GTK3
+  uifile = get_ui_file("about-gtk3.xml");
+#else
+  uifile = get_ui_file("about-gtk2.xml");
+#endif
   if (!uifile) {
     report_error(_("Can't find about interface file.  Please insure PNMixer is installed correctly."));
     return;
@@ -383,14 +402,25 @@ int get_mute_state(gboolean set_check) {
 }
 
 void hide_popup_window(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
+#ifdef WITH_GTK3
 	GdkDevice *device = gtk_get_current_event_device();
+#endif
 	gint x, y;
 
 	if (event->type == GDK_BUTTON_PRESS &&
-			!gdk_device_get_window_at_position(device, &x, &y)) {
+#ifdef WITH_GTK3
+			!gdk_device_get_window_at_position(device, &x, &y)
+#else
+			!gdk_window_at_pointer(&x, &y)
+#endif
+	   ) {
 		gtk_widget_hide(widget);
 
+#ifdef WITH_GTK3
 		gdk_device_ungrab(device, GDK_CURRENT_TIME);
+#else
+		gdk_pointer_ungrab(GDK_CURRENT_TIME);
+#endif
 	}
 }
 

@@ -124,20 +124,38 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
     gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
 }
 
+#ifdef WITH_GTK3
 gdouble* get_vol_meter_colors() {
+#else
+gint* get_vol_meter_colors() {
+#endif
   gsize numcols = 3;
+#ifdef WITH_GTK3
   gdouble* vol_meter_clrs = NULL;
+#else
+  gint* vol_meter_clrs = NULL;
+#endif
   if (g_key_file_has_key(keyFile,"PNMixer","VolMeterColor",NULL))
+#ifdef WITH_GTK3
     vol_meter_clrs = g_key_file_get_double_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+#else
+    vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+#endif
   if (!vol_meter_clrs || (numcols != 3)) {
     if (vol_meter_clrs) { // corrupt value somehow
       report_error(_("Invalid color for volume meter in config file.  Reverting to default."));
       g_free(vol_meter_clrs);
     }
     vol_meter_clrs = g_malloc(3*sizeof(gint));
+#ifdef WITH_GTK3
     vol_meter_clrs[0] = 0.909803921569;
     vol_meter_clrs[1] = 0.43137254902;
     vol_meter_clrs[2] = 0.43137254902;
+#else
+    vol_meter_clrs[0] = 59624;
+    vol_meter_clrs[1] = 28270;
+    vol_meter_clrs[2] = 28270;
+#endif
   }
   return vol_meter_clrs;
 }
@@ -224,7 +242,11 @@ static void set_notifications_booleans() {
 }
 
 void apply_prefs(gint alsa_change) {
+#ifdef WITH_GTK3
   gdouble* vol_meter_clrs;
+#else
+  gint* vol_meter_clrs;
+#endif
   scroll_step = g_key_file_get_integer_with_default(keyFile,"PNMixer","MouseScrollStep",5);
 
   if (g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE)) {
@@ -438,6 +460,7 @@ void acquire_hotkey(const char* widget_name,
 
   // grab keyboard
   if (G_LIKELY(
+#ifdef WITH_GTK3
 			  gdk_device_grab(gtk_get_current_event_device(),
 				  gdk_screen_get_root_window(gdk_screen_get_default()),
 				  GDK_OWNERSHIP_APPLICATION,
@@ -445,11 +468,19 @@ void acquire_hotkey(const char* widget_name,
 				  GDK_ALL_EVENTS_MASK,
 				  NULL,
 				  GDK_CURRENT_TIME
-				  ) == GDK_GRAB_SUCCESS
-			  )
-		  ) {
+				  )
+#else
+			  gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)),
+				  TRUE,
+				  GDK_CURRENT_TIME)
+#endif
+		  == GDK_GRAB_SUCCESS)) {
     resp = gtk_dialog_run(GTK_DIALOG(diag));
+#ifdef WITH_GTK3
     gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
+#else
+	gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+#endif
     if (resp == GTK_RESPONSE_OK) {
       const gchar* key_name = gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
       if (!strcasecmp(key_name, "<Primary>c")) {
@@ -502,7 +533,11 @@ gboolean hotkey_pressed(GtkWidget   *dialog,
 gboolean hotkey_released(GtkWidget   *dialog,
 			 GdkEventKey *ev,
 			 PrefsData   *data) {
+#ifdef WITH_GTK3
   gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
+#else
+  gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+#endif
   gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
   return FALSE;
 }
@@ -527,13 +562,22 @@ GtkWidget* create_prefs_window (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
 
+#ifdef WITH_GTK3
   GdkRGBA   vol_meter_color_button_color;
   gdouble       *vol_meter_clrs;
+#else
+  GdkColor   vol_meter_color_button_color;
+  gint       *vol_meter_clrs;
+#endif
   gchar      *vol_cmd,*uifile,*custcmd;
 
   PrefsData  *prefs_data;
 
-  uifile = get_ui_file("prefs.xml");
+#ifdef WITH_GTK3
+  uifile = get_ui_file("prefs-gtk3.xml");
+#else
+  uifile = get_ui_file("prefs-gtk2.xml");
+#endif
   if (!uifile) {
     report_error(_("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n"));
     return NULL;
@@ -617,7 +661,11 @@ GtkWidget* create_prefs_window (void) {
   vol_meter_color_button_color.red = vol_meter_clrs[0];
   vol_meter_color_button_color.green = vol_meter_clrs[1];
   vol_meter_color_button_color.blue = vol_meter_clrs[2];
+#ifdef WITH_GTK3
   gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(prefs_data->vol_meter_color_button),
+#else
+  gtk_color_button_set_color(GTK_COLOR_BUTTON(prefs_data->vol_meter_color_button),
+#endif
 			     &vol_meter_color_button_color);
   g_free(vol_meter_clrs);
 

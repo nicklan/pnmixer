@@ -104,18 +104,33 @@ void on_ok_button_clicked(GtkButton *button,
   g_key_file_set_integer(keyFile,"PNMixer","VolMeterPos",vmpos);
 
   GtkWidget* vcb = data->vol_meter_color_button;
+#ifdef WITH_GTK3
   GdkRGBA color;
   gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(vcb),&color);
   gdouble colints[3];
+#else
+  GdkColor color;
+  gtk_color_button_get_color(GTK_COLOR_BUTTON(vcb),&color);
+  gint colints[3];
+#endif
   colints[0] = color.red;
   colints[1] = color.green;
   colints[2] = color.blue;
+
+#ifdef WITH_GTK3
   g_key_file_set_double_list(keyFile,"PNMixer","VolMeterColor",colints,3);
+#else
+  g_key_file_set_integer_list(keyFile,"PNMixer","VolMeterColor",colints,3);
+#endif
 
   // alsa card
   GtkWidget *acc = data->card_combo;
   gchar *old_card = get_selected_card();
+#ifdef WITH_GTK3
   gchar *card = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(acc));
+#else
+  gchar *card = gtk_combo_box_get_active_text (GTK_COMBO_BOX(acc));
+#endif
   if (old_card && strcmp(old_card,card))
       alsa_change = 1;
   g_key_file_set_string(keyFile,"PNMixer","AlsaCard",card);
@@ -125,7 +140,11 @@ void on_ok_button_clicked(GtkButton *button,
   gchar* old_channel = NULL;
   if (old_card)
     old_channel = get_selected_channel(old_card);
+#ifdef WITH_GTK3
   gchar* chan = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(ccc));
+#else
+  gchar* chan = gtk_combo_box_get_active_text (GTK_COMBO_BOX(ccc));
+#endif
   if (old_channel) {
     if (strcmp(old_channel,chan))
       alsa_change = 1;
@@ -142,7 +161,11 @@ void on_ok_button_clicked(GtkButton *button,
   if (idx == 0) { // internal theme
     g_key_file_remove_key(keyFile,"PNMixer","IconTheme",NULL);
   } else {
+#ifdef WITH_GTK3
     gchar* theme_name = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(icon_combo));
+#else
+  gchar* theme_name = gtk_combo_box_get_active_text (GTK_COMBO_BOX(icon_combo));
+#endif
     if (theme_name) {
       g_key_file_set_string(keyFile,"PNMixer","IconTheme",theme_name);
       g_free(theme_name);
