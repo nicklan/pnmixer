@@ -26,6 +26,8 @@
     <property name="page_increment">10</property>
   </object>
   <object class="GtkWindow" id="popup_window">
+    <property name="type">popup</property>
+    <property name="events">structure-mask|focus-change-mask</property>
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
