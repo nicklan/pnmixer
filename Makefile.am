@@ -12,9 +12,9 @@ dist_desktop_DATA = data/pnmixer.desktop
 # Install .xml interface files
 uidir = $(datadir)/pnmixer/ui
 if WITH_GTK3
-ui_DATA = data/about-gtk3.xml data/popup_window-gtk3.xml data/prefs-gtk3.xml
+dist_ui_DATA = data/about-gtk3.xml data/popup_window-gtk3.xml data/prefs-gtk3.xml
 else
-ui_DATA = data/about-gtk2.xml data/popup_window-gtk2.xml data/prefs-gtk2.xml
+dist_ui_DATA = data/about-gtk2.xml data/popup_window-gtk2.xml data/prefs-gtk2.xml
 endif
 
 uninstall-local:
