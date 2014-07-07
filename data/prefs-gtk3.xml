@@ -677,6 +677,8 @@ enabled at compile time</property>
                       <object class="GtkFrame" id="frame3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="valign">start</property>
+                        <property name="vexpand">False</property>
                         <property name="label_xalign">0</property>
                         <property name="shadow_type">none</property>
                         <child>
