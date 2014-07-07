@@ -26,12 +26,29 @@ static int volMuteMods = -1;
 static int volDownMods = -1;
 static int volUpMods   = -1;
 static int volStep    = 1;
- 
+
+// `xmodmap -pm`
+static guint keymasks [] = {
+    0,					/* No Modkey */
+    GDK_MOD2_MASK, 			/* Numlock */
+    GDK_LOCK_MASK, 			/* Capslock */
+    GDK_MOD2_MASK | GDK_LOCK_MASK 	/* Both */
+ };
+
+static
+gboolean checkModKey(int got, int want) {
+  guint i;
+  for (i=0; i < G_N_ELEMENTS(keymasks); i++)
+    if ((int)(want | keymasks[i]) == got)
+		return TRUE;
+  return FALSE;
+}
+
 static
 GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 			   gpointer data) {
   int type;
-  unsigned int key,state;
+  guint key,state;
   XKeyEvent *xevent;
   //gboolean bResult;
 
@@ -42,16 +59,16 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
     key = ((XKeyEvent *)xevent)->keycode;
     state = ((XKeyEvent *)xevent)->state;
 
-    if (key == volMuteKey && state == volMuteMods) {
+    if ((int)key == volMuteKey && checkModKey(state, volMuteMods)) {
       setmute(enable_noti&&hotkey_noti);
       get_mute_state(TRUE);
       return GDK_FILTER_CONTINUE;
     } else {
       int cv = getvol();
-      if (key == volUpKey && state == volUpMods) {
+      if ((int)key == volUpKey && checkModKey(state, volUpMods)) {
 	setvol(cv+volStep,enable_noti&&hotkey_noti);
       }
-      else if (key == volDownKey && state == volDownMods) {
+      else if ((int)key == volDownKey && checkModKey(state, volDownMods)) {
 	setvol(cv-volStep,enable_noti&&hotkey_noti);
       } 
       // just ignore unknown hotkeys
@@ -67,8 +84,10 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
 }
 
 void add_filter() {
-  gdk_window_add_filter(gdk_window_foreign_new(GDK_ROOT_WINDOW()),
-			key_filter,NULL);
+  gdk_window_add_filter(
+		  gdk_x11_window_foreign_new_for_display(gdk_display_get_default(),
+			  GDK_ROOT_WINDOW()),
+		  key_filter,NULL);
 }
 
 static char xErr;
@@ -104,7 +123,7 @@ static gboolean idle_report_error(gpointer data) {
 void grab_keys(int mk, int uk, int dk,
 	       int mm, int um, int dm,
 	       int step) {
-  Display* disp = GDK_DISPLAY();
+  Display* disp = gdk_x11_get_default_xdisplay();
 
   // ungrab any previous keys
   XUngrabKey(disp, AnyKey, AnyModifier, GDK_ROOT_WINDOW());
@@ -130,24 +149,37 @@ void grab_keys(int mk, int uk, int dk,
   if (muteSymStr) g_free(muteSymStr);
   if (upSymStr)   g_free(upSymStr);
   if (downSymStr) g_free(downSymStr);
-  muteSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(), volMuteKey, 0, 0),volMuteMods);
-  upSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(),volUpKey,0, 0),volUpMods);
-  downSymStr = gtk_accelerator_name(XkbKeycodeToKeysym(GDK_DISPLAY(), volDownKey, 0, 0),volDownMods);
+
+  muteSymStr =
+	  gtk_accelerator_name(
+			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+				  volMuteKey, 0, 0),volMuteMods);
+  upSymStr =
+	  gtk_accelerator_name(
+			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+				  volUpKey, 0, 0),volUpMods);
+  downSymStr =
+	  gtk_accelerator_name(
+			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+				  volDownKey, 0, 0),volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
-  if (volMuteKey > 0) {
-    muteSerial = NextRequest(disp);
-    XGrabKey(disp,volMuteKey,volMuteMods,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
-  }
+  guint i;
+  for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
+    if (volMuteKey > 0) {
+      muteSerial = NextRequest(disp);
+      XGrabKey(disp,volMuteKey,volMuteMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    }
 
-  if (volUpKey > 0) {
-    upSerial = NextRequest(disp);
-    XGrabKey(disp,volUpKey,volUpMods,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
-  }
+    if (volUpKey > 0) {
+      upSerial = NextRequest(disp);
+      XGrabKey(disp,volUpKey,volUpMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    }
 
-  if (volDownKey > 0) {
-    downSerial = NextRequest(disp);
-    XGrabKey(disp,volDownKey,volDownMods,GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    if (volDownKey > 0) {
+      downSerial = NextRequest(disp);
+      XGrabKey(disp,volDownKey,volDownMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+    }
   }
 
   XFlush(disp);

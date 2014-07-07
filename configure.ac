@@ -4,13 +4,24 @@ AC_INIT([pnmixer], 0.6-dev)
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
-OLD_CFLAGS=$CFLAGS
 AC_ISC_POSIX
 AC_PROG_CC
 AC_HEADER_STDC
-CFLAGS=$OLD_CXXFLAGS
 
-pkg_modules="gtk+-2.0 >= 2.16.0"
+
+AC_ARG_WITH([gtk3],
+			  [AS_HELP_STRING([--with-gtk3],
+							  [use gtk3 as toolkit (def=yes)])],
+			  [with_gtk3="$withval"],
+			  [with_gtk3=yes])
+
+if test "$with_gtk3" = "yes" ; then
+	pkg_modules="gtk+-3.0 >= 3.6.0"
+	AC_DEFINE([WITH_GTK3], [], [Gtk3 mode])
+else
+	pkg_modules="gtk+-2.0 >= 2.16.0"
+fi
+AM_CONDITIONAL([WITH_GTK3], [test "$with_gtk3" = "yes"])
 
 echo -n "checking for alsasound ... "
 if pkg-config --exists  alsa ; then
@@ -33,13 +44,25 @@ AC_ARG_ENABLE([debug],
     [debugit=no])
 AC_MSG_RESULT([$debugit])
 
+AC_ARG_ENABLE([minimal-flags],
+			  [AS_HELP_STRING([--enable-minimal-flags],
+							  [respect system CFLAGS (def=no)])],
+			  [minimalflags="$enableval"],
+			  [minimalflags=no])
+
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
-    AM_CFLAGS="$AM_CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0 -export-dynamic"
+	if test "$minimalflags" = "no" ; then
+	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0"
+	fi
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
-    AM_CFLAGS="$AM_CFLAGS -O2 -export-dynamic"
+	if test "$minimalflags" = "no" ; then
+	    CFLAGS="$CFLAGS -O2"
+	fi
 fi
+
+LDFLAGS="$LDFLAGS -rdynamic"
 
 ##########################################################################
 
@@ -71,8 +94,6 @@ if test "$with_libnotify" = "yes" || test "$HAVE_LIBN" = "1"; then
    AC_SUBST(LIBNOTIFY_LIBS)
    AC_DEFINE([HAVE_LIBN],1,[Defined if you have libnotify])
 fi
-
-AC_SUBST([AM_CFLAGS])
 
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)

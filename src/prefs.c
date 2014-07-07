@@ -1,10 +1,10 @@
 /* prefs.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
 #ifdef HAVE_CONFIG_H
@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <strings.h>
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
@@ -35,7 +36,7 @@
 #define DEFAULT_PREFS "[PNMixer]\n\
 DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
-MouseScrollStep=1\n\
+MouseScrollStep=5\n\
 HotkeyVolumeStep=1\n\
 MiddleClickAction=0\n\
 CustomCommand=\n\
@@ -68,7 +69,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
 
   active_theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
   act = 1;
-  
+
 
   gtk_icon_theme_get_search_path(theme, &path, &n);
   for (i = 0; i < n; i++) {
@@ -83,7 +84,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
     }
     if (is_dup)
       continue;
-    
+
 
     /* Open directory handle */
     dir = g_dir_open(path[i], 0, NULL);
@@ -96,7 +97,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
     while ((file = g_dir_read_name (dir)) != NULL) {
       /* Build filename for the index.theme of the current icon theme directory */
       index_filename = g_build_filename (path[i], file, "index.theme", NULL);
-      
+
       /* Try to open the theme index file */
       if (g_key_file_load_from_file(index_file,index_filename,0,NULL)) {
 	if (g_key_file_has_key(index_file,"Icon Theme","Directories",NULL) &&
@@ -123,20 +124,38 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
     gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
 }
 
+#ifdef WITH_GTK3
+gdouble* get_vol_meter_colors() {
+#else
 gint* get_vol_meter_colors() {
+#endif
   gsize numcols = 3;
+#ifdef WITH_GTK3
+  gdouble* vol_meter_clrs = NULL;
+#else
   gint* vol_meter_clrs = NULL;
+#endif
   if (g_key_file_has_key(keyFile,"PNMixer","VolMeterColor",NULL))
+#ifdef WITH_GTK3
+    vol_meter_clrs = g_key_file_get_double_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+#else
     vol_meter_clrs = g_key_file_get_integer_list(keyFile,"PNMixer","VolMeterColor",&numcols,NULL);
+#endif
   if (!vol_meter_clrs || (numcols != 3)) {
     if (vol_meter_clrs) { // corrupt value somehow
       report_error(_("Invalid color for volume meter in config file.  Reverting to default."));
       g_free(vol_meter_clrs);
     }
     vol_meter_clrs = g_malloc(3*sizeof(gint));
+#ifdef WITH_GTK3
+    vol_meter_clrs[0] = 0.909803921569;
+    vol_meter_clrs[1] = 0.43137254902;
+    vol_meter_clrs[2] = 0.43137254902;
+#else
     vol_meter_clrs[0] = 59624;
     vol_meter_clrs[1] = 28270;
     vol_meter_clrs[2] = 28270;
+#endif
   }
   return vol_meter_clrs;
 }
@@ -144,7 +163,7 @@ gint* get_vol_meter_colors() {
 void ensure_prefs_dir(void) {
   gchar* prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
   if (!g_file_test(prefs_dir,G_FILE_TEST_IS_DIR)) {
-    if (g_file_test(prefs_dir,G_FILE_TEST_EXISTS)) 
+    if (g_file_test(prefs_dir,G_FILE_TEST_EXISTS))
       report_error(_("\nError: %s exists but is not a directory, will not be able to save preferences"),prefs_dir);
     else {
       if (g_mkdir(prefs_dir,S_IRWXU))
@@ -223,8 +242,12 @@ static void set_notifications_booleans() {
 }
 
 void apply_prefs(gint alsa_change) {
+#ifdef WITH_GTK3
+  gdouble* vol_meter_clrs;
+#else
   gint* vol_meter_clrs;
-  scroll_step = g_key_file_get_integer_with_default(keyFile,"PNMixer","MouseScrollStep",1);
+#endif
+  scroll_step = g_key_file_get_integer_with_default(keyFile,"PNMixer","MouseScrollStep",5);
 
   if (g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE)) {
     gint mk,uk,dk,mm,um,dm,hstep;
@@ -236,9 +259,9 @@ void apply_prefs(gint alsa_change) {
     dm = g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolDownMods", 0);
     hstep = g_key_file_get_integer_with_default(keyFile,"PNMixer", "HotkeyVolumeStep", 1);
     grab_keys(mk,uk,dk,mm,um,dm,hstep);
-  } else 
+  } else
     grab_keys(-1,-1,-1,0,0,0,1); // will actually just ungrab everything
-  
+
   set_notifications_booleans();
 
   get_icon_theme();
@@ -259,7 +282,7 @@ void get_icon_theme() {
     gtk_icon_theme_set_custom_theme(icon_theme,theme_name);
     g_free(theme_name);
   }
-  else 
+  else
     icon_theme = gtk_icon_theme_get_default();
 }
 
@@ -342,7 +365,7 @@ void on_card_changed(GtkComboBox* box, PrefsData* data) {
   gchar *sel_chan = get_selected_channel(c->name);
   fill_channel_combo(c->channels,data->chan_combo,sel_chan);
   if (sel_chan)
-    g_free(sel_chan);  
+    g_free(sel_chan);
 }
 
 void on_vol_text_toggle(GtkToggleButton* button, PrefsData* data) {
@@ -388,7 +411,7 @@ static const char* vol_cmds[] = {"pavucontrol",
 				 NULL};
 
 gchar* get_vol_command() {
-  if (g_key_file_has_key(keyFile,"PNMixer","VolumeControlCommand",NULL)) 
+  if (g_key_file_has_key(keyFile,"PNMixer","VolumeControlCommand",NULL))
     return g_key_file_get_string(keyFile,"PNMixer","VolumeControlCommand",NULL);
   else {
     gchar buf[256];
@@ -403,12 +426,12 @@ gchar* get_vol_command() {
   }
 }
 
-void aquire_hotkey(const char* widget_name,
+void acquire_hotkey(const char* widget_name,
 		   PrefsData *data) {
   gint resp, action;
   GtkWidget  *diag = data->hotkey_dialog;
 
-  action = 
+  action =
     (!strcmp(widget_name,"mute_eventbox"))?
     0:
     (!strcmp(widget_name,"up_eventbox"))?
@@ -417,7 +440,7 @@ void aquire_hotkey(const char* widget_name,
     2:-1;
 
   if (action < 0) {
-    report_error("Invalid widget passed to aquire_hotkey: %s",widget_name);
+    report_error("Invalid widget passed to acquire_hotkey: %s",widget_name);
     return;
   }
 
@@ -436,9 +459,28 @@ void aquire_hotkey(const char* widget_name,
   }
 
   // grab keyboard
-  if (G_LIKELY(gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)), TRUE, GDK_CURRENT_TIME) == GDK_GRAB_SUCCESS)) {
+  if (G_LIKELY(
+#ifdef WITH_GTK3
+			  gdk_device_grab(gtk_get_current_event_device(),
+				  gdk_screen_get_root_window(gdk_screen_get_default()),
+				  GDK_OWNERSHIP_APPLICATION,
+				  TRUE,
+				  GDK_ALL_EVENTS_MASK,
+				  NULL,
+				  GDK_CURRENT_TIME
+				  )
+#else
+			  gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)),
+				  TRUE,
+				  GDK_CURRENT_TIME)
+#endif
+		  == GDK_GRAB_SUCCESS)) {
     resp = gtk_dialog_run(GTK_DIALOG(diag));
-    gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+#ifdef WITH_GTK3
+    gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
+#else
+	gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+#endif
     if (resp == GTK_RESPONSE_OK) {
       const gchar* key_name = gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
       if (!strcasecmp(key_name, "<Primary>c")) {
@@ -491,7 +533,11 @@ gboolean hotkey_pressed(GtkWidget   *dialog,
 gboolean hotkey_released(GtkWidget   *dialog,
 			 GdkEventKey *ev,
 			 PrefsData   *data) {
+#ifdef WITH_GTK3
+  gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
+#else
   gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+#endif
   gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
   return FALSE;
 }
@@ -500,23 +546,38 @@ static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mo
   int keysym;
   gchar *key_text;
   if (code < 0) return;
-  keysym = XkbKeycodeToKeysym(GDK_DISPLAY(), code, 0, 0);
+  keysym = XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(), code, 0, 0);
   key_text = gtk_accelerator_name (keysym, mods);
   gtk_label_set_text(GTK_LABEL(label),key_text);
   g_free(key_text);
+}
+
+gboolean normalize_vol(void) {
+  if (g_key_file_has_key(keyFile,"PNMixer","NormalizeVolume",NULL))
+    return (g_key_file_get_boolean(keyFile,"PNMixer","NormalizeVolume",NULL));
+  return FALSE;
 }
 
 GtkWidget* create_prefs_window (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
 
+#ifdef WITH_GTK3
+  GdkRGBA   vol_meter_color_button_color;
+  gdouble       *vol_meter_clrs;
+#else
   GdkColor   vol_meter_color_button_color;
   gint       *vol_meter_clrs;
+#endif
   gchar      *vol_cmd,*uifile,*custcmd;
 
   PrefsData  *prefs_data;
 
-  uifile = get_ui_file("prefs.xml");
+#ifdef WITH_GTK3
+  uifile = get_ui_file("prefs-gtk3.xml");
+#else
+  uifile = get_ui_file("prefs-gtk2.xml");
+#endif
   if (!uifile) {
     report_error(_("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n"));
     return NULL;
@@ -531,7 +592,7 @@ GtkWidget* create_prefs_window (void) {
     g_object_unref (G_OBJECT (builder));
     return NULL;
   }
-  
+
   g_free(uifile);
 
   prefs_data = g_slice_new(PrefsData);
@@ -539,6 +600,7 @@ GtkWidget* create_prefs_window (void) {
   GO(prefs_window);
   GO(card_combo);
   GO(chan_combo);
+  GO(normalize_vol_check);
   GO(vol_pos_label);
   GO(vol_pos_combo);
   GO(vol_meter_pos_label);
@@ -599,13 +661,21 @@ GtkWidget* create_prefs_window (void) {
   vol_meter_color_button_color.red = vol_meter_clrs[0];
   vol_meter_color_button_color.green = vol_meter_clrs[1];
   vol_meter_color_button_color.blue = vol_meter_clrs[2];
+#ifdef WITH_GTK3
+  gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(prefs_data->vol_meter_color_button),
+#else
   gtk_color_button_set_color(GTK_COLOR_BUTTON(prefs_data->vol_meter_color_button),
+#endif
 			     &vol_meter_color_button_color);
   g_free(vol_meter_clrs);
 
   // fill in card/channel combo boxes
   fill_card_combo(prefs_data->card_combo,prefs_data->chan_combo);
 
+  // volume normalization (ALSA mapped)
+  gtk_toggle_button_set_active
+    (GTK_TOGGLE_BUTTON(prefs_data->normalize_vol_check),
+     g_key_file_get_boolean_with_default(keyFile,"PNMixer","NormalizeVolume",FALSE));
 
   // volume command
   vol_cmd = get_vol_command();
@@ -642,22 +712,22 @@ GtkWidget* create_prefs_window (void) {
   gtk_toggle_button_set_active
     (GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
      g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableHotKeys",FALSE));
-  
+
   // hotkey step
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_vol_spin),
 			    g_key_file_get_integer_with_default(keyFile,"PNMixer","HotkeyVolumeStep",1));
 
 
-  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL)) 
+  if (g_key_file_has_key(keyFile,"PNMixer","VolMuteKey",NULL))
     set_label_for_keycode(prefs_data->mute_hotkey_label,
 			  g_key_file_get_integer(keyFile,"PNMixer", "VolMuteKey", NULL),
 			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolMuteMods", 0));
 
-  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL)) 
+  if (g_key_file_has_key(keyFile,"PNMixer","VolUpKey",NULL))
     set_label_for_keycode(prefs_data->up_hotkey_label,
 			  g_key_file_get_integer(keyFile,"PNMixer", "VolUpKey", NULL),
 			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolUpMods", 0));
-  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL)) 
+  if (g_key_file_has_key(keyFile,"PNMixer","VolDownKey",NULL))
     set_label_for_keycode(prefs_data->down_hotkey_label,
 			  g_key_file_get_integer(keyFile,"PNMixer", "VolDownKey", NULL),
 			  g_key_file_get_integer_with_default(keyFile,"PNMixer", "VolDownMods", 0));
@@ -667,7 +737,7 @@ GtkWidget* create_prefs_window (void) {
 
   gtk_notebook_append_page(GTK_NOTEBOOK(gtk_builder_get_object(builder,"notebook1")),
 #ifdef HAVE_LIBN
-			   GTK_WIDGET(gtk_builder_get_object(builder,"notification_vbox")),			   
+			   GTK_WIDGET(gtk_builder_get_object(builder,"notification_vbox")),
 #else
 			   GTK_WIDGET(gtk_builder_get_object(builder,"no_notification_label")),
 #endif

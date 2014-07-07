@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <locale.h>
 #include "alsa.h"
 #include "callbacks.h"
 #include "main.h"
@@ -115,9 +116,10 @@ void run_command(gchar* cmd) {
     if (pid < 0)
       report_error(_("Unable to run command: fork failed"));
     else if (pid == 0) { // child command, try to exec
-      if (execlp (cmd, cmd, NULL))
-	_exit(errno);
-      _exit (EXIT_FAILURE);
+      gchar **cmdargv = g_strsplit(cmd," ",0);
+      execvp (cmdargv[0], cmdargv);
+      g_strfreev(cmdargv);
+      _exit(errno);
     }
   }
 
@@ -170,16 +172,30 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
 
 void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   get_current_levels();
-  if (!GTK_WIDGET_VISIBLE(popup_window)) {
+  if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
+    gtk_widget_show_now(popup_window);
     gtk_widget_grab_focus(vol_scale);
-    gtk_widget_show(popup_window);
+#ifdef WITH_GTK3
+	gdk_device_grab(gtk_get_current_event_device(),
+		gtk_widget_get_window(GTK_WIDGET(popup_window)),
+		GDK_OWNERSHIP_NONE,
+		TRUE,
+		GDK_BUTTON_PRESS_MASK,
+		NULL,
+		GDK_CURRENT_TIME);
+#else
+    gdk_keyboard_grab(gtk_widget_get_window(popup_window),
+			TRUE, GDK_CURRENT_TIME);
+    gdk_pointer_grab(gtk_widget_get_window(popup_window), TRUE,
+			GDK_BUTTON_PRESS_MASK, NULL, NULL, GDK_CURRENT_TIME);
+#endif
   } else {
     gtk_widget_hide (popup_window);
   }
 }
 
 gint tray_icon_size() {
-  if(tray_icon && gtk_status_icon_is_embedded(tray_icon))
+  if(tray_icon && GTK_IS_STATUS_ICON(tray_icon))  // gtk_status_icon_is_embedded returns false until the prefs window is opened on gtk3
     return gtk_status_icon_get_size(tray_icon);
   return 48;
 }
@@ -209,15 +225,19 @@ void create_popups (void) {
   GError     *error = NULL;
   gchar      *uifile;
   builder = gtk_builder_new();
-  uifile = get_ui_file("popup_window.xml");
+#ifdef WITH_GTK3
+  uifile = get_ui_file("popup_window-gtk3.xml");
+#else
+  uifile = get_ui_file("popup_window-gtk2.xml");
+#endif
   if (!uifile) {
     report_error(_("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"));
-    gtk_exit(1);
+    exit(1);
   }
   if (!gtk_builder_add_from_file( builder, uifile, &error )) {
     g_warning("%s",error->message);
     report_error(error->message);
-    gtk_exit(1);
+    exit(1);
   }
 
   g_free(uifile);
@@ -233,8 +253,6 @@ void create_popups (void) {
 
   gtk_builder_connect_signals(builder, NULL);
   g_object_unref (G_OBJECT (builder));
-
-  gtk_widget_grab_focus (vol_scale);
 }
 
 
@@ -265,7 +283,11 @@ void create_about (void) {
   GtkWidget  *about;
   gchar      *uifile;
 
-  uifile = get_ui_file("about.xml");
+#ifdef WITH_GTK3
+  uifile = get_ui_file("about-gtk3.xml");
+#else
+  uifile = get_ui_file("about-gtk2.xml");
+#endif
   if (!uifile) {
     report_error(_("Can't find about interface file.  Please insure PNMixer is installed correctly."));
     return;
@@ -366,17 +388,30 @@ int get_mute_state(gboolean set_check) {
 }
 
 
-void hide_me() {
-  gtk_widget_hide(popup_window);
-}
+gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
+#ifdef WITH_GTK3
+	GdkDevice *device = gtk_get_current_event_device();
+#endif
+	gint x, y;
 
+	if (event->type == GDK_BUTTON_PRESS &&
+#ifdef WITH_GTK3
+			!gdk_device_get_window_at_position(device, &x, &y)
+#else
+			!gdk_window_at_pointer(&x, &y)
+#endif
+	   ) {
+	  gtk_widget_hide(popup_window);
+	}
+  return FALSE;
+}
 
 static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
 
-void set_vol_meter_color(guint16 nr,guint16 ng,guint16 nb) {
-  vol_meter_red = nr/257;
-  vol_meter_green = ng/257;
-  vol_meter_blue = nb/257;
+void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
+  vol_meter_red = nr * 255;
+  vol_meter_green = ng * 255;
+  vol_meter_blue = nb * 255;
   if (vol_meter_row)
     g_free(vol_meter_row);
   vol_meter_row = NULL;
@@ -453,7 +488,7 @@ static gboolean version = FALSE;
 static GOptionEntry args[] = 
   {
     { "version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit", NULL },
-    { NULL }
+    { NULL, 0, 0, 0, NULL, NULL, NULL }
   };
 
 int main (int argc, char *argv[]) {
@@ -468,7 +503,7 @@ int main (int argc, char *argv[]) {
 
   DEBUG_PRINT("[Debugging Mode Build]\n");
 
-  gtk_set_locale ();
+  setlocale(LC_ALL, "");
   context = g_option_context_new (_("- A mixer for the system tray."));
   g_option_context_add_main_entries (context, args, GETTEXT_PACKAGE);
   g_option_context_add_group (context, gtk_get_option_group (TRUE));
@@ -496,16 +531,16 @@ int main (int argc, char *argv[]) {
   init_libnotify();
   create_popups();
   add_filter();
-  apply_prefs(0);
 
   tray_icon = create_tray_icon();
+  apply_prefs(0);
 
   g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), popup_menu);
   g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(tray_icon_on_click), NULL);
   g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(tray_icon_button), NULL);
 
   gtk_main ();
-  alsa_close();
   uninit_libnotify();
+  alsa_close();
   return 0;
 }
