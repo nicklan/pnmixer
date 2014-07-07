@@ -16,7 +16,10 @@
 PNMixer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
-    <property name="authors">Nick Lanham</property>
+    <property name="authors">Nick Lanham
+Brian Bidulock
+Julian Ospald &lt;hasufell@gentoo.org&gt;
+Steven Honeyman</property>
     <property name="documenters">	</property>
     <property name="translator_credits" translatable="yes">French: Matthieu Bresson
 German: Mario Blättermann</property>
