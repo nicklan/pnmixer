@@ -175,9 +175,20 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
     gtk_widget_show_now(popup_window);
     gtk_widget_grab_focus(vol_scale);
-    gdk_keyboard_grab(gtk_widget_get_window(popup_window), TRUE, GDK_CURRENT_TIME);
-    gdk_pointer_grab(gtk_widget_get_window(popup_window), TRUE, GDK_BUTTON_PRESS_MASK,
-		    NULL, NULL, GDK_CURRENT_TIME);
+#ifdef WITH_GTK3
+	gdk_device_grab(gtk_get_current_event_device(),
+		gtk_widget_get_window(GTK_WIDGET(popup_window)),
+		GDK_OWNERSHIP_NONE,
+		TRUE,
+		GDK_BUTTON_PRESS_MASK,
+		NULL,
+		GDK_CURRENT_TIME);
+#else
+    gdk_keyboard_grab(gtk_widget_get_window(popup_window),
+			TRUE, GDK_CURRENT_TIME);
+    gdk_pointer_grab(gtk_widget_get_window(popup_window), TRUE,
+			GDK_BUTTON_PRESS_MASK, NULL, NULL, GDK_CURRENT_TIME);
+#endif
   } else {
     gtk_widget_hide (popup_window);
   }
@@ -378,7 +389,20 @@ int get_mute_state(gboolean set_check) {
 
 
 gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
-  gtk_widget_hide(popup_window);
+#ifdef WITH_GTK3
+	GdkDevice *device = gtk_get_current_event_device();
+#endif
+	gint x, y;
+
+	if (event->type == GDK_BUTTON_PRESS &&
+#ifdef WITH_GTK3
+			!gdk_device_get_window_at_position(device, &x, &y)
+#else
+			!gdk_window_at_pointer(&x, &y)
+#endif
+	   ) {
+	  gtk_widget_hide(popup_window);
+	}
   return FALSE;
 }
 
