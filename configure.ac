@@ -32,6 +32,12 @@ else
         AC_MSG_ERROR(alsa not found)
 fi
 
+# Make sure we have X11, and also have it added to LIBS
+AC_CHECK_LIB(X11,XOpenDisplay,,AC_MSG_FAILURE([libX11 not found. Check 'config.log' for more details.]))
+# Check that we have -lm and add it to LIBS
+AC_CHECK_LIB(m,ceil,,AC_MSG_FAILURE([libm not found. Check 'config.log' for more details.]))
+
+
 ##########################################################################
 # debug compilation support
 ##########################################################################
@@ -66,10 +72,6 @@ LDFLAGS="$LDFLAGS -rdynamic"
 
 ##########################################################################
 
-# Make sure we have X11, and also have it added to LIBS
-AC_CHECK_LIB(X11,XOpenDisplay,,AC_MSG_FAILURE([libX11 not found. Check 'config.log' for more details.]))
-# Check that we have -lm and add it to LIBS
-AC_CHECK_LIB(m,ceil,,AC_MSG_FAILURE([libm not found. Check 'config.log' for more details.]))
 
 
 #######################
