@@ -19,6 +19,7 @@ PNMixer is distributed in the hope that it will be useful, but WITHOUT ANY WARRA
 You should have received a copy of the GNU General Public License along with PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</property>
     <property name="authors">Nick Lanham
 Brian Bidulock
+elboulangero &lt;elboulangero@gmail.com&gt;
 Julian Ospald &lt;hasufell@gentoo.org&gt;
 Steven Honeyman</property>
     <property name="documenters">	</property>
