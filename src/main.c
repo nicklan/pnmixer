@@ -176,13 +176,28 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
     gtk_widget_show_now(popup_window);
     gtk_widget_grab_focus(vol_scale);
 #ifdef WITH_GTK3
-	gdk_device_grab(gtk_get_current_event_device(),
-		gtk_widget_get_window(GTK_WIDGET(popup_window)),
-		GDK_OWNERSHIP_NONE,
-		TRUE,
-		GDK_BUTTON_PRESS_MASK,
-		NULL,
-		GDK_CURRENT_TIME);
+    GdkDevice *pointer_dev = gtk_get_current_event_device();
+    if (pointer_dev != NULL) {
+      GdkDevice *keyboard_dev = gdk_device_get_associated_device(pointer_dev);
+      if (gdk_device_grab(pointer_dev,
+                          gtk_widget_get_window(GTK_WIDGET(popup_window)),
+                          GDK_OWNERSHIP_NONE,
+                          TRUE,
+                          GDK_BUTTON_PRESS_MASK,
+                          NULL,
+                          GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
+        g_warning("Could not grab %s\n",gdk_device_get_name(pointer_dev));
+      if (keyboard_dev != NULL) {
+        if (gdk_device_grab(keyboard_dev,
+                            gtk_widget_get_window(GTK_WIDGET(popup_window)),
+                            GDK_OWNERSHIP_NONE,
+                            TRUE,
+                            GDK_KEY_PRESS_MASK,
+                            NULL,
+                            GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
+          g_warning("Could not grab %s\n",gdk_device_get_name(keyboard_dev));
+      }
+    }
 #else
     gdk_keyboard_grab(gtk_widget_get_window(popup_window),
 			TRUE, GDK_CURRENT_TIME);
@@ -403,6 +418,15 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 	   ) {
 	  gtk_widget_hide(popup_window);
 	}
+
+  if (event->type == GDK_KEY_PRESS) {
+    switch (event->key.keyval) {
+    case GDK_KEY_Escape: {
+      gtk_widget_hide(popup_window);
+      break;
+    }
+    }
+  }
   return FALSE;
 }
 

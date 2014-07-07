@@ -12,6 +12,7 @@
 #define MAIN_H_
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 
 #ifdef DEBUG
 #define DEBUG_PRINT(...) printf(__VA_ARGS__)
