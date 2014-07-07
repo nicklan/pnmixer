@@ -34,7 +34,7 @@ void warn_sound_conn_lost(void);
 void get_current_levels();
 int get_mute_state(gboolean);
 int update_mute_state();
-void hide_popup_window();
+void hide_me();
 gint tray_icon_size();
 void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb);
 void update_status_icons();

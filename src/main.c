@@ -179,35 +179,6 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   }
 }
 
-void popup_grab_focus(GtkWidget *w, gpointer user_data) {
-	/* ungrabbed in hide_popup_window */
-	if (GDK_GRAB_SUCCESS !=
-#ifdef WITH_GTK3
-			gdk_device_grab(gtk_get_current_event_device(),
-				gtk_widget_get_window(GTK_WIDGET(w)),
-				GDK_OWNERSHIP_NONE,
-				TRUE,
-				GDK_BUTTON_PRESS_MASK,
-				NULL,
-				GDK_CURRENT_TIME)
-#else
-		gdk_pointer_grab(gtk_widget_get_window(GTK_WIDGET(w)),
-					TRUE,
-					GDK_BUTTON_PRESS_MASK,
-					NULL,
-					NULL,
-					GDK_CURRENT_TIME)
-#endif
-	   )
-			fprintf(stderr, "Failed to grab device!\n");
-
-
-	g_signal_connect(G_OBJECT(w),
-			"button-press-event",
-			G_CALLBACK(hide_popup_window),
-			NULL);
-}
-
 gint tray_icon_size() {
   if(tray_icon && GTK_IS_STATUS_ICON(tray_icon))  // gtk_status_icon_is_embedded returns false until the prefs window is opened on gtk3
     return gtk_status_icon_get_size(tray_icon);
@@ -401,27 +372,8 @@ int get_mute_state(gboolean set_check) {
   return muted;
 }
 
-void hide_popup_window(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
-#ifdef WITH_GTK3
-	GdkDevice *device = gtk_get_current_event_device();
-#endif
-	gint x, y;
-
-	if (event->type == GDK_BUTTON_PRESS &&
-#ifdef WITH_GTK3
-			!gdk_device_get_window_at_position(device, &x, &y)
-#else
-			!gdk_window_at_pointer(&x, &y)
-#endif
-	   ) {
-		gtk_widget_hide(widget);
-
-#ifdef WITH_GTK3
-		gdk_device_ungrab(device, GDK_CURRENT_TIME);
-#else
-		gdk_pointer_ungrab(GDK_CURRENT_TIME);
-#endif
-	}
+void hide_me() {
+  gtk_widget_hide(popup_window);
 }
 
 static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
