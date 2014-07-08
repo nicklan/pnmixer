@@ -5,6 +5,9 @@ src/callbacks.c
 src/support.c
 src/prefs.c
 src/hotkeys.c
-data/about.xml
-data/popup_window.xml
-data/prefs.xml
+data/about-gtk3.xml
+data/popup_window-gtk3.xml
+data/prefs-gtk3.xml
+data/about-gtk2.xml
+data/popup_window-gtk2.xml
+data/prefs-gtk2.xml
