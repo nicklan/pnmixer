@@ -8,16 +8,37 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file alsa.h
+ * Header for alsa.c. Holds the acard struct and public
+ * functions.
+ * @brief header for alsa.c
+ */
+
 #ifndef ALSA_H_
 #define ALSA_H_
 
 #include <glib.h>
 
+/**
+ * Struct representing an alsa
+ * card.
+ */
 struct acard {
+  /**
+   * Real card name like 'HDA Intel PCH'.
+   */
   char *name;
+  /**
+   * HTCL device name, like 'hw:0'.
+   */
   char *dev;
+  /**
+   * All available channels in a list.
+   */
   GSList *channels;
 };
+
 GSList* cards;
 
 int setvol(int vol,gboolean notify);

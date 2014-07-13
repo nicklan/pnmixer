@@ -8,6 +8,12 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file hotkeys.h
+ * Header for hotkeys.c.
+ * @brief header for hotkeys.c
+ */
+
 #ifndef HOTKEYS_H_
 #define HOTKEYS_H_
 
