@@ -361,6 +361,8 @@ void create_popups (void) {
 
   gtk_builder_connect_signals(builder, NULL);
   g_object_unref (G_OBJECT (builder));
+
+  gtk_widget_grab_focus(vol_scale);
 }
 
 /**
@@ -556,23 +558,24 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 #endif
 	gint x, y;
 
-	if (event->type == GDK_BUTTON_PRESS &&
+	if (event->type == GDK_BUTTON_PRESS) {
+		if (
 #ifdef WITH_GTK3
 			!gdk_device_get_window_at_position(device, &x, &y)
 #else
 			!gdk_window_at_pointer(&x, &y)
 #endif
-	   ) {
-	  gtk_widget_hide(popup_window);
-	}
-
-  if (event->type == GDK_KEY_PRESS) {
-    switch (event->key.keyval) {
-    case GDK_KEY_Escape: {
+		   )
+		gtk_widget_hide(popup_window);
+	} else if (event->type == GDK_KEY_PRESS) {
+		switch (event->key.keyval) {
+		case GDK_KEY_Escape: {
+			gtk_widget_hide(popup_window);
+			break;
+	    }
+    }
+  } else {
       gtk_widget_hide(popup_window);
-      break;
-    }
-    }
   }
   return FALSE;
 }
