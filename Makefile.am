@@ -50,3 +50,6 @@ doc:
 install-doc: doc
 	$(MKDIR_P) "$(DESTDIR)$(htmldir)"
 	cp -pR "$(top_srcdir)"/src/html/* "$(DESTDIR)$(htmldir)"/
+
+clean-local:
+	rm -rf src/html src/latex
