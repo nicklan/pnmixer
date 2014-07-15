@@ -7,6 +7,15 @@
  * Public License v3. source code is available at 
  * <http://github.com/nicklan/pnmixer>
  */
+
+/**
+ * @file main.c
+ * The main program entry point. Also handles creating and opening
+ * the widgets, connecting signals, updating the tray icon and
+ * error handling.
+ * @brief gtk+ initialization
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -36,6 +45,13 @@ static GdkPixbuf* status_icons[4];
 
 static char err_buf[512];
 
+/**
+ * Reports an error, usually via a dialog window or
+ * on stderr.
+ *
+ * @param err the error
+ * @param ... more string segments in the format of printf
+ */
 void report_error(char* err,...) {
   va_list ap;
   va_start(ap, err);
@@ -55,6 +71,10 @@ void report_error(char* err,...) {
   va_end(ap);
 }
 
+/**
+ * Emits a warning if the sound connection is lost, usually
+ * via a dialog window (with option to reinitialize alsa) or stderr.
+ */
 void warn_sound_conn_lost() {
   if (popup_window) {
     gint resp;
@@ -77,12 +97,30 @@ void warn_sound_conn_lost() {
     fprintf(stderr,_("Warning: Connection to sound system failed, you probably need to restart pnmixer\n"));
 }
 
+/**
+ * We need to report error in idle moment
+ * since we can't report_error before gtk_main is called.
+ * This function is attached via g_idle_add() in grab_keys(),
+ * whenever there is an Xerror.
+ *
+ * @param data passed to the function,
+ * set when the source was created
+ * @return FALSE if the source should be removed,
+ * TRUE otherwise
+ */
 static gboolean idle_report_error(gpointer data) {
   report_error("Error running command:\n%s",data);
   g_free(data);
   return FALSE;
 }
 
+/**
+ * The signal-handling function for SIGCHLD, set in run_command().
+ *
+ * @param sig signal number
+ * @param siginfo pointer to a siginfo_t
+ * @param context pointer to ucontext_t (cast to void *)
+ */
 static void mix_hdlr(int sig, siginfo_t *siginfo, void *context) {
   int stat;
   signed char exit_stat;
@@ -98,6 +136,13 @@ static void mix_hdlr(int sig, siginfo_t *siginfo, void *context) {
   }
 }
 
+/* TODO: more sophisticated parsing of command strings */
+/**
+ * Runs a given command in a subprocess. Errors are reported via
+ * invoking mix_hdlr() on SIGCHLD.
+ *
+ * @param cmd the command to run
+ */
 void run_command(gchar* cmd) {
   pid_t pid;
 
@@ -126,6 +171,13 @@ void run_command(gchar* cmd) {
   gtk_widget_hide (popup_window);
 }
 
+/**
+ * Opens the specified mixer application which can be triggered either
+ * by clicking the 'Volume Control' GtkImageMenuItem in the context
+ * menu, the GtkButton 'Mixer' in the left-click popup_window or
+ * by middle-click if the Middle Click Action in the preferences
+ * is set to 'Volume Control'.
+ */
 void on_mixer(void) {
   gchar* cmd = get_vol_command();
   if (cmd) {
@@ -136,7 +188,19 @@ void on_mixer(void) {
     report_error(_("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control."));
 }
 
-void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointer user_data) {
+/* FIXME: return type should be gboolean */
+/**
+ * Handles button-release-event' signal on the tray_icon, currently
+ * only used for middle-click.
+ *
+ * @param status_icon the object which received the signal
+ * @param event the GdkEventButton which triggered this signal
+ * @param user_data user data set when the signal handler was
+ * connected
+ */
+void tray_icon_button(GtkStatusIcon *status_icon,
+		GdkEventButton *event,
+		gpointer user_data) {
   if (event->button == 2) {
     gint act = 0;
     if (g_key_file_has_key(keyFile,"PNMixer","MiddleClickAction",NULL)) 
@@ -170,6 +234,13 @@ void tray_icon_button(GtkStatusIcon *status_icon, GdkEventButton *event, gpointe
   }
 }
 
+/**
+ * Handles the 'activate' signal on the tray_icon,
+ * usually opening the popup_window and grabbing pointer and keyboard.
+ *
+ * @param status_icon the object which received the signal
+ * @param user_data user data set when the signal handler was connected
+ */
 void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   get_current_levels();
   if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
@@ -209,13 +280,26 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
   }
 }
 
+/**
+ * Returns the size of the tray icon.
+ *
+ * @return size of the tray icon or 48 if there is none
+ */
 gint tray_icon_size() {
   if(tray_icon && GTK_IS_STATUS_ICON(tray_icon))  // gtk_status_icon_is_embedded returns false until the prefs window is opened on gtk3
     return gtk_status_icon_get_size(tray_icon);
   return 48;
 }
 
-
+/**
+ * Handles the 'size-changed' signal on the tray_icon by
+ * calling update_status_icons().
+ *
+ * @param status_icon the object which received the signal
+ * @param size the new size
+ * @param user_data set when the signal handler was connected
+ * @return FALSE, so Gtk+ scales the icon as necessary
+ */
 static gboolean tray_icon_resized(GtkStatusIcon *status_icon,
 				  gint           size,
 				  gpointer       user_data) {
@@ -223,6 +307,12 @@ static gboolean tray_icon_resized(GtkStatusIcon *status_icon,
   return FALSE;
 }
 
+/**
+ * Creates the tray icon and connects the signals 'scroll_event'
+ * and 'size-changed'.
+ *
+ * @return the newly created tray icon
+ */
 GtkStatusIcon *create_tray_icon() {
   tray_icon = gtk_status_icon_new();
 
@@ -234,7 +324,10 @@ GtkStatusIcon *create_tray_icon() {
   return tray_icon;
 }
 
-
+/**
+ * Creates the popup windows from popup_window-gtk3.xml or
+ * popup_window-gtk2.xml
+ */
 void create_popups (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
@@ -270,21 +363,40 @@ void create_popups (void) {
   g_object_unref (G_OBJECT (builder));
 }
 
-
-static void popup_callback(GObject *widget, guint button,
+/**
+ * Handles the 'popup-menu' signal on the tray_icon, which brings
+ * up the context menu, usually activated by right-click.
+ *
+ * @param status_icon the object which received the signal
+ * @param button the button that was pressed, or 0 if the signal
+ * is not emitted in response to a button press event
+ * @param activate_time the timestamp of the event that triggered
+ * the signal emission
+ * @param menu user data set when the signal handler was connected
+ */
+static void popup_callback(GtkStatusIcon *status_icon, guint button,
 			   guint activate_time, GtkMenu* menu) {
   gtk_widget_hide (popup_window);
   gtk_menu_popup(menu, NULL, NULL,
 		 gtk_status_icon_position_menu,
-		 GTK_STATUS_ICON(widget), button, activate_time);
+		 status_icon, button, activate_time);
 }
 
+/**
+ * Brings up the preferences window, either triggered by clicking
+ * on the GtkImageMenuItem 'Preferences' in the context menu
+ * or by middle-click if the Middle Click Action in the preferences
+ * is set to 'Show Preferences'.
+ */
 void do_prefs (void) {
   GtkWidget* pref_window = create_prefs_window();
   if (pref_window)
     gtk_widget_show(pref_window);
 }
 
+/**
+ * Reinitializes alsa and updates the tray icon.
+ */
 void do_alsa_reinit (void) {
   alsa_init();
   update_status_icons();
@@ -292,6 +404,11 @@ void do_alsa_reinit (void) {
   get_mute_state(TRUE);
 }
 
+/**
+ * Creates and opens the about window from about-gtk3.xml or
+ * about-gtk2.xml, triggered by clicking on the GtkImageMenuItem
+ * 'About' in the context menu.
+ */
 void create_about (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
@@ -326,7 +443,10 @@ void create_about (void) {
   gtk_widget_destroy (about);
 }
 
-
+/**
+ * Gets the current volume level and adjusts the GtkAdjustment
+ * vol_scale_adjustment widget which is used by GtkHScale/GtkScale.
+ */
 void get_current_levels() {
   int tmpvol = getvol();
   gtk_adjustment_set_value(GTK_ADJUSTMENT(vol_adjustment), (double) tmpvol);
@@ -335,6 +455,15 @@ void get_current_levels() {
 static float vol_div_factor;
 static int vol_meter_width;
 static guchar* vol_meter_row = NULL;
+
+/**
+ * Draws the volume meter on top of the icon.
+ *
+ * @param pixbuf the GdkPixbuf icon to draw the volume meter on
+ * @param x offset
+ * @param y offset
+ * @param h height of the volume meter
+ */
 static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
   int width, height, rowstride, n_channels,i;
   guchar *pixels, *p;
@@ -364,6 +493,15 @@ static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
 
 static int draw_offset = 0;
 static GdkPixbuf *icon_copy = NULL;
+
+/**
+ * Checks whether playback is muted, updates the icon
+ * and returns the result of ismuted().
+ *
+ * @param set_check whether the GtkCheckButton 'Mute' on the
+ * volume popup_window is updated
+ * @return result of ismuted()
+ */
 int get_mute_state(gboolean set_check) {
   int muted;
   int tmpvol = getvol();
@@ -402,7 +540,16 @@ int get_mute_state(gboolean set_check) {
   return muted;
 }
 
-
+/**
+ * Hides the volume popup_window, connected via the signals
+ * button-press-event, key-press-event and grab-broken-event.
+ *
+ * @param widget the object which received the signal
+ * @param event the GdkEventButton which triggered the signal
+ * @param user_data user data set when the signal handler was connected
+ * @return TRUE to stop other handlers from being invoked for the evend,
+ * FALSE to propagate the event further
+ */
 gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 #ifdef WITH_GTK3
 	GdkDevice *device = gtk_get_current_event_device();
@@ -432,6 +579,14 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 
 static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
 
+/**
+ * Sets the color of the volume meter which is drawn on top
+ * of the tray_icon.
+ *
+ * @param nr red color strength, from 0 - 1.0
+ * @param ng green color strength, from 0 - 1.0
+ * @param nb blue color strength, from 0 - 1.0
+ */
 void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
   vol_meter_red = nr * 255;
   vol_meter_green = ng * 255;
@@ -441,6 +596,12 @@ void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
   vol_meter_row = NULL;
 }
 
+/**
+ * Updates all status icons for the different volume states like
+ * muted, low, medium, high as well as the volume meter. This
+ * is triggered either by apply_prefs() in the preferences subsystem,
+ * do_alsa_reinit() or tray_icon_resized().
+ */
 void update_status_icons() {
   int i,icon_width;
   GdkPixbuf* old_icons[4];
@@ -487,6 +648,10 @@ void update_status_icons() {
       g_object_unref(old_icons[i]);
 }
 
+/**
+ * Updates the alignment of the volume text which is shown on the
+ * volume popup_window (left click) around the scroll bar.
+ */
 void update_vol_text() {
   gboolean show = TRUE;
   if (g_key_file_has_key(keyFile,"PNMixer","DisplayTextVolume",NULL))
@@ -515,6 +680,15 @@ static GOptionEntry args[] =
     { NULL, 0, 0, 0, NULL, NULL, NULL }
   };
 
+/**
+ * Program entry point. Initializes gtk+, calls the widget creating
+ * functions and starts the main loop. Also connects 'popup-menu',
+ * 'activate' and 'button-release-event' to the tray_icon.
+ *
+ * @param argc count of arguments
+ * @param argv string array of arguments
+ * @return 0 for success, otherwise error code
+ */
 int main (int argc, char *argv[]) {
   GError *error = NULL;
   GOptionContext *context;

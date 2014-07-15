@@ -8,6 +8,12 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file main.h
+ * Header for main.c holding public functions and debug macros.
+ * @brief header for main.c
+ */
+
 #ifndef MAIN_H_
 #define MAIN_H_
 
