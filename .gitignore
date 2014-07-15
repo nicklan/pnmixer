@@ -28,3 +28,5 @@
 /po/POTFILES
 /po/*.pot
 /po/messages.mo
+src/html
+src/latex
