@@ -42,3 +42,11 @@ dist-hook:
 	  done \
 	fi
 
+doc:
+	cd "$(top_srcdir)/src"; \
+	doxygen; \
+	cd "$(top_srcdir)"
+
+install-doc: doc
+	$(MKDIR_P) "$(DESTDIR)$(htmldir)"
+	cp -pR "$(top_srcdir)"/src/html/* "$(DESTDIR)$(htmldir)"/

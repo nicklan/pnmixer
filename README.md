@@ -57,3 +57,14 @@ To install this program cd to this directory and run:
 make
 
 sudo make install
+
+Documentation
+-------------
+Run:
+
+make doc
+
+to build the documentation. It's in src/html. You can install
+it via:
+
+make install-doc
