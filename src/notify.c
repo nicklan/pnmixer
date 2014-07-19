@@ -8,6 +8,12 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file notify.c
+ * This file handles the notification subsystem
+ * via libnotify and mostly reacts to volume changes.
+ * @brief libnotify subsystem
+ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -22,7 +28,16 @@
 // code for when we have libnotify
 
 
-// need to report error in idle moment since we can't report_error before gtk_main is called
+/**
+ * We need to report error in idle moment
+ * since we can't report_error before gtk_main is called.
+ * This function is attached via g_idle_add() in init_libnotify().
+ *
+ * @param data passed to the function,
+ * set when the source was created
+ * @return FALSE if the source should be removed,
+ * TRUE otherwise
+ */
 static gboolean idle_report_error(gpointer data) {
   report_error("Unable to initialize libnotify.  Notifications will not be sent");
   return FALSE;
@@ -30,18 +45,33 @@ static gboolean idle_report_error(gpointer data) {
 
 static NotifyNotification* notification = NULL;
 
+/**
+ * Initializes libnotify if it's not already
+ * initialized.
+ */
 void init_libnotify() {
   if (!notify_is_initted())
     if (!notify_init(PACKAGE))
       g_idle_add(idle_report_error, NULL);
 }
 
+/**
+ * Uninitializes libnotify if it is initialized.
+ */
 void uninit_libnotify() {
   if (notify_is_initted())
     notify_uninit();
 }
 
-void do_notify(gint level,gboolean muted) {
+/**
+ * Send a notifcation. This is mainly called
+ * from the alsa subsystem whenever we have volume
+ * changes.
+ *
+ * @param level the playback volume level
+ * @param muted whether the playback is muted
+ */
+void do_notify(gint level, gboolean muted) {
   gchar  *summary, *icon;
   GError *error = NULL;
 

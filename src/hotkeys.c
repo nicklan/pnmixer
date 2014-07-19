@@ -8,6 +8,14 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file hotkeys.c
+ * This file handles the hotkey subsystem, including
+ * communcation with Xlib and intercepting key presses
+ * before they can be interpreted by gdk/gtk.
+ * @brief hotkey subsystem
+ */
+
 #include "support.h"
 #include "main.h"
 #include "prefs.h"
@@ -28,6 +36,10 @@ static int volUpMods   = -1;
 static int volStep    = 1;
 
 // `xmodmap -pm`
+/**
+ * List of key modifiers which will be ignored whenever
+ * we check whether the defined hotkeys have been pressed.
+ */
 static guint keymasks [] = {
     0,					/* No Modkey */
     GDK_MOD2_MASK, 			/* Numlock */
@@ -35,8 +47,17 @@ static guint keymasks [] = {
     GDK_MOD2_MASK | GDK_LOCK_MASK 	/* Both */
  };
 
-static
-gboolean checkModKey(int got, int want) {
+/**
+ * Checks if the keycode we got (minus modifiers like
+ * numlock/capslock) matches the keycode we want.
+ * Thus numlock + o will match o.
+ *
+ * @param got the key we got
+ * @param want the key we want
+ * @return TRUE if there is a match,
+ * FALSE otherwise
+ */
+static gboolean checkModKey(int got, int want) {
   guint i;
   for (i=0; i < G_N_ELEMENTS(keymasks); i++)
     if ((int)(want | keymasks[i]) == got)
@@ -44,9 +65,18 @@ gboolean checkModKey(int got, int want) {
   return FALSE;
 }
 
-static
-GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
-			   gpointer data) {
+/**
+ * This function is called before gdk/gtk can respond
+ * to any(!) window event and handles pressed hotkeys.
+ *
+ * @param gdk_xevent the native event to filter
+ * @param event the GDK event to which the X event will be translated
+ * @param data user data set when the filter was installed
+ * @return a GdkFilterReturn value, should be GDK_FILTER_CONTINUE only
+ */
+static GdkFilterReturn key_filter(GdkXEvent *gdk_xevent,
+		GdkEvent *event,
+		gpointer data) {
   int type;
   guint key,state;
   XKeyEvent *xevent;
@@ -83,6 +113,10 @@ GdkFilterReturn key_filter(GdkXEvent *gdk_xevent, GdkEvent *event,
   return GDK_FILTER_CONTINUE;
 }
 
+/**
+ * Attaches the key_filter() function as a filter
+ * to the the root window, so it will intercept window events.
+ */
 void add_filter() {
   gdk_window_add_filter(
 		  gdk_x11_window_foreign_new_for_display(gdk_display_get_default(),
@@ -92,9 +126,23 @@ void add_filter() {
 
 static char xErr;
 int errBufSize = 512;
-char *errBuf,*printBuf;
-static unsigned long muteSerial,downSerial,upSerial;
-static gchar *muteSymStr=NULL,*downSymStr=NULL,*upSymStr=NULL;
+char *errBuf,
+	 *printBuf;
+static unsigned long muteSerial,
+					 downSerial,
+					 upSerial;
+static gchar *muteSymStr=NULL,
+			 *downSymStr=NULL,
+			 *upSymStr=NULL;
+
+/**
+ * When an Xlib error occurs, this function is called. It is
+ * set via XSetErrorHandler().
+ *
+ * @param disp the display where the error occured
+ * @param ev the error event
+ * @return it's acceptable to return, but the return value is ignored
+ */
 static int errhdl(Display *disp, XErrorEvent *ev) {
   int p;
   xErr = 1;
@@ -113,13 +161,39 @@ static int errhdl(Display *disp, XErrorEvent *ev) {
   return 0;
 }
 
-// need to report error in idle moment since we can't report_error before gtk_main is called
+/**
+ * We need to report error in idle moment
+ * since we can't report_error before gtk_main is called.
+ * This function is attached via g_idle_add() in grab_keys(),
+ * whenever there is an Xerror.
+ *
+ * @param data passed to the function,
+ * set when the source was created
+ * @return FALSE if the source should be removed,
+ * TRUE otherwise
+ */
 static gboolean idle_report_error(gpointer data) {
   report_error(errBuf);
   g_free(errBuf);
   return FALSE;
 }
 
+/**
+ * Grabs keys on the Xserver level via XGrabKey(),
+ * so they can be intercepted and interpreted by
+ * our application, thus having global hotkeys.
+ *
+ * If mk, uk and dk parameters are -1, then
+ * this function will just ungrab everything.
+ *
+ * @param mk mutekey
+ * @param uk volume up key
+ * @param dk volume down key
+ * @param mm volume mute mod key
+ * @param um volume up mod key
+ * @param dm volume down mod key
+ * @param step hotkey volume step
+ */
 void grab_keys(int mk, int uk, int dk,
 	       int mm, int um, int dm,
 	       int step) {

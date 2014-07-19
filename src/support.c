@@ -8,6 +8,15 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file support.c
+ * This file holds various internal functions
+ * which handle finding of both image
+ * and ui files, as well as constructing internal
+ * representations of those image files.
+ * @brief image/ui file functions
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -24,15 +33,31 @@
 #include "support.h"
 #include "prefs.h"
 
+/**
+ * List of available pixmap directories, populated via
+ * add_pixmap_directory().
+ */
 static GList *pixmaps_directories = NULL;
 
-/* Use this function to set the directory containing installed pixmaps. */
+/**
+ * Use this function to set the directory containing
+ * installed pixmaps.
+ *
+ * @param directory the directory containing pixmaps
+ */
 void add_pixmap_directory(const gchar *directory) {
   pixmaps_directories = g_list_prepend (pixmaps_directories,
                                         g_strdup (directory));
 }
 
-/* This is an internally used function to find pixmap files. */
+/**
+ * This is an internally used function to find pixmap files.
+ * It searches through the GList pixmaps_directories.
+ *
+ * @param filename the pixmap file to find
+ * @return the path name where we found the pixmap file,
+ * newly allocated or NULL on failure
+ */
 static gchar* find_pixmap_file(const gchar *filename) {
   GList *elem;
 
@@ -50,7 +75,14 @@ static gchar* find_pixmap_file(const gchar *filename) {
   return NULL;
 }
 
-/* This is an internally used function to create pixmaps. */
+/**
+ * This is an internally used function to create GtkImages.
+ *
+ * @param widget ??
+ * @param filename filename to create the GtkImage from
+ * @return the new GtkImage,
+ * an empty GtkImage if the file was not found
+ */
 GtkWidget* create_pixmap(GtkWidget   *widget,
 			 const gchar *filename) {
   gchar *pathname = NULL;
@@ -72,7 +104,12 @@ GtkWidget* create_pixmap(GtkWidget   *widget,
   return pixmap;
 }
 
-/* This is an internally used function to create pixmaps. */
+/**
+ * This is an internally used function to create GdkPixbufs.
+ *
+ * @param filename filename to create the GtkPixbuf from
+ * @return the new GdkPixbuf, NULL on failure
+ */
 GdkPixbuf* create_pixbuf(const gchar *filename) {
   gchar *pathname = NULL;
   GdkPixbuf *pixbuf;
@@ -100,8 +137,14 @@ GdkPixbuf* create_pixbuf(const gchar *filename) {
   return pixbuf;
 }
 
-
-/* lookup icons based on theme */
+/**
+ * Looks up icons based on the currently selected theme.
+ *
+ * @param filename icon name to look up
+ * @param size size of the icon
+ * @return the corresponding theme icon, NULL on failure,
+ * use g_object_unref() to release the reference to the icon
+ */
 GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
   GError *err = NULL;
   GdkPixbuf *return_buf = NULL;
@@ -115,8 +158,14 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
   return return_buf;
 }
 
-/* Return path to ui file, or NULL if file can't be found.
-   Looks first in PACKAGE_DATA_DIR/pnmixer/ui/[file] and then in ./data/[file] */
+/**
+ * Gets the path to an ui file.
+ * Looks first in PACKAGE_DATA_DIR/pnmixer/ui/[file] and
+ * then in ./data/[file]
+ *
+ * @param filename the name of the ui file
+ * @return path to the ui file or NULL on failure
+ */
 gchar* get_ui_file(const char* filename) {
   gchar* path;
   path = g_build_filename(PACKAGE_DATA_DIR,"pnmixer","ui",filename,NULL);

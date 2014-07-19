@@ -8,6 +8,12 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file support.h
+ * Header for support.c, holds public
+ * functions and defines the PrefsData type.
+ * @brief header for support.c
+ */
 
 #ifndef SUPPORT_H_
 #define SUPPORT_H_
@@ -42,6 +48,9 @@
 #  define N_(String) (String)
 #endif
 
+/**
+ * Defines the whole preferences entity.
+ */
 typedef struct {
   GtkWidget* prefs_window;
   GtkWidget* card_combo;

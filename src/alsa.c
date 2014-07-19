@@ -21,6 +21,14 @@
  *
  */
 
+/**
+ * @file alsa.c
+ * This file holds the communication of pnmixer
+ * with alsa, such as getting available cards as well as
+ * setting callback functions for events, and so on.
+ * @brief alsa subsystem
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -59,6 +67,12 @@ static long lrint_dir(double x, int dir)
 		return lrint(x);
 }
 
+/**
+ * Callback function which is called on an element
+ * of the alsa cards GSList, e.g. via g_slist_free_full.
+ *
+ * @param data the current alsa card
+ */
 static void card_free(gpointer data) {
   struct acard* c = (struct acard*)data;
   g_free(c->name);
@@ -67,7 +81,11 @@ static void card_free(gpointer data) {
   g_free(data);
 }
 
-// partly based on get_cards function in alsamixer
+/**
+ * Partly based on get_cards function in alsamixer.
+ * This gets all alsa cards and fills the global
+ * GSList 'cards'.
+ */
 static void get_cards() {
   int err, num;
   snd_ctl_card_info_t *info;
@@ -115,6 +133,14 @@ static void get_cards() {
 }
 
 // TODO: Warn when selected card can't be found
+/**
+ * Gets the HCTL name (like hw:0)
+ * through the card name (like HDA Intel PCH) by
+ * searching the global GSList 'cards'.
+ *
+ * @param selected_card the card name to get the device string of
+ * @return the HCTL name or NULL on failure
+ */
 char* selected_card_dev(gchar* selected_card) {
   gchar *ret = NULL;
   struct acard* c;
@@ -136,12 +162,24 @@ char* selected_card_dev(gchar* selected_card) {
   return ret;
 }
 
-static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_regopt* opts,int level) {
+/**
+ * Opens the mixer, attaches the alsa card to it,
+ * registers the mixer simple element class and
+ * loads the mixer elements.
+ *
+ * @param mixer mixer handle
+ * @param card HCTL name
+ * @param opts Options container
+ * @param level mixer level
+ * @return 0 on success otherwise a negative error code
+ */
+static int open_mixer(snd_mixer_t **mixer,
+		char* card,
+		struct snd_mixer_selem_regopt* opts,
+		int level) {
   int err;
 
-
   DEBUG_PRINT("Opening mixer for card: %s\n",card);
-
 
   if ((err = snd_mixer_open(mixer, 0)) < 0) {
     report_error("Mixer %s open error: %s", card, snd_strerror(err));
@@ -165,6 +203,14 @@ static int open_mixer(snd_mixer_t **mixer, char* card, struct snd_mixer_selem_re
   return 0;
 }
 
+/**
+ * Callback function for the mixer element which is
+ * set in alsaset().
+ *
+ * @param e mixer element
+ * @param mask event mask
+ * @return 0 on success otherwise a negative error code
+ */
 static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
   int muted;
   get_current_levels();
@@ -183,7 +229,19 @@ static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
 static gchar sbuf[256];
 static GIOChannelError *serr = NULL;
 static gsize sread = 1;
-static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer data) {
+
+/**
+ * Callback function for external volume changes,
+ * set in set_io_watch().
+ *
+ * @param source the GIOChannel event source
+ * @param condition the condition which has been satisfied
+ * @param data user data set inb g_io_add_watch() or g_io_add_watch_full()
+ * @return FALSE if the event source should be removed
+ */
+static gboolean poll_cb(GIOChannel *source,
+		GIOCondition condition,
+		gpointer data) {
   snd_mixer_handle_events(handle);
 
   sread = 1;
@@ -211,6 +269,13 @@ static gboolean poll_cb(GIOChannel *source, GIOCondition condition, gpointer dat
 }
 
 GIOChannel *gioc = NULL;
+
+/**
+ * Sets the io watch for external volume changes
+ * and registers the poll_cb() callback function.
+ *
+ * @param mixer mixer handle
+ */
 static void set_io_watch(snd_mixer_t *mixer) {
   int pcount;
 
@@ -232,6 +297,14 @@ static void set_io_watch(snd_mixer_t *mixer) {
   }
 }
 
+/**
+ * Detaches a mixer from the specified card and closes the
+ * mixer.
+ *
+ * @param mixer mixer handle
+ * @param card HCTL name of the alsa card
+ * @return 0 on success otherwise negative error code
+ */
 static int close_mixer(snd_mixer_t **mixer, const char* card) {
   int err;
 
@@ -245,7 +318,13 @@ static int close_mixer(snd_mixer_t **mixer, const char* card) {
   return err;
 }
 
-
+/**
+ * Get all channels for a single alsa card and
+ * return them as a GSList.
+ *
+ * @param card HCTL name of the alsa card
+ * @return the GSList of channels
+ */
 static GSList* get_channels(gchar* card) {
   int ccount,i;
   snd_mixer_t *mixer;
@@ -281,6 +360,13 @@ static GSList* get_channels(gchar* card) {
   return channels;
 }
 
+/**
+ * Initializes the alsa system by getting the cards
+ * and channels and setting the io watch for external
+ * volume changes.
+ *
+ * @return 0 on success otherwise negative error code
+ */
 static int alsaset() {
   snd_mixer_selem_id_t *sid;
   gchar *channel;
@@ -312,6 +398,10 @@ static int alsaset() {
   return 0;
 }
 
+/**
+ * Deinitializes the alsa system by
+ * closing the mixer.
+ */
 static void alsaunset() {
     char *card_dev;
     if (card) {
@@ -322,7 +412,15 @@ static void alsaunset() {
     }
 }
 
-static double get_normalized_volume(snd_mixer_elem_t *elem, snd_mixer_selem_channel_id_t channel) {
+/**
+ * Get the normalized current volume.
+ *
+ * @param elem current mixer element
+ * @param channel current channel
+ * @return normalized volume
+ */
+static double get_normalized_volume(snd_mixer_elem_t *elem,
+		snd_mixer_selem_channel_id_t channel) {
     long min, max, value;
     double normalized, min_norm;
     int err;
@@ -356,6 +454,16 @@ static double get_normalized_volume(snd_mixer_elem_t *elem, snd_mixer_selem_chan
     return normalized;
 }
 
+/**
+ * Converts the current volume in the real volume range
+ * reported by snd_mixer_selem_get_playback_volume_range()
+ * into the 0-100 range.
+ *
+ * @param val current volume value
+ * @param min current minimum volume
+ * @param max current maximum volume
+ * @return volume converted into 0-100 range
+ */
 static int convert_prange(long val, long min, long max) {
   long range = max - min;
   if (range == 0)
@@ -364,6 +472,13 @@ static int convert_prange(long val, long min, long max) {
   return rint(val/(double)range * 100);
 }
 
+/**
+ * Adjusts the current volume and sends a notification (if enabled).
+ *
+ * @param vol new volume value
+ * @param notify whether to send notification
+ * @return 0 on success otherwise negative error code
+ */
 int setvol(int vol, gboolean notify) {
   long min = 0, max = 0, value;
   int cur_perc = getvol();
@@ -396,6 +511,11 @@ int setvol(int vol, gboolean notify) {
   return snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK); // intentionally set twice
 }
 
+/**
+ * Mutes or unmutes playback and sends a notification (if enabled).
+ *
+ * @param notify whether to send notification
+ */
 void setmute(gboolean notify) {
   if (!snd_mixer_selem_has_playback_switch(elem))
     return;
@@ -411,6 +531,11 @@ void setmute(gboolean notify) {
   }
 }
 
+/**
+ * Check whether sound is currently muted.
+ *
+ * @return 1 if muted, 0 otherwise
+ */
 int ismuted() {
   int muted = 1;
   if (snd_mixer_selem_has_playback_switch(elem))
@@ -418,6 +543,11 @@ int ismuted() {
   return muted;
 }
 
+/**
+ * Gets the current volume in the range from 0 - 100.
+ *
+ * @return current volume
+ */
 int getvol() {
   if (normalize_vol()) {
       return lrint(get_normalized_volume(elem,SND_MIXER_SCHN_FRONT_RIGHT)*100);
@@ -430,12 +560,19 @@ int getvol() {
   }
 }
 
+/**
+ * Initializes the alsa system. Deinitializes first
+ * if we want to re-initialize.
+ */
 void alsa_init() {
   if (card) // re-init, need to close down first
     alsaunset();
   alsaset();
 }
 
+/**
+ * Closes the alsa mixer handle.
+ */
 void alsa_close() {
   snd_mixer_close(handle);
 }

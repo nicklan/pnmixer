@@ -8,6 +8,13 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file callbacks.h
+ * Header for callbacks.c, holds public
+ * functions.
+ * @brief header for callbacks.c
+ */
+
 #ifndef CALLBACKS_H_
 #define CALLBACKS_H_
 
@@ -34,6 +41,8 @@ void
 on_cancel_button_clicked                   (GtkButton       *button,
 					    PrefsData       *data);
 
-gboolean on_scroll (GtkWidget *widget, GdkEventScroll *event);
+gboolean on_scroll(GtkStatusIcon *status_icon,
+		GdkEventScroll *event,
+		gpointer user_data);
 
 #endif // CALLBACKS_H_

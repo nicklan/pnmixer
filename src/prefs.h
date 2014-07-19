@@ -8,6 +8,11 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file prefs.h
+ * Header for prefs.c, holding public functions and globals.
+ * @brief header for prefs.c
+ */
 
 #ifndef PREFS_H_
 #define PREFS_H_

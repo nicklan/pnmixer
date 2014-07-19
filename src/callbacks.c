@@ -7,6 +7,15 @@
  * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
+
+/**
+ * @file callbacks.c
+ * This file holds callback functions for various signals
+ * received by different GtkWidgets, some of them defined
+ * in the gtk-builder xml files.
+ * @brief gtk callbacks
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -23,21 +32,44 @@
 int volume;
 extern int volume;
 
+/**
+ * Callback function when the mute_check (GtkCheckButton) in the
+ * volume popup window received the pressed signal
+ * or when the mute_item (GtkImageMenuItem) in the right-click
+ * menu received the activate signal.
+ *
+ * @param button the object that received the signal
+ * @param event the GdkEvent which triggered this signal
+ * @param user_data user data set when the signal handler was connected
+ */
 gboolean on_mute_clicked(GtkButton *button,
 			 GdkEvent  *event,
 			 gpointer  user_data) {
+
   setmute(popup_noti);
   get_mute_state(FALSE);
   return TRUE;
 }
 
-
+/**
+ * Callback function when the vol_scale (GtkScale) in the volume
+ * popup window received the change-value signal
+ * (either via mouse or keyboard).
+ *
+ * @param range the GtkRange that received the signal
+ * @param scroll the type of scroll action that was performed
+ * @param value the new value resulting from the scroll action
+ * @param user_data user data set when the signal handler was connected
+ * @return TRUE to prevent other handlers from being invoked for the
+ * signal, FALSE to propagate the signal further
+ */
 gboolean vol_scroll_event(GtkRange     *range,
 			  GtkScrollType scroll,
 			  gdouble       value,
 			  gpointer      user_data) {
   int volumeset;
   volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
+
 
   setvol(volumeset,popup_noti);
   if (get_mute_state(TRUE) == 0) {
@@ -47,7 +79,19 @@ gboolean vol_scroll_event(GtkRange     *range,
   return FALSE;
 }
 
-gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
+/**
+ * Callback function when the tray_icon receives the scroll-event
+ * signal.
+ *
+ * @param status_icon the object which received the signal
+ * @param event the GdkEventScroll which triggered this signal
+ * @param user_data user data set when the signal handler was connected
+ * @return TRUE to stop other handlers from being invoked for the event.
+ * False to propagate the event further
+ */
+gboolean on_scroll(GtkStatusIcon *status_icon,
+		GdkEventScroll *event,
+		gpointer user_data) {
   int cv = getvol();
   if (event->direction == GDK_SCROLL_UP) {
     setvol(cv + scroll_step,mouse_noti);
@@ -65,9 +109,21 @@ gboolean on_scroll(GtkWidget *widget, GdkEventScroll *event) {
   return TRUE;
 }
 
+/**
+ * Callback function when one of the hotkey boxes mute_eventbox,
+ * up_eventbox or down_eventbox (GtkEventBox) in the
+ * preferences received the button-press-event signal.
+ *
+ * @param widget the object which received the signal
+ * @param event the GdkEventButton which triggered this signal
+ * @param data struct holding the GtkWidgets of the preferences windows
+ * @return TRUE to stop other handlers from being invoked for the event.
+ * False to propagate the event further
+ */
 gboolean on_hotkey_button_click(GtkWidget *widget,
 				GdkEventButton *event,
 				PrefsData *data) {
+
   if (event->button ==1 &&
       event->type==GDK_2BUTTON_PRESS)
     acquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
@@ -75,6 +131,13 @@ gboolean on_hotkey_button_click(GtkWidget *widget,
   return TRUE;
 }
 
+/**
+ * Callback function when the ok_button (GtkButton) of the
+ * preferences window received the clicked signal.
+ *
+ * @param button the object that received the signal
+ * @param data struct holding the GtkWidgets of the preferences windows
+ */
 void on_ok_button_clicked(GtkButton *button,
 			  PrefsData *data) {
   gsize len;
@@ -275,6 +338,13 @@ void on_ok_button_clicked(GtkButton *button,
   g_slice_free(PrefsData,data);
 }
 
+/**
+ * Callback function when the cancel_button (GtkButton) of the
+ * preferences window received the clicked signal.
+ *
+ * @param button the object that received the signal
+ * @param data struct holding the GtkWidgets of the preferences windows
+ */
 void on_cancel_button_clicked(GtkButton *button,
 			      PrefsData *data) {
   gtk_widget_destroy(data->prefs_window);

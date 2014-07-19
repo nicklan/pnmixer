@@ -8,6 +8,11 @@
  * <http://github.com/nicklan/pnmixer>
  */
 
+/**
+ * @file notify.h
+ * Header for notify.c.
+ * @brief header for notify.c
+ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>

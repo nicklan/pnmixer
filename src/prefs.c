@@ -7,6 +7,15 @@
  * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
+
+/**
+ * @file prefs.c
+ * This file holds the preferences subsystem,
+ * managing the user config file as well as interaction
+ * with the gtk preferences window.
+ * @brief preferences subsystem
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -45,8 +54,13 @@ VolUpKey=-1\n\
 VolDownKey=-1\n\
 AlsaCard=default"
 
-/* Get available icon themes.
-   This code is based on code from xfce4-appearance-settings */
+/**
+ * Get available icon themes.
+ * This code is based on code from xfce4-appearance-settings.
+ *
+ * @param icon_theme_combo the GtkComboBox to use
+ * @param store where to store the icon theme list
+ */
 static void
 load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
   GDir          *dir;
@@ -125,8 +139,24 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
 }
 
 #ifdef WITH_GTK3
+/**
+ * Gets the volume meter colors which are drawn on top of the
+ * tray_icon by reading the VolMeterColor entry of the config
+ * file.
+ *
+ * @return array of doubles which holds the RGB values, from
+ * 0 to 1.0
+ */
 gdouble* get_vol_meter_colors() {
 #else
+/**
+ * Gets the volume meter colors which are drawn on top of the
+ * tray_icon by reading the VolMeterColor entry of the config
+ * file.
+ *
+ * @return array of ints which holds the RGB values, from
+ * 0 to 65536
+ */
 gint* get_vol_meter_colors() {
 #endif
   gsize numcols = 3;
@@ -160,6 +190,10 @@ gint* get_vol_meter_colors() {
   return vol_meter_clrs;
 }
 
+/**
+ * Checks if the preferences dir is present (creates it if not) and
+ * accessible. Reports errors via report_error().
+ */
 void ensure_prefs_dir(void) {
   gchar* prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
   if (!g_file_test(prefs_dir,G_FILE_TEST_IS_DIR)) {
@@ -173,6 +207,11 @@ void ensure_prefs_dir(void) {
   g_free(prefs_dir);
 }
 
+/**
+ * Loads the preferences from the config and creates the global keyFile
+ * object (GKeyFile type). Also sets the default gtk icon theme
+ * in the keyFile if there is no config file yet.
+ */
 void load_prefs(void) {
   GError* err = NULL;
   gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);
@@ -205,6 +244,16 @@ void load_prefs(void) {
   g_free(filename);
 }
 
+/**
+ * Gets a boolean value from a keyFile in the specified group at the
+ * specified key. On error, returns def as default value.
+ *
+ * @param keyFile the GKeyFile to parse
+ * @param group the settings group
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return result of g_key_file_get_boolean() or def on error
+ */
 static gboolean g_key_file_get_boolean_with_default(GKeyFile *keyFile,
 						    gchar *group,
 						    gchar *key,
@@ -219,6 +268,16 @@ static gboolean g_key_file_get_boolean_with_default(GKeyFile *keyFile,
   return ret;
 }
 
+/**
+ * Gets an int value from a keyFile in the specified group at the
+ * specified key. On error, returns def as default value.
+ *
+ * @param keyFile the GKeyFile to parse
+ * @param group the settings group
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return result of g_key_file_get_boolean() or def on error
+ */
 static gint g_key_file_get_integer_with_default(GKeyFile *keyFile,
 						gchar *group,
 						gchar *key,
@@ -233,6 +292,10 @@ static gint g_key_file_get_integer_with_default(GKeyFile *keyFile,
   return ret;
 }
 
+/**
+ * Sets the globals enable_noti, hotkey_noti, mouse_noti, popup_noti
+ * and external_noti from the user settings.
+ */
 static void set_notifications_booleans() {
   enable_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableNotifications",FALSE);
   hotkey_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","HotkeyNotifications",TRUE);
@@ -241,6 +304,12 @@ static void set_notifications_booleans() {
   external_noti = g_key_file_get_boolean_with_default(keyFile,"PNMixer","ExternalNotifications",FALSE);
 }
 
+/**
+ * Applies the preferences, usually triggered by on_ok_button_clicked()
+ * in callbacks.c, but also initially caled from main().
+ *
+ * @param alsa_change whether we want to trigger alsa-reinitalization
+ */
 void apply_prefs(gint alsa_change) {
 #ifdef WITH_GTK3
   gdouble* vol_meter_clrs;
@@ -274,6 +343,10 @@ void apply_prefs(gint alsa_change) {
   update_vol_text();
 }
 
+/**
+ * Gets the current icon theme from the global keyFile. This
+ * sets the global icon_theme.
+ */
 void get_icon_theme() {
   if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
     gchar* theme_name = g_key_file_get_string(keyFile,"PNMixer","IconTheme",NULL);
@@ -286,16 +359,38 @@ void get_icon_theme() {
     icon_theme = gtk_icon_theme_get_default();
 }
 
+/**
+ * Gets the currently selected Alsa Card from the global keyFile
+ * and returns the result.
+ *
+ * @return the currently selected Alsa Card as a newly allocated string,
+ * NULL on failure
+ */
 gchar* get_selected_card() {
   return g_key_file_get_string(keyFile,"PNMixer","AlsaCard",NULL);
 }
 
+/**
+ * Gets the currently selected channel of the specified Alsa Card
+ * from the global keyFile and returns the result.
+ *
+ * @param card the Alsa Card to get the currently selected channel of
+ * @return the currently selected channel as newly allocated string,
+ * NULL on failure
+ */
 gchar* get_selected_channel(gchar* card) {
   if (!card) return NULL;
   return g_key_file_get_string(keyFile,card,"Channel",NULL);
 }
 
-
+/**
+ * Fills the GtkComboBoxText chan_combo with the currently available
+ * channels of the card.
+ *
+ * @param channels list of available channels
+ * @param combo the GtkComboBoxText widget for the channels
+ * @param selected the currently selected channel
+ */
 void fill_channel_combo(GSList *channels, GtkWidget *combo, gchar* selected) {
   int idx=0,sidx=0;
   GtkTreeIter iter;
@@ -313,6 +408,13 @@ void fill_channel_combo(GSList *channels, GtkWidget *combo, gchar* selected) {
   gtk_combo_box_set_active (GTK_COMBO_BOX (combo), sidx);
 }
 
+/**
+ * Fills the GtkComboBoxText card_combo with the currently available
+ * cards and calls fill_channel_combo() as well.
+ *
+ * @param combo the GtkComboBoxText widget for the alsa cards
+ * @param channels_combo the GtkComboBoxText widget for the card channels
+ */
 void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
   struct acard* c;
   GSList *cur_card;
@@ -358,6 +460,14 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
     g_free(selected_card);
 }
 
+/**
+ * Handler for the signal 'changed' on the GtkComboBoxText widget
+ * card_combo. This basically refills the channel list if the card
+ * changes.
+ *
+ * @param box the box which received the signal
+ * @param data user data set when the signal handler was connected
+ */
 void on_card_changed(GtkComboBox* box, PrefsData* data) {
   gint idx = gtk_combo_box_get_active (GTK_COMBO_BOX(box));
   GSList *card = g_slist_nth(cards,idx);
@@ -368,12 +478,26 @@ void on_card_changed(GtkComboBox* box, PrefsData* data) {
     g_free(sel_chan);
 }
 
+/**
+ * Handler for the signal 'toggled' on the GtkCheckButton vol_text_check.
+ * Updates the preferences window.
+ *
+* @param button the button which received the signal
+* @param data user data set when the signal handler was connected
+ */
 void on_vol_text_toggle(GtkToggleButton* button, PrefsData* data) {
   gboolean active  = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->vol_pos_label,active);
   gtk_widget_set_sensitive(data->vol_pos_combo,active);
 }
 
+/**
+ * Handler for the signal 'toggled' on the GtkCheckButton draw_vol_check.
+ * Updates the preferences window.
+ *
+ * @param button the button which received the signal
+ * @param data user data set when the signal handler was connected
+ */
 void on_draw_vol_toggle(GtkToggleButton* button, PrefsData* data) {
   gboolean active  = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->vol_meter_pos_label,active);
@@ -382,12 +506,26 @@ void on_draw_vol_toggle(GtkToggleButton* button, PrefsData* data) {
   gtk_widget_set_sensitive(data->vol_meter_color_button,active);
 }
 
+/**
+ * Handler for the signal 'changed' on the GtkComboBox middle_click_combo.
+ * Updates the preferences window.
+ *
+ * @param box the combobox which received the signal
+ * @param data user data set when the signal handler was connected
+ */
 void on_middle_changed(GtkComboBox* box, PrefsData* data) {
   gboolean cust = gtk_combo_box_get_active (GTK_COMBO_BOX(box)) == 3;
   gtk_widget_set_sensitive(data->custom_label,cust);
   gtk_widget_set_sensitive(data->custom_entry,cust);
 }
 
+/**
+ * Handler for the signal 'toggled' on the GtkCheckButton enable_noti_check.
+ * Updates the preferences window.
+ *
+ * @param button the button which received the signal
+ * @param data user data set when the signal handler was connected
+ */
 void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
 #ifdef HAVE_LIBN
   gboolean active  = gtk_toggle_button_get_active (button);
@@ -398,18 +536,37 @@ void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
 #endif
 }
 
+/**
+ * Handler for the signal 'toggled' on the GtkCheckButton
+ * enable_hotkeys_check.
+ * Updates the preferences window.
+ *
+ * @param button the button which received the signal
+ * @param data user data set when the signal handler was connected
+ */
 void on_hotkey_toggle(GtkToggleButton* button, PrefsData* data) {
   gboolean active  = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->hotkey_vol_label,active);
   gtk_widget_set_sensitive(data->hotkey_vol_spin,active);
 }
 
+/**
+ * Default volume commands.
+ */
 static const char* vol_cmds[] = {"pavucontrol",
 				 "gnome-alsamixer",
 				 "xfce4-mixer",
 				 "alsamixergui",
 				 NULL};
 
+/**
+ * Gets the current volume command from the user preferences
+ * and returns it. If none is set, iterates through the list vol_cmds to
+ * determine the volume command.
+ *
+ * @return volume command from user preferences or valid command
+ * from vol_cmds or NULL on failure
+ */
 gchar* get_vol_command() {
   if (g_key_file_has_key(keyFile,"PNMixer","VolumeControlCommand",NULL))
     return g_key_file_get_string(keyFile,"PNMixer","VolumeControlCommand",NULL);
@@ -426,6 +583,22 @@ gchar* get_vol_command() {
   }
 }
 
+/**
+ * This is called from within the callback function
+ * on_hotkey_button_click() in callbacks. which is triggered when
+ * one of the hotkey boxes mute_eventbox, up_eventbox or
+ * down_eventbox (GtkEventBox) in the preferences received
+ * the button-press-event signal.
+ *
+ * Then this function grabs the keyboard, opens the hotkey_dialog
+ * and updates the GtkLabel with the pressed hotkey.
+ * The GtkLabel is later read by on_ok_button_clicked() in
+ * callbacks.c which stores the result in the global keyFile.
+ *
+ * @param widget_name the name of the widget (mute_eventbox, up_eventbox
+ * or down_eventbox)
+ * @param data struct holding the GtkWidgets of the preferences windows
+ */
 void acquire_hotkey(const char* widget_name,
 		   PrefsData *data) {
   gint resp, action;
@@ -506,6 +679,16 @@ void acquire_hotkey(const char* widget_name,
   gtk_widget_hide(diag);
 }
 
+/**
+ * Handler for the signal 'key-press-event' on the GtkDialog hotkey_dialog
+ * which was opened by acquire_hotkey().
+ *
+ * @param dialog the dialog window which received the signal
+ * @param ev the GdkEventKey which triggered the signal
+ * @param data struct holding the GtkWidgets of the preferences windows
+ * @return TRUE to stop other handlers from being invoked for the event.
+ * FALSE to propagate the event further.
+ */
 gboolean hotkey_pressed(GtkWidget   *dialog,
 			GdkEventKey *ev,
 			PrefsData   *data) {
@@ -530,6 +713,16 @@ gboolean hotkey_pressed(GtkWidget   *dialog,
   return FALSE;
 }
 
+/**
+ * Handler for the signal 'key-release-event' on the GtkDialog
+ * hotkey_dialog which was opened by acquire_hotkey().
+ *
+ * @param dialog the dialog window which received the signal
+ * @param ev the GdkEventKey which triggered the signal
+ * @param data struct holding the GtkWidgets of the preferences windows
+ * @return TRUE to stop other handlers from being invoked for the event.
+ * FALSE to propagate the event further.
+ */
 gboolean hotkey_released(GtkWidget   *dialog,
 			 GdkEventKey *ev,
 			 PrefsData   *data) {
@@ -542,22 +735,45 @@ gboolean hotkey_released(GtkWidget   *dialog,
   return FALSE;
 }
 
-static void set_label_for_keycode(GtkWidget* label,gint code, GdkModifierType mods) {
+/**
+ * Sets one of the hotkey labels in the Hotkeys settings
+ * to the specified keycode (converted to a accelerator name).
+ *
+ * @param label the label to set
+ * @param code the keycode to convert to accelerator name
+ * @param mods the pressed keymod
+ */
+static void set_label_for_keycode(GtkWidget* label,
+		gint code,
+		GdkModifierType mods) {
   int keysym;
   gchar *key_text;
-  if (code < 0) return;
+  if (code < 0)
+	  return;
   keysym = XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(), code, 0, 0);
   key_text = gtk_accelerator_name (keysym, mods);
   gtk_label_set_text(GTK_LABEL(label),key_text);
   g_free(key_text);
 }
 
+/**
+ * Checks whether NormalizeVolume preference is set in the user config,
+ * by reading the global keyFile.
+ *
+ * @return TRUE if it's set, FALSE otherwise
+ */
 gboolean normalize_vol(void) {
   if (g_key_file_has_key(keyFile,"PNMixer","NormalizeVolume",NULL))
     return (g_key_file_get_boolean(keyFile,"PNMixer","NormalizeVolume",NULL));
   return FALSE;
 }
 
+/**
+ * Creates the whole preferences window by reading prefs-gtk3.xml
+ * or prefs-gtk2.xml and returns the result.
+ *
+ * @return the newly created preferences window, NULL on failure
+ */
 GtkWidget* create_prefs_window (void) {
   GtkBuilder *builder;
   GError     *error = NULL;
