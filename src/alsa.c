@@ -534,7 +534,7 @@ void setmute(gboolean notify) {
 /**
  * Check whether sound is currently muted.
  *
- * @return 1 if muted, 0 otherwise
+ * @return 0 if mixer is muted, 1 otherwise
  */
 int ismuted() {
   int muted = 1;
