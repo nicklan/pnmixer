@@ -98,73 +98,18 @@ void warn_sound_conn_lost() {
 }
 
 /**
- * We need to report error in idle moment
- * since we can't report_error before gtk_main is called.
- * This function is attached via g_idle_add() in grab_keys(),
- * whenever there is an Xerror.
- *
- * @param data passed to the function,
- * set when the source was created
- * @return FALSE if the source should be removed,
- * TRUE otherwise
- */
-static gboolean idle_report_error(gpointer data) {
-  report_error("Error running command:\n%s",data);
-  g_free(data);
-  return FALSE;
-}
-
-/**
- * The signal-handling function for SIGCHLD, set in run_command().
- *
- * @param sig signal number
- * @param siginfo pointer to a siginfo_t
- * @param context pointer to ucontext_t (cast to void *)
- */
-static void mix_hdlr(int sig, siginfo_t *siginfo, void *context) {
-  int stat;
-  signed char exit_stat;
-  switch(sig) {
-  case SIGCHLD:
-    waitpid(siginfo->si_pid,&stat,0);
-    exit_stat = (signed char)(WEXITSTATUS(stat));
-    if (exit_stat) 
-      g_idle_add(idle_report_error, g_strdup(strerror(exit_stat)));
-    break;
-  default:
-    g_warning("Unexpected signal received: %i\n",sig);
-  }
-}
-
-/* TODO: more sophisticated parsing of command strings */
-/**
- * Runs a given command in a subprocess. Errors are reported via
- * invoking mix_hdlr() on SIGCHLD.
+ * Runs a given command via g_spawn_command_line_async().
  *
  * @param cmd the command to run
  */
 void run_command(gchar* cmd) {
-  pid_t pid;
-
   if (cmd) {
-    struct sigaction act;
-    act.sa_sigaction = &mix_hdlr;
-    act.sa_flags = SA_SIGINFO;
+    GError *error = NULL;
 
-    if (sigaction(SIGCHLD, &act, NULL) < 0) {
-      report_error(_("Unable to run command: sigaction failed: %s"),strerror(errno));
-      return;
-    }
-
-    pid = fork();
-    
-    if (pid < 0)
-      report_error(_("Unable to run command: fork failed"));
-    else if (pid == 0) { // child command, try to exec
-      gchar **cmdargv = g_strsplit(cmd," ",0);
-      execvp (cmdargv[0], cmdargv);
-      g_strfreev(cmdargv);
-      _exit(errno);
+    if (g_spawn_command_line_async (cmd, &error) == FALSE) {
+      report_error(_("Unable to run command %s"), error->message);
+      g_error_free (error);
+      error = NULL;
     }
   }
 
