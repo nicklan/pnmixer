@@ -106,14 +106,14 @@ void run_command(gchar* cmd) {
   if (cmd) {
     GError *error = NULL;
 
+    gtk_widget_hide (popup_window);
+
     if (g_spawn_command_line_async (cmd, &error) == FALSE) {
       report_error(_("Unable to run command %s"), error->message);
       g_error_free (error);
       error = NULL;
     }
   }
-
-  gtk_widget_hide (popup_window);
 }
 
 /**
