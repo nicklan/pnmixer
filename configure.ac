@@ -116,9 +116,22 @@ po/Makefile.in
 ])
 
 if test "$HAVE_LIBN" != "1"; then
-  AS_ECHO(["-----------------------------------------------NOTICE-------------------------------------------------"])
-  AS_ECHO(["| libnotify not found on your system, or explicitly disabled.  Notification support will be disabled |"])
-  AS_ECHO(["------------------------------------------------------------------------------------------------------"])
+	libnotify_msg="yes"
+else
+	libnotify_msg="no"
 fi
 
+if test "$with_gtk3" = "yes" ; then
+	gtk_msg="3"
+else
+	gtk_msg="2"
+fi
+
+AS_ECHO([""])
+AS_ECHO(["====================================="])
+AS_ECHO(["CONFIGURATION:"])
+AS_ECHO(["libnotify enabled..... $libnotify_msg"])
+AS_ECHO(["gtk version........... $gtk_msg"])
+AS_ECHO(["====================================="])
+AS_ECHO([""])
 
