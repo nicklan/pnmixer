@@ -176,12 +176,13 @@ gint* get_vol_meter_colors() {
       report_error(_("Invalid color for volume meter in config file.  Reverting to default."));
       g_free(vol_meter_clrs);
     }
-    vol_meter_clrs = g_malloc(3*sizeof(gint));
 #ifdef WITH_GTK3
+    vol_meter_clrs = g_malloc(3*sizeof(gdouble));
     vol_meter_clrs[0] = 0.909803921569;
     vol_meter_clrs[1] = 0.43137254902;
     vol_meter_clrs[2] = 0.43137254902;
 #else
+    vol_meter_clrs = g_malloc(3*sizeof(gint));
     vol_meter_clrs[0] = 59624;
     vol_meter_clrs[1] = 28270;
     vol_meter_clrs[2] = 28270;
