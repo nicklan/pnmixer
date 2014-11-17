@@ -1,0 +1,440 @@
+# Russian translation for pnmixer.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the pnmixer package.
+# Pavel Serebryakov <pshar@inbox.ru>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pnmixer master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-18 15:43+0100\n"
+"PO-Revision-Date: 2014-11-17 17:54+0500\n"
+"Last-Translator: Pavel Serebryakov <pshar@inbox.ru>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+
+#: ../src/main.c:47
+#: ../src/main.c:69
+msgid "PNMixer Error"
+msgstr "Ошибка PNMixer"
+
+#: ../src/main.c:63
+msgid "Warning: Connection to sound system failed."
+msgstr "Внимание: не удалось подключиться к звуковой подсистеме"
+
+#: ../src/main.c:65
+#, c-format
+msgid ""
+"Do you want to re-initialize the connection to alsa?\n"
+"\n"
+"If you do not, you will either need to restart PNMixer or select the 'Reload Alsa' option in the right click menu in order for PNMixer to function."
+msgstr ""
+"Вы хотите переустановить соединение с alsa?\n"
+"\n"
+"Если нет, вам необходимо будет либо перезапустить PNMixer, либо выбрать опцию 'Перезапустить Alsa' в меню правой кнопки, чтобы PNMixer работал."
+
+#: ../src/main.c:73
+#, c-format
+msgid "Warning: Connection to sound system failed, you probably need to restart pnmixer\n"
+msgstr "Внимание: Не удалось подключиться к звуковой подсистеме, возможно вам необходимо перезапустить pnmixer\n"
+
+#: ../src/main.c:115
+msgid "An unknown error occured trying to launch your volume control command"
+msgstr "Произошла неизвестная ошибка при попытке выполнить вашу команду управления громкостью"
+
+#: ../src/main.c:117
+#, c-format
+msgid ""
+"Unable to launch volume command \"%s\".\n"
+"\n"
+"%s"
+msgstr ""
+"Не удалось выполнить команду управления громкостью \"%s\".\n"
+"\n"
+"%s"
+
+#: ../src/main.c:122
+msgid ""
+"\n"
+"No mixer application was found on your system.\n"
+"\n"
+"Please open preferences and set the command you want to run for volume control."
+msgstr ""
+"\n"
+"В вашей системе не обнаружено приложений микширования.\n"
+"\n"
+"Пожалуйста, откройте настройки и задайте желаемую команду управления громкостью"
+
+#: ../src/main.c:149
+#, c-format
+msgid "Couldn't execute custom command: \"%s\"\n"
+msgstr "Не удалось выполнить пользовательскую команду: \"%s\".\n"
+
+#: ../src/main.c:203
+msgid "Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"
+msgstr "Главный файл графического интерфейса программы не найден. Пожалуйста, убедитесь, что PNMixer установлен правильно. Завершение\n"
+
+#: ../src/main.c:259
+msgid "Can't find about interface file.  Please insure PNMixer is installed correctly."
+msgstr "Файл графического интерфейса окна \"О программе\" не найден. Пожалуйста, убедитесь, что PNMixer установлен правильно."
+
+#: ../src/main.c:334
+#, c-format
+msgid "Volume: %d %%"
+msgstr "Громкость: %d %%"
+
+#: ../src/main.c:348
+#, c-format
+msgid ""
+"Volume: %d %%\n"
+"Muted"
+msgstr ""
+"Громкость: %d %%\n"
+"Звук выкл."
+
+#: ../src/main.c:453
+msgid "- A mixer for the system tray."
+msgstr "- Звуковой микшер для системного трея."
+
+#: ../src/main.c:463
+#, c-format
+msgid "%s version: %s\n"
+msgstr "%s версия: %s\n"
+
+#: ../src/callbacks.c:203
+#, c-format
+msgid "Couldn't write preferences file: %s\n"
+msgstr "Не удалось записать файл настроек: %s\n"
+
+#: ../src/support.c:66
+#: ../src/support.c:88
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "Не удалось найти файл изображения: %s"
+
+#: ../src/support.c:95
+#, c-format
+msgid "Failed to load pixbuf file: %s: %s\n"
+msgstr "Не удалось загрузить pixbuf-файл: %s: %s\n"
+
+#: ../src/support.c:112
+#, c-format
+msgid "Unable to load icon %s: %s\n"
+msgstr "Не удалось загрузить иконку: %s: %s\n"
+
+#: ../src/prefs.c:63
+msgid "PNMixer Icons"
+msgstr "Иконки PNMixer"
+
+#. corrupt value somehow
+#: ../src/prefs.c:130
+msgid "Invalid color for volume meter in config file.  Reverting to default."
+msgstr "Недопустимое значение цвета для измерителя громкости в файле конфигурации. Использую значение по умолчанию."
+
+#: ../src/prefs.c:145
+#, c-format
+msgid ""
+"\n"
+"Error: %s exists but is not a directory, will not be able to save preferences"
+msgstr ""
+"\n"
+"Ошибка: %s существует, но не является каталогом, сохранить настройки не получится"
+
+#: ../src/prefs.c:165
+#, c-format
+msgid ""
+"\n"
+"Couldn't load preferences file: %s\n"
+msgstr ""
+"\n"
+"Не удалось загрузить файл настроек: %s\n"
+
+#: ../src/prefs.c:173
+#, c-format
+msgid ""
+"\n"
+"Couldn't load default preferences: %s\n"
+msgstr ""
+"\n"
+"Не удалось загрузить настройки по умолчанию: %s\n"
+
+#: ../src/prefs.c:381
+#: ../data/prefs.xml.h:31
+msgid "Mute/Unmute"
+msgstr "Вкл/выкл звук"
+
+#: ../src/prefs.c:384
+msgid "Volume Up"
+msgstr "Увеличить громкость"
+
+#: ../src/prefs.c:387
+msgid "Volume Down"
+msgstr "Уменьшить громкость"
+
+#: ../src/prefs.c:416
+msgid "Could not grab the keyboard."
+msgstr "Не удалось захватить клавиатуру."
+
+#: ../src/prefs.c:474
+msgid "Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n"
+msgstr "Файл графического интерфейса окна настроек не найден. Пожалуйста, убедитесь, что PNMixer установлен правильно. \n"
+
+#: ../src/hotkeys.c:127
+#, c-format
+msgid "Could not bind the following hotkeys:\n"
+msgstr "Не удалось записать следующие сочетания клавиш:\n"
+
+#: ../data/about.xml.h:1
+msgid "A mixer for the system tray."
+msgstr "Звуковой микшер для системного трея."
+
+#: ../data/about.xml.h:2
+msgid "Copyright © 2010-2011 Nick Lanham"
+msgstr "Авторские права © 2010-2011 Nick Lanham"
+
+#: ../data/about.xml.h:3
+msgid ""
+"French: Matthieu Bresson\n"
+"German: Mario Blättermann"
+msgstr ""
+"Французский: Matthieu Bresson\n"
+"Немецкий: Mario Blättermann"
+
+#: ../data/about.xml.h:5
+msgid ""
+"PNMixer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.\n"
+"\n"
+"PNMixer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+msgstr ""
+"PNMixer является свободным программным обеспечением. Вы можете распространять и/или модифицировать её согласно условиям Стандартной Общественной Лицензии GNU, опубликованной Фондом Свободного Программного Обеспечения, версии 3 или, по Вашему желанию, любой более поздней версии.\n"
+"\n"
+"PNMixer распространяется в надежде, что она будет полезной, но БЕЗ ВСЯКИХ ГАРАНТИЙ, в том числе подразумеваемых гарантий ТОВАРНОГО СОСТОЯНИЯ ПРИ ПРОДАЖЕ и ГОДНОСТИ ДЛЯ ОПРЕДЕЛЁННОГО ПРИМЕНЕНИЯ. Смотрите Стандартную Общественную Лицензию GNU для получения дополнительной информации.\n"
+"\n"
+"Вы должны были получить копию Стандартной Общественной Лицензии GNU вместе с программой. В случае её отсутствия, напишите в Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#: ../data/popup_window.xml.h:1
+msgid "About"
+msgstr "О программе"
+
+#: ../data/popup_window.xml.h:2
+msgid "Mute"
+msgstr "Выкл. звук"
+
+#: ../data/popup_window.xml.h:3
+msgid "Mute/Unmute Volume"
+msgstr "Вкл/выкл звук"
+
+#: ../data/popup_window.xml.h:4
+msgid "Open Volume Control"
+msgstr "Настройки громкости"
+
+#: ../data/popup_window.xml.h:5
+msgid "Preferences"
+msgstr "Параметры"
+
+#: ../data/popup_window.xml.h:6
+msgid "Quit"
+msgstr "Выход"
+
+#: ../data/popup_window.xml.h:7
+msgid "Reload Alsa"
+msgstr "Перезапустить Alsa"
+
+#: ../data/popup_window.xml.h:8
+msgid "Volume Control..."
+msgstr "Настройки громкости…"
+
+#: ../data/popup_window.xml.h:9
+msgid "_Mute/Unmute"
+msgstr "_Вкл/выкл звук"
+
+#: ../data/popup_window.xml.h:10
+msgid "_Reload Alsa"
+msgstr "_Перезапустить Alsa"
+
+#: ../data/popup_window.xml.h:11
+msgid "_Volume Control"
+msgstr "_Настройки громкости"
+
+#: ../data/prefs.xml.h:1
+msgid "(None)"
+msgstr "(Пусто)"
+
+#: ../data/prefs.xml.h:2
+msgid "(Unknown)"
+msgstr "(Неизвестно)"
+
+#: ../data/prefs.xml.h:3
+msgid "<b>HotKey Settings</b>"
+msgstr "<b>Настройки горячих клавиш</b>"
+
+#: ../data/prefs.xml.h:4
+msgid "<b>Hotkeys</b>"
+msgstr "<b>Горячие клавиши</b>"
+
+#: ../data/prefs.xml.h:5
+msgid "<b>Icon Theme</b>"
+msgstr "<b>Тема иконок</b>"
+
+#: ../data/prefs.xml.h:6
+msgid "<b>Mouse</b>"
+msgstr "<b>Мышь</b>"
+
+#: ../data/prefs.xml.h:7
+msgid "<b>Sound Device</b>"
+msgstr "<b>Звуковое устройство</b>"
+
+#: ../data/prefs.xml.h:8
+msgid "<b>Text</b>"
+msgstr "<b>Текст</b>"
+
+#: ../data/prefs.xml.h:9
+msgid "<b>Volume Control Command</b>"
+msgstr "<b>Команда управления громкостью</b>"
+
+#: ../data/prefs.xml.h:10
+msgid "<b>Volume Meter</b>"
+msgstr "<b>Измеритель громкости</b>"
+
+#: ../data/prefs.xml.h:11
+msgid "Behavior"
+msgstr "Поведение"
+
+#: ../data/prefs.xml.h:12
+msgid "Bottom"
+msgstr "Низ"
+
+#: ../data/prefs.xml.h:13
+msgid "Card:"
+msgstr "Карта:"
+
+#: ../data/prefs.xml.h:14
+msgid "Channel:"
+msgstr "Канал:"
+
+#: ../data/prefs.xml.h:15
+msgid "Command"
+msgstr "Команда"
+
+#: ../data/prefs.xml.h:16
+msgid "Custom (set below)"
+msgstr "Пользовательская (устанавливается ниже)"
+
+#: ../data/prefs.xml.h:17
+msgid "Custom Command:"
+msgstr "Пользовательская команда:"
+
+#: ../data/prefs.xml.h:18
+msgid "Defining HotKey"
+msgstr "Устанавливаю сочетание клавиш"
+
+#: ../data/prefs.xml.h:19
+msgid "Device"
+msgstr "Устройство"
+
+#: ../data/prefs.xml.h:20
+msgid "Display Text Volume"
+msgstr "Отображать уровень громкости текстом"
+
+#: ../data/prefs.xml.h:21
+msgid "Double click a HotKey to assign a new Hotkey"
+msgstr "Щёлкните дважды на горячую клавишу, чтобы назначить новую"
+
+#: ../data/prefs.xml.h:22
+msgid ""
+"Draw Volume Meter on Tray Icon\n"
+"(Will cause slightly higher CPU usage)"
+msgstr ""
+"Показывать измеритель громкости на иконке в трее\n"
+"(Потребует чуть больше ресурсов процессора)"
+
+#: ../data/prefs.xml.h:24
+msgid "Enable HotKeys"
+msgstr "Включить горячие клавиши"
+
+#: ../data/prefs.xml.h:25
+msgid "HotKey"
+msgstr "Горячая клавиша"
+
+#: ../data/prefs.xml.h:26
+msgid "HotKey Volume Step:"
+msgstr "Шаг громкости для горячей клавиши:"
+
+#: ../data/prefs.xml.h:27
+msgid "Hotkeys"
+msgstr "Горячие клавиши"
+
+#: ../data/prefs.xml.h:28
+msgid "Left"
+msgstr "Левый"
+
+#: ../data/prefs.xml.h:29
+msgid "Middle Click Action:"
+msgstr "Действие по клику колёсиком:"
+
+#: ../data/prefs.xml.h:30
+msgid "Mouse Scroll Step:"
+msgstr "Шаг прокрутки колёсиком:"
+
+#: ../data/prefs.xml.h:32
+msgid "Mute/Unmute:"
+msgstr "Вкл/выкл звук"
+
+#: ../data/prefs.xml.h:33
+msgid "PNMixer Preferences"
+msgstr "Параметры PNMixer"
+
+#: ../data/prefs.xml.h:34
+msgid "Press new HotKey for:"
+msgstr "Нажмите новую клавишу для:"
+
+#: ../data/prefs.xml.h:35
+msgid "Right"
+msgstr "Правый"
+
+#: ../data/prefs.xml.h:36
+msgid "Set Hotkey"
+msgstr "Назначить горячую клавишу"
+
+#: ../data/prefs.xml.h:37
+msgid "Show Preferences"
+msgstr "Показать параметры"
+
+#: ../data/prefs.xml.h:38
+msgid "Top"
+msgstr "Верх"
+
+#: ../data/prefs.xml.h:39
+msgid "View"
+msgstr "Вид"
+
+#: ../data/prefs.xml.h:40
+msgid "Volume Control"
+msgstr "Управление громкостью"
+
+#: ../data/prefs.xml.h:41
+msgid "Volume Down:"
+msgstr "Уменьшить громкость"
+
+#: ../data/prefs.xml.h:42
+msgid "Volume Meter Color:"
+msgstr "Цвет измерителя громкости:"
+
+#: ../data/prefs.xml.h:43
+msgid "Volume Meter Offset:"
+msgstr "Смещение измерителя громкости:"
+
+#: ../data/prefs.xml.h:44
+msgid "Volume Text Position:"
+msgstr "Расположение текста громкости:"
+
+#: ../data/prefs.xml.h:45
+msgid "Volume Up:"
+msgstr "Увеличить громкость"
+
