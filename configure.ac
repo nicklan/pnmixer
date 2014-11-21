@@ -116,9 +116,9 @@ po/Makefile.in
 ])
 
 if test "$HAVE_LIBN" != "1"; then
-	libnotify_msg="yes"
-else
 	libnotify_msg="no"
+else
+	libnotify_msg="yes"
 fi
 
 if test "$with_gtk3" = "yes" ; then
