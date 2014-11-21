@@ -21,6 +21,7 @@
 
 #include "main.h"
 #include "notify.h"
+#include "prefs.h"
 #include "support.h"
 
 #ifdef HAVE_LIBN
@@ -105,6 +106,7 @@ void do_notify(gint level, gboolean muted) {
   notify_notification_set_hint_int32(notification,"value",level);
   notify_notification_set_hint_string(notification,"x-canonical-private-synchronous","");
   
+  notify_notification_set_timeout(notification, noti_timeout);
   if (!notify_notification_show(notification,&error)) {
     g_warning("Could not send notification: %s",error->message);
     report_error(_("Could not send notification: %s\n"),error->message);
