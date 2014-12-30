@@ -25,6 +25,7 @@
 GKeyFile* keyFile;
 int scroll_step;
 gboolean enable_noti,hotkey_noti,mouse_noti,popup_noti,external_noti;
+gint noti_timeout;
 GtkIconTheme* icon_theme;
 
 GtkWidget* create_prefs_window (void);

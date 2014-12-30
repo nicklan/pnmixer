@@ -305,6 +305,7 @@ void on_ok_button_clicked(GtkButton *button,
 #ifdef HAVE_LIBN
   // notification prefs
   GtkWidget* nc = data->enable_noti_check;
+  gint noti_spin;
   active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
   g_key_file_set_boolean(keyFile,"PNMixer","EnableNotifications",active);
 
@@ -323,6 +324,10 @@ void on_ok_button_clicked(GtkButton *button,
   nc = data->external_noti_check;
   active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
   g_key_file_set_boolean(keyFile,"PNMixer","ExternalNotifications",active);
+
+  nc = data->noti_timeout_spin;
+  noti_spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(nc));
+  g_key_file_set_integer(keyFile,"PNMixer","NotificationTimeout",noti_spin);
 #endif
 
   gchar* filename = g_strconcat(g_get_user_config_dir(), "/pnmixer/config", NULL);

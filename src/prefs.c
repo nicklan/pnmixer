@@ -294,15 +294,16 @@ static gint g_key_file_get_integer_with_default(GKeyFile *keyFile,
 }
 
 /**
- * Sets the globals enable_noti, hotkey_noti, mouse_noti, popup_noti
- * and external_noti from the user settings.
+ * Sets the global options enable_noti, hotkey_noti, mouse_noti, popup_noti,
+ * noti_timeout and external_noti from the user settings.
  */
-static void set_notifications_booleans() {
+static void set_notification_options() {
   enable_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","EnableNotifications",FALSE);
   hotkey_noti   = g_key_file_get_boolean_with_default(keyFile,"PNMixer","HotkeyNotifications",TRUE);
   mouse_noti    = g_key_file_get_boolean_with_default(keyFile,"PNMixer","MouseNotifications",TRUE);
   popup_noti    = g_key_file_get_boolean_with_default(keyFile,"PNMixer","PopupNotifications",FALSE);
   external_noti = g_key_file_get_boolean_with_default(keyFile,"PNMixer","ExternalNotifications",FALSE);
+  noti_timeout = g_key_file_get_integer_with_default(keyFile, "PNMixer", "NotificationTimeout", 1500);
 }
 
 /**
@@ -332,7 +333,7 @@ void apply_prefs(gint alsa_change) {
   } else
     grab_keys(-1,-1,-1,0,0,0,1); // will actually just ungrab everything
 
-  set_notifications_booleans();
+  set_notification_options();
 
   get_icon_theme();
   if (alsa_change)
@@ -842,6 +843,7 @@ GtkWidget* create_prefs_window (void) {
   GO(down_hotkey_label);
 #ifdef HAVE_LIBN
   GO(enable_noti_check);
+  GO(noti_timeout_spin);
   GO(hotkey_noti_check);
   GO(mouse_noti_check);
   GO(popup_noti_check);
@@ -962,13 +964,14 @@ GtkWidget* create_prefs_window (void) {
 
 #ifdef HAVE_LIBN
   // notification checkboxes
-  set_notifications_booleans();
+  set_notification_options();
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),enable_noti);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->hotkey_noti_check),hotkey_noti);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->mouse_noti_check),mouse_noti);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->popup_noti_check),popup_noti);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->external_noti_check),external_noti);
   on_notification_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),prefs_data);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->noti_timeout_spin), noti_timeout);
 #endif
 
   gtk_builder_connect_signals(builder, prefs_data);

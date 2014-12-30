@@ -20,163 +20,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkDialog" id="hotkey_dialog">
-    <property name="width_request">300</property>
-    <property name="height_request">200</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="title" translatable="yes">Set Hotkey</property>
-    <property name="modal">True</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="icon_name">input-keyboard</property>
-    <property name="type_hint">dialog</property>
-    <property name="transient_for">prefs_window</property>
-    <signal name="key-release-event" handler="hotkey_released" swapped="no"/>
-    <signal name="key-press-event" handler="hotkey_pressed" swapped="no"/>
-    <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="spacing">2</property>
-        <child>
-          <object class="GtkHBox" id="hbox1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkImage" id="image1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xpad">10</property>
-                <property name="pixel_size">57</property>
-                <property name="icon_name">input-keyboard</property>
-                <property name="icon-size">3</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-	    <child>
-	      <object class="GtkVBox" id="vbox6">
-		<property name="visible">True</property>
-		<property name="can_focus">False</property>
-		<child>
-		  <object class="GtkLabel" id="label22">
-		    <property name="visible">True</property>
-		    <property name="can_focus">False</property>
-		    <property name="label" translatable="yes">Defining HotKey</property>
-		    <attributes>
-		      <attribute name="weight" value="bold"/>
-		    </attributes>
-		  </object>
-		  <packing>
-		    <property name="expand">True</property>
-		    <property name="fill">True</property>
-		    <property name="position">0</property>
-		  </packing>
-		</child>
-		<child>
-		  <object class="GtkLabel" id="hotkey_reset_label">
-		    <property name="visible">True</property>
-		    <property name="can_focus">False</property>
-		    <property name="yalign">0.10000000149011612</property>
-		    <property name="label" translatable="yes">(press &lt;Primary&gt;C to reset)</property>
-		  </object>
-		  <packing>
-		    <property name="expand">True</property>
-		    <property name="fill">True</property>
-		    <property name="position">1</property>
-		  </packing>
-		</child>
-	      </object>
-	      <packing>
-		<property name="expand">True</property>
-		<property name="fill">True</property>
-		<property name="position">1</property>
-	      </packing>
-	    </child>
-	  </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHSeparator" id="hseparator1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="def_label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="yalign">0.89999997615814209</property>
-            <property name="label" translatable="yes">Press new HotKey for:</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="button1">
-                <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="hotkey_key_label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="yalign">0.10000000149011612</property>
-            <property name="label" translatable="yes">(Unknown)</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">button1</action-widget>
-    </action-widgets>
-  </object>
   <object class="GtkListStore" id="icon_theme_liststore">
     <columns>
       <!-- column-name Text -->
@@ -213,6 +56,11 @@ enabled at compile time</property>
       <attribute name="weight" value="bold"/>
     </attributes>
   </object>
+  <object class="GtkAdjustment" id="noti_timeout_adjustment">
+    <property name="upper">1000000000</property>
+    <property name="step_increment">100</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkVBox" id="notification_vbox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -235,7 +83,6 @@ enabled at compile time</property>
                 <child>
                   <object class="GtkCheckButton" id="enable_noti_check">
                     <property name="label" translatable="yes">Enable Notifications</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -247,6 +94,47 @@ enabled at compile time</property>
                     <property name="fill">True</property>
                     <property name="padding">8</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHBox" id="hbox2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkSpinButton" id="noti_timeout_spin">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">●</property>
+                        <property name="primary_icon_activatable">False</property>
+                        <property name="secondary_icon_activatable">False</property>
+                        <property name="primary_icon_sensitive">True</property>
+                        <property name="secondary_icon_sensitive">True</property>
+                        <property name="adjustment">noti_timeout_adjustment</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label25">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">timeout (ms)</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="padding">5</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -263,7 +151,7 @@ enabled at compile time</property>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="padding">2</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -274,29 +162,6 @@ enabled at compile time</property>
                     <child>
                       <object class="GtkCheckButton" id="hotkey_noti_check">
                         <property name="label" translatable="yes">HotKeys</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="draw_indicator">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkAlignment" id="alignment12">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="left_padding">10</property>
-                    <child>
-                      <object class="GtkCheckButton" id="mouse_noti_check">
-                        <property name="label" translatable="yes">Mouse Scroll</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -311,14 +176,13 @@ enabled at compile time</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment13">
+                  <object class="GtkAlignment" id="alignment12">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="left_padding">10</property>
                     <child>
-                      <object class="GtkCheckButton" id="popup_noti_check">
-                        <property name="label" translatable="yes">Adjustment in Popup Window</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkCheckButton" id="mouse_noti_check">
+                        <property name="label" translatable="yes">Mouse Scroll</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -333,14 +197,13 @@ enabled at compile time</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment14">
+                  <object class="GtkAlignment" id="alignment13">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="left_padding">10</property>
                     <child>
-                      <object class="GtkCheckButton" id="external_noti_check">
-                        <property name="label" translatable="yes">External Change</property>
-                        <property name="use_action_appearance">False</property>
+                      <object class="GtkCheckButton" id="popup_noti_check">
+                        <property name="label" translatable="yes">Adjustment in Popup Window</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -352,6 +215,27 @@ enabled at compile time</property>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="alignment14">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="left_padding">10</property>
+                    <child>
+                      <object class="GtkCheckButton" id="external_noti_check">
+                        <property name="label" translatable="yes">External Change</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
@@ -379,6 +263,31 @@ enabled at compile time</property>
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="vol_meter_pos_adjustment">
+    <property name="upper">22</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkListStore" id="vol_pos_liststore">
+    <columns>
+      <!-- column-name Text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Top</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Bottom</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Left</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Right</col>
+      </row>
+    </data>
   </object>
   <object class="GtkWindow" id="prefs_window">
     <property name="can_focus">False</property>
@@ -433,7 +342,6 @@ enabled at compile time</property>
                                 <child>
                                   <object class="GtkCheckButton" id="vol_text_check">
                                     <property name="label" translatable="yes">Display Text Volume</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
@@ -522,7 +430,6 @@ enabled at compile time</property>
                                   <object class="GtkCheckButton" id="draw_vol_check">
                                     <property name="label" translatable="yes">Draw Volume Meter on Tray Icon
 (Will cause slightly higher CPU usage)</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
@@ -584,7 +491,6 @@ enabled at compile time</property>
                                 </child>
                                 <child>
                                   <object class="GtkColorButton" id="vol_meter_color_button">
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -1048,12 +954,11 @@ enabled at compile time</property>
                                 <child>
                                   <object class="GtkCheckButton" id="enable_hotkeys_check">
                                     <property name="label" translatable="yes">Enable HotKeys</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
                                     <property name="draw_indicator">True</property>
-				    <signal name="toggled" handler="on_hotkey_toggle" swapped="no"/>
+                                    <signal name="toggled" handler="on_hotkey_toggle" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="right_attach">2</property>
@@ -1324,7 +1229,6 @@ enabled at compile time</property>
                 <child>
                   <object class="GtkButton" id="cancel_button">
                     <property name="label">gtk-cancel</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1340,7 +1244,6 @@ enabled at compile time</property>
                 <child>
                   <object class="GtkButton" id="ok_button">
                     <property name="label">gtk-ok</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1365,29 +1268,160 @@ enabled at compile time</property>
       </object>
     </child>
   </object>
-  <object class="GtkAdjustment" id="vol_meter_pos_adjustment">
-    <property name="upper">22</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkListStore" id="vol_pos_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Top</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Bottom</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Left</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Right</col>
-      </row>
-    </data>
+  <object class="GtkDialog" id="hotkey_dialog">
+    <property name="width_request">300</property>
+    <property name="height_request">200</property>
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">Set Hotkey</property>
+    <property name="modal">True</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="icon_name">input-keyboard</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">prefs_window</property>
+    <signal name="key-release-event" handler="hotkey_released" swapped="no"/>
+    <signal name="key-press-event" handler="hotkey_pressed" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkImage" id="image1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xpad">10</property>
+                <property name="pixel_size">57</property>
+                <property name="icon_name">input-keyboard</property>
+                <property name="icon-size">3</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVBox" id="vbox6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="label22">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Defining HotKey</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="hotkey_reset_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="yalign">0.10000000149011612</property>
+                    <property name="label" translatable="yes">(press &lt;Primary&gt;C to reset)</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHSeparator" id="hseparator1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="def_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="yalign">0.89999997615814209</property>
+            <property name="label" translatable="yes">Press new HotKey for:</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="hotkey_key_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="yalign">0.10000000149011612</property>
+            <property name="label" translatable="yes">(Unknown)</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">button1</action-widget>
+    </action-widgets>
   </object>
 </interface>
