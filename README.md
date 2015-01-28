@@ -1,4 +1,4 @@
-PNMixer
+PNMixer [![Build Status](https://travis-ci.org/nicklan/pnmixer.svg?branch=master)](https://travis-ci.org/nicklan/pnmixer)
 =======
 
 PNMixer is a simple mixer application designed to run in your system
