@@ -59,7 +59,7 @@ AC_ARG_ENABLE([minimal-flags],
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
 	if test "$minimalflags" = "no" ; then
-	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0"
+	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized  -Wno-deprecated-declarations -Wformat -Wformat-security -O0"
 	fi
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
