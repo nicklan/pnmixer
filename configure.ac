@@ -16,7 +16,7 @@ AC_ARG_WITH([gtk3],
 			  [with_gtk3=yes])
 
 if test "$with_gtk3" = "yes" ; then
-	pkg_modules="gtk+-3.0 >= 3.6.0"
+	pkg_modules="gtk+-3.0 >= 3.4.2"
 	AC_DEFINE([WITH_GTK3], [], [Gtk3 mode])
 else
 	pkg_modules="gtk+-2.0 >= 2.16.0"
@@ -59,7 +59,7 @@ AC_ARG_ENABLE([minimal-flags],
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
 	if test "$minimalflags" = "no" ; then
-	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized -Wformat -Wformat-security -O0"
+	    CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized  -Wno-deprecated-declarations -Wformat -Wformat-security -O0"
 	fi
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
