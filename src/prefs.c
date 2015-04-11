@@ -58,11 +58,10 @@ AlsaCard=default"
  * Get available icon themes.
  * This code is based on code from xfce4-appearance-settings.
  *
- * @param icon_theme_combo the GtkComboBox to use
- * @param store where to store the icon theme list
+ * @param combo the GtkComboBox to use
  */
 static void
-load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
+load_icon_themes(GtkWidget* combo) {
   GDir          *dir;
   GKeyFile      *index_file;
   const gchar   *file;
@@ -73,8 +72,10 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
   gboolean      is_dup;
   GtkIconTheme* theme;
   gchar         **path;
-
   GtkTreeIter iter;
+  GtkListStore* store = GTK_LIST_STORE(gtk_combo_box_get_model
+				       (GTK_COMBO_BOX(combo)));
+
   gtk_list_store_append(store, &iter);
   gtk_list_store_set(store, &iter, 0, _("PNMixer Icons"), -1);
 
@@ -121,7 +122,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
 	    gtk_list_store_append(store, &iter);
 	    gtk_list_store_set(store, &iter, 0, _(theme_name), -1);
 	    if ((active_theme_name != NULL) && g_strcmp0(theme_name,active_theme_name) == 0)
-	      gtk_combo_box_set_active (GTK_COMBO_BOX (icon_theme_combo), act);
+	      gtk_combo_box_set_active (GTK_COMBO_BOX (combo), act);
 	    else
 	      act++;
 	    g_free(theme_name);
@@ -135,7 +136,7 @@ load_icon_themes(GtkWidget* icon_theme_combo, GtkListStore* store) {
   if (active_theme_name != NULL)
     g_free(active_theme_name);
   else
-    gtk_combo_box_set_active(GTK_COMBO_BOX (icon_theme_combo), 0);
+    gtk_combo_box_set_active(GTK_COMBO_BOX (combo), 0);
 }
 
 #ifdef WITH_GTK3
@@ -871,9 +872,7 @@ GtkWidget* create_prefs_window (void) {
      g_key_file_get_integer_with_default(keyFile,"PNMixer","VolMeterPos",0));
 
   // load available icon themes into icon theme combo box.  also sets active
-  load_icon_themes(prefs_data->icon_theme_combo,
-		   GTK_LIST_STORE(gtk_builder_get_object(builder,"icon_theme_liststore")));
-
+  load_icon_themes(prefs_data->icon_theme_combo);
 
   // set color button color
   vol_meter_clrs = get_vol_meter_colors();
