@@ -7,6 +7,7 @@
 /Makefile
 /Makefile.in
 /aclocal.m4
+/compile
 /config.h
 /config.h.in
 /config.log
@@ -17,6 +18,8 @@
 /missing
 /mkinstalldirs
 /pixmaps/pnmixer.xcf
+/src/html
+/src/latex
 /src/Makefile
 /src/Makefile.in
 /src/TAGS
@@ -28,5 +31,3 @@
 /po/POTFILES
 /po/*.pot
 /po/messages.mo
-src/html
-src/latex
