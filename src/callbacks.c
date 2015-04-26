@@ -67,9 +67,24 @@ gboolean vol_scroll_event(GtkRange     *range,
 			  GtkScrollType scroll,
 			  gdouble       value,
 			  gpointer      user_data) {
+  GtkAdjustment *gtk_adj;
   int volumeset;
-  volumeset = (int)gtk_adjustment_get_value(vol_adjustment);
 
+  /* We must ensure that the new value meets the requirement
+   * defined by the GtkAdjustment. We have to do that manually,
+   * because at this moment the value within GtkAdjustment
+   * has not beem updated yet, so using gtk_adjustment_get_value()
+   * returns a wrong value.
+   */
+  gtk_adj = gtk_range_get_adjustment(range);
+  if (value < gtk_adjustment_get_lower(gtk_adj)) {
+    value = gtk_adjustment_get_lower(gtk_adj);
+  }
+  if (value > gtk_adjustment_get_upper(gtk_adj)) {
+    value = gtk_adjustment_get_upper(gtk_adj);
+  }
+
+  volumeset = (int) value;
 
   setvol(volumeset,popup_noti);
   if (get_mute_state(TRUE) == 0) {
