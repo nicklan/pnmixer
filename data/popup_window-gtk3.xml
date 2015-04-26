@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.6"/>
   <object class="GtkImage" id="image3">
@@ -26,22 +27,27 @@
     <property name="page_increment">10</property>
   </object>
   <object class="GtkWindow" id="popup_window">
-    <property name="type">popup</property>
     <property name="can_focus">False</property>
+    <property name="type">popup</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
     <property name="type_hint">utility</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
-	<property name="decorated">False</property>
+    <property name="decorated">False</property>
     <signal name="button-press-event" handler="hide_me" swapped="no"/>
-    <signal name="key-press-event" handler="hide_me" swapped="no"/>
     <signal name="grab-broken-event" handler="hide_me" swapped="no"/>
+    <signal name="key-press-event" handler="hide_me" swapped="no"/>
     <child>
       <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="margin_left">8</property>
+        <property name="margin_right">8</property>
+        <property name="margin_top">8</property>
+        <property name="margin_bottom">8</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
         <child>
           <object class="GtkScale" id="vol_scale">
             <property name="height_request">205</property>
@@ -57,53 +63,41 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="mute_check">
+            <property name="label" translatable="yes">Mute</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="halign">center</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">True</property>
+            <signal name="pressed" handler="on_mute_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="hbox2">
+          <object class="GtkButton" id="button1">
+            <property name="label" translatable="yes">Mixer</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkCheckButton" id="mute_check">
-                <property name="label" translatable="yes">Mute</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">center</property>
-                <property name="xalign">0.5</property>
-                <property name="draw_indicator">True</property>
-                <signal name="pressed" handler="on_mute_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes">Mixer</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="border_width">8</property>
-                <signal name="pressed" handler="on_mixer" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_top">8</property>
+            <signal name="pressed" handler="on_mixer" swapped="no"/>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">2</property>
           </packing>
