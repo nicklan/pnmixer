@@ -512,6 +512,9 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 #endif
 		   )
 		gtk_widget_hide(popup_window);
+	} else if (event->type == GDK_2BUTTON_PRESS ||
+		   event->type == GDK_3BUTTON_PRESS) {
+	  /* Do not hide on double or triple click */
 	} else if (event->type == GDK_KEY_PRESS) {
 		switch (event->key.keyval) {
 		case GDK_KEY_Escape: {
