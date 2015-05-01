@@ -499,32 +499,47 @@ int get_mute_state(gboolean set_check) {
  */
 gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 #ifdef WITH_GTK3
-	GdkDevice *device = gtk_get_current_event_device();
+  GdkDevice *device = gtk_get_current_event_device();
 #endif
-	gint x, y;
+  gint x, y;
 
-	if (event->type == GDK_BUTTON_PRESS) {
-		if (
+  switch (event->type) {
+  /* On double or triple click, do nothing */
+  case GDK_2BUTTON_PRESS:
+  case GDK_3BUTTON_PRESS:
+    break;
+    
+  /* If a click happens outside of the popup, hide it */
+  case GDK_BUTTON_PRESS:
+    if (
 #ifdef WITH_GTK3
-			!gdk_device_get_window_at_position(device, &x, &y)
+      !gdk_device_get_window_at_position(device, &x, &y)
 #else
-			!gdk_window_at_pointer(&x, &y)
+      !gdk_window_at_pointer(&x, &y)
 #endif
-		   )
-		gtk_widget_hide(popup_window);
-	} else if (event->type == GDK_2BUTTON_PRESS ||
-		   event->type == GDK_3BUTTON_PRESS) {
-	  /* Do not hide on double or triple click */
-	} else if (event->type == GDK_KEY_PRESS) {
-		switch (event->key.keyval) {
-		case GDK_KEY_Escape: {
-			gtk_widget_hide(popup_window);
-			break;
-	    }
-    }
-  } else {
+      )
       gtk_widget_hide(popup_window);
+    break;
+
+  /* If 'Esc' is pressed, hide popup */
+  case GDK_KEY_PRESS:
+    if (event->key.keyval == GDK_KEY_Escape) {
+      gtk_widget_hide(popup_window);
+    }
+    break;
+
+  /* Broken grab, hide popup */
+  case GDK_GRAB_BROKEN:
+    gtk_widget_hide(popup_window);
+    break;
+
+  /* Unhandle event, warn and hide popup */
+  default:
+    DEBUG_PRINT("Unhandled event (%d), hiding popup\n", event->type);
+    gtk_widget_hide(popup_window);
+    break;
   }
+
   return FALSE;
 }
 
