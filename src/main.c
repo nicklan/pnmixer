@@ -504,11 +504,6 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
   gint x, y;
 
   switch (event->type) {
-  /* On double or triple click, do nothing */
-  case GDK_2BUTTON_PRESS:
-  case GDK_3BUTTON_PRESS:
-    break;
-    
   /* If a click happens outside of the popup, hide it */
   case GDK_BUTTON_PRESS:
     if (
@@ -533,10 +528,8 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
     gtk_widget_hide(popup_window);
     break;
 
-  /* Unhandle event, warn and hide popup */
+  /* Unhandle event, do nothing */
   default:
-    DEBUG_PRINT("Unhandled event (%d), hiding popup\n", event->type);
-    gtk_widget_hide(popup_window);
     break;
   }
 
