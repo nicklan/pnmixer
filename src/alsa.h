@@ -41,7 +41,7 @@ struct acard {
 
 GSList* cards;
 
-int setvol(int vol,gboolean notify);
+int setvol(int vol, int dir, gboolean notify);
 void setmute(gboolean notify);
 int getvol();
 int ismuted();
