@@ -475,7 +475,8 @@ static int convert_prange(long val, long min, long max) {
  * Adjusts the current volume and sends a notification (if enabled).
  *
  * @param vol new volume value
- * @param dir select direction
+ * @param dir select direction (-1 = accurate or first bellow, 0 = accurate,
+ * 1 = accurate or first above)
  * @param notify whether to send notification
  * @return 0 on success otherwise negative error code
  */
