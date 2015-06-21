@@ -40,15 +40,15 @@ Latest version can always be found at:
 Compilation and Install
 -----------------------
 Needed dependencies:
-* >=gtk+-3.6 (or >=gtk+-2.22 via --without-gtk3)
+* >=gtk+-3.6	(or >=gtk+-2.22 via --without-gtk3)
 * glib-2
-* alsa-lib
+* alsa-lib	(aka libasound on some distros)
 * libX11
-* libnotify (optional, disable via --without-libnotify)
-* gettext (build-time only)
-* pkg-config (build-time only)
-* autoconf (build-time only)
-* automake (build-time only)
+* libnotify	(optional, disable via --without-libnotify)
+* gettext	(build-time only)
+* pkg-config	(build-time only)
+* autoconf	(build-time only)
+* automake	(build-time only)
 
 To install this program cd to this directory and run:
 
