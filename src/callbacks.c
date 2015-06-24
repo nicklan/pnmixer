@@ -73,7 +73,7 @@ gboolean vol_scroll_event(GtkRange     *range,
   /* We must ensure that the new value meets the requirement
    * defined by the GtkAdjustment. We have to do that manually,
    * because at this moment the value within GtkAdjustment
-   * has not beem updated yet, so using gtk_adjustment_get_value()
+   * has not been updated yet, so using gtk_adjustment_get_value()
    * returns a wrong value.
    */
   gtk_adj = gtk_range_get_adjustment(range);
