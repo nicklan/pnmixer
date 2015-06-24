@@ -9,12 +9,12 @@ EXTRA_DIST = \
 desktopdir = $(datadir)/applications
 dist_desktop_DATA = data/pnmixer.desktop
 
-# Install .xml interface files
+# Install .glade interface files
 uidir = $(datadir)/pnmixer/ui
 if WITH_GTK3
-dist_ui_DATA = data/about-gtk3.xml data/popup_window-gtk3.xml data/prefs-gtk3.xml
+dist_ui_DATA = data/about-gtk3.glade data/popup_window-gtk3.glade data/prefs-gtk3.glade
 else
-dist_ui_DATA = data/about-gtk2.xml data/popup_window-gtk2.xml data/prefs-gtk2.xml
+dist_ui_DATA = data/about-gtk2.glade data/popup_window-gtk2.glade data/prefs-gtk2.glade
 endif
 
 uninstall-local:

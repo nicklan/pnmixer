@@ -12,7 +12,7 @@
  * @file callbacks.c
  * This file holds callback functions for various signals
  * received by different GtkWidgets, some of them defined
- * in the gtk-builder xml files.
+ * in the gtk-builder glade files.
  * @brief gtk callbacks
  */
 

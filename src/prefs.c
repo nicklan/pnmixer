@@ -772,8 +772,8 @@ gboolean normalize_vol(void) {
 }
 
 /**
- * Creates the whole preferences window by reading prefs-gtk3.xml
- * or prefs-gtk2.xml and returns the result.
+ * Creates the whole preferences window by reading prefs-gtk3.glade
+ * or prefs-gtk2.glade and returns the result.
  *
  * @return the newly created preferences window, NULL on failure
  */
@@ -793,9 +793,9 @@ GtkWidget* create_prefs_window (void) {
   PrefsData  *prefs_data;
 
 #ifdef WITH_GTK3
-  uifile = get_ui_file("prefs-gtk3.xml");
+  uifile = get_ui_file("prefs-gtk3.glade");
 #else
-  uifile = get_ui_file("prefs-gtk2.xml");
+  uifile = get_ui_file("prefs-gtk2.glade");
 #endif
   if (!uifile) {
     report_error(_("Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n"));

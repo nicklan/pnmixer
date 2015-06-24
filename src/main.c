@@ -270,8 +270,8 @@ GtkStatusIcon *create_tray_icon() {
 }
 
 /**
- * Creates the popup windows from popup_window-gtk3.xml or
- * popup_window-gtk2.xml
+ * Creates the popup windows from popup_window-gtk3.glade or
+ * popup_window-gtk2.glade
  */
 void create_popups (void) {
   GtkBuilder *builder;
@@ -279,9 +279,9 @@ void create_popups (void) {
   gchar      *uifile;
   builder = gtk_builder_new();
 #ifdef WITH_GTK3
-  uifile = get_ui_file("popup_window-gtk3.xml");
+  uifile = get_ui_file("popup_window-gtk3.glade");
 #else
-  uifile = get_ui_file("popup_window-gtk2.xml");
+  uifile = get_ui_file("popup_window-gtk2.glade");
 #endif
   if (!uifile) {
     report_error(_("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"));
@@ -352,8 +352,8 @@ void do_alsa_reinit (void) {
 }
 
 /**
- * Creates and opens the about window from about-gtk3.xml or
- * about-gtk2.xml, triggered by clicking on the GtkImageMenuItem
+ * Creates and opens the about window from about-gtk3.glade or
+ * about-gtk2.glade, triggered by clicking on the GtkImageMenuItem
  * 'About' in the context menu.
  */
 void create_about (void) {
@@ -363,9 +363,9 @@ void create_about (void) {
   gchar      *uifile;
 
 #ifdef WITH_GTK3
-  uifile = get_ui_file("about-gtk3.xml");
+  uifile = get_ui_file("about-gtk3.glade");
 #else
-  uifile = get_ui_file("about-gtk2.xml");
+  uifile = get_ui_file("about-gtk2.glade");
 #endif
   if (!uifile) {
     report_error(_("Can't find about interface file.  Please insure PNMixer is installed correctly."));
