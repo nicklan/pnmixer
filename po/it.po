@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-18 15:43+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=glib&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-25 17:02+0200\n"
 "PO-Revision-Date: 2011-12-07 22:13+0100\n"
 "Last-Translator: mattia.b89 <tia.tif@fastwebnet.it>\n"
 "Language-Team: Italiano <gnome-it@gnome.org>\n"
@@ -16,77 +17,85 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/main.c:47
-#: ../src/main.c:69
+#: ../src/main.c:65 ../src/main.c:91
 msgid "PNMixer Error"
 msgstr "Errore PNMixer"
 
-#: ../src/main.c:63
+#: ../src/main.c:85
 msgid "Warning: Connection to sound system failed."
 msgstr "Attenzione: Connessione al sistema sonoro fallita."
 
-#: ../src/main.c:65
-#, c-format
+#: ../src/main.c:87
 msgid ""
 "Do you want to re-initialize the connection to alsa?\n"
 "\n"
-"If you do not, you will either need to restart PNMixer or select the 'Reload Alsa' option in the right click menu in order for PNMixer to function."
+"If you do not, you will either need to restart PNMixer or select the 'Reload "
+"Alsa' option in the right click menu in order for PNMixer to function."
 msgstr ""
 "Vuoi re-inizializzare la connessione ad ALSA?\n"
 "\n"
-"Se non vuoi, avrai bisogno di riavviare PNMixer oppure selezionare l'opzione \"Ricarica ALSA\" nel menù del click destro perchè PNMixer funzioni."
+"Se non vuoi, avrai bisogno di riavviare PNMixer oppure selezionare l'opzione "
+"\"Ricarica ALSA\" nel menù del click destro perchè PNMixer funzioni."
 
-#: ../src/main.c:73
-#, c-format
-msgid "Warning: Connection to sound system failed, you probably need to restart pnmixer\n"
-msgstr "Attenzione: la Connessione al sistema sonoro è fallita, probabilmente è necessario riavviare PNMixer\n"
-
-#: ../src/main.c:115
-msgid "An unknown error occured trying to launch your volume control command"
-msgstr "Un errore sconosciuto è avvenuto provando a lanciare il tuo comando per il controllo del volume"
-
-#: ../src/main.c:117
+#: ../src/main.c:97
 #, c-format
 msgid ""
-"Unable to launch volume command \"%s\".\n"
-"\n"
-"%s"
+"Warning: Connection to sound system failed, you probably need to restart "
+"pnmixer\n"
+msgstr ""
+"Attenzione: la Connessione al sistema sonoro è fallita, probabilmente è "
+"necessario riavviare PNMixer\n"
+
+#: ../src/main.c:112
+#, fuzzy, c-format
+msgid "Unable to run command %s"
 msgstr ""
 "Impossibile lanciare il comando del volume \"%s\".\n"
 "\n"
 "%s"
 
-#: ../src/main.c:122
+#: ../src/main.c:133
 msgid ""
 "\n"
 "No mixer application was found on your system.\n"
 "\n"
-"Please open preferences and set the command you want to run for volume control."
+"Please open preferences and set the command you want to run for volume "
+"control."
 msgstr ""
 "\n"
 "Nessuna applicazione mixer è stata trovata nel tuo sistema.\n"
 "\n"
-"per favore apri le preferenze ed imposta il comando che vuoi sia eseguito per controllare il volume."
+"per favore apri le preferenze ed imposta il comando che vuoi sia eseguito "
+"per controllare il volume."
 
-#: ../src/main.c:149
-#, c-format
-msgid "Couldn't execute custom command: \"%s\"\n"
-msgstr "Impossibile eseguire il comando personalizzato: \"%s\"\n"
+#: ../src/main.c:175
+msgid ""
+"You have not specified a custom command to run, please specify one in "
+"preferences."
+msgstr ""
 
-#: ../src/main.c:203
-msgid "Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"
-msgstr "Impossibile trovare il file dell'interfaccia utente principale. Per favore assicurati che PNMixer sia installato correttamente. Uscita\n"
+#: ../src/main.c:287
+msgid ""
+"Can't find main user interface file.  Please insure PNMixer is installed "
+"correctly.  Exiting\n"
+msgstr ""
+"Impossibile trovare il file dell'interfaccia utente principale. Per favore "
+"assicurati che PNMixer sia installato correttamente. Uscita\n"
 
-#: ../src/main.c:259
-msgid "Can't find about interface file.  Please insure PNMixer is installed correctly."
-msgstr "Impossibile trovare trovare il file dell'interfaccia. Per favore assicurarsi che ONMixer sia installato correttamente."
+#: ../src/main.c:371
+msgid ""
+"Can't find about interface file.  Please insure PNMixer is installed "
+"correctly."
+msgstr ""
+"Impossibile trovare trovare il file dell'interfaccia. Per favore assicurarsi "
+"che ONMixer sia installato correttamente."
 
-#: ../src/main.c:334
+#: ../src/main.c:469
 #, c-format
 msgid "Volume: %d %%"
 msgstr "Volume: %d %%"
 
-#: ../src/main.c:348
+#: ../src/main.c:484
 #, c-format
 msgid ""
 "Volume: %d %%\n"
@@ -95,55 +104,66 @@ msgstr ""
 "Volume: %d %%\n"
 "Muto"
 
-#: ../src/main.c:453
+#: ../src/main.c:664
 msgid "- A mixer for the system tray."
 msgstr "- Un mixer per la tray di sistema."
 
-#: ../src/main.c:463
+#: ../src/main.c:674
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s versione: %s\n"
 
-#: ../src/callbacks.c:203
+#: ../src/callbacks.c:352
 #, c-format
 msgid "Couldn't write preferences file: %s\n"
 msgstr "Impossibile scrivere nel file delle preferenze: %s\n"
 
-#: ../src/support.c:66
-#: ../src/support.c:88
+#: ../src/support.c:98 ../src/support.c:125
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Impossibile trovare il file pixmap: %s"
 
-#: ../src/support.c:95
+#: ../src/support.c:132
 #, c-format
 msgid "Failed to load pixbuf file: %s: %s\n"
 msgstr "Fallito il caricamento del file pixbuf: %s: %s\n"
 
-#: ../src/support.c:112
+#: ../src/support.c:155
 #, c-format
 msgid "Unable to load icon %s: %s\n"
 msgstr "Impossibile caricare l'icona %s: %s\n"
 
-#: ../src/prefs.c:63
+#: ../src/prefs.c:80
 msgid "PNMixer Icons"
 msgstr "Icone di PNMixer"
 
 #. corrupt value somehow
-#: ../src/prefs.c:130
+#: ../src/prefs.c:177
 msgid "Invalid color for volume meter in config file.  Reverting to default."
-msgstr "Colore invalido per la scala del volume nel file di configurazione. Ripristino ai valori di default."
+msgstr ""
+"Colore invalido per la scala del volume nel file di configurazione. "
+"Ripristino ai valori di default."
 
-#: ../src/prefs.c:145
+#: ../src/prefs.c:203
 #, c-format
 msgid ""
 "\n"
 "Error: %s exists but is not a directory, will not be able to save preferences"
 msgstr ""
 "\n"
-"Errore: %s esiste ma non è una cartella, sarà impossibile salvare le preferenze."
+"Errore: %s esiste ma non è una cartella, sarà impossibile salvare le "
+"preferenze."
 
-#: ../src/prefs.c:165
+#: ../src/prefs.c:206
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Couldn't make prefs directory: %s\n"
+msgstr ""
+"\n"
+"Impossibile caricare il file delle preferenze: %s\n"
+
+#: ../src/prefs.c:228
 #, c-format
 msgid ""
 "\n"
@@ -152,7 +172,7 @@ msgstr ""
 "\n"
 "Impossibile caricare il file delle preferenze: %s\n"
 
-#: ../src/prefs.c:173
+#: ../src/prefs.c:236
 #, c-format
 msgid ""
 "\n"
@@ -161,41 +181,79 @@ msgstr ""
 "\n"
 "Impossibile caricare le preferenze: %s\n"
 
-#: ../src/prefs.c:381
-#: ../data/prefs.xml.h:31
+#: ../src/prefs.c:619
+#, c-format
+msgid "Invalid widget passed to acquire_hotkey: %s"
+msgstr ""
+
+#: ../src/prefs.c:625 ../data/prefs-gtk3.glade:36 ../data/prefs-gtk2.glade:36
 msgid "Mute/Unmute"
 msgstr "Muto/Non muto"
 
-#: ../src/prefs.c:384
+#: ../src/prefs.c:628
 msgid "Volume Up"
 msgstr "Alza Volume"
 
-#: ../src/prefs.c:387
+#: ../src/prefs.c:631
 msgid "Volume Down"
 msgstr "Abbassa Volume"
 
-#: ../src/prefs.c:416
+#: ../src/prefs.c:681
 msgid "Could not grab the keyboard."
 msgstr "Impossibile attivare la tastiera."
 
-#: ../src/prefs.c:474
-msgid "Can't find preferences user interface file.  Please insure PNMixer is installed correctly.\n"
-msgstr "Impossibile trovare il file delle preferenze dell'interfaccia utente. Per favore assicurati che PNMixer sia installato correttamente.\n"
+#: ../src/prefs.c:801
+msgid ""
+"Can't find preferences user interface file.  Please insure PNMixer is "
+"installed correctly.\n"
+msgstr ""
+"Impossibile trovare il file delle preferenze dell'interfaccia utente. Per "
+"favore assicurati che PNMixer sia installato correttamente.\n"
 
-#: ../src/hotkeys.c:127
+#: ../src/hotkeys.c:220
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
 msgstr "Impossibile assegnare i seguenti HotKeys:\n"
 
-#: ../data/about.xml.h:1
-msgid "A mixer for the system tray."
-msgstr "Un mixer per la tray di sistema."
-
-#: ../data/about.xml.h:2
+#: ../data/about-gtk3.glade:11 ../data/about-gtk2.glade:12
 msgid "Copyright © 2010-2011 Nick Lanham"
 msgstr "Copyright © 2010-2011 Nick Lanham"
 
-#: ../data/about.xml.h:3
+#: ../data/about-gtk3.glade:12 ../data/about-gtk2.glade:13
+msgid "A mixer for the system tray."
+msgstr "Un mixer per la tray di sistema."
+
+#: ../data/about-gtk3.glade:14 ../data/about-gtk2.glade:15
+msgid ""
+"PNMixer is free software; you can redistribute it and/or modify it under the "
+"terms of the GNU General Public License as published by the Free Software "
+"Foundation; either version 3 of the License, or (at your option) any later "
+"version.\n"
+"\n"
+"PNMixer is distributed in the hope that it will be useful, but WITHOUT ANY "
+"WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
+"FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
+"details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Street, Fifth Floor, Boston, MA 02110-1301, USA."
+msgstr ""
+"PNMixer è un software libero; puoi ridistribuirlo e/o modificarlo sotto i "
+"termini della GNU General Public License come pubblicato dalla Free Software "
+"Foundation; sia la versione 3 della Licenza, o (a tua scelta) tutte le "
+"versioni successive.\n"
+"\n"
+"PNMixer è distribuito nella speranza che sia utile, ma SENZA NESSUNA "
+"GARANZIA; senza neppure la garanzia implicita di COMMERCIABILITÀ o IDONEITÀ "
+"PER UN PARTICOLARE SCOPO. Vedi la GNU General Public License per maggiori "
+"dettagli.\n"
+"\n"
+"Dovreste aver ricevuto una copia della GNU General Public License con "
+"PNMixer; se così non fosse, scrivi alla Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#: ../data/about-gtk3.glade:25 ../data/about-gtk2.glade:26
 msgid ""
 "French: Matthieu Bresson\n"
 "German: Mario Blättermann"
@@ -203,149 +261,136 @@ msgstr ""
 "Tedesco: Mario Blättermann\n"
 "Francese: Matthieu BressonItaliano: Mattia Bertoni"
 
-#: ../data/about.xml.h:5
-msgid ""
-"PNMixer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.\n"
-"\n"
-"PNMixer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License along with PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
-msgstr ""
-"PNMixer è un software libero; puoi ridistribuirlo e/o modificarlo sotto i termini della GNU General Public License come pubblicato dalla Free Software Foundation; sia la versione 3 della Licenza, o (a tua scelta) tutte le versioni successive.\n"
-"\n"
-"PNMixer è distribuito nella speranza che sia utile, ma SENZA NESSUNA GARANZIA; senza neppure la garanzia implicita di COMMERCIABILITÀ o IDONEITÀ PER UN PARTICOLARE SCOPO. Vedi la GNU General Public License per maggiori dettagli.\n"
-"\n"
-"Dovreste aver ricevuto una copia della GNU General Public License con PNMixer; se così non fosse, scrivi alla Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
-
-#: ../data/popup_window.xml.h:1
-msgid "About"
-msgstr "Informazioni"
-
-#: ../data/popup_window.xml.h:2
+#: ../data/popup_window-gtk3.glade:71 ../data/popup_window-gtk2.glade:105
 msgid "Mute"
 msgstr "Muto"
 
-#: ../data/popup_window.xml.h:3
-msgid "Mute/Unmute Volume"
-msgstr "Volume Muto/Non Muto"
+#: ../data/popup_window-gtk3.glade:89
+msgid "Mixer"
+msgstr ""
 
-#: ../data/popup_window.xml.h:4
-msgid "Open Volume Control"
-msgstr "Apri Controllo del Volume"
-
-#: ../data/popup_window.xml.h:5
-msgid "Preferences"
-msgstr "Preferenze"
-
-#: ../data/popup_window.xml.h:6
-msgid "Quit"
-msgstr "Esci"
-
-#: ../data/popup_window.xml.h:7
-msgid "Reload Alsa"
-msgstr "Ricarica ALSA"
-
-#: ../data/popup_window.xml.h:8
-msgid "Volume Control..."
-msgstr "Controllo del Volume..."
-
-#: ../data/popup_window.xml.h:9
+#: ../data/popup_window-gtk3.glade:121 ../data/popup_window-gtk2.glade:160
 msgid "_Mute/Unmute"
 msgstr "_Muto/Non muto"
 
-#: ../data/popup_window.xml.h:10
-msgid "_Reload Alsa"
-msgstr "_Ricarica ALSA"
+#: ../data/popup_window-gtk3.glade:125 ../data/popup_window-gtk2.glade:164
+msgid "Mute/Unmute Volume"
+msgstr "Volume Muto/Non Muto"
 
-#: ../data/popup_window.xml.h:11
+#: ../data/popup_window-gtk3.glade:134 ../data/popup_window-gtk2.glade:173
 msgid "_Volume Control"
 msgstr "_Controllo del Volume"
 
-#: ../data/prefs.xml.h:1
-msgid "(None)"
-msgstr "(Nessuno)"
+#: ../data/popup_window-gtk3.glade:138 ../data/popup_window-gtk2.glade:177
+msgid "Open Volume Control"
+msgstr "Apri Controllo del Volume"
 
-#: ../data/prefs.xml.h:2
-msgid "(Unknown)"
-msgstr "(Sconosciuto)"
+#: ../data/popup_window-gtk3.glade:151 ../data/popup_window-gtk2.glade:190
+msgid "Preferences"
+msgstr "Preferenze"
 
-#: ../data/prefs.xml.h:3
-msgid "<b>HotKey Settings</b>"
-msgstr "<b>Impostazioni HotKeys</b>"
+#: ../data/popup_window-gtk3.glade:159 ../data/popup_window-gtk2.glade:198
+msgid "_Reload Alsa"
+msgstr "_Ricarica ALSA"
 
-#: ../data/prefs.xml.h:4
-msgid "<b>Hotkeys</b>"
-msgstr "<b>HotKeys</b>"
+#: ../data/popup_window-gtk3.glade:163 ../data/popup_window-gtk2.glade:202
+msgid "Reload Alsa"
+msgstr "Ricarica ALSA"
 
-#: ../data/prefs.xml.h:5
-msgid "<b>Icon Theme</b>"
-msgstr "<b>Tema delle Icone</b>"
+#: ../data/popup_window-gtk3.glade:176 ../data/popup_window-gtk2.glade:215
+msgid "About"
+msgstr "Informazioni"
 
-#: ../data/prefs.xml.h:6
-msgid "<b>Mouse</b>"
-msgstr "<b>Mouse</b>"
+#: ../data/popup_window-gtk3.glade:195 ../data/popup_window-gtk2.glade:234
+msgid "Quit"
+msgstr "Esci"
 
-#: ../data/prefs.xml.h:7
-msgid "<b>Sound Device</b>"
-msgstr "<b>Dispositivo Audio</b>"
+#: ../data/prefs-gtk3.glade:39 ../data/prefs-gtk2.glade:39
+msgid "Show Preferences"
+msgstr "Mostra le Preferenze"
 
-#: ../data/prefs.xml.h:8
-msgid "<b>Text</b>"
-msgstr "<b>Testo</b>"
+#: ../data/prefs-gtk3.glade:42 ../data/prefs-gtk2.glade:42
+msgid "Volume Control"
+msgstr "Controllo del Volume"
 
-#: ../data/prefs.xml.h:9
-msgid "<b>Volume Control Command</b>"
-msgstr "<b>Comando per il Controllo del Volume</b>"
-
-#: ../data/prefs.xml.h:10
-msgid "<b>Volume Meter</b>"
-msgstr "<b>Scala del Volume</b>"
-
-#: ../data/prefs.xml.h:11
-msgid "Behavior"
-msgstr "Comportamento"
-
-#: ../data/prefs.xml.h:12
-msgid "Bottom"
-msgstr "Sotto"
-
-#: ../data/prefs.xml.h:13
-msgid "Card:"
-msgstr "Scheda:"
-
-#: ../data/prefs.xml.h:14
-msgid "Channel:"
-msgstr "Canale:"
-
-#: ../data/prefs.xml.h:15
-msgid "Command"
-msgstr "Comando"
-
-#: ../data/prefs.xml.h:16
+#: ../data/prefs-gtk3.glade:45 ../data/prefs-gtk2.glade:45
 msgid "Custom (set below)"
 msgstr "Personalizza (imposta sotto)"
 
-#: ../data/prefs.xml.h:17
-msgid "Custom Command:"
-msgstr "Comando Personalizzato:"
+#: ../data/prefs-gtk3.glade:52 ../data/prefs-gtk2.glade:52
+msgid ""
+"Notification support not\n"
+"enabled at compile time"
+msgstr ""
 
-#: ../data/prefs.xml.h:18
-msgid "Defining HotKey"
-msgstr "Definizione HotKey"
+#: ../data/prefs-gtk3.glade:87 ../data/prefs-gtk2.glade:85
+msgid "Enable Notifications"
+msgstr ""
 
-#: ../data/prefs.xml.h:19
-msgid "Device"
-msgstr "Dispositivo"
+#: ../data/prefs-gtk3.glade:125 ../data/prefs-gtk2.glade:124
+msgid "timeout (ms)"
+msgstr ""
 
-#: ../data/prefs.xml.h:20
+#: ../data/prefs-gtk3.glade:146 ../data/prefs-gtk2.glade:145
+msgid "Notify for volume changes from:"
+msgstr ""
+
+#: ../data/prefs-gtk3.glade:165 ../data/prefs-gtk3.glade:1217
+#: ../data/prefs-gtk2.glade:164 ../data/prefs-gtk2.glade:1208
+#, fuzzy
+msgid "HotKeys"
+msgstr "HotKey"
+
+#: ../data/prefs-gtk3.glade:188 ../data/prefs-gtk2.glade:185
+#, fuzzy
+msgid "Mouse Scroll"
+msgstr "Passo della Rotellina del Mouse"
+
+#: ../data/prefs-gtk3.glade:211 ../data/prefs-gtk2.glade:206
+msgid "Adjustment in Popup Window"
+msgstr ""
+
+#: ../data/prefs-gtk3.glade:234 ../data/prefs-gtk2.glade:227
+msgid "External Change"
+msgstr ""
+
+#: ../data/prefs-gtk3.glade:258 ../data/prefs-gtk2.glade:249
+msgid "<b>Notification Options</b>"
+msgstr ""
+
+#: ../data/prefs-gtk3.glade:288 ../data/prefs-gtk2.glade:279
+msgid "Top"
+msgstr "Alto"
+
+#: ../data/prefs-gtk3.glade:291 ../data/prefs-gtk2.glade:282
+msgid "Bottom"
+msgstr "Sotto"
+
+#: ../data/prefs-gtk3.glade:294 ../data/prefs-gtk2.glade:285
+msgid "Left"
+msgstr "Sinistra"
+
+#: ../data/prefs-gtk3.glade:297 ../data/prefs-gtk2.glade:288
+msgid "Right"
+msgstr "Destra"
+
+#: ../data/prefs-gtk3.glade:303 ../data/prefs-gtk2.glade:294
+msgid "PNMixer Preferences"
+msgstr "Preferenze di PNMixer"
+
+#: ../data/prefs-gtk3.glade:354 ../data/prefs-gtk2.glade:344
 msgid "Display Text Volume"
 msgstr "Mostra un Testo per il Volume"
 
-#: ../data/prefs.xml.h:21
-msgid "Double click a HotKey to assign a new Hotkey"
-msgstr "Doppio click su un HotKey per assegnare un nuovo HotKey"
+#: ../data/prefs-gtk3.glade:373 ../data/prefs-gtk2.glade:361
+msgid "Volume Text Position:"
+msgstr "Posizione del Testo:"
 
-#: ../data/prefs.xml.h:22
+#: ../data/prefs-gtk3.glade:410 ../data/prefs-gtk2.glade:398
+msgid "<b>Text</b>"
+msgstr "<b>Testo</b>"
+
+#: ../data/prefs-gtk3.glade:445 ../data/prefs-gtk2.glade:431
 msgid ""
 "Draw Volume Meter on Tray Icon\n"
 "(Will cause slightly higher CPU usage)"
@@ -353,88 +398,150 @@ msgstr ""
 "Disegna la Scala del Volume nella Trayicon\n"
 "(Causerà un leggero aumento del consumo della CPU)"
 
-#: ../data/prefs.xml.h:24
-msgid "Enable HotKeys"
-msgstr "Abilita HotKeys"
-
-#: ../data/prefs.xml.h:25
-msgid "HotKey"
-msgstr "HotKey"
-
-#: ../data/prefs.xml.h:26
-msgid "HotKey Volume Step:"
-msgstr "Passo del Volume attraverso HotKey:"
-
-#: ../data/prefs.xml.h:27
-msgid "Hotkeys"
-msgstr "Hotkeys"
-
-#: ../data/prefs.xml.h:28
-msgid "Left"
-msgstr "Sinistra"
-
-#: ../data/prefs.xml.h:29
-msgid "Middle Click Action:"
-msgstr "Azione del Click Centrale:"
-
-#: ../data/prefs.xml.h:30
-msgid "Mouse Scroll Step:"
-msgstr "Passo della Rotellina del Mouse"
-
-#: ../data/prefs.xml.h:32
-msgid "Mute/Unmute:"
-msgstr "Muto/Non muto:"
-
-#: ../data/prefs.xml.h:33
-msgid "PNMixer Preferences"
-msgstr "Preferenze di PNMixer"
-
-#: ../data/prefs.xml.h:34
-msgid "Press new HotKey for:"
-msgstr "Premere il nuovo HotKey per:"
-
-#: ../data/prefs.xml.h:35
-msgid "Right"
-msgstr "Destra"
-
-#: ../data/prefs.xml.h:36
-msgid "Set Hotkey"
-msgstr "Assegna HotKey"
-
-#: ../data/prefs.xml.h:37
-msgid "Show Preferences"
-msgstr "Mostra le Preferenze"
-
-#: ../data/prefs.xml.h:38
-msgid "Top"
-msgstr "Alto"
-
-#: ../data/prefs.xml.h:39
-msgid "View"
-msgstr "Vista"
-
-#: ../data/prefs.xml.h:40
-msgid "Volume Control"
-msgstr "Controllo del Volume"
-
-#: ../data/prefs.xml.h:41
-msgid "Volume Down:"
-msgstr "Abbassare il Volume:"
-
-#: ../data/prefs.xml.h:42
-msgid "Volume Meter Color:"
-msgstr "Colore Scala del Volume:"
-
-#: ../data/prefs.xml.h:43
+#: ../data/prefs-gtk3.glade:465 ../data/prefs-gtk2.glade:449
 msgid "Volume Meter Offset:"
 msgstr "Offset Scala del Volume:"
 
-#: ../data/prefs.xml.h:44
-msgid "Volume Text Position:"
-msgstr "Posizione del Testo:"
+#: ../data/prefs-gtk3.glade:478 ../data/prefs-gtk2.glade:462
+msgid "Volume Meter Color:"
+msgstr "Colore Scala del Volume:"
 
-#: ../data/prefs.xml.h:45
+#: ../data/prefs-gtk3.glade:529 ../data/prefs-gtk2.glade:515
+msgid "<b>Volume Meter</b>"
+msgstr "<b>Scala del Volume</b>"
+
+#: ../data/prefs-gtk3.glade:571 ../data/prefs-gtk2.glade:559
+msgid "<b>Icon Theme</b>"
+msgstr "<b>Tema delle Icone</b>"
+
+#: ../data/prefs-gtk3.glade:588 ../data/prefs-gtk2.glade:576
+msgid "View"
+msgstr "Vista"
+
+#: ../data/prefs-gtk3.glade:626 ../data/prefs-gtk2.glade:610
+msgid "Card:"
+msgstr "Scheda:"
+
+#: ../data/prefs-gtk3.glade:637 ../data/prefs-gtk2.glade:621
+msgid "Channel:"
+msgstr "Canale:"
+
+#: ../data/prefs-gtk3.glade:700 ../data/prefs-gtk2.glade:692
+msgid "Normalize Volume:"
+msgstr ""
+
+#: ../data/prefs-gtk3.glade:716 ../data/prefs-gtk2.glade:708
+msgid "<b>Sound Device</b>"
+msgstr "<b>Dispositivo Audio</b>"
+
+#: ../data/prefs-gtk3.glade:737 ../data/prefs-gtk2.glade:729
+msgid "Device"
+msgstr "Dispositivo"
+
+#: ../data/prefs-gtk3.glade:777 ../data/prefs-gtk2.glade:769
+msgid "<b>Volume Control Command</b>"
+msgstr "<b>Comando per il Controllo del Volume</b>"
+
+#: ../data/prefs-gtk3.glade:815 ../data/prefs-gtk2.glade:805
+msgid "Mouse Scroll Step:"
+msgstr "Passo della Rotellina del Mouse"
+
+#: ../data/prefs-gtk3.glade:826 ../data/prefs-gtk2.glade:816
+msgid "Middle Click Action:"
+msgstr "Azione del Click Centrale:"
+
+#: ../data/prefs-gtk3.glade:839 ../data/prefs-gtk2.glade:829
+msgid "Custom Command:"
+msgstr "Comando Personalizzato:"
+
+#: ../data/prefs-gtk3.glade:907 ../data/prefs-gtk2.glade:901
+msgid "<b>Mouse</b>"
+msgstr "<b>Mouse</b>"
+
+#: ../data/prefs-gtk3.glade:928 ../data/prefs-gtk2.glade:922
+msgid "Behavior"
+msgstr "Comportamento"
+
+#: ../data/prefs-gtk3.glade:964 ../data/prefs-gtk2.glade:956
+msgid "Enable HotKeys"
+msgstr "Abilita HotKeys"
+
+#: ../data/prefs-gtk3.glade:982 ../data/prefs-gtk2.glade:972
+msgid "HotKey Volume Step:"
+msgstr "Passo del Volume attraverso HotKey:"
+
+#: ../data/prefs-gtk3.glade:1013 ../data/prefs-gtk2.glade:1006
+msgid "<b>HotKey Settings</b>"
+msgstr "<b>Impostazioni HotKeys</b>"
+
+#: ../data/prefs-gtk3.glade:1052 ../data/prefs-gtk2.glade:1043
+msgid "Mute/Unmute:"
+msgstr "Muto/Non muto:"
+
+#: ../data/prefs-gtk3.glade:1064 ../data/prefs-gtk2.glade:1055
 msgid "Volume Up:"
 msgstr "Alza il Volume:"
 
+#: ../data/prefs-gtk3.glade:1076 ../data/prefs-gtk2.glade:1067
+msgid "Volume Down:"
+msgstr "Abbassare il Volume:"
 
+#: ../data/prefs-gtk3.glade:1087 ../data/prefs-gtk2.glade:1078
+msgid "Double click a HotKey to assign a new Hotkey"
+msgstr "Doppio click su un HotKey per assegnare un nuovo HotKey"
+
+#: ../data/prefs-gtk3.glade:1099 ../data/prefs-gtk2.glade:1090
+msgid "Command"
+msgstr "Comando"
+
+#: ../data/prefs-gtk3.glade:1109 ../data/prefs-gtk2.glade:1100
+msgid "HotKey"
+msgstr "HotKey"
+
+#: ../data/prefs-gtk3.glade:1128 ../data/prefs-gtk3.glade:1151
+#: ../data/prefs-gtk3.glade:1174 ../data/prefs-gtk2.glade:1119
+#: ../data/prefs-gtk2.glade:1142 ../data/prefs-gtk2.glade:1165
+msgid "(None)"
+msgstr "(Nessuno)"
+
+#: ../data/prefs-gtk3.glade:1196 ../data/prefs-gtk2.glade:1187
+#, fuzzy
+msgid "<b>HotKeys</b>"
+msgstr "<b>HotKeys</b>"
+
+#: ../data/prefs-gtk3.glade:1287 ../data/prefs-gtk2.glade:1276
+#, fuzzy
+msgid "Set HotKey"
+msgstr "Assegna HotKey"
+
+#: ../data/prefs-gtk3.glade:1327 ../data/prefs-gtk2.glade:1316
+msgid "Defining HotKey"
+msgstr "Definizione HotKey"
+
+#: ../data/prefs-gtk3.glade:1343 ../data/prefs-gtk2.glade:1332
+msgid "(press <Ctrl>C to reset)"
+msgstr ""
+
+#: ../data/prefs-gtk3.glade:1381 ../data/prefs-gtk2.glade:1370
+msgid "Press new HotKey for:"
+msgstr "Premere il nuovo HotKey per:"
+
+#: ../data/prefs-gtk3.glade:1422 ../data/prefs-gtk2.glade:1410
+msgid "(Unknown)"
+msgstr "(Sconosciuto)"
+
+#: ../data/popup_window-gtk2.glade:122
+msgid "Volume Control..."
+msgstr "Controllo del Volume..."
+
+#~ msgid "Hotkeys"
+#~ msgstr "Hotkeys"
+
+#~ msgid ""
+#~ "An unknown error occured trying to launch your volume control command"
+#~ msgstr ""
+#~ "Un errore sconosciuto è avvenuto provando a lanciare il tuo comando per "
+#~ "il controllo del volume"
+
+#~ msgid "Couldn't execute custom command: \"%s\"\n"
+#~ msgstr "Impossibile eseguire il comando personalizzato: \"%s\"\n"
