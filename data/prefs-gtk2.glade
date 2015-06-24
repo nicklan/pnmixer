@@ -1329,7 +1329,7 @@ enabled at compile time</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="yalign">0.10000000149011612</property>
-                    <property name="label" translatable="yes">(press &lt;Primary&gt;C to reset)</property>
+                    <property name="label" translatable="yes">(press &lt;Ctrl&gt;C to reset)</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
