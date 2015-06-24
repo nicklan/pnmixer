@@ -2,15 +2,16 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pnmixer package.
 # Matthieu Bresson <apoptose@talkr.im>, 2011.
+# El Boulangero <elboulangero@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-06-24 22:28+0200\n"
-"PO-Revision-Date: 2011-09-04 22:32+0100\n"
-"Last-Translator: Matthieu Bresson <apoptose@jappix.com>\n"
+"POT-Creation-Date: 2015-06-25 17:02+0200\n"
+"PO-Revision-Date: 2015-06-25 17:12+0200\n"
+"Last-Translator: El Boulangero <elboulangero@gmail.com>\n"
 "Language-Team: Français <gnome-fr@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -48,12 +49,9 @@ msgstr ""
 "besoin de relancer PNMixer.\n"
 
 #: ../src/main.c:112
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to run command %s"
-msgstr ""
-"Impossible de lancer la commande \"%s\" de contrôle du volume.\n"
-"\n"
-"%s"
+msgstr "Impossible de lancer la commande \"%s\""
 
 #: ../src/main.c:133
 msgid ""
@@ -74,22 +72,24 @@ msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
 msgstr ""
+"Vous n'avez pas spécifié de commande, veuillez en spécifier une dans les "
+"paramètres."
 
 #: ../src/main.c:287
 msgid ""
 "Can't find main user interface file.  Please insure PNMixer is installed "
 "correctly.  Exiting\n"
 msgstr ""
-"Fichier d'interface \"popup_window.xml\" manquant. Veuillez vous assurer que "
-"PNMixer est correctement installé. Arrêt.\n"
+"Fichier d'interface principal manquant. Veuillez vous assurer que PNMixer "
+"est correctement installé. Arrêt.\n"
 
 #: ../src/main.c:371
 msgid ""
 "Can't find about interface file.  Please insure PNMixer is installed "
 "correctly."
 msgstr ""
-"Fichier d'interface \"about.xml\" manquant. Veuillez vous assurer que "
-"PNMixer est correctement installé."
+"Fichier d'interface à propos manquant. Veuillez vous assurer que PNMixer est "
+"correctement installé."
 
 #: ../src/main.c:469
 #, c-format
@@ -157,13 +157,13 @@ msgstr ""
 "sauvegarder les paramètres"
 
 #: ../src/prefs.c:206
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Couldn't make prefs directory: %s\n"
 msgstr ""
 "\n"
-"Impossible de charger le fichier des paramètres : %s\n"
+"Impossible de créer le dossier des paramètres : %s\n"
 
 #: ../src/prefs.c:228
 #, c-format
@@ -186,7 +186,7 @@ msgstr ""
 #: ../src/prefs.c:619
 #, c-format
 msgid "Invalid widget passed to acquire_hotkey: %s"
-msgstr ""
+msgstr "Mauvais widget passé à acquire_hotkey"
 
 #: ../src/prefs.c:625 ../data/prefs-gtk3.glade:36 ../data/prefs-gtk2.glade:36
 msgid "Mute/Unmute"
@@ -269,7 +269,7 @@ msgstr "Muet"
 
 #: ../data/popup_window-gtk3.glade:89
 msgid "Mixer"
-msgstr ""
+msgstr "Mixeur"
 
 #: ../data/popup_window-gtk3.glade:121 ../data/popup_window-gtk2.glade:160
 msgid "_Mute/Unmute"
@@ -323,41 +323,40 @@ msgstr "Autre (renseigner en-dessous)"
 msgid ""
 "Notification support not\n"
 "enabled at compile time"
-msgstr ""
+msgstr "Support des notifications désactivé lors de la compilation"
 
 #: ../data/prefs-gtk3.glade:87 ../data/prefs-gtk2.glade:85
 msgid "Enable Notifications"
-msgstr ""
+msgstr "Activer les notifications"
 
 #: ../data/prefs-gtk3.glade:125 ../data/prefs-gtk2.glade:124
 msgid "timeout (ms)"
-msgstr ""
+msgstr "durée"
 
 #: ../data/prefs-gtk3.glade:146 ../data/prefs-gtk2.glade:145
 msgid "Notify for volume changes from:"
-msgstr ""
+msgstr "Notifier les changements de volumes pour :"
 
-#: ../data/prefs-gtk3.glade:165 ../data/prefs-gtk2.glade:164
-#, fuzzy
+#: ../data/prefs-gtk3.glade:165 ../data/prefs-gtk3.glade:1217
+#: ../data/prefs-gtk2.glade:164 ../data/prefs-gtk2.glade:1208
 msgid "HotKeys"
-msgstr "Raccourci"
+msgstr "Raccourcis"
 
 #: ../data/prefs-gtk3.glade:188 ../data/prefs-gtk2.glade:185
-#, fuzzy
 msgid "Mouse Scroll"
-msgstr "Pas d'incrément du volume à la molette :"
+msgstr "Molette souris"
 
 #: ../data/prefs-gtk3.glade:211 ../data/prefs-gtk2.glade:206
 msgid "Adjustment in Popup Window"
-msgstr ""
+msgstr "Modifications dans la fenêtre popup"
 
 #: ../data/prefs-gtk3.glade:234 ../data/prefs-gtk2.glade:227
 msgid "External Change"
-msgstr ""
+msgstr "Modifications externes"
 
 #: ../data/prefs-gtk3.glade:258 ../data/prefs-gtk2.glade:249
 msgid "<b>Notification Options</b>"
-msgstr ""
+msgstr "<p>Paramètres de notification</b>"
 
 #: ../data/prefs-gtk3.glade:288 ../data/prefs-gtk2.glade:279
 msgid "Top"
@@ -430,7 +429,7 @@ msgstr "Canal :"
 
 #: ../data/prefs-gtk3.glade:700 ../data/prefs-gtk2.glade:692
 msgid "Normalize Volume:"
-msgstr ""
+msgstr "Normaliser le volume"
 
 #: ../data/prefs-gtk3.glade:716 ../data/prefs-gtk2.glade:708
 msgid "<b>Sound Device</b>"
@@ -507,12 +506,10 @@ msgid "(None)"
 msgstr "(Indéfini)"
 
 #: ../data/prefs-gtk3.glade:1196 ../data/prefs-gtk2.glade:1187
-#, fuzzy
-msgid "<b>Hotkeys</b>"
+msgid "<b>HotKeys</b>"
 msgstr "<b>Touches multimédia</b>"
 
 #: ../data/prefs-gtk3.glade:1287 ../data/prefs-gtk2.glade:1276
-#, fuzzy
 msgid "Set HotKey"
 msgstr "Assignation d'une touche"
 
@@ -522,7 +519,7 @@ msgstr "Définition du raccourci"
 
 #: ../data/prefs-gtk3.glade:1343 ../data/prefs-gtk2.glade:1332
 msgid "(press <Ctrl>C to reset)"
-msgstr ""
+msgstr "(entrez <Ctrl>C pour réinitialiser)"
 
 #: ../data/prefs-gtk3.glade:1381 ../data/prefs-gtk2.glade:1370
 msgid "Press new HotKey for:"
