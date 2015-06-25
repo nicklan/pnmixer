@@ -203,7 +203,7 @@ void ensure_prefs_dir(void) {
       report_error(_("\nError: %s exists but is not a directory, will not be able to save preferences"),prefs_dir);
     else {
       if (g_mkdir(prefs_dir,S_IRWXU))
-	report_error("\nCouldn't make prefs directory: %s\n",strerror(errno));
+	report_error(_("\nCouldn't make prefs directory: %s\n"),strerror(errno));
     }
   }
   g_free(prefs_dir);
@@ -616,7 +616,7 @@ void acquire_hotkey(const char* widget_name,
     2:-1;
 
   if (action < 0) {
-    report_error("Invalid widget passed to acquire_hotkey: %s",widget_name);
+    report_error(_("Invalid widget passed to acquire_hotkey: %s"),widget_name);
     return;
   }
 
@@ -678,7 +678,7 @@ void acquire_hotkey(const char* widget_name,
     }
   }
   else
-    report_error("%s", _("Could not grab the keyboard."));
+    report_error(_("Could not grab the keyboard."));
   gtk_widget_hide(diag);
 }
 
