@@ -96,10 +96,10 @@ static GdkFilterReturn key_filter(GdkXEvent *gdk_xevent,
     } else {
       int cv = getvol();
       if ((int)key == volUpKey && checkModKey(state, volUpMods)) {
-	setvol(cv+volStep,enable_noti&&hotkey_noti);
+	setvol(cv+volStep,1,enable_noti&&hotkey_noti);
       }
       else if ((int)key == volDownKey && checkModKey(state, volDownMods)) {
-	setvol(cv-volStep,enable_noti&&hotkey_noti);
+	setvol(cv-volStep,-1,enable_noti&&hotkey_noti);
       } 
       // just ignore unknown hotkeys
 

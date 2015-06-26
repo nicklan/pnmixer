@@ -44,7 +44,6 @@
 #include <string.h>
 
 #define MAX_LINEAR_DB_SCALE	24
-#define PLAYBACK 0
 
 static inline gboolean use_linear_dB_scale(long dBmin, long dBmax){
 	return dBmax - dBmin <= MAX_LINEAR_DB_SCALE * 100;
@@ -476,10 +475,12 @@ static int convert_prange(long val, long min, long max) {
  * Adjusts the current volume and sends a notification (if enabled).
  *
  * @param vol new volume value
+ * @param dir select direction (-1 = accurate or first bellow, 0 = accurate,
+ * 1 = accurate or first above)
  * @param notify whether to send notification
  * @return 0 on success otherwise negative error code
  */
-int setvol(int vol, gboolean notify) {
+int setvol(int vol, int dir, gboolean notify) {
   long min = 0, max = 0, value;
   int cur_perc = getvol();
   double dvol = 0.01 * vol;
@@ -487,7 +488,7 @@ int setvol(int vol, gboolean notify) {
   int err = snd_mixer_selem_get_playback_dB_range(elem, &min, &max);
   if (err < 0 || min >= max || !normalize_vol()) {
     err = snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
-    value = lrint_dir(dvol * (max - min), PLAYBACK) + min;
+    value = lrint_dir(dvol * (max - min), dir) + min;
     snd_mixer_selem_set_playback_volume_all(elem, value);
     if (enable_noti && notify && cur_perc != getvol())
       do_notify(getvol(),FALSE);
@@ -495,8 +496,8 @@ int setvol(int vol, gboolean notify) {
   }
 
   if (use_linear_dB_scale(min, max)) {
-    value = lrint_dir(dvol * (max - min), PLAYBACK) + min;
-    return snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK);
+    value = lrint_dir(dvol * (max - min), dir) + min;
+    return snd_mixer_selem_set_playback_dB_all(elem, value, dir);
   }
 
   if (min != SND_CTL_TLV_DB_GAIN_MUTE) {
@@ -504,11 +505,11 @@ int setvol(int vol, gboolean notify) {
     dvol = dvol * (1 - min_norm) + min_norm;
   }
 
-  value = lrint_dir(6000.0 * log10(dvol), PLAYBACK) + max;
-  snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK);
+  value = lrint_dir(6000.0 * log10(dvol), dir) + max;
+  snd_mixer_selem_set_playback_dB_all(elem, value, dir);
   if (enable_noti && notify && cur_perc != getvol())
     do_notify(getvol(),FALSE);
-  return snd_mixer_selem_set_playback_dB_all(elem, value, PLAYBACK); // intentionally set twice
+  return snd_mixer_selem_set_playback_dB_all(elem, value, dir); // intentionally set twice
 }
 
 /**
