@@ -27,6 +27,7 @@
 /stamp-h1
 /po/Makefile
 /po/Makefile.in
+/po/Makefile.in.in
 /po/*.gmo
 /po/POTFILES
 /po/*.pot
