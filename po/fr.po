@@ -10,10 +10,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=glib&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2015-06-25 17:02+0200\n"
-"PO-Revision-Date: 2015-06-25 17:12+0200\n"
+"PO-Revision-Date: 2015-07-04 20:45+0200\n"
 "Last-Translator: El Boulangero <elboulangero@gmail.com>\n"
 "Language-Team: Français <gnome-fr@gnome.org>\n"
-"Language: \n"
+"Language: Français\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -186,7 +186,7 @@ msgstr ""
 #: ../src/prefs.c:619
 #, c-format
 msgid "Invalid widget passed to acquire_hotkey: %s"
-msgstr "Mauvais widget passé à acquire_hotkey"
+msgstr "Mauvais widget passé à acquire_hotkey: %s"
 
 #: ../src/prefs.c:625 ../data/prefs-gtk3.glade:36 ../data/prefs-gtk2.glade:36
 msgid "Mute/Unmute"
