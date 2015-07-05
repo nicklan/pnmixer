@@ -9,7 +9,7 @@ should run fine in any system tray.
 
 PNMixer is designed to work on systems that use ALSA for sound management.
 Any other sound driver like OSS or FFADO, or sound server like PulseAudio
-or Jackd, are currently not supported.
+or Jackd, are currently not supported (patches welcome).
 
 PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with
 a number of additions.  These include:
