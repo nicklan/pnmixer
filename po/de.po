@@ -2,17 +2,17 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pnmixer package.
 # Mario Blättermann <mariobl@freenet.de>, 2011.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=glib&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-06-25 17:02+0200\n"
-"PO-Revision-Date: 2011-08-10 19:32+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-14 19:33+0200\n"
+"PO-Revision-Date: 2015-07-14 19:58+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr "PNMixer Fehler"
 
 #: ../src/main.c:85
 msgid "Warning: Connection to sound system failed."
-msgstr "Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
+msgstr "Achtung: Verbindung zum Soundsystem konnte nicht hergestellt werden."
 
 #: ../src/main.c:87
 msgid ""
@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Möchten Sie die Verbindung zu Alsa wieder aufbauen?\n"
 "\n"
-"Wenn nicht, müssen Sie weder PNMixer neustarten noch die 'Alsa Neuladen' "
-"option im rechtsclickmenu auswählen damit PNMixer funktioniert."
+"Wenn nicht, müssen Sie entweder PNMixer neustarten oder die Option »Alsa "
+"neuladen« im Kontextmenü auswählen, damit PNMixer funktioniert."
 
 #: ../src/main.c:97
 #, c-format
@@ -43,16 +43,13 @@ msgid ""
 "Warning: Connection to sound system failed, you probably need to restart "
 "pnmixer\n"
 msgstr ""
-"Achtung: Verbindung zum sound system konnte nicht hergestellt werden."
+"Achtung: Verbindung zum Soundsystem konnte nicht hergestellt werden. "
 "Wahrscheinlich müssen Sie PNmixer neustarten\n"
 
 #: ../src/main.c:112
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to run command %s"
-msgstr ""
-"Volume Befehl konnte nicht geöffnet werden \"%s\".\n"
-"\n"
-"%s"
+msgstr "Befehl %s konnte nicht ausgeführt werden"
 
 #: ../src/main.c:133
 msgid ""
@@ -63,32 +60,35 @@ msgid ""
 "control."
 msgstr ""
 "\n"
-"Es konnte keine mixer application auf Ihrem Computer gefunden werden.\n"
+"Es konnte keine Mixer-Anwendung auf Ihrem Computer gefunden werden.\n"
 "\n"
-"Bitte öffen Sie Einstellungen und wählen Sie den Befehl für den Betrieb von "
-"Volume Control"
+"Bitte öffen Sie Einstellungen und wählen Sie den Befehl für die "
+"Lautstärkeregelung."
 
 #: ../src/main.c:175
 msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
 msgstr ""
+"Sie haben keinen benutzerdefinierten Befehl zur Ausführung angegeben, bitte "
+"tun Sie dies in den Einstellungen."
 
 #: ../src/main.c:287
 msgid ""
 "Can't find main user interface file.  Please insure PNMixer is installed "
 "correctly.  Exiting\n"
 msgstr ""
-"Konnte die Datei Hauptbenutzeroberfläche nicht finden.  Bitte stellen Sie "
-"sicher, dass PNMixer korrekt installiert ist.  Programm wird beendet.\n"
+"Die Datei für die Hauptbenutzeroberfläche konnte nicht gefunden werden.  "
+"Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist.  Das "
+"Programm wird beendet.\n"
 
 #: ../src/main.c:371
 msgid ""
 "Can't find about interface file.  Please insure PNMixer is installed "
 "correctly."
 msgstr ""
-"Konnte die Datei Info-Oberfläche nicht finden.  Bitte stellen Sie sicher, "
-"dass PNMixer korrekt installiert ist."
+"Die Datei für die Info-Oberfläche konnte nicht gefunden werden.  Bitte "
+"stellen Sie sicher, dass PNMixer korrekt installiert ist."
 
 #: ../src/main.c:469
 #, c-format
@@ -111,12 +111,12 @@ msgstr "- Ein Mixer für das Benachrichtigungsfeld."
 #: ../src/main.c:674
 #, c-format
 msgid "%s version: %s\n"
-msgstr "%s version: %s\n"
+msgstr "%s Version: %s\n"
 
 #: ../src/callbacks.c:352
 #, c-format
 msgid "Couldn't write preferences file: %s\n"
-msgstr "Konnte keine Datei Einstellungen herstellen: %s\n"
+msgstr "Die Einstellungsdatei konnte nicht geschrieben werden: %s\n"
 
 #: ../src/support.c:98 ../src/support.c:125
 #, c-format
@@ -141,8 +141,8 @@ msgstr "PNMixer-Symbole"
 #: ../src/prefs.c:177
 msgid "Invalid color for volume meter in config file.  Reverting to default."
 msgstr ""
-"Ungültige Farbe für Lautstärkeskala im Konfiguration. Zurückkehren zu der "
-"Standard Einstellungen"
+"Ungültige Farbe für Lautstärkeskala in der Konfiguration. "
+"Standardeinstellungen werden verwendet."
 
 #: ../src/prefs.c:203
 #, c-format
@@ -151,8 +151,8 @@ msgid ""
 "Error: %s exists but is not a directory, will not be able to save preferences"
 msgstr ""
 "\n"
-"Fehler: %s existiert aber ist kein Ordner.  Einstellungen konnten nicht "
-"gespeichert werden"
+"Fehler: %s existiert, aber ist kein Ordner.  Einstellungen können nicht "
+"gespeichert werden."
 
 #: ../src/prefs.c:206
 #, fuzzy, c-format
@@ -170,7 +170,7 @@ msgid ""
 "Couldn't load preferences file: %s\n"
 msgstr ""
 "\n"
-"Datei Einstellungen konnte nicht geladen werden: %s\n"
+"Einstellungsdatei konnte nicht geladen werden: %s\n"
 
 #: ../src/prefs.c:236
 #, c-format
@@ -179,7 +179,7 @@ msgid ""
 "Couldn't load default preferences: %s\n"
 msgstr ""
 "\n"
-"Standard Einstellungen konnten nicht geladen werden: %s\n"
+"Standardeinstellungen konnten nicht geladen werden: %s\n"
 
 #: ../src/prefs.c:619
 #, c-format
@@ -200,20 +200,20 @@ msgstr "Leiser"
 
 #: ../src/prefs.c:681
 msgid "Could not grab the keyboard."
-msgstr "Konnte nicht auf das Keyboard zugreifen."
+msgstr "Zugriff auf die Tastatur nicht möglich."
 
 #: ../src/prefs.c:801
 msgid ""
 "Can't find preferences user interface file.  Please insure PNMixer is "
 "installed correctly.\n"
 msgstr ""
-"Konnte die Datei Oberfläche Einstellungen nicht finden.  Bitte stellen Sie "
-"sicher, dass PNMixer korrekt installiert ist.\n"
+"Die Datei für die Einstellungen-Oberfläche konnte nicht gefunden werden.  "
+"Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist.\n"
 
 #: ../src/hotkeys.c:220
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
-msgstr "Folgende Hotkeys konnten nicht belegt werden:\n"
+msgstr "Folgende Schnellzugriffe konnten nicht belegt werden:\n"
 
 #: ../data/about-gtk3.glade:11 ../data/about-gtk2.glade:12
 msgid "Copyright © 2010-2011 Nick Lanham"
