@@ -216,8 +216,8 @@ msgid "Could not bind the following hotkeys:\n"
 msgstr "Не удалось записать следующие сочетания клавиш:\n"
 
 #: ../data/about-gtk3.glade:11 ../data/about-gtk2.glade:12
-msgid "Copyright © 2010-2011 Nick Lanham"
-msgstr "Авторские права © 2010-2011 Nick Lanham"
+msgid "Copyright © 2010-2015 Nick Lanham"
+msgstr "Авторские права © 2010-2015 Nick Lanham"
 
 #: ../data/about-gtk3.glade:12 ../data/about-gtk2.glade:13
 msgid "A mixer for the system tray."
@@ -256,10 +256,12 @@ msgstr ""
 #: ../data/about-gtk3.glade:25 ../data/about-gtk2.glade:26
 msgid ""
 "French: Matthieu Bresson\n"
-"German: Mario Blättermann"
+"German: Mario Blättermann\n"
+"Italian: Mattia Bertoni"
 msgstr ""
 "Французский: Matthieu Bresson\n"
-"Немецкий: Mario Blättermann"
+"Немецкий: Mario Blättermann\n"
+"итальянский: Mattia Bertoni"
 
 #: ../data/popup_window-gtk3.glade:71 ../data/popup_window-gtk2.glade:105
 msgid "Mute"
