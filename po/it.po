@@ -215,7 +215,6 @@ msgstr ""
 msgid "Could not bind the following hotkeys:\n"
 msgstr "Impossibile assegnare i seguenti HotKeys:\n"
 
-# update copyright info
 #: ../data/about-gtk3.glade:11 ../data/about-gtk2.glade:12
 msgid "Copyright © 2010-2015 Nick Lanham"
 msgstr "Copyright © 2010-2015 Nick Lanham"
@@ -254,7 +253,6 @@ msgstr ""
 "PNMixer; se così non fosse, scrivi alla Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-# updated original string
 #: ../data/about-gtk3.glade:25 ../data/about-gtk2.glade:26
 msgid ""
 "French: Matthieu Bresson\n"
