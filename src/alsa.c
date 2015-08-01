@@ -224,6 +224,20 @@ static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
   return 0;
 }
 
+/**
+ * We need to re-init alsa in an idle moment, it doesn't seem
+ * very safe to do that while handling data in poll_cb().
+ * This function is attached via g_idle_add() in poll_cb().
+ *
+ * @param data passed to the function,
+ * set when the source was created
+ * @return FALSE if the source should be removed,
+ * TRUE otherwise
+ */
+static gboolean idle_alsa_init(gpointer data) {
+  alsa_init();
+  return FALSE;
+}
 
 static gchar sbuf[256];
 static GIOChannelError *serr = NULL;
@@ -243,6 +257,15 @@ static gboolean poll_cb(GIOChannel *source,
 		gpointer data) {
   snd_mixer_handle_events(handle);
 
+  if (condition == G_IO_ERR) {
+    /* This happens when the file descriptor we're watching disappeared.
+     * For example, if the USB soundcard has been unplugged.
+     * In this case, reloading alsa is the nice thing to do, it will
+     * cause PNMixer to select the first card available.
+     */
+    g_idle_add(idle_alsa_init, NULL);
+    return FALSE;
+  }
   sread = 1;
   while (sread) {
     /* This handles the case where alsa_cb doesn't read all the data on source.
@@ -291,7 +314,7 @@ static void set_io_watch(snd_mixer_t *mixer) {
 	gioc = NULL;
       }
       gioc = g_io_channel_unix_new(fds[i].fd);
-      g_io_add_watch(gioc,G_IO_IN,poll_cb,NULL);
+      g_io_add_watch(gioc,G_IO_IN|G_IO_ERR,poll_cb,NULL);
     }
   }
 }
