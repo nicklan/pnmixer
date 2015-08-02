@@ -114,11 +114,38 @@ void do_notify(gint level, gboolean muted) {
   }
 }
 
+static NotifyNotification* text_notification = NULL;
+
+void do_notify_text(gchar *text) {
+  GError *error = NULL;
+
+  // TODO: memleaks
+  gchar *body = g_strdup_printf("PNMixer: %s", text);
+
+  if (text_notification == NULL)
+    text_notification = notify_notification_new(NULL,body,NULL
+#if NOTIFY_CHECK_VERSION (0, 7, 0)
+      );
+#else
+  ,NULL);
+#endif
+  else
+    notify_notification_update(text_notification,NULL,body,NULL);
+
+  notify_notification_set_timeout(text_notification, noti_timeout * 2);
+  if (!notify_notification_show(text_notification,&error)) {
+    g_warning("Could not send notification: %s",error->message);
+    report_error(_("Could not send notification: %s\n"),error->message);
+    g_error_free(error);
+  }
+}
+
 #else
 
 // without libnotify everything is a no-op
 void init_libnotify() {}
 void uninit_libnotify() {}
 void do_notify(gint level,gboolean muted) {}
+void do_notify_text(gchar *text) {}
 
 #endif // HAVE_LIBN

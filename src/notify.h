@@ -29,5 +29,6 @@
 void init_libnotify();
 void uninit_libnotify();
 void do_notify(gint level,gboolean muted);
+void do_notify_text(gchar *text);
 
 #endif // PREFS_H_
