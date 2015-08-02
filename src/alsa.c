@@ -178,27 +178,27 @@ static int open_mixer(snd_mixer_t **mixer,
 		int level) {
   int err;
 
-  DEBUG_PRINT("Opening mixer for card: %s\n",card);
+  DEBUG_PRINT("Card %s: opening mixer\n",card);
 
   if ((err = snd_mixer_open(mixer, 0)) < 0) {
-    report_error("Mixer %s open error: %s", card, snd_strerror(err));
+    report_error("Card %s: mixer open error: %s", card, snd_strerror(err));
     *mixer = NULL;
     return err;
   }
   if (level == 0 && (err = snd_mixer_attach(*mixer, card)) < 0) {
-    report_error("Mixer attach %s error: %s", card, snd_strerror(err));
+    report_error("Card %s: mixer attach error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
     *mixer = NULL;
     return err;
   }
   if ((err = snd_mixer_selem_register(*mixer, level > 0 ? opts : NULL, NULL)) < 0) {
-    report_error("Mixer register error: %s", snd_strerror(err));
+    report_error("Card %s: mixer register error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
     *mixer = NULL;
     return err;
   }
   if ((err = snd_mixer_load(*mixer)) < 0) {
-    report_error("Mixer %s load error: %s", card, snd_strerror(err));
+    report_error("Card %s: mixer load error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
     *mixer = NULL;
     return err;
@@ -336,13 +336,13 @@ static void set_io_watch(snd_mixer_t *mixer) {
 static int close_mixer(snd_mixer_t **mixer, const char* card) {
   int err;
 
-  DEBUG_PRINT("Closing mixer for card: %s\n",card);
+  DEBUG_PRINT("Card %s: closing mixer\n",card);
 
   if ((err = snd_mixer_detach(*mixer,card)) < 0)
-    report_error("Mixer detach error: %s", snd_strerror(err));
+    report_error("Card %s: mixer detach error: %s", card, snd_strerror(err));
   snd_mixer_free(*mixer);
   if ((err = snd_mixer_close(*mixer)) < 0)
-    report_error("Mixer close error: %s", snd_strerror(err));
+    report_error("Card %s: mixer close error: %s", card, snd_strerror(err));
   return err;
 }
 
@@ -376,13 +376,13 @@ static GSList* get_channels(gchar* card) {
 #ifdef DEBUG
   GSList *tmp = channels;
   if (tmp) {
-    printf("Channels for card: %s\n",card);
+    printf("Card %s: available channels\n",card);
     while (tmp) {
       printf("\t%s\n",(char*)tmp->data);
       tmp = tmp->next;
     }
   } else {
-    printf("%s has no playable channels\n",card);
+    printf("Card %s: no playable channels\n",card);
   }
 #endif
 
