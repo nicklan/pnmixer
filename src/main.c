@@ -586,7 +586,7 @@ void update_status_icons() {
     status_icons[VOLUME_HIGH]   = get_stock_pixbuf("audio-volume-high",size);
   } else {
     status_icons[VOLUME_MUTED]  = create_pixbuf("pnmixer-muted.png");
-    status_icons[VOLUME_OFF]    = create_pixbuf("pnmixer-low.png");
+    status_icons[VOLUME_OFF]    = create_pixbuf("pnmixer-off.png");
     status_icons[VOLUME_LOW]    = create_pixbuf("pnmixer-low.png");
     status_icons[VOLUME_MEDIUM] = create_pixbuf("pnmixer-medium.png");
     status_icons[VOLUME_HIGH]   = create_pixbuf("pnmixer-high.png");
