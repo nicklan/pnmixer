@@ -166,11 +166,10 @@ char* selected_card_dev(gchar* selected_card) {
  * registers the mixer simple element class and
  * loads the mixer elements.
  *
- * @param mixer mixer handle
  * @param card HCTL name
  * @param opts Options container
  * @param level mixer level
- * @return 0 on success otherwise a negative error code
+ * @return the mixer handle, or NULL on failure
  */
 static snd_mixer_t *open_mixer(char *card,
 		struct snd_mixer_selem_regopt* opts,
