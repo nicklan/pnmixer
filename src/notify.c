@@ -86,6 +86,8 @@ void do_notify(gint level, gboolean muted) {
 
   if (muted)
     icon = "audio-volume-muted";
+  else if (level == 0)
+    icon = "audio-volume-off";
   else if (level < 33) 
     icon = "audio-volume-low";
   else if (level < 66)
