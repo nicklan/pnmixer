@@ -412,7 +412,8 @@ static int alsaset() {
   item = cards;
   while (handle == NULL && item) {
     struct acard *c = item->data;
-    card = c->name;
+    g_free(card);
+    card = g_strdup(c->name);
     card_dev = c->dev;
     smixer_options.device = card_dev;
     handle = open_mixer(card_dev,&smixer_options,smixer_level);
