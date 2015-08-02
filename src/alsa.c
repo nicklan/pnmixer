@@ -178,7 +178,7 @@ static int open_mixer(snd_mixer_t **mixer,
 		int level) {
   int err;
 
-  DEBUG_PRINT("Card %s: opening mixer\n",card);
+  DEBUG_PRINT("Card %s: opening mixer",card);
 
   if ((err = snd_mixer_open(mixer, 0)) < 0) {
     report_error("Card %s: mixer open error: %s", card, snd_strerror(err));
@@ -336,7 +336,7 @@ static void set_io_watch(snd_mixer_t *mixer) {
 static int close_mixer(snd_mixer_t **mixer, const char* card) {
   int err;
 
-  DEBUG_PRINT("Card %s: closing mixer\n",card);
+  DEBUG_PRINT("Card %s: closing mixer",card);
 
   if ((err = snd_mixer_detach(*mixer,card)) < 0)
     report_error("Card %s: mixer detach error: %s", card, snd_strerror(err));
@@ -601,7 +601,7 @@ int getvol() {
       long val, pmin = 0, pmax = 0;
       snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
       snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &val);
-      DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li\n",val,pmin,pmax);
+      DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li",val,pmin,pmax);
       return convert_prange(val,pmin,pmax);
   }
 }
