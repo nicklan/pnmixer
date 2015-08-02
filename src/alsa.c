@@ -371,7 +371,6 @@ static GSList* get_channels(gchar* card) {
     telem = snd_mixer_elem_next(telem);
   }
 
-  close_mixer(&mixer,card);
 
 #ifdef DEBUG
   GSList *tmp = channels;
@@ -386,6 +385,8 @@ static GSList* get_channels(gchar* card) {
   }
 #endif
 
+  close_mixer(&mixer,card);
+  
   return channels;
 }
 
