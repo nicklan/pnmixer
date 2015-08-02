@@ -182,21 +182,25 @@ static int open_mixer(snd_mixer_t **mixer,
 
   if ((err = snd_mixer_open(mixer, 0)) < 0) {
     report_error("Mixer %s open error: %s", card, snd_strerror(err));
+    *mixer = NULL;
     return err;
   }
   if (level == 0 && (err = snd_mixer_attach(*mixer, card)) < 0) {
     report_error("Mixer attach %s error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
+    *mixer = NULL;
     return err;
   }
   if ((err = snd_mixer_selem_register(*mixer, level > 0 ? opts : NULL, NULL)) < 0) {
     report_error("Mixer register error: %s", snd_strerror(err));
     snd_mixer_close(*mixer);
+    *mixer = NULL;
     return err;
   }
   if ((err = snd_mixer_load(*mixer)) < 0) {
     report_error("Mixer %s load error: %s", card, snd_strerror(err));
     snd_mixer_close(*mixer);
+    *mixer = NULL;
     return err;
   }
   return 0;
@@ -355,7 +359,8 @@ static GSList* get_channels(gchar* card) {
   snd_mixer_elem_t *telem;
   GSList *channels = NULL;
 
-  open_mixer(&mixer,card,NULL,0);
+  if (open_mixer(&mixer,card,NULL,0) < 0)
+    return NULL;
 
   ccount = snd_mixer_get_count(mixer);
   telem = snd_mixer_first_elem(mixer);
@@ -395,13 +400,27 @@ static int alsaset() {
   snd_mixer_selem_id_t *sid;
   gchar *channel;
   char *card_dev;
+  GSList *item;
 
   get_cards();
+
+  // open selected card
   card = get_selected_card();
   card_dev = selected_card_dev(card);
   smixer_options.device = card_dev;
-
   open_mixer(&handle,card_dev,&smixer_options,smixer_level);
+
+  // in case it failed, iterate on card list until we can open one
+  item = cards;
+  while (handle == NULL && item) {
+    struct acard *c = item->data;
+    card = c->name;
+    card_dev = c->dev;
+    smixer_options.device = card_dev;
+    open_mixer(&handle,card_dev,&smixer_options,smixer_level);
+    item = item->next;
+  }
+  assert(handle != NULL);
 
   // set watch for volume changes
   set_io_watch(handle);
