@@ -181,21 +181,21 @@ static snd_mixer_t *open_mixer(char *card,
   DEBUG_PRINT("Card %s: opening mixer",card);
 
   if ((err = snd_mixer_open(&mixer, 0)) < 0) {
-    report_error("Card %s: mixer open error: %s", card, snd_strerror(err));
+    DEBUG_PRINT("Card %s: mixer open error: %s", card, snd_strerror(err));
     return NULL;
   }
   if (level == 0 && (err = snd_mixer_attach(mixer, card)) < 0) {
-    report_error("Card %s: mixer attach error: %s", card, snd_strerror(err));
+    DEBUG_PRINT("Card %s: mixer attach error: %s", card, snd_strerror(err));
     snd_mixer_close(mixer);
     return NULL;
   }
   if ((err = snd_mixer_selem_register(mixer, level > 0 ? opts : NULL, NULL)) < 0) {
-    report_error("Card %s: mixer register error: %s", card, snd_strerror(err));
+    DEBUG_PRINT("Card %s: mixer register error: %s", card, snd_strerror(err));
     snd_mixer_close(mixer);
     return NULL;
   }
   if ((err = snd_mixer_load(mixer)) < 0) {
-    report_error("Card %s: mixer load error: %s", card, snd_strerror(err));
+    DEBUG_PRINT("Card %s: mixer load error: %s", card, snd_strerror(err));
     snd_mixer_close(mixer);
     return NULL;
   }
