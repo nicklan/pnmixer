@@ -217,9 +217,9 @@ static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
   if (enable_noti && external_noti) {
     int vol = getvol();
     if (muted)
-      do_notify(vol,FALSE);
+      do_notify_volume(vol,FALSE);
     else
-      do_notify(vol,TRUE);
+      do_notify_volume(vol,TRUE);
   }
   return 0;
 }
@@ -263,7 +263,8 @@ static gboolean poll_cb(GIOChannel *source,
      * In this case, reloading alsa is the nice thing to do, it will
      * cause PNMixer to select the first card available.
      */
-    do_notify_text("Soundcard has been disconnected, reloading ALSA...");
+    do_notify_text("Soundcard disconnected",
+      "Soundcard has been disconnected, reloading ALSA...");
     g_idle_add(idle_alsa_init, NULL);
     return FALSE;
   }
@@ -515,7 +516,7 @@ int setvol(int vol, int dir, gboolean notify) {
     value = lrint_dir(dvol * (max - min), dir) + min;
     snd_mixer_selem_set_playback_volume_all(elem, value);
     if (enable_noti && notify && cur_perc != getvol())
-      do_notify(getvol(),FALSE);
+      do_notify_volume(getvol(),FALSE);
     return snd_mixer_selem_set_playback_volume_all(elem, value); // intentionally set twice
   }
 
@@ -532,7 +533,7 @@ int setvol(int vol, int dir, gboolean notify) {
   value = lrint_dir(6000.0 * log10(dvol), dir) + max;
   snd_mixer_selem_set_playback_dB_all(elem, value, dir);
   if (enable_noti && notify && cur_perc != getvol())
-    do_notify(getvol(),FALSE);
+    do_notify_volume(getvol(),FALSE);
   return snd_mixer_selem_set_playback_dB_all(elem, value, dir); // intentionally set twice
 }
 
@@ -547,12 +548,12 @@ void setmute(gboolean notify) {
   if (ismuted()) {
     snd_mixer_selem_set_playback_switch_all(elem, 0);
     if (enable_noti && notify)
-      do_notify(getvol(),TRUE);
+      do_notify_volume(getvol(),TRUE);
   }
   else {
     snd_mixer_selem_set_playback_switch_all(elem, 1);
     if (enable_noti && notify)
-      do_notify(getvol(),FALSE);
+      do_notify_volume(getvol(),FALSE);
   }
 }
 
