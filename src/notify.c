@@ -31,9 +31,17 @@
 #if NOTIFY_CHECK_VERSION (0, 7, 0)
 #define NOTIFICATION_NEW(summary, body, icon)	\
   notify_notification_new(summary, body, icon)
+#define NOTIFICATION_SET_HINT_STRING(notification, key, value)		\
+  notify_notification_set_hint(notification, key, g_variant_new_string(value))
+#define NOTIFICATION_SET_HINT_INT32(notification, key, value)		\
+  notify_notification_set_hint(notification, key, g_variant_new_int32(value))
 #else
 #define NOTIFICATION_NEW(summary, body, icon)	\
   notify_notification_new(summary, body, icon, NULL)
+#define NOTIFICATION_SET_HINT_STRING(notification, key, value)	\
+  notify_notification_set_hint_string(notification, key, value)
+#define NOTIFICATION_SET_HINT_INT32(notification, key, value)	\
+  notify_notification_set_hint_int32(notification, key, value)
 #endif
 
 /**
@@ -85,7 +93,7 @@ void do_notify_volume(gint level, gboolean muted) {
   if (notification == NULL) {
     notification = NOTIFICATION_NEW("", NULL, NULL);
     notify_notification_set_timeout(notification, noti_timeout);
-    notify_notification_set_hint_string(notification,"x-canonical-private-synchronous","");
+    NOTIFICATION_SET_HINT_STRING(notification,"x-canonical-private-synchronous","");
   }
   
   if (level < 0) level = 0;
@@ -106,7 +114,7 @@ void do_notify_volume(gint level, gboolean muted) {
     icon = "audio-volume-high";
   
   notify_notification_update(notification,summary,NULL,icon);
-  notify_notification_set_hint_int32(notification,"value",level);
+  NOTIFICATION_SET_HINT_INT32(notification,"value",level);
   
   if (!notify_notification_show(notification,&error)) {
     g_warning("Could not send notification: %s",error->message);
@@ -131,7 +139,7 @@ void do_notify_text(const gchar *summary, const gchar *_body) {
   if (notification == NULL) {
     notification = NOTIFICATION_NEW("", NULL, NULL);
     notify_notification_set_timeout(notification, noti_timeout * 2);
-    notify_notification_set_hint_string(notification,"x-canonical-private-synchronous","");
+    NOTIFICATION_SET_HINT_STRING(notification,"x-canonical-private-synchronous","");
   }
 
   body = g_strdup_printf("PNMixer: %s", _body);
