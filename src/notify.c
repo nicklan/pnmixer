@@ -131,9 +131,8 @@ void do_notify_volume(gint level, gboolean muted) {
  * @param summary the notification summary
  * @param _body the notification body
  */
-void do_notify_text(const gchar *summary, const gchar *_body) {
+void do_notify_text(const gchar *summary, const gchar *body) {
   static NotifyNotification *notification = NULL;
-  gchar  *body;
   GError *error = NULL;
 
   if (notification == NULL) {
@@ -142,8 +141,6 @@ void do_notify_text(const gchar *summary, const gchar *_body) {
     NOTIFICATION_SET_HINT_STRING(notification,"x-canonical-private-synchronous","");
   }
 
-  body = g_strdup_printf("PNMixer: %s", _body);
-
   notify_notification_update(notification,summary,body,NULL);
 
   if (!notify_notification_show(notification,&error)) {
@@ -151,8 +148,6 @@ void do_notify_text(const gchar *summary, const gchar *_body) {
     report_error(_("Could not send notification: %s\n"),error->message);
     g_error_free(error);
   }
-
-  g_free(body);
 }
 
 #else

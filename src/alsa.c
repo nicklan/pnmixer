@@ -263,8 +263,8 @@ static gboolean poll_cb(GIOChannel *source,
      * In this case, reloading alsa is the nice thing to do, it will
      * cause PNMixer to select the first card available.
      */
-    do_notify_text("Soundcard disconnected",
-      "Soundcard has been disconnected, reloading ALSA...");
+    do_notify_text(_("Soundcard disconnected"),
+      _("Soundcard has been disconnected, reloading Alsa..."));
     g_idle_add(idle_alsa_init, NULL);
     return FALSE;
   }
