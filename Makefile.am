@@ -9,6 +9,9 @@ EXTRA_DIST = \
 desktopdir = $(datadir)/applications
 dist_desktop_DATA = data/pnmixer.desktop
 
+appicondir = $(datadir)/icons/hicolor/128x128/apps
+appicon_DATA = data/pnmixer.png
+
 # Install .xml interface files
 uidir = $(datadir)/pnmixer/ui
 if WITH_GTK3
