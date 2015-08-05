@@ -411,6 +411,10 @@ static int alsaset() {
   item = cards;
   while (handle == NULL && item) {
     struct acard *c = item->data;
+    if (!c->channels) {
+      item = item->next;
+      continue;
+    }
     g_free(card);
     card = g_strdup(c->name);
     card_dev = c->dev;
