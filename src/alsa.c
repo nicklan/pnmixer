@@ -397,30 +397,35 @@ static int alsaset() {
   snd_mixer_selem_id_t *sid;
   gchar *channel;
   char *card_dev;
-  GSList *item;
 
+  // update list of available cards
+  DEBUG_PRINT("Getting available cards...");
   get_cards();
 
   // open selected card
+  DEBUG_PRINT("Opening selected card...");
   card = get_selected_card();
   card_dev = selected_card_dev(card);
   smixer_options.device = card_dev;
   handle = open_mixer(card_dev,&smixer_options,smixer_level);
 
   // in case it failed, iterate on card list until we can open one
-  item = cards;
-  while (handle == NULL && item) {
-    struct acard *c = item->data;
-    if (!c->channels) {
-      item = item->next;
-      continue;
+  if (handle == NULL) {
+    GSList *item;
+
+    DEBUG_PRINT("Iterate on cards until one can be opened...");
+    for (item = cards; item; item = item->next) {
+      struct acard *c = item->data;
+      if (!c->channels)
+	continue;
+      g_free(card);
+      card = g_strdup(c->name);
+      card_dev = c->dev;
+      smixer_options.device = card_dev;
+      handle = open_mixer(card_dev,&smixer_options,smixer_level);
+      if (handle)
+	break;
     }
-    g_free(card);
-    card = g_strdup(c->name);
-    card_dev = c->dev;
-    smixer_options.device = card_dev;
-    handle = open_mixer(card_dev,&smixer_options,smixer_level);
-    item = item->next;
   }
   assert(handle != NULL);
 
