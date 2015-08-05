@@ -584,6 +584,11 @@ void update_status_icons() {
     status_icons[VOLUME_LOW]    = get_stock_pixbuf("audio-volume-low",size);
     status_icons[VOLUME_MEDIUM] = get_stock_pixbuf("audio-volume-medium",size);
     status_icons[VOLUME_HIGH]   = get_stock_pixbuf("audio-volume-high",size);
+    /* 'audio-volume-off' is not available in every icon set. More info at:
+     * http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
+     */
+    if (status_icons[VOLUME_OFF] == NULL)
+      status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-low",size);
   } else {
     status_icons[VOLUME_MUTED]  = create_pixbuf("pnmixer-muted.png");
     status_icons[VOLUME_OFF]    = create_pixbuf("pnmixer-off.png");
