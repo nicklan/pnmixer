@@ -441,9 +441,6 @@ static int alsaset() {
   handle = open_mixer(acard->dev,&smixer_options,smixer_level);
   assert(handle != NULL);
 
-  // set watch for volume changes
-  set_io_watch(handle);
-
   // Set the channel
   // We have to handle the fact that the channel name defined
   // in PNMixer configuration is not necessarily valid.
@@ -467,6 +464,9 @@ static int alsaset() {
   // Set callback
   DEBUG_PRINT("Using channel '%s'", snd_mixer_selem_get_name(elem));
   snd_mixer_elem_set_callback(elem, alsa_cb);
+
+  // set watch for volume changes
+  set_io_watch(handle);
 
   return 0;
 }
