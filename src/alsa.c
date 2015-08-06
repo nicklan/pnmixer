@@ -467,6 +467,8 @@ static void alsaunset() {
     
   if (card == NULL)
     return;
+
+  elem = NULL;
     
   unset_io_watch();
 
