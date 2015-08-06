@@ -467,14 +467,16 @@ static void alsaunset() {
     
   if (card_name == NULL)
     return;
-
-  elem = NULL;
     
   unset_io_watch();
 
+  // 'elem' must be set to NULL at last, because alsa_cb()
+  // is invoked when closing mixer, and elem is needed.
   acard = selected_card_acard(card_name);
   close_mixer(handle,acard->dev);
   handle = NULL;
+  elem = NULL;
+  
   g_free(card_name);
   card_name = NULL;
 }
