@@ -84,6 +84,7 @@ static void card_free(gpointer data) {
  * Partly based on get_cards function in alsamixer.
  * This gets all alsa cards and fills the global
  * GSList 'cards'.
+ * The list always starts with the 'default' card.
  */
 static void get_cards() {
   int err, num;
@@ -393,6 +394,7 @@ static int alsaset() {
   // update list of available cards
   DEBUG_PRINT("Getting available cards...");
   get_cards();
+  g_assert(cards != NULL);
 
   // open selected card
   DEBUG_PRINT("Opening selected card...");
