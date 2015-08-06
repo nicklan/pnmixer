@@ -285,7 +285,10 @@ static gboolean poll_cb(GIOChannel *source,
   return TRUE;
 }
 
-GIOChannel *gioc = NULL;
+// PCOUNT_MAX is a very arbitrary value.
+// The number of poll descriptors I witnessed has always been one.
+#define PCOUNT_MAX 8
+guint gio_watch_ids[PCOUNT_MAX] = { 0 };
 
 /**
  * Sets the io watch for external volume changes
@@ -294,23 +297,33 @@ GIOChannel *gioc = NULL;
  * @param mixer mixer handle
  */
 static void set_io_watch(snd_mixer_t *mixer) {
-  int pcount;
-
+  int i, pcount;
+  struct pollfd fds[PCOUNT_MAX];
+  
   pcount = snd_mixer_poll_descriptors_count(mixer);
-  if (pcount) {
-    int i;
-    struct pollfd fds[pcount];
-    pcount = snd_mixer_poll_descriptors(mixer,fds,pcount);
-    if (pcount <= 0)
-      report_error("Warning: Couldn't get any poll descriptors.  Won't respond to external volume changes");
-    for (i = 0;i < pcount;i++) {
-      if (gioc) {
-	g_io_channel_unref(gioc);
-	gioc = NULL;
-      }
-      gioc = g_io_channel_unix_new(fds[i].fd);
-      g_io_add_watch(gioc,G_IO_IN|G_IO_ERR,poll_cb,NULL);
-    }
+  assert(pcount <= PCOUNT_MAX);
+  pcount = snd_mixer_poll_descriptors(mixer, fds, pcount);
+
+  if (pcount <= 0) {
+    report_error("Warning: Couldn't get any poll descriptors. "
+      "Won't respond to external volume changes");
+    return;
+  }
+
+  for (i = 0; i < pcount; i++) {
+    GIOChannel *gioc = g_io_channel_unix_new(fds[i].fd);
+    gio_watch_ids[i] = g_io_add_watch(gioc, G_IO_IN|G_IO_ERR, poll_cb, NULL);
+    g_io_channel_unref(gioc);
+  }
+}
+
+static void unset_io_watch(void) {
+  int i;
+  for (i = 0; i < PCOUNT_MAX; i++) {
+    if (gio_watch_ids[i] == 0)
+      break;
+    g_source_remove(gio_watch_ids[i]);
+    gio_watch_ids[i] = 0;
   }
 }
 
@@ -450,14 +463,18 @@ static int alsaset() {
  * closing the mixer.
  */
 static void alsaunset() {
-    struct acard *acard;
-    if (card) {
-      acard = selected_card_acard(card);
-      close_mixer(handle,acard->dev);
-      handle = NULL;
-      g_free(card);
-      card = NULL;
-    }
+  struct acard *acard;
+    
+  if (card == NULL)
+    return;
+    
+  unset_io_watch();
+
+  acard = selected_card_acard(card);
+  close_mixer(handle,acard->dev);
+  handle = NULL;
+  g_free(card);
+  card = NULL;
 }
 
 /**
