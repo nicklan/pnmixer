@@ -403,7 +403,6 @@ static GSList* get_channels(const char* card) {
  * @return 0 on success otherwise negative error code
  */
 static int alsaset() {
-  snd_mixer_selem_id_t *sid;
   char *channel;
   struct acard* acard;
 
@@ -437,7 +436,7 @@ static int alsaset() {
   }
 
   // open card
-  DEBUG_PRINT("Opening card %s ...", acard->dev);
+  DEBUG_PRINT("Opening card '%s'...", acard->dev);
   smixer_options.device = acard->dev;
   handle = open_mixer(acard->dev,&smixer_options,smixer_level);
   assert(handle != NULL);
@@ -445,17 +444,28 @@ static int alsaset() {
   // set watch for volume changes
   set_io_watch(handle);
 
-  // now set the channel
-  snd_mixer_selem_id_alloca(&sid);
+  // Set the channel
+  // We have to handle the fact that the channel name defined
+  // in PNMixer configuration is not necessarily valid.
+  // For example, this may happen when the default alsa soundcard
+  // is modified. The channel names of the new default card may
+  // not match the channel names of the previous default card.
+  assert(elem == NULL);
   channel = get_selected_channel(card_name);
-  if (channel == NULL)
-    elem = snd_mixer_first_elem(handle);
-  else {
+  if (channel) {
+    snd_mixer_selem_id_t *sid;
+    snd_mixer_selem_id_alloca(&sid);
     snd_mixer_selem_id_set_name(sid, channel);
     elem = snd_mixer_find_selem(handle, sid);
     g_free(channel);
   }
+  if (elem == NULL) {
+    elem = snd_mixer_first_elem(handle);
+  }
   assert(elem != NULL);
+
+  // Set callback
+  DEBUG_PRINT("Using channel '%s'", snd_mixer_selem_get_name(elem));
   snd_mixer_elem_set_callback(elem, alsa_cb);
 
   return 0;
