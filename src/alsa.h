@@ -41,6 +41,7 @@ struct acard {
 
 GSList* cards;
 
+struct acard *find_card(const gchar *card);
 int setvol(int vol, int dir, gboolean notify);
 void setmute(gboolean notify);
 int getvol();
