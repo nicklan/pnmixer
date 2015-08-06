@@ -131,32 +131,24 @@ static void get_cards() {
   }
 }
 
-// TODO: Warn when selected card can't be found
 /**
- * Gets the HCTL name (like hw:0)
- * through the card name (like HDA Intel PCH) by
- * searching the global GSList 'cards'.
+ * Get the acard struct corresponding to a card name
+ * by searching the global GSList 'cards'.
  *
  * @param selected_card the card name to get the device string of
- * @return the HCTL name or NULL on failure
+ * @return a pointer toward the corresponding acard struct or NULL on failure
  */
-char* selected_card_dev(gchar* selected_card) {
-  gchar *ret = NULL;
-  struct acard* c;
+
+struct acard *selected_card_acard(gchar* selected_card) {
+  struct acard *ret = NULL;
   if (selected_card) {
     GSList *cur_card = cards;
     while (cur_card) {
-      c = cur_card->data;
-      if (!strcmp(c->name,selected_card)) {
-	ret = c->dev;
+      ret = cur_card->data;
+      if (!strcmp(ret->name,selected_card))
 	break;
-      }
       cur_card = cur_card->next;
     }
-  }
-  if (!ret) {
-    c = cards->data;
-    ret = c->dev;
   }
   return ret;
 }
@@ -396,7 +388,7 @@ static GSList* get_channels(gchar* card) {
 static int alsaset() {
   snd_mixer_selem_id_t *sid;
   gchar *channel;
-  char *card_dev;
+  struct acard* acard;
 
   // update list of available cards
   DEBUG_PRINT("Getting available cards...");
@@ -405,9 +397,11 @@ static int alsaset() {
   // open selected card
   DEBUG_PRINT("Opening selected card...");
   card = get_selected_card();
-  card_dev = selected_card_dev(card);
-  smixer_options.device = card_dev;
-  handle = open_mixer(card_dev,&smixer_options,smixer_level);
+  acard = selected_card_acard(card);
+  if (acard && acard->channels) {
+    smixer_options.device = acard->dev;
+    handle = open_mixer(acard->dev,&smixer_options,smixer_level);
+  }
 
   // in case it failed, iterate on card list until we can open one
   if (handle == NULL) {
@@ -415,14 +409,13 @@ static int alsaset() {
 
     DEBUG_PRINT("Iterate on cards until one can be opened...");
     for (item = cards; item; item = item->next) {
-      struct acard *c = item->data;
-      if (!c->channels)
+      acard = item->data;
+      if (!acard->channels)
 	continue;
       g_free(card);
-      card = g_strdup(c->name);
-      card_dev = c->dev;
-      smixer_options.device = card_dev;
-      handle = open_mixer(card_dev,&smixer_options,smixer_level);
+      card = g_strdup(acard->name);
+      smixer_options.device = acard->dev;
+      handle = open_mixer(acard->dev,&smixer_options,smixer_level);
       if (handle)
 	break;
     }
@@ -453,10 +446,10 @@ static int alsaset() {
  * closing the mixer.
  */
 static void alsaunset() {
-    char *card_dev;
+    struct acard *acard;
     if (card) {
-      card_dev = selected_card_dev(card);
-      close_mixer(handle,card_dev);
+      acard = selected_card_acard(card);
+      close_mixer(handle,acard->dev);
       handle = NULL;
       g_free(card);
       card = NULL;
