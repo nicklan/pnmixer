@@ -52,7 +52,7 @@ static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
 static snd_mixer_elem_t *elem;
 static snd_mixer_t *handle;
-static gchar *card = NULL;
+static gchar *card_name = NULL;
 
 static GSList* get_channels(gchar* card);
 
@@ -410,8 +410,8 @@ static int alsaset() {
   g_assert(cards != NULL);
 
   // get selected card
-  card = get_selected_card();
-  acard = selected_card_acard(card);
+  card_name = get_selected_card();
+  acard = selected_card_acard(card_name);
 
   // If selected card is not available, we must iterate on the
   // card list until a valid card is found.
@@ -421,12 +421,12 @@ static int alsaset() {
   // For example, when it's an USB DAC, and it's disconnected.
   if (!acard || !acard->channels) {
     GSList *item;
-    DEBUG_PRINT("Selected card '%s' is not available", card);
+    DEBUG_PRINT("Selected card '%s' is not available", card_name);
     for (item = cards; item; item = item->next) {
       acard = item->data;
       if (acard->channels) {
-	g_free(card);
-	card = g_strdup(acard->name);
+	g_free(card_name);
+	card_name = g_strdup(acard->name);
 	break;
       }
     }
@@ -444,7 +444,7 @@ static int alsaset() {
 
   // now set the channel
   snd_mixer_selem_id_alloca(&sid);
-  channel = get_selected_channel(card);
+  channel = get_selected_channel(card_name);
   if (channel == NULL)
     elem = snd_mixer_first_elem(handle);
   else {
@@ -465,18 +465,18 @@ static int alsaset() {
 static void alsaunset() {
   struct acard *acard;
     
-  if (card == NULL)
+  if (card_name == NULL)
     return;
 
   elem = NULL;
     
   unset_io_watch();
 
-  acard = selected_card_acard(card);
+  acard = selected_card_acard(card_name);
   close_mixer(handle,acard->dev);
   handle = NULL;
-  g_free(card);
-  card = NULL;
+  g_free(card_name);
+  card_name = NULL;
 }
 
 /**
@@ -634,7 +634,7 @@ int getvol() {
  * if we want to re-initialize.
  */
 void alsa_init() {
-  if (card) // re-init, need to close down first
+  if (card_name) // re-init, need to close down first
     alsaunset();
   alsaset();
 }
