@@ -396,32 +396,34 @@ static int alsaset() {
   get_cards();
   g_assert(cards != NULL);
 
-  // open selected card
-  DEBUG_PRINT("Opening selected card...");
+  // get selected card
   card = get_selected_card();
   acard = selected_card_acard(card);
-  if (acard && acard->channels) {
-    smixer_options.device = acard->dev;
-    handle = open_mixer(acard->dev,&smixer_options,smixer_level);
-  }
 
-  // in case it failed, iterate on card list until we can open one
-  if (handle == NULL) {
+  // If selected card is not available, we must iterate on the
+  // card list until a valid card is found.
+  // In most cases, the first card of the list (which is the
+  // Alsa default card) can be opened.
+  // However, in some situations the default card may be unavailable.
+  // For example, when it's an USB DAC, and it's disconnected.
+  if (!acard || !acard->channels) {
     GSList *item;
-
-    DEBUG_PRINT("Iterate on cards until one can be opened...");
+    DEBUG_PRINT("Selected card '%s' is not available", card);
     for (item = cards; item; item = item->next) {
       acard = item->data;
-      if (!acard->channels)
-	continue;
-      g_free(card);
-      card = g_strdup(acard->name);
-      smixer_options.device = acard->dev;
-      handle = open_mixer(acard->dev,&smixer_options,smixer_level);
-      if (handle)
+      if (acard->channels) {
+	g_free(card);
+	card = g_strdup(acard->name);
 	break;
+      }
     }
+    assert(item != NULL);
   }
+
+  // open card
+  DEBUG_PRINT("Opening card %s ...", acard->dev);
+  smixer_options.device = acard->dev;
+  handle = open_mixer(acard->dev,&smixer_options,smixer_level);
   assert(handle != NULL);
 
   // set watch for volume changes
