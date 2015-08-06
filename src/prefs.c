@@ -472,13 +472,22 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
  * @param data user data set when the signal handler was connected
  */
 void on_card_changed(GtkComboBox* box, PrefsData* data) {
-  gint idx = gtk_combo_box_get_active (GTK_COMBO_BOX(box));
-  GSList *card = g_slist_nth(cards,idx);
-  struct acard *c = card->data;
-  gchar *sel_chan = get_selected_channel(c->name);
-  fill_channel_combo(c->channels,data->chan_combo,sel_chan);
-  if (sel_chan)
-    g_free(sel_chan);
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  gchar *card_name;
+  
+  model = gtk_combo_box_get_model(box);
+  gtk_combo_box_get_active_iter(box, &iter);
+  gtk_tree_model_get(model, &iter, 0, &card_name, -1);
+
+  if (card_name) {
+    struct acard *c = find_card(card_name);
+    gchar *sel_chan = get_selected_channel(c->name);
+    fill_channel_combo(c->channels, data->chan_combo, sel_chan);
+    if (sel_chan)
+      g_free(sel_chan);
+    g_free(card_name);
+  }
 }
 
 /**
