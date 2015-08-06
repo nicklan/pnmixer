@@ -317,6 +317,9 @@ static void set_io_watch(snd_mixer_t *mixer) {
   }
 }
 
+/**
+ * Unsets the io watch.
+ */
 static void unset_io_watch(void) {
   int i;
   for (i = 0; i < PCOUNT_MAX; i++) {
@@ -407,7 +410,7 @@ static int alsaset() {
   // update list of available cards
   DEBUG_PRINT("Getting available cards...");
   get_cards();
-  g_assert(cards != NULL);
+  assert(cards != NULL);
 
   // get selected card
   card_name = get_selected_card();
