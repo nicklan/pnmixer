@@ -52,9 +52,9 @@ static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
 static snd_mixer_elem_t *elem;
 static snd_mixer_t *handle;
-static gchar *card_name = NULL;
+static char *card_name = NULL;
 
-static GSList* get_channels(gchar* card);
+static GSList* get_channels(const char* card);
 
 static long lrint_dir(double x, int dir)
 {
@@ -140,7 +140,7 @@ static void get_cards() {
  * @return a pointer toward the corresponding acard struct or NULL on failure
  */
 
-struct acard *selected_card_acard(gchar* selected_card) {
+struct acard *selected_card_acard(const char* selected_card) {
   struct acard *ret = NULL;
   if (selected_card) {
     GSList *cur_card = cards;
@@ -164,7 +164,7 @@ struct acard *selected_card_acard(gchar* selected_card) {
  * @param level mixer level
  * @return the mixer handle, or NULL on failure
  */
-static snd_mixer_t *open_mixer(char *card,
+static snd_mixer_t *open_mixer(const char *card,
 		struct snd_mixer_selem_regopt* opts,
 		int level) {
   int err;
@@ -355,7 +355,7 @@ static int close_mixer(snd_mixer_t *mixer, const char* card) {
  * @param card HCTL name of the alsa card
  * @return the GSList of channels
  */
-static GSList* get_channels(gchar* card) {
+static GSList* get_channels(const char* card) {
   int ccount,i;
   snd_mixer_t *mixer;
   snd_mixer_elem_t *telem;
@@ -401,7 +401,7 @@ static GSList* get_channels(gchar* card) {
  */
 static int alsaset() {
   snd_mixer_selem_id_t *sid;
-  gchar *channel;
+  char *channel;
   struct acard* acard;
 
   // update list of available cards
