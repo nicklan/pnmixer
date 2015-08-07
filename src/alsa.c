@@ -352,7 +352,7 @@ static int close_mixer(snd_mixer_t *mixer, const char* card) {
 }
 
 /**
- * Get all channels for a single alsa card and
+ * Get all playable channels for a single alsa card and
  * return them as a GSList.
  *
  * @param card HCTL name of the alsa card

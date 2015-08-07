@@ -21,8 +21,7 @@
 #include <glib.h>
 
 /**
- * Struct representing an alsa
- * card.
+ * Struct representing an alsa card.
  */
 struct acard {
   /**
@@ -34,12 +33,18 @@ struct acard {
    */
   char *dev;
   /**
-   * All available channels in a list.
+   * All playable channels in a list.
    */
   GSList *channels;
 };
 
-GSList* cards;
+/**
+ * The list of cards detected. Not all of them are
+ * playable (ie, the channels field may be NULL).
+ */
+GSList *cards;
+
+
 
 struct acard *find_card(const gchar *card);
 int setvol(int vol, int dir, gboolean notify);
