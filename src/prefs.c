@@ -451,8 +451,6 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
   }
 
   gtk_combo_box_set_active (GTK_COMBO_BOX (combo),sidx);
-  if (active_card)
-    g_free(active_card);
 }
 
 /**
