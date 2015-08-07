@@ -52,7 +52,7 @@ static int smixer_level = 0;
 static struct snd_mixer_selem_regopt smixer_options;
 static snd_mixer_elem_t *elem;
 static snd_mixer_t *handle;
-static char *card_name = NULL;
+struct acard *active_card;
 
 static GSList* get_channels(const char* card);
 
@@ -403,8 +403,8 @@ static GSList* get_channels(const char* card) {
  * @return 0 on success otherwise negative error code
  */
 static int alsaset() {
+  char *card_name;
   char *channel;
-  struct acard* acard;
 
   // update list of available cards
   DEBUG_PRINT("Getting available cards...");
@@ -412,33 +412,41 @@ static int alsaset() {
   assert(cards != NULL);
 
   // get selected card
+  assert(active_card == NULL);
   card_name = get_selected_card();
-  acard = find_card(card_name);
+  DEBUG_PRINT("Selected card: %s", card_name);
+  if (card_name) {
+    active_card = find_card(card_name);
+    g_free(card_name);
+  }
 
-  // If selected card is not available, we must iterate on the
-  // card list until a valid card is found.
-  // In most cases, the first card of the list (which is the
+  // if not available, use the default card
+  if (!active_card) {
+    DEBUG_PRINT("Using default soundcard");
+    active_card = cards->data;
+  }
+
+  // If no playable channels, iterate on card list until a valid card is found.
+  // In most situations, the first card of the list (which is the
   // Alsa default card) can be opened.
   // However, in some situations the default card may be unavailable.
   // For example, when it's an USB DAC, and it's disconnected.
-  if (!acard || !acard->channels) {
+  if (!active_card->channels) {
     GSList *item;
-    DEBUG_PRINT("Selected card '%s' is not available", card_name);
+    DEBUG_PRINT("Card '%s' has no playable channels, iterating on card list",
+      active_card->dev);
     for (item = cards; item; item = item->next) {
-      acard = item->data;
-      if (acard->channels) {
-	g_free(card_name);
-	card_name = g_strdup(acard->name);
+      active_card = item->data;
+      if (active_card->channels)
 	break;
-      }
     }
     assert(item != NULL);
   }
-
+  
   // open card
-  DEBUG_PRINT("Opening card '%s'...", acard->dev);
-  smixer_options.device = acard->dev;
-  handle = open_mixer(acard->dev,&smixer_options,smixer_level);
+  DEBUG_PRINT("Opening card '%s'...", active_card->dev);
+  smixer_options.device = active_card->dev;
+  handle = open_mixer(active_card->dev, &smixer_options, smixer_level);
   assert(handle != NULL);
 
   // Set the channel
@@ -448,7 +456,7 @@ static int alsaset() {
   // is modified. The channel names of the new default card may
   // not match the channel names of the previous default card.
   assert(elem == NULL);
-  channel = get_selected_channel(card_name);
+  channel = get_selected_channel(active_card->name);
   if (channel) {
     snd_mixer_selem_id_t *sid;
     snd_mixer_selem_id_alloca(&sid);
@@ -476,22 +484,17 @@ static int alsaset() {
  * closing the mixer.
  */
 static void alsaunset() {
-  struct acard *acard;
-    
-  if (card_name == NULL)
+  if (active_card == NULL)
     return;
     
   unset_io_watch();
 
   // 'elem' must be set to NULL at last, because alsa_cb()
   // is invoked when closing mixer, and elem is needed.
-  acard = find_card(card_name);
-  close_mixer(handle,acard->dev);
+  close_mixer(handle, active_card->dev);
   handle = NULL;
   elem = NULL;
-  
-  g_free(card_name);
-  card_name = NULL;
+  active_card = NULL;
 }
 
 /**
@@ -649,7 +652,7 @@ int getvol() {
  * if we want to re-initialize.
  */
 void alsa_init() {
-  if (card_name) // re-init, need to close down first
+  if (active_card) // re-init, need to close down first
     alsaunset();
   alsaset();
 }
@@ -661,9 +664,6 @@ void alsa_close() {
   snd_mixer_close(handle);
 }
 
-/**
- * Returns the card currently active.
- */
-char *alsa_get_active_card_name() {
-  return g_strdup(card_name);
+struct acard *alsa_get_active_card() {
+  return active_card;
 }

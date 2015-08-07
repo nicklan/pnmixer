@@ -421,7 +421,7 @@ void fill_channel_combo(GSList *channels, GtkWidget *combo, gchar* selected) {
 void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
   struct acard* c;
   GSList *cur_card;
-  char *active_card;
+  struct acard *active_card;
   int idx,sidx=0;
 
   GtkTreeIter iter;
@@ -429,7 +429,7 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
 				       (GTK_COMBO_BOX(combo)));
 
   cur_card = cards;
-  active_card = alsa_get_active_card_name();
+  active_card = alsa_get_active_card();
   idx = 0;
   while (cur_card) {
     c = cur_card->data;
@@ -437,7 +437,7 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
       cur_card = cur_card->next;
       continue;
     }
-    if (active_card && !strcmp(c->name, active_card)) {
+    if (active_card && !strcmp(c->name, active_card->name)) {
       gchar *sel_chan = get_selected_channel(c->name);
       sidx = idx;
       fill_channel_combo(c->channels,channels_combo,sel_chan);
