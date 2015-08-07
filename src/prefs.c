@@ -421,15 +421,15 @@ void fill_channel_combo(GSList *channels, GtkWidget *combo, gchar* selected) {
 void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
   struct acard* c;
   GSList *cur_card;
-  gchar* selected_card;
-  int fs=0,idx,sidx=0;
+  char *active_card;
+  int idx,sidx=0;
 
   GtkTreeIter iter;
   GtkListStore* store = GTK_LIST_STORE(gtk_combo_box_get_model
 				       (GTK_COMBO_BOX(combo)));
 
   cur_card = cards;
-  selected_card = get_selected_card();
+  active_card = alsa_get_active_card_name();
   idx = 0;
   while (cur_card) {
     c = cur_card->data;
@@ -437,11 +437,10 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
       cur_card = cur_card->next;
       continue;
     }
-    if (selected_card && !strcmp(c->name,selected_card)) {
+    if (active_card && !strcmp(c->name, active_card)) {
       gchar *sel_chan = get_selected_channel(c->name);
       sidx = idx;
       fill_channel_combo(c->channels,channels_combo,sel_chan);
-      fs = 1;
       if (sel_chan)
 	g_free(sel_chan);
     }
@@ -450,17 +449,10 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
     cur_card = cur_card->next;
     idx++;
   }
-  if (!fs) {
-    gchar *sel_chan;
-    c = cards->data;
-    sel_chan = get_selected_channel(c->name);
-    fill_channel_combo(c->channels,channels_combo,sel_chan);
-    if (sel_chan)
-      g_free(sel_chan);
-  }
+
   gtk_combo_box_set_active (GTK_COMBO_BOX (combo),sidx);
-  if (selected_card)
-    g_free(selected_card);
+  if (active_card)
+    g_free(active_card);
 }
 
 /**

@@ -48,5 +48,6 @@ int getvol();
 int ismuted();
 void alsa_init();
 void alsa_close();
+char *alsa_get_active_card_name();
 
 #endif // ALSA_H_

@@ -660,3 +660,10 @@ void alsa_init() {
 void alsa_close() {
   snd_mixer_close(handle);
 }
+
+/**
+ * Returns the card currently active.
+ */
+char *alsa_get_active_card_name() {
+  return g_strdup(card_name);
+}
