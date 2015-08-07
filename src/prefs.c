@@ -462,6 +462,7 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
  * @param data user data set when the signal handler was connected
  */
 void on_card_changed(GtkComboBox* box, PrefsData* data) {
+  struct acard *card;
   gchar *card_name;
 
 #ifdef WITH_GTK3
@@ -469,14 +470,14 @@ void on_card_changed(GtkComboBox* box, PrefsData* data) {
 #else
   card_name = gtk_combo_box_get_active_text(GTK_COMBO_BOX(box));
 #endif
-  
-  if (card_name) {
-    struct acard *c = find_card(card_name);
-    gchar *sel_chan = get_selected_channel(c->name);
-    fill_channel_combo(c->channels, data->chan_combo, sel_chan);
-    if (sel_chan)
-      g_free(sel_chan);
-    g_free(card_name);
+
+  card = find_card(card_name);
+  g_free(card_name);
+
+  if (card) {
+    gchar *sel_chan = get_selected_channel(card->name);
+    fill_channel_combo(card->channels, data->chan_combo, sel_chan);
+    g_free(sel_chan);
   }
 }
 
