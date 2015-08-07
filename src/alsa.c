@@ -139,19 +139,19 @@ static void get_cards() {
  * @param card_name the card name to get the device string of
  * @return a pointer toward the corresponding acard struct or NULL on failure
  */
-
 struct acard *find_card(const char* card_name) {
-  struct acard *ret = NULL;
-  if (card_name) {
-    GSList *cur_card = cards;
-    while (cur_card) {
-      ret = cur_card->data;
-      if (!strcmp(ret->name, card_name))
-	break;
-      cur_card = cur_card->next;
-    }
+  GSList *item;
+  
+  if (!card_name)
+    return NULL;
+
+  for (item = cards; item; item = item->next) {
+    struct acard *c = item->data;
+    if (!strcmp(c->name, card_name))
+      return c;
   }
-  return ret;
+
+  return NULL;
 }
 
 /**
