@@ -130,6 +130,18 @@ static void get_cards() {
     cur_card->channels = get_channels(buf);
     cards = g_slist_append(cards,cur_card);
   }
+#ifdef DEBUG
+  GSList *tmp = cards;
+  if (tmp) {
+    printf("------ Card list ------\n");
+    while (tmp) {
+      struct acard *c = tmp->data;
+      printf("\t%s\t%s\t%s\n", c->dev, c->name, c->channels ? "" : "No chann");
+      tmp = tmp->next;
+    }
+    printf("-----------------------\n");
+  }
+#endif
 }
 
 /**
