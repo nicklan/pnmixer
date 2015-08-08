@@ -19,6 +19,7 @@
 #include <config.h>
 #endif
 
+#include "alsa.h"
 #include "main.h"
 #include "notify.h"
 #include "prefs.h"
@@ -87,8 +88,12 @@ void uninit_libnotify() {
  */
 void do_notify_volume(gint level, gboolean muted) {
   static NotifyNotification *notification = NULL;
-  gchar  *summary, *icon;
+  gchar  *summary, *icon, *active_card_name;
+  const char *active_channel;
   GError *error = NULL;
+
+  active_card_name = (alsa_get_active_card())->name;
+  active_channel = alsa_get_active_channel();
 
   if (notification == NULL) {
     notification = NOTIFICATION_NEW("", NULL, NULL);
@@ -102,7 +107,7 @@ void do_notify_volume(gint level, gboolean muted) {
   if (muted)
     summary = g_strdup("Volume muted");
   else 
-    summary = g_strdup_printf("Volume: %d%%\n",level);
+    summary = g_strdup_printf("%s (%s)\nVolume: %d%%\n", active_card_name, active_channel, level);
 
   if (muted)
     icon = "audio-volume-muted";

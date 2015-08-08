@@ -464,7 +464,9 @@ int get_mute_state(gboolean set_check) {
   int muted;
   int tmpvol = getvol();
   char tooltip [60];
-  
+  gchar *active_card_name = (alsa_get_active_card())->name;
+  const char *active_channel = alsa_get_active_channel();
+
   muted = ismuted();
 
   if( muted == 1 ) {
@@ -479,7 +481,7 @@ int get_mute_state(gboolean set_check) {
       icon = status_icons[VOLUME_MEDIUM];
     else 
       icon = status_icons[VOLUME_HIGH];
-    sprintf(tooltip, _("Volume: %d %%"), tmpvol);
+    sprintf(tooltip, _("%s (%s)\nVolume: %d %%"), active_card_name, active_channel, tmpvol);
 
     if (vol_meter_row) {
       GdkPixbuf* old_icon = icon_copy;
@@ -494,7 +496,8 @@ int get_mute_state(gboolean set_check) {
     if (set_check)
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), TRUE);
     gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[VOLUME_MUTED]);
-    sprintf(tooltip, _("Volume: %d %%\nMuted"), tmpvol);
+    sprintf(tooltip, _("%s (%s)\nVolume: %d %%\nMuted"), active_card_name,
+			active_channel, tmpvol);
   }
   gtk_status_icon_set_tooltip_text(tray_icon, tooltip);
   return muted;
