@@ -111,6 +111,11 @@ AM_GLIB_GNU_GETTEXT
 
 AC_OUTPUT([
 Makefile
+data/Makefile
+data/desktop/Makefile
+data/icons/Makefile
+data/pixmaps/Makefile
+data/ui/Makefile
 src/Makefile
 po/Makefile.in
 ])
