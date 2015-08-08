@@ -216,16 +216,25 @@ static snd_mixer_t *open_mixer(const char *card,
  * @return 0 on success otherwise a negative error code
  */
 static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
-  int muted;
-  get_current_levels();
-  muted = get_mute_state(TRUE);
-  if (enable_noti && external_noti) {
-    int vol = getvol();
-    if (muted)
-      do_notify_volume(vol,FALSE);
-    else
-      do_notify_volume(vol,TRUE);
+  /* Test MASK_REMOVE first, according to Alsa documentation */
+  if (mask == SND_CTL_EVENT_MASK_REMOVE) {
+    return 0;
   }
+
+  /* Then check if mixer value changed */
+  if (mask & SND_CTL_EVENT_MASK_VALUE) {
+    int muted;
+    get_current_levels();
+    muted = get_mute_state(TRUE);
+    if (enable_noti && external_noti) {
+      int vol = getvol();
+      if (muted)
+	do_notify_volume(vol,FALSE);
+      else
+	do_notify_volume(vol,TRUE);
+    }
+  }
+
   return 0;
 }
 
