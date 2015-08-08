@@ -688,3 +688,7 @@ void alsa_close() {
 struct acard *alsa_get_active_card() {
   return active_card;
 }
+
+const char *alsa_get_active_channel() {
+  return elem ? snd_mixer_selem_get_name(elem) : NULL;
+}

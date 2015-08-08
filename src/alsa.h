@@ -54,5 +54,6 @@ int ismuted();
 void alsa_init();
 void alsa_close();
 struct acard *alsa_get_active_card();
+const char *alsa_get_active_channel();
 
 #endif // ALSA_H_
