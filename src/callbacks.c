@@ -370,3 +370,32 @@ void on_cancel_button_clicked(GtkButton *button,
   gtk_widget_destroy(data->prefs_window);
   g_slice_free(PrefsData,data);
 }
+
+/**
+ * Callback function when a key is hit in prefs_window. Currently handles
+ * Esc key (calls on_cancel_button_clicked())
+ * and
+ * Return key (calls on_ok_button_clicked()).
+ *
+ * @param widget the widget that received the signal
+ * @param event the key event that was triggered
+ * @param data struct holding the GtkWidgets of the preferences windows
+ * @return TRUE to stop other handlers from being invoked for the event.
+ * False to propagate the event further
+ */
+gboolean on_key_press(GtkWidget *widget,
+		GdkEventKey *event,
+		PrefsData *data) {
+
+	switch(event->keyval) {
+		case GDK_KEY_Escape:
+			on_cancel_button_clicked(NULL, data);
+			break;
+		case GDK_KEY_Return:
+			on_ok_button_clicked(NULL, data);
+			break;
+		default:
+			return FALSE;
+	}
+	return TRUE;
+}
