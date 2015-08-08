@@ -558,9 +558,6 @@ enabled at compile time</property>
                               <object class="GtkComboBoxText" id="icon_theme_combo">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <child>
-                                  <object class="GtkCellRendererText" id="icon_text_rend"/>
-                                </child>
                               </object>
                             </child>
                           </object>
@@ -648,9 +645,6 @@ enabled at compile time</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <signal name="changed" handler="on_card_changed" swapped="no"/>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="card_text_rend"/>
-                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -662,9 +656,6 @@ enabled at compile time</property>
                                   <object class="GtkComboBoxText" id="chan_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="chan_text_rend"/>
-                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
