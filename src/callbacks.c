@@ -86,7 +86,7 @@ gboolean vol_scroll_event(GtkRange     *range,
 
   volumeset = (int) value;
 
-  setvol(volumeset,popup_noti);
+  setvol(volumeset,0,popup_noti);
   if (get_mute_state(TRUE) == 0) {
     setmute(popup_noti);
     get_mute_state(TRUE);
@@ -109,9 +109,9 @@ gboolean on_scroll(GtkStatusIcon *status_icon,
 		gpointer user_data) {
   int cv = getvol();
   if (event->direction == GDK_SCROLL_UP) {
-    setvol(cv + scroll_step,mouse_noti);
+    setvol(cv + scroll_step,1,mouse_noti);
   } else if (event->direction == GDK_SCROLL_DOWN) {
-    setvol(cv - scroll_step,mouse_noti);
+    setvol(cv - scroll_step,-1,mouse_noti);
   }
 
   if (get_mute_state(TRUE) == 0) {

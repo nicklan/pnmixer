@@ -7,6 +7,10 @@ a panel that supports applets, and therefore can't run a mixer applet.
 In particular it's been used quite a lot with fbpanel and tint2, but
 should run fine in any system tray.
 
+PNMixer is designed to work on systems that use ALSA for sound management.
+Any other sound driver like OSS or FFADO, or sound server like PulseAudio
+or Jackd, are currently not supported (patches welcome).
+
 PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with
 a number of additions.  These include:
 

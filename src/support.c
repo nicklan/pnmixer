@@ -152,7 +152,7 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
     get_icon_theme();
   return_buf = gtk_icon_theme_load_icon(icon_theme,filename,size,0,&err);
   if (err != NULL) {
-    report_error(_("Unable to load icon %s: %s\n"), filename, err->message);
+    DEBUG_PRINT("Unable to load icon %s: %s", filename, err->message);
     g_error_free (err);
   }
   return return_buf;
