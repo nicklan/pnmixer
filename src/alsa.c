@@ -685,10 +685,20 @@ void alsa_close() {
   snd_mixer_close(handle);
 }
 
+/**
+ * Get the card in use.
+ *
+ * @return a pointer toward the active card
+ */
 struct acard *alsa_get_active_card() {
   return active_card;
 }
 
+/**
+ * Get the channel name in use.
+ *
+ * @return the channel name
+ */
 const char *alsa_get_active_channel() {
   return elem ? snd_mixer_selem_get_name(elem) : NULL;
 }
