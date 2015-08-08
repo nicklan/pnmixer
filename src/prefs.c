@@ -309,7 +309,7 @@ static void set_notification_options() {
 
 /**
  * Applies the preferences, usually triggered by on_ok_button_clicked()
- * in callbacks.c, but also initially caled from main().
+ * in callbacks.c, but also initially called from main().
  *
  * @param alsa_change whether we want to trigger alsa-reinitalization
  */
@@ -337,13 +337,14 @@ void apply_prefs(gint alsa_change) {
   set_notification_options();
 
   get_icon_theme();
-  if (alsa_change)
-    alsa_init();
+
   vol_meter_clrs = get_vol_meter_colors();
   set_vol_meter_color(vol_meter_clrs[0],vol_meter_clrs[1],vol_meter_clrs[2]);
   g_free(vol_meter_clrs);
   update_status_icons();
-  update_vol_text();
+
+  if (alsa_change)
+    do_alsa_reinit();
 }
 
 /**
