@@ -8,6 +8,7 @@ AC_ISC_POSIX
 AC_PROG_CC
 AC_HEADER_STDC
 
+IT_PROG_INTLTOOL([0.40])
 
 AC_ARG_WITH([gtk3],
 			  [AS_HELP_STRING([--with-gtk3],
@@ -101,13 +102,13 @@ PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 
+# Needed by intltool
 GETTEXT_PACKAGE=pnmixer
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 
 dnl Add the languages which your application supports here.
 ALL_LINGUAS="de fr it ru"
-AM_GLIB_GNU_GETTEXT
 
 AC_OUTPUT([
 Makefile

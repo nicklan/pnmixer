@@ -120,7 +120,7 @@ do
 	echo "Making $dr/aclocal.m4 writable ..."
 	test -r $dr/aclocal.m4 && chmod u+w $dr/aclocal.m4
       fi
-      if grep "^AC_PROG_INTLTOOL" configure.ac >/dev/null; then
+      if grep "^IT_PROG_INTLTOOL" configure.ac >/dev/null; then
         echo "Running intltoolize..."
 	intltoolize --copy --force --automake
       fi
