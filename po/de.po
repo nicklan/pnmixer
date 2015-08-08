@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-14 19:33+0200\n"
+"POT-Creation-Date: 2015-08-08 16:47+0200\n"
 "PO-Revision-Date: 2015-08-04 21:06+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.3\n"
 
-#: ../src/main.c:65 ../src/main.c:91
+#: ../src/main.c:74 ../src/main.c:102
 msgid "PNMixer Error"
 msgstr "PNMixer-Fehler"
 
-#: ../src/main.c:85
+#: ../src/main.c:96
 msgid "Warning: Connection to sound system failed."
 msgstr "Achtung: Verbindung zum Soundsystem konnte nicht hergestellt werden."
 
-#: ../src/main.c:87
+#: ../src/main.c:98
 msgid ""
 "Do you want to re-initialize the connection to alsa?\n"
 "\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Wenn nicht, müssen Sie entweder PNMixer neustarten oder die Option »Alsa "
 "neuladen« im Kontextmenü auswählen, damit PNMixer funktioniert."
 
-#: ../src/main.c:97
+#: ../src/main.c:108
 #, c-format
 msgid ""
 "Warning: Connection to sound system failed, you probably need to restart "
@@ -47,12 +47,12 @@ msgstr ""
 "Achtung: Verbindung zum Soundsystem konnte nicht hergestellt werden. "
 "Wahrscheinlich müssen Sie PNmixer neustarten\n"
 
-#: ../src/main.c:112
+#: ../src/main.c:123
 #, c-format
 msgid "Unable to run command %s"
 msgstr "Befehl %s konnte nicht ausgeführt werden"
 
-#: ../src/main.c:133
+#: ../src/main.c:144
 msgid ""
 "\n"
 "No mixer application was found on your system.\n"
@@ -66,7 +66,7 @@ msgstr ""
 "Bitte öffnen Sie Einstellungen und wählen Sie den Befehl für die "
 "Lautstärkeregelung."
 
-#: ../src/main.c:175
+#: ../src/main.c:186
 msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
@@ -74,7 +74,7 @@ msgstr ""
 "Sie haben keinen benutzerdefinierten Befehl zur Ausführung angegeben, bitte "
 "tun Sie dies in den Einstellungen."
 
-#: ../src/main.c:287
+#: ../src/main.c:298
 msgid ""
 "Can't find main user interface file.  Please insure PNMixer is installed "
 "correctly.  Exiting\n"
@@ -83,7 +83,7 @@ msgstr ""
 "Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist.  Das "
 "Programm wird beendet.\n"
 
-#: ../src/main.c:371
+#: ../src/main.c:382
 msgid ""
 "Can't find about interface file.  Please insure PNMixer is installed "
 "correctly."
@@ -91,12 +91,12 @@ msgstr ""
 "Die Datei für die Info-Oberfläche konnte nicht gefunden werden.  Bitte "
 "stellen Sie sicher, dass PNMixer korrekt installiert ist."
 
-#: ../src/main.c:469
+#: ../src/main.c:482
 #, c-format
 msgid "Volume: %d %%"
 msgstr "Lautstärke: %d %%"
 
-#: ../src/main.c:484
+#: ../src/main.c:497
 #, c-format
 msgid ""
 "Volume: %d %%\n"
@@ -105,11 +105,11 @@ msgstr ""
 "Lautstärke: %d %%\n"
 "Stumm geschaltet"
 
-#: ../src/main.c:664
+#: ../src/main.c:684
 msgid "- A mixer for the system tray."
 msgstr "- Ein Mixer für das Benachrichtigungsfeld."
 
-#: ../src/main.c:674
+#: ../src/main.c:694
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s Version: %s\n"
@@ -129,16 +129,10 @@ msgstr "Pixmap-Datei konnte nicht gefunden werden: %s"
 msgid "Failed to load pixbuf file: %s: %s\n"
 msgstr "Pixbuf-Datei konnte nicht geladen werden: %s: %s\n"
 
-#: ../src/support.c:155
-#, c-format
-msgid "Unable to load icon %s: %s\n"
-msgstr "Symbol konnte nicht geladen werden: %s: %s\n"
-
 #: ../src/prefs.c:80
 msgid "PNMixer Icons"
 msgstr "PNMixer-Symbole"
 
-#. corrupt value somehow
 #: ../src/prefs.c:177
 msgid "Invalid color for volume meter in config file.  Reverting to default."
 msgstr ""
@@ -215,6 +209,14 @@ msgstr ""
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
 msgstr "Folgende Tastenkürzel konnten nicht belegt werden:\n"
+
+#: ../src/alsa.c:280
+msgid "Soundcard disconnected"
+msgstr ""
+
+#: ../src/alsa.c:281
+msgid "Soundcard has been disconnected, reloading Alsa..."
+msgstr ""
 
 #: ../data/about-gtk3.glade:11 ../data/about-gtk2.glade:12
 msgid "Copyright © 2010-2015 Nick Lanham"
@@ -537,3 +539,6 @@ msgstr "(Unbekannt)"
 #: ../data/popup_window-gtk2.glade:122
 msgid "Volume Control..."
 msgstr "Lautstärkeregler …"
+
+#~ msgid "Unable to load icon %s: %s\n"
+#~ msgstr "Symbol konnte nicht geladen werden: %s: %s\n"
