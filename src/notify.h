@@ -1,4 +1,4 @@
-/* prefs.h
+/* notify.h
  * PNmixer is written by Nick Lanham, a fork of OBmixer
  * which was programmed by Lee Ferrett, derived 
  * from the program "AbsVolume" by Paul Sherman
@@ -28,6 +28,7 @@
 
 void init_libnotify();
 void uninit_libnotify();
-void do_notify(gint level,gboolean muted);
+void do_notify_volume(gint level,gboolean muted);
+void do_notify_text(const gchar *body, const gchar *text);
 
 #endif // PREFS_H_

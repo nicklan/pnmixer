@@ -75,8 +75,10 @@ void report_error(char* err,...) {
     g_object_set(dialog,"text",err_buf,NULL);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
-  } else 
+  } else {
     vfprintf(stderr,err,ap);
+    fprintf(stderr,"\n");
+  }
   va_end(ap);
 }
 

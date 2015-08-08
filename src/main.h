@@ -21,7 +21,7 @@
 #include <gdk/gdkkeysyms.h>
 
 #ifdef DEBUG
-#define DEBUG_PRINT(...) printf(__VA_ARGS__)
+#define DEBUG_PRINT(fmt, ...) printf(fmt"\n", ##__VA_ARGS__)
 #else
 #define DEBUG_PRINT(...)
 #endif

@@ -421,15 +421,15 @@ void fill_channel_combo(GSList *channels, GtkWidget *combo, gchar* selected) {
 void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
   struct acard* c;
   GSList *cur_card;
-  gchar* selected_card;
-  int fs=0,idx,sidx=0;
+  struct acard *active_card;
+  int idx,sidx=0;
 
   GtkTreeIter iter;
   GtkListStore* store = GTK_LIST_STORE(gtk_combo_box_get_model
 				       (GTK_COMBO_BOX(combo)));
 
   cur_card = cards;
-  selected_card = get_selected_card();
+  active_card = alsa_get_active_card();
   idx = 0;
   while (cur_card) {
     c = cur_card->data;
@@ -437,11 +437,10 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
       cur_card = cur_card->next;
       continue;
     }
-    if (selected_card && !strcmp(c->name,selected_card)) {
+    if (active_card && !strcmp(c->name, active_card->name)) {
       gchar *sel_chan = get_selected_channel(c->name);
       sidx = idx;
       fill_channel_combo(c->channels,channels_combo,sel_chan);
-      fs = 1;
       if (sel_chan)
 	g_free(sel_chan);
     }
@@ -450,17 +449,8 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
     cur_card = cur_card->next;
     idx++;
   }
-  if (!fs) {
-    gchar *sel_chan;
-    c = cards->data;
-    sel_chan = get_selected_channel(c->name);
-    fill_channel_combo(c->channels,channels_combo,sel_chan);
-    if (sel_chan)
-      g_free(sel_chan);
-  }
+
   gtk_combo_box_set_active (GTK_COMBO_BOX (combo),sidx);
-  if (selected_card)
-    g_free(selected_card);
 }
 
 /**
@@ -472,13 +462,23 @@ void fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo) {
  * @param data user data set when the signal handler was connected
  */
 void on_card_changed(GtkComboBox* box, PrefsData* data) {
-  gint idx = gtk_combo_box_get_active (GTK_COMBO_BOX(box));
-  GSList *card = g_slist_nth(cards,idx);
-  struct acard *c = card->data;
-  gchar *sel_chan = get_selected_channel(c->name);
-  fill_channel_combo(c->channels,data->chan_combo,sel_chan);
-  if (sel_chan)
+  struct acard *card;
+  gchar *card_name;
+
+#ifdef WITH_GTK3
+  card_name = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(box));
+#else
+  card_name = gtk_combo_box_get_active_text(GTK_COMBO_BOX(box));
+#endif
+
+  card = find_card(card_name);
+  g_free(card_name);
+
+  if (card) {
+    gchar *sel_chan = get_selected_channel(card->name);
+    fill_channel_combo(card->channels, data->chan_combo, sel_chan);
     g_free(sel_chan);
+  }
 }
 
 /**
