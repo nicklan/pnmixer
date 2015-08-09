@@ -35,11 +35,16 @@ a number of additions.  These include:
 Source and so on are at:
 [https://github.com/nicklan/pnmixer](https://github.com/nicklan/pnmixer)
 
+Icons
+-----
+Icons are slightly modified versions of icons from Paul Davey's
+"Umicons Volume 2" icon set. You can find his website at:
+Mattahan.Web1000.com
+
 Download
 --------
 Latest version can always be found at:
 [https://github.com/nicklan/pnmixer/downloads](https://github.com/nicklan/pnmixer/downloads)
-
 
 Compilation and Install
 -----------------------
