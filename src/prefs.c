@@ -466,12 +466,7 @@ void on_card_changed(GtkComboBox* box, PrefsData* data) {
   struct acard *card;
   gchar *card_name;
 
-#ifdef WITH_GTK3
   card_name = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(box));
-#else
-  card_name = gtk_combo_box_get_active_text(GTK_COMBO_BOX(box));
-#endif
-
   card = find_card(card_name);
   g_free(card_name);
 
