@@ -14,6 +14,7 @@ Makefile.in.in
 /config.log
 /config.status
 /configure
+/data/desktop/pnmixer.desktop
 /depcomp
 /install-sh
 /missing
@@ -25,6 +26,8 @@ Makefile.in.in
 /src/pnmixer
 /stamp-h1
 /po/*.gmo
-/po/POTFILES
 /po/*.pot
+/po/.intltool-merge-cache
 /po/messages.mo
+/po/POTFILES
+/po/stamp-it
