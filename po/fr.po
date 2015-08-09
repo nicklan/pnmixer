@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-10 01:38+0200\n"
-"PO-Revision-Date: 2015-07-04 20:45+0200\n"
+"PO-Revision-Date: 2015-08-10 01:49+0200\n"
 "Last-Translator: El Boulangero <elboulangero@gmail.com>\n"
 "Language-Team: Français <gnome-fr@gnome.org>\n"
 "Language: Français\n"
@@ -91,19 +91,22 @@ msgstr ""
 "correctement installé."
 
 #: ../src/main.c:484
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s (%s)\n"
 "Volume: %d %%"
-msgstr "Volume : %d %%"
+msgstr ""
+"%s (%s)\n"
+"Volume : %d %%"
 
 #: ../src/main.c:499
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s (%s)\n"
 "Volume: %d %%\n"
 "Muted"
 msgstr ""
+"%s (%s)\n"
 "Volume : %d %%\n"
 "Muet actif."
 
@@ -522,7 +525,6 @@ msgid "Volume Down:"
 msgstr "Diminuer le volume"
 
 #: ../data/ui/prefs-gtk3.glade.h:47 ../data/ui/prefs-gtk2.glade.h:47
-#, fuzzy
 msgid "Double click a HotKey to assign a new HotKey"
 msgstr "Double cliquer sur un raccourci pour l'assigner"
 

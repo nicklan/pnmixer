@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-10 01:38+0200\n"
-"PO-Revision-Date: 2015-07-19 15:02+0200\n"
+"PO-Revision-Date: 2015-08-10 01:52+0200\n"
 "Last-Translator: Mattia Bertoni <mattia.b89@gmail.com>\n"
 "Language-Team: Italiano <gnome-it@gnome.org>\n"
 "Language: it\n"
@@ -90,19 +90,22 @@ msgstr ""
 "PNMixer sia installato correttamente."
 
 #: ../src/main.c:484
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s (%s)\n"
 "Volume: %d %%"
-msgstr "Volume: %d %%"
+msgstr ""
+"%s (%s)\n"
+"Volume: %d %%"
 
 #: ../src/main.c:499
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s (%s)\n"
 "Volume: %d %%\n"
 "Muted"
 msgstr ""
+"%s (%s)\n"
 "Volume: %d %%\n"
 "Muto"
 
@@ -228,16 +231,14 @@ msgid "Soundcard has been disconnected, reloading Alsa..."
 msgstr ""
 
 #: ../data/desktop/pnmixer.desktop.in.h:1
-#, fuzzy
 msgid "PNMixer"
-msgstr "Mixer"
+msgstr "PNMixer"
 
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "System Tray Mixer"
 msgstr ""
 
 #: ../data/desktop/pnmixer.desktop.in.h:3
-#, fuzzy
 msgid "An audio mixer for the system tray"
 msgstr "Un mixer per la system tray."
 
@@ -524,7 +525,6 @@ msgid "Volume Down:"
 msgstr "Abbassare il Volume:"
 
 #: ../data/ui/prefs-gtk3.glade.h:47 ../data/ui/prefs-gtk2.glade.h:47
-#, fuzzy
 msgid "Double click a HotKey to assign a new HotKey"
 msgstr "Doppio click su un HotKey per assegnare un nuovo HotKey"
 

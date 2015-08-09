@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-10 01:38+0200\n"
-"PO-Revision-Date: 2014-11-17 17:54+0500\n"
+"PO-Revision-Date: 2015-08-10 01:54+0200\n"
 "Last-Translator: Pavel Serebryakov <pshar@inbox.ru>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -91,19 +91,22 @@ msgstr ""
 "убедитесь, что PNMixer установлен правильно."
 
 #: ../src/main.c:484
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s (%s)\n"
 "Volume: %d %%"
-msgstr "Громкость: %d %%"
+msgstr ""
+"%s (%s)\n"
+"Громкость: %d %%"
 
 #: ../src/main.c:499
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s (%s)\n"
 "Volume: %d %%\n"
 "Muted"
 msgstr ""
+"%s (%s)\n"
 "Громкость: %d %%\n"
 "Звук выкл."
 
@@ -228,9 +231,8 @@ msgid "Soundcard has been disconnected, reloading Alsa..."
 msgstr ""
 
 #: ../data/desktop/pnmixer.desktop.in.h:1
-#, fuzzy
 msgid "PNMixer"
-msgstr "Ошибка PNMixer"
+msgstr "PNMixer"
 
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "System Tray Mixer"
