@@ -2,29 +2,11 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="card_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="chan_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkAdjustment" id="hotkey_adjustment">
     <property name="lower">1</property>
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
-  </object>
-  <object class="GtkListStore" id="icon_theme_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkListStore" id="middle_click_liststore">
     <columns>
