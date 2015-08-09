@@ -542,3 +542,15 @@ msgstr "Lautstärkeregler …"
 
 #~ msgid "Unable to load icon %s: %s\n"
 #~ msgstr "Symbol konnte nicht geladen werden: %s: %s\n"
+
+#: data/desktop/pnmixer.desktop.in:3
+msgid "PNMixer"
+msgstr "PNMixer"
+
+#: data/desktop/pnmixer.desktop.in:4
+msgid "System Tray Mixer"
+msgstr "Benachrichtigungsfeld Mixer"
+
+#: data/desktop/pnmixer.desktop.in:5
+msgid "An audio mixer for the system tray"
+msgstr "Ein Audiomixer für das Benachrichtigungsfeld"

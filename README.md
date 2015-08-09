@@ -35,40 +35,44 @@ a number of additions.  These include:
 Source and so on are at:
 [https://github.com/nicklan/pnmixer](https://github.com/nicklan/pnmixer)
 
+Icons
+-----
+Icons are slightly modified versions of icons from Paul Davey's
+"Umicons Volume 2" icon set. You can find his website at:
+[http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945](http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945)
+
+
 Download
 --------
 Latest version can always be found at:
 [https://github.com/nicklan/pnmixer/downloads](https://github.com/nicklan/pnmixer/downloads)
 
-
 Compilation and Install
 -----------------------
 Needed dependencies:
-* >=gtk+-3.6	(or >=gtk+-2.22 via --without-gtk3)
-* glib-2
-* alsa-lib	(aka libasound on some distros)
-* libX11
-* libnotify	(optional, disable via --without-libnotify)
-* gettext	(build-time only)
-* pkg-config	(build-time only)
-* autoconf	(build-time only)
-* automake	(build-time only)
+- >=gtk+-3.6	(or >=gtk+-2.22 via --without-gtk3)
+- glib-2
+- alsa-lib	(aka libasound on some distros)
+- libX11
+- libnotify	(optional, disable via --without-libnotify)
+- gettext	(build-time only)
+- pkg-config	(build-time only)
+- autoconf	(build-time only)
+- automake	(build-time only)
 
 To install this program cd to this directory and run:
 
-./autogen.sh
-
-make
-
-sudo make install
+    ./autogen.sh
+    make
+    sudo make install
 
 Documentation
 -------------
 Run:
 
-make doc
+    make doc
 
 to build the documentation. It's in src/html. You can install
 it via:
 
-make install-doc
+    make install-doc

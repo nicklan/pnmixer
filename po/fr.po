@@ -550,3 +550,15 @@ msgstr "Contrôle du volume..."
 
 #~ msgid "Couldn't execute custom command: \"%s\"\n"
 #~ msgstr "Impossible d'exécuter la commande suivante : \"%s\".\n"
+
+#: data/desktop/pnmixer.desktop.in:3
+msgid "PNMixer"
+msgstr "PNMixer"
+
+#: data/desktop/pnmixer.desktop.in:4
+msgid "System Tray Mixer"
+msgstr "Zone de Notification Mixeur"
+
+#: data/desktop/pnmixer.desktop.in:5
+msgid "An audio mixer for the system tray"
+msgstr "Un Mixeur Audio pour la Zone de Notification"

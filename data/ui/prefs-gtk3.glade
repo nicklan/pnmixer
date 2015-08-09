@@ -2,29 +2,11 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.6"/>
-  <object class="GtkListStore" id="card_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="chan_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkAdjustment" id="hotkey_adjustment">
     <property name="lower">1</property>
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
-  </object>
-  <object class="GtkListStore" id="icon_theme_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkListStore" id="middle_click_liststore">
     <columns>
@@ -305,6 +287,7 @@ enabled at compile time</property>
     <property name="default_width">350</property>
     <property name="default_height">500</property>
     <property name="icon_name">preferences-system</property>
+    <signal name="key-press-event" handler="on_key_press" swapped="no"/>
     <child>
       <object class="GtkAlignment" id="alignment1">
         <property name="visible">True</property>
@@ -557,9 +540,6 @@ enabled at compile time</property>
                               <object class="GtkComboBoxText" id="icon_theme_combo">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <child>
-                                  <object class="GtkCellRendererText" id="icon_text_rend"/>
-                                </child>
                               </object>
                             </child>
                           </object>
@@ -647,9 +627,6 @@ enabled at compile time</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <signal name="changed" handler="on_card_changed" swapped="no"/>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="card_text_rend"/>
-                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -661,9 +638,6 @@ enabled at compile time</property>
                                   <object class="GtkComboBoxText" id="chan_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="chan_text_rend"/>
-                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1193,7 +1167,7 @@ enabled at compile time</property>
                           <object class="GtkLabel" id="label16">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;b&gt;HotKeys&lt;/b&gt;</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Hotkeys&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                         </child>
@@ -1214,7 +1188,7 @@ enabled at compile time</property>
                   <object class="GtkLabel" id="label6">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">HotKeys</property>
+                    <property name="label" translatable="yes">Hotkeys</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
@@ -1284,7 +1258,7 @@ enabled at compile time</property>
     <property name="height_request">200</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Set HotKey</property>
+    <property name="title" translatable="yes">Set Hotkey</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="icon_name">input-keyboard</property>
@@ -1340,7 +1314,7 @@ enabled at compile time</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="yalign">0.10000000149011612</property>
-                    <property name="label" translatable="yes">(press &lt;Ctrl&gt;C to reset)</property>
+                    <property name="label" translatable="yes">(press &lt;Primary&gt;C to reset)</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
