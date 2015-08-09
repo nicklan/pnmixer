@@ -9,7 +9,7 @@
     <property name="type_hint">dialog</property>
     <property name="has_separator">True</property>
     <property name="program_name">PNMixer</property>
-    <property name="copyright" translatable="yes">Copyright © 2010-2011 Nick Lanham</property>
+    <property name="copyright" translatable="yes">Copyright © 2010-2015 Nick Lanham</property>
     <property name="comments" translatable="yes">A mixer for the system tray.</property>
     <property name="website">http://github.com/nicklan/pnmixer</property>
     <property name="license" translatable="yes">PNMixer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -24,7 +24,8 @@ Julian Ospald &lt;hasufell@gentoo.org&gt;
 Steven Honeyman</property>
     <property name="documenters">	</property>
     <property name="translator_credits" translatable="yes">French: Matthieu Bresson
-German: Mario Blättermann</property>
+German: Mario Blättermann
+Italian: Mattia Bertoni</property>
     <property name="logo">../pixmaps/pnmixer-about.png</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">

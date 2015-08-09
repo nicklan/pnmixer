@@ -1058,7 +1058,7 @@ enabled at compile time</property>
                                   <object class="GtkLabel" id="label19">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Double click a HotKey to assign a new Hotkey</property>
+                                    <property name="label" translatable="yes">Double click a HotKey to assign a new HotKey</property>
                                   </object>
                                   <packing>
                                     <property name="right_attach">2</property>
@@ -1167,7 +1167,7 @@ enabled at compile time</property>
                           <object class="GtkLabel" id="label16">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Hotkeys&lt;/b&gt;</property>
+                            <property name="label" translatable="yes">&lt;b&gt;HotKeys&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                         </child>
@@ -1188,7 +1188,7 @@ enabled at compile time</property>
                   <object class="GtkLabel" id="label6">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Hotkeys</property>
+                    <property name="label" translatable="yes">HotKeys</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
@@ -1258,7 +1258,7 @@ enabled at compile time</property>
     <property name="height_request">200</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Set Hotkey</property>
+    <property name="title" translatable="yes">Set HotKey</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="icon_name">input-keyboard</property>
@@ -1314,7 +1314,7 @@ enabled at compile time</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="yalign">0.10000000149011612</property>
-                    <property name="label" translatable="yes">(press &lt;Primary&gt;C to reset)</property>
+                    <property name="label" translatable="yes">(press &lt;Ctrl&gt;C to reset)</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
