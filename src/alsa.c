@@ -248,8 +248,8 @@ static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
  * @return FALSE if the source should be removed,
  * TRUE otherwise
  */
-static gboolean idle_alsa_init(gpointer data) {
-  alsa_init();
+static gboolean idle_alsa_reinit(gpointer data) {
+  do_alsa_reinit();
   return FALSE;
 }
 
@@ -279,7 +279,7 @@ static gboolean poll_cb(GIOChannel *source,
      */
     do_notify_text(_("Soundcard disconnected"),
       _("Soundcard has been disconnected, reloading Alsa..."));
-    g_idle_add(idle_alsa_init, NULL);
+    g_idle_add(idle_alsa_reinit, NULL);
     return FALSE;
   }
   sread = 1;
