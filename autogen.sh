@@ -117,9 +117,6 @@ do
 	test -r $dr/aclocal.m4 || touch $dr/aclocal.m4
 	echo "Running glib-gettextize...  Ignore non-fatal messages."
 	echo "no" | glib-gettextize --force --copy
-	echo "Patching po/Makefile.in.in..."
-	sed -i '/--msgid-bugs-address/d' $dr/po/Makefile.in.in
-	sed -i 's/--add-comments //' $dr/po/Makefile.in.in
 	echo "Making $dr/aclocal.m4 writable ..."
 	test -r $dr/aclocal.m4 && chmod u+w $dr/aclocal.m4
       fi
