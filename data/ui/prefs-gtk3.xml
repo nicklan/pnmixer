@@ -305,7 +305,7 @@ enabled at compile time</property>
     <property name="default_width">350</property>
     <property name="default_height">500</property>
     <property name="icon_name">preferences-system</property>
-    <signal name="key_press_event" handler="on_key_press" swapped="no"/>
+    <signal name="key-press-event" handler="on_key_press" swapped="no"/>
     <child>
       <object class="GtkAlignment" id="alignment1">
         <property name="visible">True</property>
