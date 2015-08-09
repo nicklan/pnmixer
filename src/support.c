@@ -168,11 +168,11 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
  */
 gchar* get_ui_file(const char* filename) {
   gchar* path;
-  path = g_build_filename(PACKAGE_DATA_DIR,"pnmixer","ui",filename,NULL);
+  path = g_build_filename(".","data",filename,NULL);
   if (g_file_test (path, G_FILE_TEST_EXISTS))
     return path;
   g_free(path);
-  path = g_build_filename(".","data",filename,NULL);
+  path = g_build_filename(PACKAGE_DATA_DIR,"pnmixer","ui",filename,NULL);
   if (g_file_test (path, G_FILE_TEST_EXISTS))
     return path;
   g_free(path);
