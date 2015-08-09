@@ -39,7 +39,8 @@ Icons
 -----
 Icons are slightly modified versions of icons from Paul Davey's
 "Umicons Volume 2" icon set. You can find his website at:
-Mattahan.Web1000.com
+[http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945]
+
 
 Download
 --------
