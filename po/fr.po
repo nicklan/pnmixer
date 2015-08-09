@@ -476,3 +476,15 @@ msgstr "Position du texte pour le volume sonore :"
 #: ../data/prefs.xml.h:45
 msgid "Volume Up:"
 msgstr "Augmenter le volume"
+
+#: data/desktop/pnmixer.desktop.in:3
+msgid "PNMixer"
+msgstr "PNMixer"
+
+#: data/desktop/pnmixer.desktop.in:4
+msgid "System Tray Mixer"
+msgstr "Zone de Notification Mixeur"
+
+#: data/desktop/pnmixer.desktop.in:5
+msgid "An audio mixer for the system tray"
+msgstr "Un Mixeur Audio pour la Zone de Notification"

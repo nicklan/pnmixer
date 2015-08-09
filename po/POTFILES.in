@@ -5,6 +5,7 @@ src/callbacks.c
 src/support.c
 src/prefs.c
 src/hotkeys.c
+data/desktop/pnmixer.desktop.in
 data/ui/about-gtk3.xml
 data/ui/popup_window-gtk3.xml
 data/ui/prefs-gtk3.xml

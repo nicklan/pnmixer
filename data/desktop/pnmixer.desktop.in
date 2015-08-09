@@ -1,0 +1,10 @@
+[Desktop Entry]
+_Name=PNMixer
+_GenericName=System Tray Mixer
+_Comment=An audio mixer for the system tray
+Exec=pnmixer
+TryExec=pnmixer
+Icon=pnmixer
+Terminal=false
+Type=Application
+Categories=AudioVideo;
