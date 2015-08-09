@@ -701,7 +701,7 @@ int main (int argc, char *argv[]) {
   popup_window = NULL;
 
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
-  add_pixmap_directory ("./pixmaps");
+  add_pixmap_directory ("./data/pixmaps");
 
   ensure_prefs_dir();
   load_prefs();

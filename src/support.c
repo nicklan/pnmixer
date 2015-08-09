@@ -160,15 +160,15 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
 
 /**
  * Gets the path to an ui file.
- * Looks first in PACKAGE_DATA_DIR/pnmixer/ui/[file] and
- * then in ./data/[file]
+ * Looks first in ./data/ui/[file], and then in
+ * PACKAGE_DATA_DIR/pnmixer/ui/[file].
  *
  * @param filename the name of the ui file
  * @return path to the ui file or NULL on failure
  */
 gchar* get_ui_file(const char* filename) {
   gchar* path;
-  path = g_build_filename(".","data",filename,NULL);
+  path = g_build_filename(".","data","ui",filename,NULL);
   if (g_file_test (path, G_FILE_TEST_EXISTS))
     return path;
   g_free(path);
