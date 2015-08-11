@@ -1,6 +1,25 @@
 Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
+version 0.6:
+ - GTK3 support (use './autogen.sh --without-gtk3' to use GTK2 instead)
+ - Notifications support (use './autogen.sh --without-libnotify' to disable)
+ - New translations: Italian and Russian
+ - Tooltip is more informative
+ - Improvements in build architecture:
+ 	- Travis support (used by GitHub)
+	- Doxygen documentation added to the code (type 'make doc')
+	- 'data' split in sub-directories, populated with Makefiles.am
+	- use 'intltool' instead of 'glib-gettext' to handle translations
+	- desktop file is now translated and part of POTFILES
+ - Better handling of USB soundcards that are unplugged:
+ 	- A notification is sent
+	- Another soundcard in the list (starting with the default) is opened,
+	  so that PNMixer is still usable and useful
+	- If USB card is re-plugged afterward, one should click 'Reload Alsa'
+	  in the popup menu, so that PNMixer selects the USB card
+ - Lot of bug fixes
+
 version 0.5:
  - Bug fixes (including but not limited to):
 	- Infinite loop if pavucontrol isn't installed
