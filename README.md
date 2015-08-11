@@ -55,7 +55,7 @@ Needed dependencies:
 - alsa-lib	(aka libasound on some distros)
 - libX11
 - libnotify	(optional, disable via --without-libnotify)
-- gettext	(build-time only)
+- intltool	(build-time only)
 - pkg-config	(build-time only)
 - autoconf	(build-time only)
 - automake	(build-time only)
