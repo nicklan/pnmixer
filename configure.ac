@@ -73,13 +73,9 @@ AS_IF([test "$with_libnotify" != no],
      ,)
 
 if test "$with_libnotify" = "yes" || test "$HAVE_LIBN" = "1"; then
-	PKG_CHECK_MODULES(LIBNOTIFY, [libnotify], 
-	                  [],
-	                  AS_IF([test "x$with_libnotify" != xcheck], [AC_MSG_FAILURE(["--with-libnotify was given but test for libnotify failed"])]))
+	pkg_modules="$pkg_modules libnotify"
+	AC_DEFINE([HAVE_LIBN], 1, [Defined if you have libnotify])
 	HAVE_LIBN=1
-	AC_SUBST(LIBNOTIFY_CFLAGS)
-	AC_SUBST(LIBNOTIFY_LIBS)
-	AC_DEFINE([HAVE_LIBN],1,[Defined if you have libnotify])
 fi
 
 # ======================================================= #
