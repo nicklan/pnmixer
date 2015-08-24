@@ -28,7 +28,7 @@ fi
   DIE=1
 }
 
-(grep "^AC_PROG_INTLTOOL" $srcdir/configure.ac >/dev/null) && {
+(grep "^IT_PROG_INTLTOOL" $srcdir/configure.ac >/dev/null) && {
   (intltoolize --version) < /dev/null > /dev/null 2>&1 || {
     echo 
     echo "**Error**: You must have \`intltool' installed."
