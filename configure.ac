@@ -109,6 +109,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 
 dnl Add the languages which your application supports here.
 ALL_LINGUAS="de fr it ru"
+AM_GLIB_GNU_GETTEXT
 
 AC_OUTPUT([
 Makefile
