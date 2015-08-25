@@ -56,6 +56,7 @@ Needed dependencies:
 - libX11
 - libnotify	(optional, disable via --without-libnotify)
 - intltool	(build-time only)
+- gettext       (build-time only)
 - pkg-config	(build-time only)
 - autoconf	(build-time only)
 - automake	(build-time only)
