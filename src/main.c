@@ -61,23 +61,23 @@ static char err_buf[512];
  * @param err the error
  * @param ... more string segments in the format of printf
  */
-void report_error(char* err,...) {
+void report_error(char* err, ...) {
   va_list ap;
   va_start(ap, err);
   if (popup_window) {
-    vsnprintf(err_buf,512,err,ap);
+    vsnprintf(err_buf, 512, err, ap);
     GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(popup_window),
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 						GTK_MESSAGE_ERROR,
 						GTK_BUTTONS_CLOSE,
 						NULL);
-    gtk_window_set_title(GTK_WINDOW(dialog),_("PNMixer Error"));
-    g_object_set(dialog,"text",err_buf,NULL);
+    gtk_window_set_title(GTK_WINDOW(dialog), _("PNMixer Error"));
+    g_object_set(dialog, "text", err_buf, NULL);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
   } else {
-    vfprintf(stderr,err,ap);
-    fprintf(stderr,"\n");
+    vfprintf(stderr, err, ap);
+    fprintf(stderr, "\n");
   }
   va_end(ap);
 }
@@ -99,13 +99,13 @@ void warn_sound_conn_lost() {
 						"If you do not, you will either need to restart PNMixer "
 						"or select the 'Reload Alsa' option in the right click "
 						"menu in order for PNMixer to function."));
-    gtk_window_set_title(GTK_WINDOW(dialog),_("PNMixer Error"));
+    gtk_window_set_title(GTK_WINDOW(dialog), _("PNMixer Error"));
     resp = gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     if (resp == GTK_RESPONSE_YES)
       do_alsa_reinit();
   } else
-    fprintf(stderr,_("Warning: Connection to sound system failed, you probably need to restart pnmixer\n"));
+    fprintf(stderr, _("Warning: Connection to sound system failed, you probably need to restart pnmixer\n"));
 }
 
 /**
@@ -159,8 +159,8 @@ void tray_icon_button(GtkStatusIcon *status_icon,
 		gpointer user_data) {
   if (event->button == 2) {
     gint act = 0;
-    if (g_key_file_has_key(keyFile,"PNMixer","MiddleClickAction",NULL))
-      act = g_key_file_get_integer(keyFile,"PNMixer","MiddleClickAction",NULL);
+    if (g_key_file_has_key(keyFile, "PNMixer", "MiddleClickAction", NULL))
+      act = g_key_file_get_integer(keyFile, "PNMixer", "MiddleClickAction", NULL);
     switch (act) {
     case 0: // mute/unmute
       setmute(mouse_noti);
@@ -174,8 +174,8 @@ void tray_icon_button(GtkStatusIcon *status_icon,
       break;
     }
     case 3:
-      if (g_key_file_has_key(keyFile,"PNMixer","CustomCommand",NULL)) {
-	gchar* cmd = g_key_file_get_string(keyFile,"PNMixer","CustomCommand",NULL);
+      if (g_key_file_has_key(keyFile, "PNMixer", "CustomCommand", NULL)) {
+	gchar* cmd = g_key_file_get_string(keyFile, "PNMixer", "CustomCommand", NULL);
 	if (cmd) {
 	  run_command(cmd);
 	  g_free(cmd);
@@ -213,7 +213,7 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
                           GDK_BUTTON_PRESS_MASK,
                           NULL,
                           GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
-        g_warning("Could not grab %s\n",gdk_device_get_name(pointer_dev));
+        g_warning("Could not grab %s\n", gdk_device_get_name(pointer_dev));
       if (keyboard_dev != NULL) {
         if (gdk_device_grab(keyboard_dev,
                             gtk_widget_get_window(GTK_WIDGET(popup_window)),
@@ -222,7 +222,7 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
                             GDK_KEY_PRESS_MASK,
                             NULL,
                             GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
-          g_warning("Could not grab %s\n",gdk_device_get_name(keyboard_dev));
+          g_warning("Could not grab %s\n", gdk_device_get_name(keyboard_dev));
       }
     }
 #else
@@ -299,21 +299,21 @@ void create_popups (void) {
     exit(1);
   }
   if (!gtk_builder_add_from_file( builder, uifile, &error )) {
-    g_warning("%s",error->message);
+    g_warning("%s", error->message);
     report_error(error->message);
     exit(1);
   }
 
   g_free(uifile);
 
-  vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder,"vol_scale_adjustment"));
+  vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder, "vol_scale_adjustment"));
   /* get original adjustments */
   get_current_levels();
 
-  vol_scale = GTK_WIDGET(gtk_builder_get_object(builder,"vol_scale"));
-  mute_check = GTK_WIDGET(gtk_builder_get_object(builder,"mute_check"));
-  popup_window = GTK_WIDGET(gtk_builder_get_object(builder,"popup_window"));
-  popup_menu = GTK_WIDGET(gtk_builder_get_object(builder,"popup_menu"));
+  vol_scale = GTK_WIDGET(gtk_builder_get_object(builder, "vol_scale"));
+  mute_check = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check"));
+  popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "popup_window"));
+  popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "popup_menu"));
 
   gtk_builder_connect_signals(builder, NULL);
   g_object_unref (G_OBJECT (builder));
@@ -384,7 +384,7 @@ void create_about (void) {
   }
   builder = gtk_builder_new();
   if (!gtk_builder_add_from_file( builder, uifile, &error)) {
-    g_warning("%s",error->message);
+    g_warning("%s", error->message);
     report_error(error->message);
     g_error_free(error);
     g_free(uifile);
@@ -393,8 +393,8 @@ void create_about (void) {
   }
   g_free(uifile);
   gtk_builder_connect_signals(builder, NULL);
-  about = GTK_WIDGET(gtk_builder_get_object(builder,"about_dialog"));
-  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about),VERSION);
+  about = GTK_WIDGET(gtk_builder_get_object(builder, "about_dialog"));
+  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about), VERSION);
   g_object_unref (G_OBJECT (builder));
 
   gtk_dialog_run (GTK_DIALOG (about));
@@ -423,7 +423,7 @@ static guchar* vol_meter_row = NULL;
  * @param h height of the volume meter
  */
 static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
-  int width, height, rowstride, n_channels,i;
+  int width, height, rowstride, n_channels, i;
   guchar *pixels, *p;
 
   n_channels = gdk_pixbuf_get_n_channels (pixbuf);
@@ -445,7 +445,7 @@ static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
   y = (height - y);
   for (i = 0;i < h;i++) {
     p = pixels + (y-i) * rowstride + x * n_channels;
-    memcpy(p,vol_meter_row,vol_meter_width);
+    memcpy(p, vol_meter_row, vol_meter_width);
   }
 }
 
@@ -486,7 +486,7 @@ int get_mute_state(gboolean set_check) {
     if (vol_meter_row) {
       GdkPixbuf* old_icon = icon_copy;
       icon_copy = gdk_pixbuf_copy(icon);
-      draw_vol_meter(icon_copy,draw_offset,5,(tmpvol*vol_div_factor));
+      draw_vol_meter(icon_copy, draw_offset, 5, (tmpvol*vol_div_factor));
       if (old_icon)
 	g_object_unref(old_icon);
       gtk_status_icon_set_from_pixbuf(tray_icon, icon_copy);
@@ -552,7 +552,7 @@ gboolean hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
   return FALSE;
 }
 
-static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
+static guchar vol_meter_red, vol_meter_green, vol_meter_blue;
 
 /**
  * Sets the color of the volume meter which is drawn on top
@@ -562,7 +562,7 @@ static guchar vol_meter_red,vol_meter_green,vol_meter_blue;
  * @param ng green color strength, from 0 - 1.0
  * @param nb blue color strength, from 0 - 1.0
  */
-void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
+void set_vol_meter_color(gdouble nr, gdouble ng, gdouble nb) {
   vol_meter_red = nr * 255;
   vol_meter_green = ng * 255;
   vol_meter_blue = nb * 255;
@@ -578,22 +578,22 @@ void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb) {
  * do_alsa_reinit() or tray_icon_resized().
  */
 void update_status_icons() {
-  int i,icon_width;
+  int i, icon_width;
   GdkPixbuf* old_icons[N_VOLUME_ICONS];
   int size = tray_icon_size();
   for(i=0;i<N_VOLUME_ICONS;i++)
     old_icons[i] = status_icons[i];
-  if (g_key_file_has_key(keyFile,"PNMixer","IconTheme",NULL)) {
-    status_icons[VOLUME_MUTED]  = get_stock_pixbuf("audio-volume-muted",size);
-    status_icons[VOLUME_OFF]    = get_stock_pixbuf("audio-volume-off",size);
-    status_icons[VOLUME_LOW]    = get_stock_pixbuf("audio-volume-low",size);
-    status_icons[VOLUME_MEDIUM] = get_stock_pixbuf("audio-volume-medium",size);
-    status_icons[VOLUME_HIGH]   = get_stock_pixbuf("audio-volume-high",size);
+  if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
+    status_icons[VOLUME_MUTED]  = get_stock_pixbuf("audio-volume-muted", size);
+    status_icons[VOLUME_OFF]    = get_stock_pixbuf("audio-volume-off", size);
+    status_icons[VOLUME_LOW]    = get_stock_pixbuf("audio-volume-low", size);
+    status_icons[VOLUME_MEDIUM] = get_stock_pixbuf("audio-volume-medium", size);
+    status_icons[VOLUME_HIGH]   = get_stock_pixbuf("audio-volume-high", size);
     /* 'audio-volume-off' is not available in every icon set. More info at:
      * http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
      */
     if (status_icons[VOLUME_OFF] == NULL)
-      status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-low",size);
+      status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-low", size);
   } else {
     status_icons[VOLUME_MUTED]  = create_pixbuf("pnmixer-muted.png");
     status_icons[VOLUME_OFF]    = create_pixbuf("pnmixer-off.png");
@@ -606,7 +606,7 @@ void update_status_icons() {
   vol_meter_width = 1.25*icon_width;
   if (vol_meter_width%4 != 0)
     vol_meter_width -= (vol_meter_width%4);
-  if (!vol_meter_row &&  g_key_file_get_boolean(keyFile,"PNMixer","DrawVolMeter",NULL)) {
+  if (!vol_meter_row &&  g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter", NULL)) {
     int lim = vol_meter_width/4;
     vol_meter_row = g_malloc(vol_meter_width*sizeof(guchar));
     for(i=0;i<lim;i++) {
@@ -615,14 +615,14 @@ void update_status_icons() {
       vol_meter_row[i*4+2] = vol_meter_blue;
       vol_meter_row[i*4+3] = 255;
     }
-  } else if (vol_meter_row && !g_key_file_get_boolean(keyFile,"PNMixer","DrawVolMeter",NULL)) {
+  } else if (vol_meter_row && !g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter", NULL)) {
     free(vol_meter_row);
     vol_meter_row = NULL;
     if (icon_copy)
       g_object_unref(icon_copy);
     icon_copy = NULL;
   }
-  draw_offset = g_key_file_get_integer(keyFile,"PNMixer","VolMeterPos",NULL);
+  draw_offset = g_key_file_get_integer(keyFile, "PNMixer", "VolMeterPos", NULL);
   if (tray_icon)
     get_mute_state(TRUE);
   for(i = 0; i < N_VOLUME_ICONS; i++)
@@ -636,12 +636,12 @@ void update_status_icons() {
  */
 void update_vol_text() {
   gboolean show = TRUE;
-  if (g_key_file_has_key(keyFile,"PNMixer","DisplayTextVolume",NULL))
-    show = g_key_file_get_boolean(keyFile,"PNMixer","DisplayTextVolume",NULL);
+  if (g_key_file_has_key(keyFile, "PNMixer", "DisplayTextVolume", NULL))
+    show = g_key_file_get_boolean(keyFile, "PNMixer", "DisplayTextVolume", NULL);
   if (show) {
     GtkPositionType pos = GTK_POS_RIGHT;
-    if (g_key_file_has_key(keyFile,"PNMixer","TextVolumePosition",NULL)) {
-      gint pi = g_key_file_get_integer(keyFile,"PNMixer","TextVolumePosition",NULL);
+    if (g_key_file_has_key(keyFile, "PNMixer", "TextVolumePosition", NULL)) {
+      gint pi = g_key_file_get_integer(keyFile, "PNMixer", "TextVolumePosition", NULL);
       pos =
 	pi==0?GTK_POS_TOP:
 	pi==1?GTK_POS_BOTTOM:
@@ -694,7 +694,7 @@ int main (int argc, char *argv[]) {
 
 
   if (version) {
-    printf(_("%s version: %s\n"),PACKAGE,VERSION);
+    printf(_("%s version: %s\n"), PACKAGE, VERSION);
     exit(0);
   }
 
@@ -714,7 +714,7 @@ int main (int argc, char *argv[]) {
   tray_icon = create_tray_icon();
   apply_prefs(0);
 
-  g_signal_connect(G_OBJECT(tray_icon), "popup-menu",G_CALLBACK(popup_callback), popup_menu);
+  g_signal_connect(G_OBJECT(tray_icon), "popup-menu", G_CALLBACK(popup_callback), popup_menu);
   g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(tray_icon_on_click), NULL);
   g_signal_connect(G_OBJECT(tray_icon), "button-release-event", G_CALLBACK(tray_icon_button), NULL);
 

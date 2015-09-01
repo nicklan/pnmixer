@@ -24,7 +24,7 @@
 
 GKeyFile* keyFile;
 int scroll_step;
-gboolean enable_noti,hotkey_noti,mouse_noti,popup_noti,external_noti;
+gboolean enable_noti, hotkey_noti, mouse_noti, popup_noti, external_noti;
 gint noti_timeout;
 GtkIconTheme* icon_theme;
 
@@ -36,7 +36,7 @@ void get_icon_theme();
 gchar* get_vol_command();
 gchar* get_selected_card();
 gchar* get_selected_channel(gchar*);
-void acquire_hotkey(const char*,PrefsData*);
+void acquire_hotkey(const char*, PrefsData*);
 gboolean normalize_vol(void);
 
 #endif // PREFS_H_

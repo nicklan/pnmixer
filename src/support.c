@@ -150,7 +150,7 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
   GdkPixbuf *return_buf = NULL;
   if (icon_theme == NULL)
     get_icon_theme();
-  return_buf = gtk_icon_theme_load_icon(icon_theme,filename,size,0,&err);
+  return_buf = gtk_icon_theme_load_icon(icon_theme, filename, size, 0, &err);
   if (err != NULL) {
     DEBUG_PRINT("Unable to load icon %s: %s", filename, err->message);
     g_error_free (err);
@@ -168,11 +168,11 @@ GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
  */
 gchar* get_ui_file(const char* filename) {
   gchar* path;
-  path = g_build_filename(".","data","ui",filename,NULL);
+  path = g_build_filename(".", "data", "ui", filename, NULL);
   if (g_file_test (path, G_FILE_TEST_EXISTS))
     return path;
   g_free(path);
-  path = g_build_filename(PACKAGE_DATA_DIR,"pnmixer","ui",filename,NULL);
+  path = g_build_filename(PACKAGE_DATA_DIR, "pnmixer", "ui", filename, NULL);
   if (g_file_test (path, G_FILE_TEST_EXISTS))
     return path;
   g_free(path);

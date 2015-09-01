@@ -36,14 +36,14 @@ void create_about (void);
 void do_prefs (void);
 void do_alsa_reinit (void);
 
-void report_error(char*,...);
+void report_error(char*, ...);
 void warn_sound_conn_lost(void);
 void get_current_levels();
 int get_mute_state(gboolean);
 int update_mute_state();
 gboolean hide_me(GtkWidget *, GdkEvent *, gpointer);
 gint tray_icon_size();
-void set_vol_meter_color(gdouble nr,gdouble ng,gdouble nb);
+void set_vol_meter_color(gdouble nr, gdouble ng, gdouble nb);
 void update_status_icons();
 void update_vol_text();
 

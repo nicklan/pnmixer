@@ -98,7 +98,7 @@ void do_notify_volume(gint level, gboolean muted) {
   if (notification == NULL) {
     notification = NOTIFICATION_NEW("", NULL, NULL);
     notify_notification_set_timeout(notification, noti_timeout);
-    NOTIFICATION_SET_HINT_STRING(notification,"x-canonical-private-synchronous","");
+    NOTIFICATION_SET_HINT_STRING(notification, "x-canonical-private-synchronous", "");
   }
 
   if (level < 0) level = 0;
@@ -120,11 +120,11 @@ void do_notify_volume(gint level, gboolean muted) {
   else
     icon = "audio-volume-high";
 
-  notify_notification_update(notification,summary,NULL,icon);
-  NOTIFICATION_SET_HINT_INT32(notification,"value",level);
+  notify_notification_update(notification, summary, NULL, icon);
+  NOTIFICATION_SET_HINT_INT32(notification, "value", level);
 
-  if (!notify_notification_show(notification,&error)) {
-    report_error(_("Could not send notification: %s"),error->message);
+  if (!notify_notification_show(notification, &error)) {
+    report_error(_("Could not send notification: %s"), error->message);
     g_error_free(error);
   }
 
@@ -144,13 +144,13 @@ void do_notify_text(const gchar *summary, const gchar *body) {
   if (notification == NULL) {
     notification = NOTIFICATION_NEW("", NULL, NULL);
     notify_notification_set_timeout(notification, noti_timeout * 2);
-    NOTIFICATION_SET_HINT_STRING(notification,"x-canonical-private-synchronous","");
+    NOTIFICATION_SET_HINT_STRING(notification, "x-canonical-private-synchronous", "");
   }
 
-  notify_notification_update(notification,summary,body,NULL);
+  notify_notification_update(notification, summary, body, NULL);
 
-  if (!notify_notification_show(notification,&error)) {
-    report_error(_("Could not send notification: %s"),error->message);
+  if (!notify_notification_show(notification, &error)) {
+    report_error(_("Could not send notification: %s"), error->message);
     g_error_free(error);
   }
 }

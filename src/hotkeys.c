@@ -78,7 +78,7 @@ static GdkFilterReturn key_filter(GdkXEvent *gdk_xevent,
 		GdkEvent *event,
 		gpointer data) {
   int type;
-  guint key,state;
+  guint key, state;
   XKeyEvent *xevent;
   //gboolean bResult;
 
@@ -96,10 +96,10 @@ static GdkFilterReturn key_filter(GdkXEvent *gdk_xevent,
     } else {
       int cv = getvol();
       if ((int)key == volUpKey && checkModKey(state, volUpMods)) {
-	setvol(cv+volStep,1,enable_noti&&hotkey_noti);
+	setvol(cv+volStep, 1, enable_noti&&hotkey_noti);
       }
       else if ((int)key == volDownKey && checkModKey(state, volDownMods)) {
-	setvol(cv-volStep,-1,enable_noti&&hotkey_noti);
+	setvol(cv-volStep, -1, enable_noti&&hotkey_noti);
       }
       // just ignore unknown hotkeys
 
@@ -121,7 +121,7 @@ void add_filter() {
   gdk_window_add_filter(
 		  gdk_x11_window_foreign_new_for_display(gdk_display_get_default(),
 			  GDK_ROOT_WINDOW()),
-		  key_filter,NULL);
+		  key_filter, NULL);
 }
 
 static char xErr;
@@ -147,11 +147,11 @@ static int errhdl(Display *disp, XErrorEvent *ev) {
   int p;
   xErr = 1;
   if (ev->serial == muteSerial)
-    p = snprintf(printBuf,errBufSize," %s\n",muteSymStr);
+    p = snprintf(printBuf, errBufSize, " %s\n", muteSymStr);
   else if (ev->serial == downSerial)
-    p = snprintf(printBuf,errBufSize," %s\n",downSymStr);
+    p = snprintf(printBuf, errBufSize, " %s\n", downSymStr);
   else if (ev->serial == upSerial)
-    p = snprintf(printBuf,errBufSize," %s\n",upSymStr);
+    p = snprintf(printBuf, errBufSize, " %s\n", upSymStr);
   else {
     p = 0;
     g_warning("Unknown serial in X error handler\n");
@@ -217,7 +217,7 @@ void grab_keys(int mk, int uk, int dk,
 
   xErr = 0;
   errBuf = g_malloc(errBufSize*sizeof(gchar));
-  printBuf = errBuf + snprintf(errBuf,errBufSize,_("Could not bind the following hotkeys:\n"));
+  printBuf = errBuf + snprintf(errBuf, errBufSize, _("Could not bind the following hotkeys:\n"));
   errBufSize -= (printBuf - errBuf);
 
   if (muteSymStr) g_free(muteSymStr);
@@ -227,32 +227,32 @@ void grab_keys(int mk, int uk, int dk,
   muteSymStr =
 	  gtk_accelerator_name(
 			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-				  volMuteKey, 0, 0),volMuteMods);
+				  volMuteKey, 0, 0), volMuteMods);
   upSymStr =
 	  gtk_accelerator_name(
 			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-				  volUpKey, 0, 0),volUpMods);
+				  volUpKey, 0, 0), volUpMods);
   downSymStr =
 	  gtk_accelerator_name(
 			  XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-				  volDownKey, 0, 0),volDownMods);
+				  volDownKey, 0, 0), volDownMods);
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
   guint i;
   for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
     if (volMuteKey > 0) {
       muteSerial = NextRequest(disp);
-      XGrabKey(disp,volMuteKey,volMuteMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+      XGrabKey(disp, volMuteKey, volMuteMods|keymasks[i], GDK_ROOT_WINDOW(), 1, GrabModeAsync, GrabModeAsync);
     }
 
     if (volUpKey > 0) {
       upSerial = NextRequest(disp);
-      XGrabKey(disp,volUpKey,volUpMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+      XGrabKey(disp, volUpKey, volUpMods|keymasks[i], GDK_ROOT_WINDOW(), 1, GrabModeAsync, GrabModeAsync);
     }
 
     if (volDownKey > 0) {
       downSerial = NextRequest(disp);
-      XGrabKey(disp,volDownKey,volDownMods|keymasks[i],GDK_ROOT_WINDOW(),1,GrabModeAsync,GrabModeAsync);
+      XGrabKey(disp, volDownKey, volDownMods|keymasks[i], GDK_ROOT_WINDOW(), 1, GrabModeAsync, GrabModeAsync);
     }
   }
 

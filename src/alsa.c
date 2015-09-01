@@ -76,7 +76,7 @@ static void card_free(gpointer data) {
   struct acard* c = (struct acard*)data;
   g_free(c->name);
   g_free(c->dev);
-  g_slist_free_full(c->channels,g_free);
+  g_slist_free_full(c->channels, g_free);
   g_free(data);
 }
 
@@ -94,7 +94,7 @@ static void get_cards() {
   struct acard *cur_card, *default_card;
 
   if (cards != NULL)
-    g_slist_free_full(cards,card_free);
+    g_slist_free_full(cards, card_free);
 
   cards = NULL;
 
@@ -103,7 +103,7 @@ static void get_cards() {
   default_card->dev = g_strdup("default");
   default_card->channels = get_channels("default");
 
-  cards = g_slist_append(cards,default_card);
+  cards = g_slist_append(cards, default_card);
 
   // don't need to free this as it's alloca'd
   snd_ctl_card_info_alloca(&info);
@@ -111,24 +111,24 @@ static void get_cards() {
   for (;;) {
     err = snd_card_next(&num);
     if (err < 0) {
-      report_error("Can't get sounds cards: %s",snd_strerror(err));
+      report_error("Can't get sounds cards: %s", snd_strerror(err));
       return;
     }
     if (num < 0)
       break;
     sprintf(buf, "hw:%d", num);
-    if (snd_ctl_open(&ctl,buf, 0) < 0)
+    if (snd_ctl_open(&ctl, buf, 0) < 0)
       continue;
-    err = snd_ctl_card_info(ctl,info);
+    err = snd_ctl_card_info(ctl, info);
     snd_ctl_close(ctl);
     if (err < 0)
       continue;
     cur_card = g_malloc(sizeof(struct acard));
     cur_card->name = g_strdup(snd_ctl_card_info_get_name(info));
-    sprintf(buf,"hw:%d",num);
+    sprintf(buf, "hw:%d", num);
     cur_card->dev = g_strdup(buf);
     cur_card->channels = get_channels(buf);
-    cards = g_slist_append(cards,cur_card);
+    cards = g_slist_append(cards, cur_card);
   }
 #ifdef DEBUG
   GSList *tmp = cards;
@@ -182,7 +182,7 @@ static snd_mixer_t *open_mixer(const char *card,
   int err;
   snd_mixer_t *mixer = NULL;
 
-  DEBUG_PRINT("Card %s: opening mixer",card);
+  DEBUG_PRINT("Card %s: opening mixer", card);
 
   if ((err = snd_mixer_open(&mixer, 0)) < 0) {
     DEBUG_PRINT("Card %s: mixer open error: %s", card, snd_strerror(err));
@@ -229,9 +229,9 @@ static int alsa_cb(snd_mixer_elem_t *e, unsigned int mask) {
     if (enable_noti && external_noti) {
       int vol = getvol();
       if (muted)
-	do_notify_volume(vol,FALSE);
+	do_notify_volume(vol, FALSE);
       else
-	do_notify_volume(vol,TRUE);
+	do_notify_volume(vol, TRUE);
     }
   }
 
@@ -287,7 +287,7 @@ static gboolean poll_cb(GIOChannel *source,
     /* This handles the case where alsa_cb doesn't read all the data on source.
        If we don't clear it out we'll go into an infinite callback loop since there
        will be data on the channel forever */
-    GIOStatus stat = g_io_channel_read_chars(source,sbuf,256,&sread,(GError**)&serr);
+    GIOStatus stat = g_io_channel_read_chars(source, sbuf, 256, &sread, (GError**)&serr);
     if (serr) {
       g_error_free((GError*)serr);
       serr = NULL;
@@ -362,9 +362,9 @@ static void unset_io_watch(void) {
 static int close_mixer(snd_mixer_t *mixer, const char* card) {
   int err;
 
-  DEBUG_PRINT("Card %s: closing mixer",card);
+  DEBUG_PRINT("Card %s: closing mixer", card);
 
-  if ((err = snd_mixer_detach(mixer,card)) < 0)
+  if ((err = snd_mixer_detach(mixer, card)) < 0)
     report_error("Card %s: mixer detach error: %s", card, snd_strerror(err));
   snd_mixer_free(mixer);
   if ((err = snd_mixer_close(mixer)) < 0)
@@ -380,12 +380,12 @@ static int close_mixer(snd_mixer_t *mixer, const char* card) {
  * @return the GSList of channels
  */
 static GSList* get_channels(const char* card) {
-  int ccount,i;
+  int ccount, i;
   snd_mixer_t *mixer;
   snd_mixer_elem_t *telem;
   GSList *channels = NULL;
 
-  mixer = open_mixer(card,NULL,0);
+  mixer = open_mixer(card, NULL, 0);
   if (mixer == NULL)
     return NULL;
 
@@ -394,24 +394,24 @@ static GSList* get_channels(const char* card) {
 
   for(i = 0;i < ccount;i++) {
     if(snd_mixer_selem_has_playback_volume(telem))
-      channels = g_slist_append(channels,strdup(snd_mixer_selem_get_name(telem)));
+      channels = g_slist_append(channels, strdup(snd_mixer_selem_get_name(telem)));
     telem = snd_mixer_elem_next(telem);
   }
 
 #ifdef DEBUG
   GSList *tmp = channels;
   if (tmp) {
-    printf("Card %s: available channels\n",card);
+    printf("Card %s: available channels\n", card);
     while (tmp) {
-      printf("\t%s\n",(char*)tmp->data);
+      printf("\t%s\n", (char*)tmp->data);
       tmp = tmp->next;
     }
   } else {
-    printf("Card %s: no playable channels\n",card);
+    printf("Card %s: no playable channels\n", card);
   }
 #endif
 
-  close_mixer(mixer,card);
+  close_mixer(mixer, card);
 
   return channels;
 }
@@ -598,7 +598,7 @@ int setvol(int vol, int dir, gboolean notify) {
     value = lrint_dir(dvol * (max - min), dir) + min;
     snd_mixer_selem_set_playback_volume_all(elem, value);
     if (enable_noti && notify && cur_perc != getvol())
-      do_notify_volume(getvol(),FALSE);
+      do_notify_volume(getvol(), FALSE);
     return snd_mixer_selem_set_playback_volume_all(elem, value); // intentionally set twice
   }
 
@@ -615,7 +615,7 @@ int setvol(int vol, int dir, gboolean notify) {
   value = lrint_dir(6000.0 * log10(dvol), dir) + max;
   snd_mixer_selem_set_playback_dB_all(elem, value, dir);
   if (enable_noti && notify && cur_perc != getvol())
-    do_notify_volume(getvol(),FALSE);
+    do_notify_volume(getvol(), FALSE);
   return snd_mixer_selem_set_playback_dB_all(elem, value, dir); // intentionally set twice
 }
 
@@ -630,12 +630,12 @@ void setmute(gboolean notify) {
   if (ismuted()) {
     snd_mixer_selem_set_playback_switch_all(elem, 0);
     if (enable_noti && notify)
-      do_notify_volume(getvol(),TRUE);
+      do_notify_volume(getvol(), TRUE);
   }
   else {
     snd_mixer_selem_set_playback_switch_all(elem, 1);
     if (enable_noti && notify)
-      do_notify_volume(getvol(),FALSE);
+      do_notify_volume(getvol(), FALSE);
   }
 }
 
@@ -658,13 +658,13 @@ int ismuted() {
  */
 int getvol() {
   if (normalize_vol()) {
-      return lrint(get_normalized_volume(elem,SND_MIXER_SCHN_FRONT_RIGHT)*100);
+      return lrint(get_normalized_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT)*100);
   } else {
       long val, pmin = 0, pmax = 0;
       snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
       snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &val);
-      DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li",val,pmin,pmax);
-      return convert_prange(val,pmin,pmax);
+      DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li", val, pmin, pmax);
+      return convert_prange(val, pmin, pmax);
   }
 }
 
