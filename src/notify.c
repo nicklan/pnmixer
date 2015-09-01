@@ -37,7 +37,7 @@
 #define NOTIFICATION_SET_HINT_INT32(notification, key, value)		\
   notify_notification_set_hint(notification, key, g_variant_new_int32(value))
 #else
-#define NOTIFICATION_NEW(summary, body, icon)	\
+#define NOTIFICATION_NEW(summary, body, icon)		\
   notify_notification_new(summary, body, icon, NULL)
 #define NOTIFICATION_SET_HINT_STRING(notification, key, value)	\
   notify_notification_set_hint_string(notification, key, value)
@@ -158,8 +158,8 @@ void do_notify_text(const gchar *summary, const gchar *body) {
 #else
 
 // without libnotify everything is a no-op
-void init_libnotify() {}
-void uninit_libnotify() {}
+void init_libnotify(void) {}
+void uninit_libnotify(void) {}
 void do_notify_volume(gint level, gboolean muted) {}
 void do_notify_text(const gchar *summary, const gchar *body) {}
 

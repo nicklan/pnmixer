@@ -64,14 +64,14 @@ static gchar* find_pixmap_file(const gchar *filename) {
   /* We step through each of the pixmaps directory to find it. */
   elem = pixmaps_directories;
   while (elem)
-    {
-      gchar *pathname = g_strdup_printf ("%s%s%s", (gchar*)elem->data,
-                                         G_DIR_SEPARATOR_S, filename);
-      if (g_file_test (pathname, G_FILE_TEST_EXISTS))
-        return pathname;
-      g_free (pathname);
-      elem = elem->next;
-    }
+  {
+    gchar *pathname = g_strdup_printf ("%s%s%s", (gchar*)elem->data,
+				       G_DIR_SEPARATOR_S, filename);
+    if (g_file_test (pathname, G_FILE_TEST_EXISTS))
+      return pathname;
+    g_free (pathname);
+    elem = elem->next;
+  }
   return NULL;
 }
 
@@ -93,11 +93,10 @@ GtkWidget* create_pixmap(GtkWidget   *widget,
 
   pathname = find_pixmap_file (filename);
 
-  if (!pathname)
-    {
-      g_warning (_("Couldn't find pixmap file: %s"), filename);
-      return gtk_image_new ();
-    }
+  if (!pathname) {
+    g_warning (_("Couldn't find pixmap file: %s"), filename);
+    return gtk_image_new ();
+  }
 
   pixmap = gtk_image_new_from_file (pathname);
   g_free (pathname);
@@ -120,19 +119,17 @@ GdkPixbuf* create_pixbuf(const gchar *filename) {
 
   pathname = find_pixmap_file (filename);
 
-  if (!pathname)
-    {
-      g_warning (_("Couldn't find pixmap file: %s"), filename);
-      return NULL;
-    }
+  if (!pathname) {
+    g_warning (_("Couldn't find pixmap file: %s"), filename);
+    return NULL;
+  }
 
   pixbuf = gdk_pixbuf_new_from_file (pathname, &error);
-  if (!pixbuf)
-    {
-      report_error(_("Failed to load pixbuf file: %s: %s"),
-		   pathname, error->message);
-      g_error_free (error);
-    }
+  if (!pixbuf) {
+    report_error(_("Failed to load pixbuf file: %s: %s"),
+		 pathname, error->message);
+    g_error_free (error);
+  }
   g_free (pathname);
   return pixbuf;
 }

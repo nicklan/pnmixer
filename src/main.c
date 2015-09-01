@@ -40,12 +40,12 @@
 #include "prefs.h"
 
 enum {
-	VOLUME_MUTED,
-	VOLUME_OFF,
-	VOLUME_LOW,
-	VOLUME_MEDIUM,
-	VOLUME_HIGH,
-	N_VOLUME_ICONS
+  VOLUME_MUTED,
+  VOLUME_OFF,
+  VOLUME_LOW,
+  VOLUME_MEDIUM,
+  VOLUME_HIGH,
+  N_VOLUME_ICONS
 };
 
 static GtkStatusIcon *tray_icon = NULL;
@@ -86,7 +86,7 @@ void report_error(char* err, ...) {
  * Emits a warning if the sound connection is lost, usually
  * via a dialog window (with option to reinitialize alsa) or stderr.
  */
-void warn_sound_conn_lost() {
+void warn_sound_conn_lost(void) {
   if (popup_window) {
     gint resp;
     GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW(popup_window),
@@ -155,8 +155,8 @@ void on_mixer(void) {
  * connected
  */
 void tray_icon_button(GtkStatusIcon *status_icon,
-		GdkEventButton *event,
-		gpointer user_data) {
+		      GdkEventButton *event,
+		      gpointer user_data) {
   if (event->button == 2) {
     gint act = 0;
     if (g_key_file_has_key(keyFile, "PNMixer", "MiddleClickAction", NULL))
@@ -227,9 +227,9 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
     }
 #else
     gdk_keyboard_grab(gtk_widget_get_window(popup_window),
-			TRUE, GDK_CURRENT_TIME);
+		      TRUE, GDK_CURRENT_TIME);
     gdk_pointer_grab(gtk_widget_get_window(popup_window), TRUE,
-			GDK_BUTTON_PRESS_MASK, NULL, NULL, GDK_CURRENT_TIME);
+		     GDK_BUTTON_PRESS_MASK, NULL, NULL, GDK_CURRENT_TIME);
 #endif
   } else {
     gtk_widget_hide (popup_window);
@@ -241,7 +241,7 @@ void tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data) {
  *
  * @return size of the tray icon or 48 if there is none
  */
-gint tray_icon_size() {
+gint tray_icon_size(void) {
   if(tray_icon && GTK_IS_STATUS_ICON(tray_icon))  // gtk_status_icon_is_embedded returns false until the prefs window is opened on gtk3
     return gtk_status_icon_get_size(tray_icon);
   return 48;
@@ -269,7 +269,7 @@ static gboolean tray_icon_resized(GtkStatusIcon *status_icon,
  *
  * @return the newly created tray icon
  */
-GtkStatusIcon *create_tray_icon() {
+GtkStatusIcon *create_tray_icon(void) {
   tray_icon = gtk_status_icon_new();
 
   /* catch scroll-wheel events */
@@ -405,7 +405,7 @@ void create_about (void) {
  * Gets the current volume level and adjusts the GtkAdjustment
  * vol_scale_adjustment widget which is used by GtkHScale/GtkScale.
  */
-void get_current_levels() {
+void get_current_levels(void) {
   int tmpvol = getvol();
   gtk_adjustment_set_value(GTK_ADJUSTMENT(vol_adjustment), (double) tmpvol);
 }
@@ -497,7 +497,7 @@ int get_mute_state(gboolean set_check) {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), TRUE);
     gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[VOLUME_MUTED]);
     sprintf(tooltip, _("%s (%s)\nVolume: %d %%\nMuted"), active_card_name,
-			active_channel, tmpvol);
+	    active_channel, tmpvol);
   }
   gtk_status_icon_set_tooltip_text(tray_icon, tooltip);
   return muted;
@@ -577,7 +577,7 @@ void set_vol_meter_color(gdouble nr, gdouble ng, gdouble nb) {
  * is triggered either by apply_prefs() in the preferences subsystem,
  * do_alsa_reinit() or tray_icon_resized().
  */
-void update_status_icons() {
+void update_status_icons(void) {
   int i, icon_width;
   GdkPixbuf* old_icons[N_VOLUME_ICONS];
   int size = tray_icon_size();
@@ -634,7 +634,7 @@ void update_status_icons() {
  * Updates the alignment of the volume text which is shown on the
  * volume popup_window (left click) around the scroll bar.
  */
-void update_vol_text() {
+void update_vol_text(void) {
   gboolean show = TRUE;
   if (g_key_file_has_key(keyFile, "PNMixer", "DisplayTextVolume", NULL))
     show = g_key_file_get_boolean(keyFile, "PNMixer", "DisplayTextVolume", NULL);
@@ -657,10 +657,10 @@ void update_vol_text() {
 
 static gboolean version = FALSE;
 static GOptionEntry args[] =
-  {
-    { "version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit", NULL },
-    { NULL, 0, 0, 0, NULL, NULL, NULL }
-  };
+{
+  { "version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit", NULL },
+  { NULL, 0, 0, 0, NULL, NULL, NULL }
+};
 
 /**
  * Program entry point. Initializes gtk+, calls the widget creating

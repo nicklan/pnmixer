@@ -94,7 +94,7 @@ typedef struct {
  */
 
 /* Use this function to set the directory containing installed pixmaps. */
-void        add_pixmap_directory       (const gchar     *directory);
+void        add_pixmap_directory (const gchar *directory);
 
 
 /*
@@ -102,14 +102,14 @@ void        add_pixmap_directory       (const gchar     *directory);
  */
 
 /* This is used to create the pixmaps used in the interface. */
-GtkWidget*  create_pixmap              (GtkWidget       *widget,
-                                        const gchar     *filename);
+GtkWidget*  create_pixmap    (GtkWidget   *widget,
+			      const gchar *filename);
 
 /* This is used to create the pixbufs used in the interface. */
-GdkPixbuf*  create_pixbuf              (const gchar     *filename);
+GdkPixbuf*  create_pixbuf    (const gchar *filename);
 
-GdkPixbuf* get_stock_pixbuf(const char* filename, gint size);
+GdkPixbuf*  get_stock_pixbuf (const char *filename, gint size);
 
-gchar* get_ui_file(const char* filename);
+gchar*      get_ui_file      (const char *filename);
 
 #endif // SUPPORT_H_

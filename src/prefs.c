@@ -62,19 +62,19 @@ AlsaCard=default"
  */
 static void
 load_icon_themes(GtkWidget* combo) {
-  GDir          *dir;
-  GKeyFile      *index_file;
-  const gchar   *file;
-  gchar         *index_filename;
-  gchar         *theme_name;
-  gchar         *active_theme_name;
-  gint          i, j, n, act;
-  gboolean      is_dup;
-  GtkIconTheme* theme;
-  gchar         **path;
-  GtkTreeIter iter;
-  GtkListStore* store = GTK_LIST_STORE(gtk_combo_box_get_model
-				       (GTK_COMBO_BOX(combo)));
+  GDir           *dir;
+  GKeyFile       *index_file;
+  const gchar    *file;
+  gchar          *index_filename;
+  gchar          *theme_name;
+  gchar          *active_theme_name;
+  gint           i, j, n, act;
+  gboolean       is_dup;
+  GtkIconTheme  *theme;
+  gchar        **path;
+  GtkTreeIter    iter;
+  GtkListStore  *store = GTK_LIST_STORE(gtk_combo_box_get_model
+					(GTK_COMBO_BOX(combo)));
 
   gtk_list_store_append(store, &iter);
   gtk_list_store_set(store, &iter, 0, _("PNMixer Icons"), -1);
@@ -148,7 +148,7 @@ load_icon_themes(GtkWidget* combo) {
  * @return array of doubles which holds the RGB values, from
  * 0 to 1.0
  */
-gdouble* get_vol_meter_colors() {
+gdouble* get_vol_meter_colors(void) {
 #else
 /**
  * Gets the volume meter colors which are drawn on top of the
@@ -158,7 +158,7 @@ gdouble* get_vol_meter_colors() {
  * @return array of ints which holds the RGB values, from
  * 0 to 65536
  */
-gint* get_vol_meter_colors() {
+gint* get_vol_meter_colors(void) {
 #endif
   gsize numcols = 3;
 #ifdef WITH_GTK3
@@ -298,7 +298,7 @@ static gint g_key_file_get_integer_with_default(GKeyFile *keyFile,
  * Sets the global options enable_noti, hotkey_noti, mouse_noti, popup_noti,
  * noti_timeout and external_noti from the user settings.
  */
-static void set_notification_options() {
+static void set_notification_options(void) {
   enable_noti   = g_key_file_get_boolean_with_default(keyFile, "PNMixer", "EnableNotifications", FALSE);
   hotkey_noti   = g_key_file_get_boolean_with_default(keyFile, "PNMixer", "HotkeyNotifications", TRUE);
   mouse_noti    = g_key_file_get_boolean_with_default(keyFile, "PNMixer", "MouseNotifications", TRUE);
@@ -351,7 +351,7 @@ void apply_prefs(gint alsa_change) {
  * Gets the current icon theme from the global keyFile. This
  * sets the global icon_theme.
  */
-void get_icon_theme() {
+void get_icon_theme(void) {
   if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
     gchar* theme_name = g_key_file_get_string(keyFile, "PNMixer", "IconTheme", NULL);
     if (icon_theme == NULL || (icon_theme == gtk_icon_theme_get_default()))
@@ -370,7 +370,7 @@ void get_icon_theme() {
  * @return the currently selected Alsa Card as a newly allocated string,
  * NULL on failure
  */
-gchar* get_selected_card() {
+gchar* get_selected_card(void) {
   return g_key_file_get_string(keyFile, "PNMixer", "AlsaCard", NULL);
 }
 
@@ -566,7 +566,7 @@ static const char* vol_cmds[] = {"pavucontrol",
  * @return volume command from user preferences or valid command
  * from vol_cmds or NULL on failure
  */
-gchar* get_vol_command() {
+gchar* get_vol_command(void) {
   if (g_key_file_has_key(keyFile, "PNMixer", "VolumeControlCommand", NULL))
     return g_key_file_get_string(keyFile, "PNMixer", "VolumeControlCommand", NULL);
   else {
@@ -599,7 +599,7 @@ gchar* get_vol_command() {
  * @param data struct holding the GtkWidgets of the preferences windows
  */
 void acquire_hotkey(const char* widget_name,
-		   PrefsData *data) {
+		    PrefsData *data) {
   gint resp, action;
   GtkWidget *diag = data->hotkey_dialog;
 
@@ -631,25 +631,25 @@ void acquire_hotkey(const char* widget_name,
   // grab keyboard
   if (G_LIKELY(
 #ifdef WITH_GTK3
-			  gdk_device_grab(gtk_get_current_event_device(),
-				  gdk_screen_get_root_window(gdk_screen_get_default()),
-				  GDK_OWNERSHIP_APPLICATION,
-				  TRUE,
-				  GDK_ALL_EVENTS_MASK,
-				  NULL,
-				  GDK_CURRENT_TIME
-				  )
+	gdk_device_grab(gtk_get_current_event_device(),
+			gdk_screen_get_root_window(gdk_screen_get_default()),
+			GDK_OWNERSHIP_APPLICATION,
+			TRUE,
+			GDK_ALL_EVENTS_MASK,
+			NULL,
+			GDK_CURRENT_TIME
+	  )
 #else
-			  gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)),
-				  TRUE,
-				  GDK_CURRENT_TIME)
+	gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(diag)),
+			  TRUE,
+			  GDK_CURRENT_TIME)
 #endif
-		  == GDK_GRAB_SUCCESS)) {
+	== GDK_GRAB_SUCCESS)) {
     resp = gtk_dialog_run(GTK_DIALOG(diag));
 #ifdef WITH_GTK3
     gdk_device_ungrab (gtk_get_current_event_device(), GDK_CURRENT_TIME);
 #else
-	gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+    gdk_keyboard_ungrab (GDK_CURRENT_TIME);
 #endif
     if (resp == GTK_RESPONSE_OK) {
       const gchar* key_name = gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
@@ -741,8 +741,8 @@ gboolean hotkey_released(GtkWidget   *dialog,
  * @param mods the pressed keymod
  */
 static void set_label_for_keycode(GtkWidget* label,
-		gint code,
-		GdkModifierType mods) {
+				  gint code,
+				  GdkModifierType mods) {
   int keysym;
   gchar *key_text;
   if (code < 0)
@@ -860,7 +860,7 @@ GtkWidget* create_prefs_window (void) {
      g_key_file_get_boolean_with_default(keyFile, "PNMixer", "DrawVolMeter", FALSE));
   gtk_adjustment_set_upper
     (GTK_ADJUSTMENT(gtk_builder_get_object(builder, "vol_meter_pos_adjustment")),
-     tray_icon_size()-10);
+     tray_icon_size() - 10);
   gtk_spin_button_set_value
     (GTK_SPIN_BUTTON(prefs_data->vol_meter_pos_spin),
      g_key_file_get_integer_with_default(keyFile, "PNMixer", "VolMeterPos", 0));

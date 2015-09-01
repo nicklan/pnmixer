@@ -105,8 +105,8 @@ gboolean vol_scroll_event(GtkRange     *range,
  * False to propagate the event further
  */
 gboolean on_scroll(GtkStatusIcon *status_icon,
-		GdkEventScroll *event,
-		gpointer user_data) {
+		   GdkEventScroll *event,
+		   gpointer user_data) {
   int cv = getvol();
   if (event->direction == GDK_SCROLL_UP) {
     setvol(cv + scroll_step, 1, mouse_noti);
@@ -142,7 +142,7 @@ gboolean on_hotkey_button_click(GtkWidget *widget,
   if (event->button == 1 &&
       event->type == GDK_2BUTTON_PRESS)
     acquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
-		  data);
+		   data);
   return TRUE;
 }
 
@@ -206,7 +206,7 @@ void on_ok_button_clicked(GtkButton *button,
   gchar *old_card = get_selected_card();
   gchar *card = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(acc));
   if (old_card && strcmp(old_card, card))
-      alsa_change = 1;
+    alsa_change = 1;
   g_key_file_set_string(keyFile, "PNMixer", "AlsaCard", card);
 
   // channel
@@ -372,18 +372,18 @@ void on_cancel_button_clicked(GtkButton *button,
  * False to propagate the event further
  */
 gboolean on_key_press(GtkWidget *widget,
-		GdkEventKey *event,
-		PrefsData *data) {
+		      GdkEventKey *event,
+		      PrefsData *data) {
 
-	switch(event->keyval) {
-		case GDK_KEY_Escape:
-			on_cancel_button_clicked(NULL, data);
-			break;
-		case GDK_KEY_Return:
-			on_ok_button_clicked(NULL, data);
-			break;
-		default:
-			return FALSE;
-	}
-	return TRUE;
+  switch(event->keyval) {
+  case GDK_KEY_Escape:
+    on_cancel_button_clicked(NULL, data);
+    break;
+  case GDK_KEY_Return:
+    on_ok_button_clicked(NULL, data);
+    break;
+  default:
+    return FALSE;
+  }
+  return TRUE;
 }

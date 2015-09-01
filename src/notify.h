@@ -26,9 +26,9 @@
 #include <libnotify/notify.h>
 #endif // HAVE_LIBN
 
-void init_libnotify();
-void uninit_libnotify();
-void do_notify_volume(gint level, gboolean muted);
-void do_notify_text(const gchar *body, const gchar *text);
+void init_libnotify   (void);
+void uninit_libnotify (void);
+void do_notify_volume (gint level, gboolean muted);
+void do_notify_text   (const gchar *body, const gchar *text);
 
-#endif // PREFS_H_
+#endif // NOTIFY_H_
