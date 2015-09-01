@@ -49,21 +49,16 @@ msgstr ""
 
 #: ../src/main.c:123
 #, c-format
-msgid "Unable to run command %s"
+msgid "Unable to run command: %s"
 msgstr "Befehl %s konnte nicht ausgeführt werden"
 
 #: ../src/main.c:144
 msgid ""
-"\n"
-"No mixer application was found on your system.\n"
-"\n"
-"Please open preferences and set the command you want to run for volume "
-"control."
+"No mixer application was found on your system. Please open preferences and "
+"set the command you want to run for volume control."
 msgstr ""
-"\n"
-"Es konnte keine Mixer-Anwendung auf Ihrem Computer gefunden werden.\n"
-"\n"
-"Bitte öffnen Sie Einstellungen und wählen Sie den Befehl für die "
+"Es konnte keine Mixer-Anwendung auf Ihrem Computer gefunden werden. Bitte "
+"öffnen Sie Einstellungen und wählen Sie den Befehl für die "
 "Lautstärkeregelung."
 
 #: ../src/main.c:186
@@ -76,19 +71,19 @@ msgstr ""
 
 #: ../src/main.c:298
 msgid ""
-"Can't find main user interface file.  Please insure PNMixer is installed "
-"correctly.  Exiting\n"
+"Can't find main user interface file. Please ensure PNMixer is installed "
+"correctly. Exiting."
 msgstr ""
-"Die Datei für die Hauptbenutzeroberfläche konnte nicht gefunden werden.  "
-"Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist.  Das "
-"Programm wird beendet.\n"
+"Die Datei für die Hauptbenutzeroberfläche konnte nicht gefunden werden. "
+"Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist. Das Programm "
+"wird beendet."
 
 #: ../src/main.c:382
 msgid ""
-"Can't find about interface file.  Please insure PNMixer is installed "
+"Can't find about interface file. Please ensure PNMixer is installed "
 "correctly."
 msgstr ""
-"Die Datei für die Info-Oberfläche konnte nicht gefunden werden.  Bitte "
+"Die Datei für die Info-Oberfläche konnte nicht gefunden werden. Bitte "
 "stellen Sie sicher, dass PNMixer korrekt installiert ist."
 
 #: ../src/main.c:484
@@ -122,8 +117,8 @@ msgstr "%s Version: %s\n"
 
 #: ../src/callbacks.c:340
 #, c-format
-msgid "Couldn't write preferences file: %s\n"
-msgstr "Die Einstellungsdatei konnte nicht geschrieben werden: %s\n"
+msgid "Couldn't write preferences file: %s"
+msgstr "Die Einstellungsdatei konnte nicht geschrieben werden: %s"
 
 #: ../src/support.c:98 ../src/support.c:125
 #, c-format
@@ -132,8 +127,8 @@ msgstr "Pixmap-Datei konnte nicht gefunden werden: %s"
 
 #: ../src/support.c:132
 #, c-format
-msgid "Failed to load pixbuf file: %s: %s\n"
-msgstr "Pixbuf-Datei konnte nicht geladen werden: %s: %s\n"
+msgid "Failed to load pixbuf file: %s: %s"
+msgstr "Pixbuf-Datei konnte nicht geladen werden: %s: %s"
 
 #: ../src/prefs.c:80
 msgid "PNMixer Icons"
@@ -141,7 +136,7 @@ msgstr "PNMixer-Symbole"
 
 #. corrupt value somehow
 #: ../src/prefs.c:177
-msgid "Invalid color for volume meter in config file.  Reverting to default."
+msgid "Invalid color for volume meter in config file. Reverting to default."
 msgstr ""
 "Ungültige Farbe für Lautstärkeskala in der Konfiguration. "
 "Standardeinstellungen werden verwendet."
@@ -149,39 +144,26 @@ msgstr ""
 #: ../src/prefs.c:203
 #, c-format
 msgid ""
-"\n"
-"Error: %s exists but is not a directory, will not be able to save preferences"
+"Error: %s exists but is not a directory, will not be able to save "
+"preferences."
 msgstr ""
-"\n"
-"Fehler: %s existiert, aber ist kein Ordner.  Einstellungen können nicht "
+"Fehler: %s existiert, aber ist kein Ordner. Einstellungen können nicht "
 "gespeichert werden."
 
 #: ../src/prefs.c:206
 #, c-format
-msgid ""
-"\n"
-"Couldn't make prefs directory: %s\n"
-msgstr ""
-"\n"
-"Ordner für Einstellungen konnte nicht angelegt werden: %s\n"
+msgid "Couldn't make prefs directory: %s"
+msgstr "Ordner für Einstellungen konnte nicht angelegt werden: %s"
 
 #: ../src/prefs.c:228
 #, c-format
-msgid ""
-"\n"
-"Couldn't load preferences file: %s\n"
-msgstr ""
-"\n"
-"Einstellungsdatei konnte nicht geladen werden: %s\n"
+msgid "Couldn't load preferences file: %s"
+msgstr "Einstellungsdatei konnte nicht geladen werden: %s"
 
 #: ../src/prefs.c:236
 #, c-format
-msgid ""
-"\n"
-"Couldn't load default preferences: %s\n"
-msgstr ""
-"\n"
-"Standardeinstellungen konnten nicht geladen werden: %s\n"
+msgid "Couldn't load default preferences: %s"
+msgstr "Standardeinstellungen konnten nicht geladen werden: %s"
 
 #: ../src/prefs.c:615
 #, c-format
@@ -207,11 +189,11 @@ msgstr "Zugriff auf die Tastatur nicht möglich."
 
 #: ../src/prefs.c:797
 msgid ""
-"Can't find preferences user interface file.  Please insure PNMixer is "
-"installed correctly.\n"
+"Can't find preferences user interface file. Please ensure PNMixer is "
+"installed correctly."
 msgstr ""
-"Die Datei für die Einstellungen-Oberfläche konnte nicht gefunden werden.  "
-"Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist.\n"
+"Die Datei für die Einstellungen-Oberfläche konnte nicht gefunden werden. "
+"Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist."
 
 #: ../src/prefs.c:958
 msgid "Notifications"
@@ -364,78 +346,74 @@ msgid "Custom (set below)"
 msgstr "Benutzerdefiniert (siehe unten)"
 
 #: ../data/ui/prefs-gtk3.glade.h:5 ../data/ui/prefs-gtk2.glade.h:5
-msgid ""
-"Notification support not\n"
-"enabled at compile time"
-msgstr ""
-"Unterstützung für Benachrichtigungen\n"
-"wurde nicht einkompiliert"
+msgid "Notification support not enabled at compile time."
+msgstr "Unterstützung für Benachrichtigungen wurde nicht einkompiliert."
 
-#: ../data/ui/prefs-gtk3.glade.h:7 ../data/ui/prefs-gtk2.glade.h:7
+#: ../data/ui/prefs-gtk3.glade.h:6 ../data/ui/prefs-gtk2.glade.h:6
 msgid "Enable Notifications"
 msgstr "Benachrichtigungen aktivieren"
 
-#: ../data/ui/prefs-gtk3.glade.h:8 ../data/ui/prefs-gtk2.glade.h:8
+#: ../data/ui/prefs-gtk3.glade.h:7 ../data/ui/prefs-gtk2.glade.h:7
 msgid "timeout (ms)"
 msgstr "Timeout (ms)"
 
-#: ../data/ui/prefs-gtk3.glade.h:9 ../data/ui/prefs-gtk2.glade.h:9
+#: ../data/ui/prefs-gtk3.glade.h:8 ../data/ui/prefs-gtk2.glade.h:8
 msgid "Notify for volume changes from:"
 msgstr "Benachrichtigungen zu Lautstärkeänderungen mittels:"
 
-#: ../data/ui/prefs-gtk3.glade.h:10 ../data/ui/prefs-gtk2.glade.h:10
+#: ../data/ui/prefs-gtk3.glade.h:9 ../data/ui/prefs-gtk2.glade.h:9
 msgid "HotKeys"
 msgstr "Tastenkürzel"
 
-#: ../data/ui/prefs-gtk3.glade.h:11 ../data/ui/prefs-gtk2.glade.h:11
+#: ../data/ui/prefs-gtk3.glade.h:10 ../data/ui/prefs-gtk2.glade.h:10
 msgid "Mouse Scroll"
 msgstr "Mausrad"
 
-#: ../data/ui/prefs-gtk3.glade.h:12 ../data/ui/prefs-gtk2.glade.h:12
+#: ../data/ui/prefs-gtk3.glade.h:11 ../data/ui/prefs-gtk2.glade.h:11
 msgid "Adjustment in Popup Window"
 msgstr "Anpassung im Popup-Fenster"
 
-#: ../data/ui/prefs-gtk3.glade.h:13 ../data/ui/prefs-gtk2.glade.h:13
+#: ../data/ui/prefs-gtk3.glade.h:12 ../data/ui/prefs-gtk2.glade.h:12
 msgid "External Change"
 msgstr "Externe Änderung"
 
-#: ../data/ui/prefs-gtk3.glade.h:14 ../data/ui/prefs-gtk2.glade.h:14
+#: ../data/ui/prefs-gtk3.glade.h:13 ../data/ui/prefs-gtk2.glade.h:13
 msgid "<b>Notification Options</b>"
 msgstr "<b>Benachrichtigungsptionen</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:15 ../data/ui/prefs-gtk2.glade.h:15
+#: ../data/ui/prefs-gtk3.glade.h:14 ../data/ui/prefs-gtk2.glade.h:14
 msgid "Top"
 msgstr "Oben"
 
-#: ../data/ui/prefs-gtk3.glade.h:16 ../data/ui/prefs-gtk2.glade.h:16
+#: ../data/ui/prefs-gtk3.glade.h:15 ../data/ui/prefs-gtk2.glade.h:15
 msgid "Bottom"
 msgstr "Unten"
 
-#: ../data/ui/prefs-gtk3.glade.h:17 ../data/ui/prefs-gtk2.glade.h:17
+#: ../data/ui/prefs-gtk3.glade.h:16 ../data/ui/prefs-gtk2.glade.h:16
 msgid "Left"
 msgstr "Links"
 
-#: ../data/ui/prefs-gtk3.glade.h:18 ../data/ui/prefs-gtk2.glade.h:18
+#: ../data/ui/prefs-gtk3.glade.h:17 ../data/ui/prefs-gtk2.glade.h:17
 msgid "Right"
 msgstr "Rechts"
 
-#: ../data/ui/prefs-gtk3.glade.h:19 ../data/ui/prefs-gtk2.glade.h:19
+#: ../data/ui/prefs-gtk3.glade.h:18 ../data/ui/prefs-gtk2.glade.h:18
 msgid "PNMixer Preferences"
 msgstr "PNMixer-Einstellungen"
 
-#: ../data/ui/prefs-gtk3.glade.h:20 ../data/ui/prefs-gtk2.glade.h:20
+#: ../data/ui/prefs-gtk3.glade.h:19 ../data/ui/prefs-gtk2.glade.h:19
 msgid "Display Text Volume"
 msgstr "Lautstärke als Text anzeigen"
 
-#: ../data/ui/prefs-gtk3.glade.h:21 ../data/ui/prefs-gtk2.glade.h:21
+#: ../data/ui/prefs-gtk3.glade.h:20 ../data/ui/prefs-gtk2.glade.h:20
 msgid "Volume Text Position:"
 msgstr "Textposition:"
 
-#: ../data/ui/prefs-gtk3.glade.h:22 ../data/ui/prefs-gtk2.glade.h:22
+#: ../data/ui/prefs-gtk3.glade.h:21 ../data/ui/prefs-gtk2.glade.h:21
 msgid "<b>Text</b>"
 msgstr "<b>Text</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:23 ../data/ui/prefs-gtk2.glade.h:23
+#: ../data/ui/prefs-gtk3.glade.h:22 ../data/ui/prefs-gtk2.glade.h:22
 msgid ""
 "Draw Volume Meter on Tray Icon\n"
 "(Will cause slightly higher CPU usage)"
@@ -443,132 +421,132 @@ msgstr ""
 "Lautstärkeskala im Benachrichtigungsfeld anzeigen\n"
 "(verursacht geringfügig höhere CPU-/Speicherlast)"
 
-#: ../data/ui/prefs-gtk3.glade.h:25 ../data/ui/prefs-gtk2.glade.h:25
+#: ../data/ui/prefs-gtk3.glade.h:24 ../data/ui/prefs-gtk2.glade.h:24
 msgid "Volume Meter Offset:"
 msgstr "Lautstärkeskala-Versatz:"
 
-#: ../data/ui/prefs-gtk3.glade.h:26 ../data/ui/prefs-gtk2.glade.h:26
+#: ../data/ui/prefs-gtk3.glade.h:25 ../data/ui/prefs-gtk2.glade.h:25
 msgid "Volume Meter Color:"
 msgstr "Lautstärkeskala-Farbe:"
 
-#: ../data/ui/prefs-gtk3.glade.h:27 ../data/ui/prefs-gtk2.glade.h:27
+#: ../data/ui/prefs-gtk3.glade.h:26 ../data/ui/prefs-gtk2.glade.h:26
 msgid "<b>Volume Meter</b>"
 msgstr "<b>Lautstärkeskala</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:28 ../data/ui/prefs-gtk2.glade.h:28
+#: ../data/ui/prefs-gtk3.glade.h:27 ../data/ui/prefs-gtk2.glade.h:27
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Symbolthema</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:29 ../data/ui/prefs-gtk2.glade.h:29
+#: ../data/ui/prefs-gtk3.glade.h:28 ../data/ui/prefs-gtk2.glade.h:28
 msgid "View"
 msgstr "Ansicht"
 
-#: ../data/ui/prefs-gtk3.glade.h:30 ../data/ui/prefs-gtk2.glade.h:30
+#: ../data/ui/prefs-gtk3.glade.h:29 ../data/ui/prefs-gtk2.glade.h:29
 msgid "Card:"
 msgstr "Karte:"
 
-#: ../data/ui/prefs-gtk3.glade.h:31 ../data/ui/prefs-gtk2.glade.h:31
+#: ../data/ui/prefs-gtk3.glade.h:30 ../data/ui/prefs-gtk2.glade.h:30
 msgid "Channel:"
 msgstr "Kanal:"
 
-#: ../data/ui/prefs-gtk3.glade.h:32 ../data/ui/prefs-gtk2.glade.h:32
+#: ../data/ui/prefs-gtk3.glade.h:31 ../data/ui/prefs-gtk2.glade.h:31
 msgid "Normalize Volume:"
 msgstr "Lautstärke normalisieren:"
 
-#: ../data/ui/prefs-gtk3.glade.h:33 ../data/ui/prefs-gtk2.glade.h:33
+#: ../data/ui/prefs-gtk3.glade.h:32 ../data/ui/prefs-gtk2.glade.h:32
 msgid "<b>Sound Device</b>"
 msgstr "<b>Sound-Gerät</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:34 ../data/ui/prefs-gtk2.glade.h:34
+#: ../data/ui/prefs-gtk3.glade.h:33 ../data/ui/prefs-gtk2.glade.h:33
 msgid "Device"
 msgstr "Gerät"
 
-#: ../data/ui/prefs-gtk3.glade.h:35 ../data/ui/prefs-gtk2.glade.h:35
+#: ../data/ui/prefs-gtk3.glade.h:34 ../data/ui/prefs-gtk2.glade.h:34
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Befehl zur Lautstärkeregelung</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:36 ../data/ui/prefs-gtk2.glade.h:36
+#: ../data/ui/prefs-gtk3.glade.h:35 ../data/ui/prefs-gtk2.glade.h:35
 msgid "Mouse Scroll Step:"
 msgstr "Schrittweite des Mausrades:"
 
-#: ../data/ui/prefs-gtk3.glade.h:37 ../data/ui/prefs-gtk2.glade.h:37
+#: ../data/ui/prefs-gtk3.glade.h:36 ../data/ui/prefs-gtk2.glade.h:36
 msgid "Middle Click Action:"
 msgstr "Aktion bei Mittelklick:"
 
-#: ../data/ui/prefs-gtk3.glade.h:38 ../data/ui/prefs-gtk2.glade.h:38
+#: ../data/ui/prefs-gtk3.glade.h:37 ../data/ui/prefs-gtk2.glade.h:37
 msgid "Custom Command:"
 msgstr "Benutzerdefinierter Befehl:"
 
-#: ../data/ui/prefs-gtk3.glade.h:39 ../data/ui/prefs-gtk2.glade.h:39
+#: ../data/ui/prefs-gtk3.glade.h:38 ../data/ui/prefs-gtk2.glade.h:38
 msgid "<b>Mouse</b>"
 msgstr "<b>Maus</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:40 ../data/ui/prefs-gtk2.glade.h:40
+#: ../data/ui/prefs-gtk3.glade.h:39 ../data/ui/prefs-gtk2.glade.h:39
 msgid "Behavior"
 msgstr "Verhalten"
 
-#: ../data/ui/prefs-gtk3.glade.h:41 ../data/ui/prefs-gtk2.glade.h:41
+#: ../data/ui/prefs-gtk3.glade.h:40 ../data/ui/prefs-gtk2.glade.h:40
 msgid "Enable HotKeys"
 msgstr "Tastenkürzel aktivieren"
 
-#: ../data/ui/prefs-gtk3.glade.h:42 ../data/ui/prefs-gtk2.glade.h:42
+#: ../data/ui/prefs-gtk3.glade.h:41 ../data/ui/prefs-gtk2.glade.h:41
 msgid "HotKey Volume Step:"
 msgstr "Schrittweite der Lautstärkeregelung per Tastatur:"
 
-#: ../data/ui/prefs-gtk3.glade.h:43 ../data/ui/prefs-gtk2.glade.h:43
+#: ../data/ui/prefs-gtk3.glade.h:42 ../data/ui/prefs-gtk2.glade.h:42
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>Tastenkürzel-Einstellungen</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:44 ../data/ui/prefs-gtk2.glade.h:44
+#: ../data/ui/prefs-gtk3.glade.h:43 ../data/ui/prefs-gtk2.glade.h:43
 msgid "Mute/Unmute:"
 msgstr "Stumm (ein/aus):"
 
-#: ../data/ui/prefs-gtk3.glade.h:45 ../data/ui/prefs-gtk2.glade.h:45
+#: ../data/ui/prefs-gtk3.glade.h:44 ../data/ui/prefs-gtk2.glade.h:44
 msgid "Volume Up:"
 msgstr "Lauter:"
 
-#: ../data/ui/prefs-gtk3.glade.h:46 ../data/ui/prefs-gtk2.glade.h:46
+#: ../data/ui/prefs-gtk3.glade.h:45 ../data/ui/prefs-gtk2.glade.h:45
 msgid "Volume Down:"
 msgstr "Leiser:"
 
-#: ../data/ui/prefs-gtk3.glade.h:47 ../data/ui/prefs-gtk2.glade.h:47
+#: ../data/ui/prefs-gtk3.glade.h:46 ../data/ui/prefs-gtk2.glade.h:46
 msgid "Double click a HotKey to assign a new HotKey"
 msgstr ""
 "Doppelklicken Sie auf eine Taste, um ein neues Tastenkürzel festzulegen"
 
-#: ../data/ui/prefs-gtk3.glade.h:48 ../data/ui/prefs-gtk2.glade.h:48
+#: ../data/ui/prefs-gtk3.glade.h:47 ../data/ui/prefs-gtk2.glade.h:47
 msgid "Command"
 msgstr "Befehl"
 
-#: ../data/ui/prefs-gtk3.glade.h:49 ../data/ui/prefs-gtk2.glade.h:49
+#: ../data/ui/prefs-gtk3.glade.h:48 ../data/ui/prefs-gtk2.glade.h:48
 msgid "HotKey"
 msgstr "Tastenkürzel"
 
-#: ../data/ui/prefs-gtk3.glade.h:50 ../data/ui/prefs-gtk2.glade.h:50
+#: ../data/ui/prefs-gtk3.glade.h:49 ../data/ui/prefs-gtk2.glade.h:49
 msgid "(None)"
 msgstr "(Keine)"
 
-#: ../data/ui/prefs-gtk3.glade.h:51 ../data/ui/prefs-gtk2.glade.h:51
+#: ../data/ui/prefs-gtk3.glade.h:50 ../data/ui/prefs-gtk2.glade.h:50
 msgid "<b>HotKeys</b>"
 msgstr "<b>Tastenkürzel</b>"
 
-#: ../data/ui/prefs-gtk3.glade.h:52 ../data/ui/prefs-gtk2.glade.h:52
+#: ../data/ui/prefs-gtk3.glade.h:51 ../data/ui/prefs-gtk2.glade.h:51
 msgid "Set HotKey"
 msgstr "Tastenkürzel festlegen"
 
-#: ../data/ui/prefs-gtk3.glade.h:53 ../data/ui/prefs-gtk2.glade.h:53
+#: ../data/ui/prefs-gtk3.glade.h:52 ../data/ui/prefs-gtk2.glade.h:52
 msgid "Defining HotKey"
 msgstr "Tastenkürzel wird festgelegt"
 
-#: ../data/ui/prefs-gtk3.glade.h:54 ../data/ui/prefs-gtk2.glade.h:54
+#: ../data/ui/prefs-gtk3.glade.h:53 ../data/ui/prefs-gtk2.glade.h:53
 msgid "(press <Ctrl>C to reset)"
 msgstr "(Strg+C zum Zurücksetzen)"
 
-#: ../data/ui/prefs-gtk3.glade.h:55 ../data/ui/prefs-gtk2.glade.h:55
+#: ../data/ui/prefs-gtk3.glade.h:54 ../data/ui/prefs-gtk2.glade.h:54
 msgid "Press new HotKey for:"
 msgstr "Neues Tastenkürzel drücken für:"
 
-#: ../data/ui/prefs-gtk3.glade.h:56 ../data/ui/prefs-gtk2.glade.h:56
+#: ../data/ui/prefs-gtk3.glade.h:55 ../data/ui/prefs-gtk2.glade.h:55
 msgid "(Unknown)"
 msgstr "(Unbekannt)"
 
