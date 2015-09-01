@@ -213,6 +213,10 @@ msgstr ""
 "Die Datei für die Einstellungen-Oberfläche konnte nicht gefunden werden.  "
 "Bitte stellen Sie sicher, dass PNMixer korrekt installiert ist.\n"
 
+#: ../src/prefs.c:958
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
 #: ../src/hotkeys.c:220
 #, c-format
 msgid "Could not bind the following hotkeys:\n"

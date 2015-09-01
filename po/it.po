@@ -212,6 +212,10 @@ msgstr ""
 "Impossibile trovare il file delle preferenze dell'interfaccia utente. Per "
 "favore assicurarsi che PNMixer sia installato correttamente.\n"
 
+#: ../src/prefs.c:958
+msgid "Notifications"
+msgstr "Notifiche"
+
 #: ../src/hotkeys.c:220
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
