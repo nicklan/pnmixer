@@ -111,7 +111,7 @@ static void get_cards() {
   for (;;) {
     err = snd_card_next(&num);
     if (err < 0) {
-      report_error("Can't get sounds cards: %s\n",snd_strerror(err));
+      report_error("Can't get sounds cards: %s",snd_strerror(err));
       return;
     }
     if (num < 0)
@@ -298,9 +298,9 @@ static gboolean poll_cb(GIOChannel *source,
       warn_sound_conn_lost();
     else if (stat == G_IO_STATUS_ERROR ||
 			stat == G_IO_STATUS_EOF)
-      report_error("Error: GIO error has occured.  Won't respond to external volume changes anymore\n");
+      report_error("Error: GIO error has occured. Won't respond to external volume changes anymore.");
     else
-      report_error("Error: Unknown status from g_io_channel_read_chars\n");
+      report_error("Error: Unknown status from g_io_channel_read_chars.");
     return TRUE;
   }
   return TRUE;
@@ -327,7 +327,7 @@ static void set_io_watch(snd_mixer_t *mixer) {
 
   if (pcount <= 0) {
     report_error("Warning: Couldn't get any poll descriptors. "
-      "Won't respond to external volume changes");
+      "Won't respond to external volume changes.");
     return;
   }
 

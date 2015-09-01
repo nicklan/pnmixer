@@ -56,7 +56,7 @@
  * TRUE otherwise
  */
 static gboolean idle_report_error(gpointer data) {
-  report_error("Unable to initialize libnotify.  Notifications will not be sent");
+  report_error("Unable to initialize libnotify. Notifications will not be sent.");
   return FALSE;
 }
 
@@ -124,8 +124,7 @@ void do_notify_volume(gint level, gboolean muted) {
   NOTIFICATION_SET_HINT_INT32(notification,"value",level);
   
   if (!notify_notification_show(notification,&error)) {
-    g_warning("Could not send notification: %s",error->message);
-    report_error(_("Could not send notification: %s\n"),error->message);
+    report_error(_("Could not send notification: %s"),error->message);
     g_error_free(error);
   }
 
@@ -151,8 +150,7 @@ void do_notify_text(const gchar *summary, const gchar *body) {
   notify_notification_update(notification,summary,body,NULL);
 
   if (!notify_notification_show(notification,&error)) {
-    g_warning("Could not send notification: %s",error->message);
-    report_error(_("Could not send notification: %s\n"),error->message);
+    report_error(_("Could not send notification: %s"),error->message);
     g_error_free(error);
   }
 }

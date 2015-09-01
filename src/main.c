@@ -120,7 +120,7 @@ void run_command(gchar* cmd) {
     gtk_widget_hide (popup_window);
 
     if (g_spawn_command_line_async (cmd, &error) == FALSE) {
-      report_error(_("Unable to run command %s"), error->message);
+      report_error(_("Unable to run command: %s"), error->message);
       g_error_free (error);
       error = NULL;
     }
@@ -141,7 +141,7 @@ void on_mixer(void) {
     g_free(cmd);
   }
   else
-    report_error(_("\nNo mixer application was found on your system.\n\nPlease open preferences and set the command you want to run for volume control."));
+    report_error(_("No mixer application was found on your system. Please open preferences and set the command you want to run for volume control."));
 }
 
 /* FIXME: return type should be gboolean */
@@ -295,7 +295,7 @@ void create_popups (void) {
   uifile = get_ui_file("popup_window-gtk2.glade");
 #endif
   if (!uifile) {
-    report_error(_("Can't find main user interface file.  Please insure PNMixer is installed correctly.  Exiting\n"));
+    report_error(_("Can't find main user interface file. Please ensure PNMixer is installed correctly. Exiting."));
     exit(1);
   }
   if (!gtk_builder_add_from_file( builder, uifile, &error )) {
@@ -379,7 +379,7 @@ void create_about (void) {
   uifile = get_ui_file("about-gtk2.glade");
 #endif
   if (!uifile) {
-    report_error(_("Can't find about interface file.  Please insure PNMixer is installed correctly."));
+    report_error(_("Can't find about interface file. Please ensure PNMixer is installed correctly."));
     return;
   }
   builder = gtk_builder_new();
