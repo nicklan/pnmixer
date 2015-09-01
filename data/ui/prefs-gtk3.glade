@@ -31,8 +31,7 @@
   <object class="GtkLabel" id="no_notification_label">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="label" translatable="yes">Notification support not
-enabled at compile time</property>
+    <property name="label" translatable="yes">Notification support not enabled at compile time.</property>
     <property name="justify">center</property>
     <attributes>
       <attribute name="weight" value="bold"/>
