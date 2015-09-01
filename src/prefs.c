@@ -304,7 +304,7 @@ static void set_notification_options() {
   mouse_noti    = g_key_file_get_boolean_with_default(keyFile, "PNMixer", "MouseNotifications", TRUE);
   popup_noti    = g_key_file_get_boolean_with_default(keyFile, "PNMixer", "PopupNotifications", FALSE);
   external_noti = g_key_file_get_boolean_with_default(keyFile, "PNMixer", "ExternalNotifications", FALSE);
-  noti_timeout = g_key_file_get_integer_with_default(keyFile, "PNMixer", "NotificationTimeout", 1500);
+  noti_timeout  = g_key_file_get_integer_with_default(keyFile, "PNMixer", "NotificationTimeout", 1500);
 }
 
 /**
@@ -485,7 +485,7 @@ void on_card_changed(GtkComboBox* box, PrefsData* data) {
 * @param data user data set when the signal handler was connected
  */
 void on_vol_text_toggle(GtkToggleButton* button, PrefsData* data) {
-  gboolean active  = gtk_toggle_button_get_active (button);
+  gboolean active = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->vol_pos_label, active);
   gtk_widget_set_sensitive(data->vol_pos_combo, active);
 }
@@ -498,7 +498,7 @@ void on_vol_text_toggle(GtkToggleButton* button, PrefsData* data) {
  * @param data user data set when the signal handler was connected
  */
 void on_draw_vol_toggle(GtkToggleButton* button, PrefsData* data) {
-  gboolean active  = gtk_toggle_button_get_active (button);
+  gboolean active = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->vol_meter_pos_label, active);
   gtk_widget_set_sensitive(data->vol_meter_pos_spin, active);
   gtk_widget_set_sensitive(data->vol_meter_color_label, active);
@@ -527,7 +527,7 @@ void on_middle_changed(GtkComboBox* box, PrefsData* data) {
  */
 void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
 #ifdef HAVE_LIBN
-  gboolean active  = gtk_toggle_button_get_active (button);
+  gboolean active = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->hotkey_noti_check, active);
   gtk_widget_set_sensitive(data->mouse_noti_check, active);
   gtk_widget_set_sensitive(data->popup_noti_check, active);
@@ -544,7 +544,7 @@ void on_notification_toggle(GtkToggleButton* button, PrefsData* data) {
  * @param data user data set when the signal handler was connected
  */
 void on_hotkey_toggle(GtkToggleButton* button, PrefsData* data) {
-  gboolean active  = gtk_toggle_button_get_active (button);
+  gboolean active = gtk_toggle_button_get_active (button);
   gtk_widget_set_sensitive(data->hotkey_vol_label, active);
   gtk_widget_set_sensitive(data->hotkey_vol_spin, active);
 }
@@ -601,15 +601,13 @@ gchar* get_vol_command() {
 void acquire_hotkey(const char* widget_name,
 		   PrefsData *data) {
   gint resp, action;
-  GtkWidget  *diag = data->hotkey_dialog;
+  GtkWidget *diag = data->hotkey_dialog;
 
   action =
-    (!strcmp(widget_name, "mute_eventbox"))?
-    0:
-    (!strcmp(widget_name, "up_eventbox"))?
-    1:
-    (!strcmp(widget_name, "down_eventbox"))?
-    2:-1;
+    (!strcmp(widget_name, "mute_eventbox")) ? 0 :
+    (!strcmp(widget_name, "up_eventbox"))   ? 1 :
+    (!strcmp(widget_name, "down_eventbox")) ? 2 :
+    -1;
 
   if (action < 0) {
     report_error(_("Invalid widget passed to acquire_hotkey: %s"), widget_name);

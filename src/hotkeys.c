@@ -27,13 +27,13 @@
 #  include <config.h>
 #endif
 
-static int volMuteKey = -1;
-static int volDownKey = -1;
-static int volUpKey   = -1;
+static int volMuteKey  = -1;
+static int volDownKey  = -1;
+static int volUpKey    = -1;
 static int volMuteMods = -1;
 static int volDownMods = -1;
 static int volUpMods   = -1;
-static int volStep    = 1;
+static int volStep     = 1;
 
 // `xmodmap -pm`
 /**
@@ -59,7 +59,7 @@ static guint keymasks [] = {
  */
 static gboolean checkModKey(int got, int want) {
   guint i;
-  for (i=0; i < G_N_ELEMENTS(keymasks); i++)
+  for (i = 0; i < G_N_ELEMENTS(keymasks); i++)
     if ((int)(want | keymasks[i]) == got)
 		return TRUE;
   return FALSE;
@@ -96,15 +96,15 @@ static GdkFilterReturn key_filter(GdkXEvent *gdk_xevent,
     } else {
       int cv = getvol();
       if ((int)key == volUpKey && checkModKey(state, volUpMods)) {
-	setvol(cv+volStep, 1, enable_noti&&hotkey_noti);
+	setvol(cv + volStep, 1, enable_noti && hotkey_noti);
       }
       else if ((int)key == volDownKey && checkModKey(state, volDownMods)) {
-	setvol(cv-volStep, -1, enable_noti&&hotkey_noti);
+	setvol(cv - volStep, -1, enable_noti && hotkey_noti);
       }
       // just ignore unknown hotkeys
 
       if (get_mute_state(TRUE) == 0)
-	setmute(enable_noti&&hotkey_noti);
+	setmute(enable_noti && hotkey_noti);
 
       // this will set the slider value
       get_current_levels();
@@ -239,7 +239,7 @@ void grab_keys(int mk, int uk, int dk,
 
   XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
   guint i;
-  for (i=0; i<G_N_ELEMENTS(keymasks); i++) {
+  for (i = 0; i < G_N_ELEMENTS(keymasks); i++) {
     if (volMuteKey > 0) {
       muteSerial = NextRequest(disp);
       XGrabKey(disp, volMuteKey, volMuteMods|keymasks[i], GDK_ROOT_WINDOW(), 1, GrabModeAsync, GrabModeAsync);

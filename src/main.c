@@ -437,14 +437,14 @@ static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
   height = gdk_pixbuf_get_height (pixbuf);
 
   g_assert (x >= 0 && x < width);
-  g_assert ((y+h) >= 0 && y < height);
+  g_assert (y + h >= 0 && y < height);
 
   rowstride = gdk_pixbuf_get_rowstride (pixbuf);
   pixels = gdk_pixbuf_get_pixels (pixbuf);
 
-  y = (height - y);
+  y = height - y;
   for (i = 0; i < h; i++) {
-    p = pixels + (y-i) * rowstride + x * n_channels;
+    p = pixels + (y - i) * rowstride + x * n_channels;
     memcpy(p, vol_meter_row, vol_meter_width);
   }
 }
@@ -581,7 +581,7 @@ void update_status_icons() {
   int i, icon_width;
   GdkPixbuf* old_icons[N_VOLUME_ICONS];
   int size = tray_icon_size();
-  for(i=0; i<N_VOLUME_ICONS; i++)
+  for(i = 0; i < N_VOLUME_ICONS; i++)
     old_icons[i] = status_icons[i];
   if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
     status_icons[VOLUME_MUTED]  = get_stock_pixbuf("audio-volume-muted", size);
@@ -602,18 +602,18 @@ void update_status_icons() {
     status_icons[VOLUME_HIGH]   = create_pixbuf("pnmixer-high.png");
   }
   icon_width = gdk_pixbuf_get_height(status_icons[0]);
-  vol_div_factor = ((gdk_pixbuf_get_height(status_icons[0])-10)/100.0);
-  vol_meter_width = 1.25*icon_width;
-  if (vol_meter_width%4 != 0)
-    vol_meter_width -= (vol_meter_width%4);
-  if (!vol_meter_row &&  g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter", NULL)) {
-    int lim = vol_meter_width/4;
-    vol_meter_row = g_malloc(vol_meter_width*sizeof(guchar));
-    for(i=0; i<lim; i++) {
-      vol_meter_row[i*4]   = vol_meter_red;
-      vol_meter_row[i*4+1] = vol_meter_green;
-      vol_meter_row[i*4+2] = vol_meter_blue;
-      vol_meter_row[i*4+3] = 255;
+  vol_div_factor = ((gdk_pixbuf_get_height(status_icons[0]) - 10) / 100.0);
+  vol_meter_width = 1.25 * icon_width;
+  if (vol_meter_width % 4 != 0)
+    vol_meter_width -= (vol_meter_width % 4);
+  if (!vol_meter_row && g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter", NULL)) {
+    int lim = vol_meter_width / 4;
+    vol_meter_row = g_malloc(vol_meter_width * sizeof(guchar));
+    for(i = 0; i < lim; i++) {
+      vol_meter_row[i * 4]     = vol_meter_red;
+      vol_meter_row[i * 4 + 1] = vol_meter_green;
+      vol_meter_row[i * 4 + 2] = vol_meter_blue;
+      vol_meter_row[i * 4 + 3] = 255;
     }
   } else if (vol_meter_row && !g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter", NULL)) {
     free(vol_meter_row);
@@ -643,9 +643,9 @@ void update_vol_text() {
     if (g_key_file_has_key(keyFile, "PNMixer", "TextVolumePosition", NULL)) {
       gint pi = g_key_file_get_integer(keyFile, "PNMixer", "TextVolumePosition", NULL);
       pos =
-	pi==0?GTK_POS_TOP:
-	pi==1?GTK_POS_BOTTOM:
-	pi==2?GTK_POS_LEFT:
+	pi == 0 ? GTK_POS_TOP :
+	pi == 1 ? GTK_POS_BOTTOM :
+	pi == 2 ? GTK_POS_LEFT :
 	GTK_POS_RIGHT;
     }
     gtk_scale_set_draw_value (GTK_SCALE (vol_scale), TRUE);

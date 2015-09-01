@@ -139,8 +139,8 @@ gboolean on_hotkey_button_click(GtkWidget *widget,
 				GdkEventButton *event,
 				PrefsData *data) {
 
-  if (event->button ==1 &&
-      event->type==GDK_2BUTTON_PRESS)
+  if (event->button == 1 &&
+      event->type == GDK_2BUTTON_PRESS)
     acquire_hotkey(gtk_buildable_get_name(GTK_BUILDABLE(widget)),
 		  data);
   return TRUE;
