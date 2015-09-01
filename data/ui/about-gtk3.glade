@@ -24,7 +24,8 @@ Steven Honeyman</property>
     <property name="documenters">	</property>
     <property name="translator_credits" translatable="yes">French: Matthieu Bresson
 German: Mario Blättermann
-Italian: Mattia Bertoni</property>
+Italian: Mattia Bertoni
+Russian: Pavel Serebryakov</property>
     <property name="logo">../pixmaps/pnmixer-about.png</property>
     <property name="wrap_license">True</property>
     <child internal-child="vbox">

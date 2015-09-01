@@ -230,7 +230,8 @@ msgstr ""
 msgid ""
 "French: Matthieu Bresson\n"
 "German: Mario Blättermann\n"
-"Italian: Mattia Bertoni"
+"Italian: Mattia Bertoni\n"
+"Russian: Pavel Serebryakov"
 msgstr ""
 
 #: ../data/ui/popup_window-gtk3.glade.h:1

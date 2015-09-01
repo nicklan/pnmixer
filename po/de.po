@@ -273,11 +273,13 @@ msgstr ""
 msgid ""
 "French: Matthieu Bresson\n"
 "German: Mario Blättermann\n"
-"Italian: Mattia Bertoni"
+"Italian: Mattia Bertoni\n"
+"Russian: Pavel Serebryakov"
 msgstr ""
 "Deutsch: Mario Blättermann\n"
 "Französisch: Matthieu Bresson\n"
-"Italienisch: Mattia Bertoni"
+"Italienisch: Mattia Bertoni\n"
+"Russisch: Pavel Serebryakov"
 
 #: ../data/ui/popup_window-gtk3.glade.h:1
 #: ../data/ui/popup_window-gtk2.glade.h:1
