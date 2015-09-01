@@ -955,7 +955,7 @@ GtkWidget* create_prefs_window (void) {
 #else
 			   GTK_WIDGET(gtk_builder_get_object(builder,"no_notification_label")),
 #endif
-			   gtk_label_new("Notifications"));
+			   gtk_label_new(_("Notifications")));
 
 #ifdef HAVE_LIBN
   // notification checkboxes
