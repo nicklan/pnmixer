@@ -1,10 +1,10 @@
 /* hotkeys.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
 
@@ -100,7 +100,7 @@ static GdkFilterReturn key_filter(GdkXEvent *gdk_xevent,
       }
       else if ((int)key == volDownKey && checkModKey(state, volDownMods)) {
 	setvol(cv-volStep,-1,enable_noti&&hotkey_noti);
-      } 
+      }
       // just ignore unknown hotkeys
 
       if (get_mute_state(TRUE) == 0)
@@ -146,7 +146,7 @@ static gchar *muteSymStr=NULL,
 static int errhdl(Display *disp, XErrorEvent *ev) {
   int p;
   xErr = 1;
-  if (ev->serial == muteSerial) 
+  if (ev->serial == muteSerial)
     p = snprintf(printBuf,errBufSize," %s\n",muteSymStr);
   else if (ev->serial == downSerial)
     p = snprintf(printBuf,errBufSize," %s\n",downSymStr);
@@ -214,7 +214,7 @@ void grab_keys(int mk, int uk, int dk,
       uk < 0 &&
       dk < 0)
     return;
-  
+
   xErr = 0;
   errBuf = g_malloc(errBufSize*sizeof(gchar));
   printBuf = errBuf + snprintf(errBuf,errBufSize,_("Could not bind the following hotkeys:\n"));
@@ -259,8 +259,8 @@ void grab_keys(int mk, int uk, int dk,
   XFlush(disp);
   XSync(disp, False);
   (void) XSetErrorHandler(old_hdlr);
-  
-  if (xErr) 
+
+  if (xErr)
     g_idle_add(idle_report_error, NULL);
   else
     g_free(errBuf);

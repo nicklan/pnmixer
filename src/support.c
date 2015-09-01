@@ -1,10 +1,10 @@
 /* support.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
 
@@ -148,7 +148,7 @@ GdkPixbuf* create_pixbuf(const gchar *filename) {
 GdkPixbuf* get_stock_pixbuf(const char* filename, gint size) {
   GError *err = NULL;
   GdkPixbuf *return_buf = NULL;
-  if (icon_theme == NULL) 
+  if (icon_theme == NULL)
     get_icon_theme();
   return_buf = gtk_icon_theme_load_icon(icon_theme,filename,size,0,&err);
   if (err != NULL) {

@@ -153,7 +153,7 @@ static void get_cards() {
  */
 struct acard *find_card(const char* card_name) {
   GSList *item;
-  
+
   if (!card_name)
     return NULL;
 
@@ -320,7 +320,7 @@ guint gio_watch_ids[PCOUNT_MAX] = { 0 };
 static void set_io_watch(snd_mixer_t *mixer) {
   int i, pcount;
   struct pollfd fds[PCOUNT_MAX];
-  
+
   pcount = snd_mixer_poll_descriptors_count(mixer);
   assert(pcount <= PCOUNT_MAX);
   pcount = snd_mixer_poll_descriptors(mixer, fds, pcount);
@@ -412,7 +412,7 @@ static GSList* get_channels(const char* card) {
 #endif
 
   close_mixer(mixer,card);
-  
+
   return channels;
 }
 
@@ -463,7 +463,7 @@ static int alsaset() {
     }
     assert(item != NULL);
   }
-  
+
   // open card
   DEBUG_PRINT("Opening card '%s'...", active_card->dev);
   smixer_options.device = active_card->dev;
@@ -507,7 +507,7 @@ static int alsaset() {
 static void alsaunset() {
   if (active_card == NULL)
     return;
-    
+
   unset_io_watch();
 
   // 'elem' must be set to NULL at last, because alsa_cb()

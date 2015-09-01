@@ -1,10 +1,10 @@
 /* notify.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
 
@@ -100,29 +100,29 @@ void do_notify_volume(gint level, gboolean muted) {
     notify_notification_set_timeout(notification, noti_timeout);
     NOTIFICATION_SET_HINT_STRING(notification,"x-canonical-private-synchronous","");
   }
-  
+
   if (level < 0) level = 0;
   if (level > 100) level = 100;
 
   if (muted)
     summary = g_strdup("Volume muted");
-  else 
+  else
     summary = g_strdup_printf("%s (%s)\nVolume: %d%%\n", active_card_name, active_channel, level);
 
   if (muted)
     icon = "audio-volume-muted";
   else if (level == 0)
     icon = "audio-volume-off";
-  else if (level < 33) 
+  else if (level < 33)
     icon = "audio-volume-low";
   else if (level < 66)
     icon = "audio-volume-medium";
-  else 
+  else
     icon = "audio-volume-high";
-  
+
   notify_notification_update(notification,summary,NULL,icon);
   NOTIFICATION_SET_HINT_INT32(notification,"value",level);
-  
+
   if (!notify_notification_show(notification,&error)) {
     report_error(_("Could not send notification: %s"),error->message);
     g_error_free(error);
@@ -132,7 +132,7 @@ void do_notify_volume(gint level, gboolean muted) {
 }
 
 /**
- * Send a text notification. 
+ * Send a text notification.
  *
  * @param summary the notification summary
  * @param _body the notification body

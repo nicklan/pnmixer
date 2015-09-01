@@ -1,10 +1,10 @@
 /* main.c
  * PNmixer is written by Nick Lanham, a fork of OBmixer
- * which was programmed by Lee Ferrett, derived 
+ * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
- * This program is free software; you can redistribute 
- * it and/or modify it under the terms of the GNU General 
- * Public License v3. source code is available at 
+ * This program is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU General
+ * Public License v3. source code is available at
  * <http://github.com/nicklan/pnmixer>
  */
 
@@ -159,7 +159,7 @@ void tray_icon_button(GtkStatusIcon *status_icon,
 		gpointer user_data) {
   if (event->button == 2) {
     gint act = 0;
-    if (g_key_file_has_key(keyFile,"PNMixer","MiddleClickAction",NULL)) 
+    if (g_key_file_has_key(keyFile,"PNMixer","MiddleClickAction",NULL))
       act = g_key_file_get_integer(keyFile,"PNMixer","MiddleClickAction",NULL);
     switch (act) {
     case 0: // mute/unmute
@@ -475,11 +475,11 @@ int get_mute_state(gboolean set_check) {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mute_check), FALSE);
     if (tmpvol == 0)
       icon = status_icons[VOLUME_OFF];
-    else if (tmpvol < 33) 
+    else if (tmpvol < 33)
       icon = status_icons[VOLUME_LOW];
     else if (tmpvol < 66)
       icon = status_icons[VOLUME_MEDIUM];
-    else 
+    else
       icon = status_icons[VOLUME_HIGH];
     sprintf(tooltip, _("%s (%s)\nVolume: %d %%"), active_card_name, active_channel, tmpvol);
 
@@ -487,7 +487,7 @@ int get_mute_state(gboolean set_check) {
       GdkPixbuf* old_icon = icon_copy;
       icon_copy = gdk_pixbuf_copy(icon);
       draw_vol_meter(icon_copy,draw_offset,5,(tmpvol*vol_div_factor));
-      if (old_icon) 
+      if (old_icon)
 	g_object_unref(old_icon);
       gtk_status_icon_set_from_pixbuf(tray_icon, icon_copy);
     } else
@@ -626,7 +626,7 @@ void update_status_icons() {
   if (tray_icon)
     get_mute_state(TRUE);
   for(i = 0; i < N_VOLUME_ICONS; i++)
-    if (old_icons[i]) 
+    if (old_icons[i])
       g_object_unref(old_icons[i]);
 }
 
@@ -642,7 +642,7 @@ void update_vol_text() {
     GtkPositionType pos = GTK_POS_RIGHT;
     if (g_key_file_has_key(keyFile,"PNMixer","TextVolumePosition",NULL)) {
       gint pi = g_key_file_get_integer(keyFile,"PNMixer","TextVolumePosition",NULL);
-      pos = 
+      pos =
 	pi==0?GTK_POS_TOP:
 	pi==1?GTK_POS_BOTTOM:
 	pi==2?GTK_POS_LEFT:
@@ -656,7 +656,7 @@ void update_vol_text() {
 }
 
 static gboolean version = FALSE;
-static GOptionEntry args[] = 
+static GOptionEntry args[] =
   {
     { "version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit", NULL },
     { NULL, 0, 0, 0, NULL, NULL, NULL }
