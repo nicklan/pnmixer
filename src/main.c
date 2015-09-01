@@ -443,7 +443,7 @@ static void draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h) {
   pixels = gdk_pixbuf_get_pixels (pixbuf);
 
   y = (height - y);
-  for (i = 0;i < h;i++) {
+  for (i = 0; i < h; i++) {
     p = pixels + (y-i) * rowstride + x * n_channels;
     memcpy(p, vol_meter_row, vol_meter_width);
   }
@@ -581,7 +581,7 @@ void update_status_icons() {
   int i, icon_width;
   GdkPixbuf* old_icons[N_VOLUME_ICONS];
   int size = tray_icon_size();
-  for(i=0;i<N_VOLUME_ICONS;i++)
+  for(i=0; i<N_VOLUME_ICONS; i++)
     old_icons[i] = status_icons[i];
   if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
     status_icons[VOLUME_MUTED]  = get_stock_pixbuf("audio-volume-muted", size);
@@ -609,7 +609,7 @@ void update_status_icons() {
   if (!vol_meter_row &&  g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter", NULL)) {
     int lim = vol_meter_width/4;
     vol_meter_row = g_malloc(vol_meter_width*sizeof(guchar));
-    for(i=0;i<lim;i++) {
+    for(i=0; i<lim; i++) {
       vol_meter_row[i*4]   = vol_meter_red;
       vol_meter_row[i*4+1] = vol_meter_green;
       vol_meter_row[i*4+2] = vol_meter_blue;

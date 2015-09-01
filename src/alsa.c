@@ -108,7 +108,7 @@ static void get_cards() {
   // don't need to free this as it's alloca'd
   snd_ctl_card_info_alloca(&info);
   num = -1;
-  for (;;) {
+  for (; ; ) {
     err = snd_card_next(&num);
     if (err < 0) {
       report_error("Can't get sounds cards: %s", snd_strerror(err));
@@ -392,7 +392,7 @@ static GSList* get_channels(const char* card) {
   ccount = snd_mixer_get_count(mixer);
   telem = snd_mixer_first_elem(mixer);
 
-  for(i = 0;i < ccount;i++) {
+  for(i = 0; i < ccount; i++) {
     if(snd_mixer_selem_has_playback_volume(telem))
       channels = g_slist_append(channels, strdup(snd_mixer_selem_get_name(telem)));
     telem = snd_mixer_elem_next(telem);
