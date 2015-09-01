@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-10 01:38+0200\n"
-"PO-Revision-Date: 2015-08-10 01:54+0200\n"
+"PO-Revision-Date: 2015-08-25 20:46+0500\n"
 "Last-Translator: Pavel Serebryakov <pshar@inbox.ru>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Russian\n"
+"X-Generator: Poedit 1.8.3\n"
 
 #: ../src/main.c:74 ../src/main.c:102
 msgid "PNMixer Error"
@@ -47,12 +47,9 @@ msgstr ""
 "необходимо перезапустить pnmixer\n"
 
 #: ../src/main.c:123
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to run command %s"
-msgstr ""
-"Не удалось выполнить команду управления громкостью \"%s\".\n"
-"\n"
-"%s"
+msgstr "Не удалось выполнить команду %s"
 
 #: ../src/main.c:144
 msgid ""
@@ -73,6 +70,7 @@ msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
 msgstr ""
+"Вы не задали команду для выполнения, пожалуйста, сделайте это в настройках."
 
 #: ../src/main.c:298
 msgid ""
@@ -156,13 +154,13 @@ msgstr ""
 "получится"
 
 #: ../src/prefs.c:206
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Couldn't make prefs directory: %s\n"
 msgstr ""
 "\n"
-"Не удалось загрузить файл настроек: %s\n"
+"Не удалось создать каталог настроек: %s\n"
 
 #: ../src/prefs.c:228
 #, c-format
@@ -185,7 +183,7 @@ msgstr ""
 #: ../src/prefs.c:615
 #, c-format
 msgid "Invalid widget passed to acquire_hotkey: %s"
-msgstr ""
+msgstr "Недопустимый виджет передан в acquire_hotkey: %s"
 
 #: ../src/prefs.c:621 ../data/ui/prefs-gtk3.glade.h:1
 #: ../data/ui/prefs-gtk2.glade.h:1
@@ -224,11 +222,11 @@ msgstr "Не удалось записать следующие сочетани
 #.
 #: ../src/alsa.c:280
 msgid "Soundcard disconnected"
-msgstr ""
+msgstr "Звуковая карта отключена"
 
 #: ../src/alsa.c:281
 msgid "Soundcard has been disconnected, reloading Alsa..."
-msgstr ""
+msgstr "Звуковая карта была отключена, перезагружаем Alsa..."
 
 #: ../data/desktop/pnmixer.desktop.in.h:1
 msgid "PNMixer"
@@ -236,12 +234,11 @@ msgstr "PNMixer"
 
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "System Tray Mixer"
-msgstr ""
+msgstr "Микшер для системного трея"
 
 #: ../data/desktop/pnmixer.desktop.in.h:3
-#, fuzzy
 msgid "An audio mixer for the system tray"
-msgstr "Звуковой микшер для системного трея."
+msgstr "Звуковой микшер для системного трея"
 
 #: ../data/ui/about-gtk3.glade.h:1 ../data/ui/about-gtk2.glade.h:1
 msgid "Copyright © 2010-2015 Nick Lanham"
@@ -298,7 +295,7 @@ msgstr "Выкл. звук"
 
 #: ../data/ui/popup_window-gtk3.glade.h:2
 msgid "Mixer"
-msgstr ""
+msgstr "Микшер"
 
 #: ../data/ui/popup_window-gtk3.glade.h:3
 #: ../data/ui/popup_window-gtk2.glade.h:3
@@ -362,56 +359,56 @@ msgid ""
 "Notification support not\n"
 "enabled at compile time"
 msgstr ""
+"Поддержка уведомлений\n"
+"не была включена во время компиляции"
 
 #: ../data/ui/prefs-gtk3.glade.h:7 ../data/ui/prefs-gtk2.glade.h:7
 msgid "Enable Notifications"
-msgstr ""
+msgstr "Включить уведомления"
 
 #: ../data/ui/prefs-gtk3.glade.h:8 ../data/ui/prefs-gtk2.glade.h:8
 msgid "timeout (ms)"
-msgstr ""
+msgstr "задержка (мс)"
 
 #: ../data/ui/prefs-gtk3.glade.h:9 ../data/ui/prefs-gtk2.glade.h:9
 msgid "Notify for volume changes from:"
-msgstr ""
+msgstr "Уведомлять об изменении громкости в:"
 
 #: ../data/ui/prefs-gtk3.glade.h:10 ../data/ui/prefs-gtk2.glade.h:10
-#, fuzzy
 msgid "HotKeys"
-msgstr "Горячая клавиша"
+msgstr "Горячие клавиши"
 
 #: ../data/ui/prefs-gtk3.glade.h:11 ../data/ui/prefs-gtk2.glade.h:11
-#, fuzzy
 msgid "Mouse Scroll"
-msgstr "Шаг прокрутки колёсиком:"
+msgstr "Прокрутка колесом мыши"
 
 #: ../data/ui/prefs-gtk3.glade.h:12 ../data/ui/prefs-gtk2.glade.h:12
 msgid "Adjustment in Popup Window"
-msgstr ""
+msgstr "Корректировка во всплывающем окне"
 
 #: ../data/ui/prefs-gtk3.glade.h:13 ../data/ui/prefs-gtk2.glade.h:13
 msgid "External Change"
-msgstr ""
+msgstr "Изменение извне"
 
 #: ../data/ui/prefs-gtk3.glade.h:14 ../data/ui/prefs-gtk2.glade.h:14
 msgid "<b>Notification Options</b>"
-msgstr ""
+msgstr "<b>Опции уведомлений</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:15 ../data/ui/prefs-gtk2.glade.h:15
 msgid "Top"
-msgstr "Верх"
+msgstr "Сверху"
 
 #: ../data/ui/prefs-gtk3.glade.h:16 ../data/ui/prefs-gtk2.glade.h:16
 msgid "Bottom"
-msgstr "Низ"
+msgstr "Снизу"
 
 #: ../data/ui/prefs-gtk3.glade.h:17 ../data/ui/prefs-gtk2.glade.h:17
 msgid "Left"
-msgstr "Левый"
+msgstr "Слева"
 
 #: ../data/ui/prefs-gtk3.glade.h:18 ../data/ui/prefs-gtk2.glade.h:18
 msgid "Right"
-msgstr "Правый"
+msgstr "Справа"
 
 #: ../data/ui/prefs-gtk3.glade.h:19 ../data/ui/prefs-gtk2.glade.h:19
 msgid "PNMixer Preferences"
@@ -467,7 +464,7 @@ msgstr "Канал:"
 
 #: ../data/ui/prefs-gtk3.glade.h:32 ../data/ui/prefs-gtk2.glade.h:32
 msgid "Normalize Volume:"
-msgstr ""
+msgstr "Нормализовать громкость:"
 
 #: ../data/ui/prefs-gtk3.glade.h:33 ../data/ui/prefs-gtk2.glade.h:33
 msgid "<b>Sound Device</b>"
@@ -526,7 +523,6 @@ msgid "Volume Down:"
 msgstr "Уменьшить громкость"
 
 #: ../data/ui/prefs-gtk3.glade.h:47 ../data/ui/prefs-gtk2.glade.h:47
-#, fuzzy
 msgid "Double click a HotKey to assign a new HotKey"
 msgstr "Щёлкните дважды на горячую клавишу, чтобы назначить новую"
 
@@ -543,12 +539,10 @@ msgid "(None)"
 msgstr "(Пусто)"
 
 #: ../data/ui/prefs-gtk3.glade.h:51 ../data/ui/prefs-gtk2.glade.h:51
-#, fuzzy
 msgid "<b>HotKeys</b>"
 msgstr "<b>Горячие клавиши</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:52 ../data/ui/prefs-gtk2.glade.h:52
-#, fuzzy
 msgid "Set HotKey"
 msgstr "Назначить горячую клавишу"
 
@@ -558,7 +552,7 @@ msgstr "Устанавливаю сочетание клавиш"
 
 #: ../data/ui/prefs-gtk3.glade.h:54 ../data/ui/prefs-gtk2.glade.h:54
 msgid "(press <Ctrl>C to reset)"
-msgstr ""
+msgstr "(нажмите <Ctrl>C для сброса)"
 
 #: ../data/ui/prefs-gtk3.glade.h:55 ../data/ui/prefs-gtk2.glade.h:55
 msgid "Press new HotKey for:"
