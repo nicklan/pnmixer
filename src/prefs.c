@@ -197,7 +197,7 @@ get_vol_meter_colors(void)
 		if (vol_meter_clrs) {	// corrupt value somehow
 			report_error(_
 				     ("Invalid color for volume meter in config file. "
-				      " Reverting to default."));
+				      "Reverting to default."));
 			g_free(vol_meter_clrs);
 		}
 #ifdef WITH_GTK3
