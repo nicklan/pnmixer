@@ -26,6 +26,7 @@ Makefile.in.in
 /src/pnmixer
 /stamp-h1
 /po/*.gmo
+/po/*.pot
 /po/.intltool-merge-cache
 /po/messages.mo
 /po/POTFILES
