@@ -3,11 +3,11 @@
 SUBDIRS = data po src
 
 EXTRA_DIST = \
-	autogen.sh 
+	autogen.sh
 
 uninstall-local:
 	@$(NORMAL_UNINSTALL)
-	rm -rf $(DESTDIR)$(pkgdatadir)	
+	rm -rf $(DESTDIR)$(pkgdatadir)
 
 doc:
 	cd "$(top_srcdir)/src"; \
