@@ -145,7 +145,7 @@ get_cards(void)
 		while (tmp) {
 			struct acard *c = tmp->data;
 			printf("\t%s\t%s\t%s\n", c->dev, c->name,
-					c->channels ? "" : "No chann");
+			       c->channels ? "" : "No chann");
 			tmp = tmp->next;
 		}
 		printf("-----------------------\n");
@@ -201,14 +201,14 @@ open_mixer(const char *card, struct snd_mixer_selem_regopt *opts, int level)
 	}
 	if (level == 0 && (err = snd_mixer_attach(mixer, card)) < 0) {
 		DEBUG_PRINT("Card %s: mixer attach error: %s", card,
-				snd_strerror(err));
+			    snd_strerror(err));
 		snd_mixer_close(mixer);
 		return NULL;
 	}
 	if ((err = snd_mixer_selem_register(
-					mixer, level > 0 ? opts : NULL, NULL)) < 0) {
+			   mixer, level > 0 ? opts : NULL, NULL)) < 0) {
 		DEBUG_PRINT("Card %s: mixer register error: %s", card,
-				snd_strerror(err));
+			    snd_strerror(err));
 		snd_mixer_close(mixer);
 		return NULL;
 	}
@@ -230,7 +230,7 @@ open_mixer(const char *card, struct snd_mixer_selem_regopt *opts, int level)
  * @return 0 on success otherwise a negative error code
  */
 static int
-alsa_cb(snd_mixer_elem_t * e, unsigned int mask)
+alsa_cb(snd_mixer_elem_t *e, unsigned int mask)
 {
 	/* Test MASK_REMOVE first, according to Alsa documentation */
 	if (mask == SND_CTL_EVENT_MASK_REMOVE) {
@@ -285,7 +285,7 @@ static gsize sread = 1;
  * @return FALSE if the event source should be removed
  */
 static gboolean
-poll_cb(GIOChannel * source, GIOCondition condition, gpointer data)
+poll_cb(GIOChannel *source, GIOCondition condition, gpointer data)
 {
 	snd_mixer_handle_events(handle);
 
@@ -307,8 +307,8 @@ poll_cb(GIOChannel * source, GIOCondition condition, gpointer data)
 		 * callback loop since there will be data on the channel forever.
 		 */
 		GIOStatus stat =
-		    g_io_channel_read_chars(source, sbuf, 256,
-					&sread, (GError **) & serr);
+			g_io_channel_read_chars(source, sbuf, 256,
+						&sread, (GError **) & serr);
 		if (serr) {
 			g_error_free((GError *) serr);
 			serr = NULL;
@@ -321,10 +321,10 @@ poll_cb(GIOChannel * source, GIOCondition condition, gpointer data)
 			warn_sound_conn_lost();
 		else if (stat == G_IO_STATUS_ERROR || stat == G_IO_STATUS_EOF)
 			report_error("Error: GIO error has occured. Won't respond to "
-					"external volume changes anymore.");
+				     "external volume changes anymore.");
 		else
 			report_error("Error: Unknown status from "
-					"g_io_channel_read_chars.");
+				     "g_io_channel_read_chars.");
 		return TRUE;
 	}
 	return TRUE;
@@ -342,7 +342,7 @@ guint gio_watch_ids[PCOUNT_MAX] = { 0 };
  * @param mixer mixer handle
  */
 static void
-set_io_watch(snd_mixer_t * mixer)
+set_io_watch(snd_mixer_t *mixer)
 {
 	int i, pcount;
 	struct pollfd fds[PCOUNT_MAX];
@@ -360,7 +360,7 @@ set_io_watch(snd_mixer_t * mixer)
 	for (i = 0; i < pcount; i++) {
 		GIOChannel *gioc = g_io_channel_unix_new(fds[i].fd);
 		gio_watch_ids[i] = g_io_add_watch(gioc, G_IO_IN | G_IO_ERR,
-				poll_cb, NULL);
+						  poll_cb, NULL);
 		g_io_channel_unref(gioc);
 	}
 }
@@ -389,7 +389,7 @@ unset_io_watch(void)
  * @return 0 on success otherwise negative error code
  */
 static int
-close_mixer(snd_mixer_t * mixer, const char *card)
+close_mixer(snd_mixer_t *mixer, const char *card)
 {
 	int err;
 
@@ -397,11 +397,11 @@ close_mixer(snd_mixer_t * mixer, const char *card)
 
 	if ((err = snd_mixer_detach(mixer, card)) < 0)
 		report_error("Card %s: mixer detach error: %s", card,
-				snd_strerror(err));
+			     snd_strerror(err));
 	snd_mixer_free(mixer);
 	if ((err = snd_mixer_close(mixer)) < 0)
 		report_error("Card %s: mixer close error: %s", card,
-				snd_strerror(err));
+			     snd_strerror(err));
 	return err;
 }
 
@@ -430,7 +430,7 @@ get_channels(const char *card)
 	for (i = 0; i < ccount; i++) {
 		if (snd_mixer_selem_has_playback_volume(telem))
 			channels = g_slist_append(channels,
-					strdup(snd_mixer_selem_get_name(telem)));
+						  strdup(snd_mixer_selem_get_name(telem)));
 		telem = snd_mixer_elem_next(telem);
 	}
 
@@ -564,8 +564,8 @@ alsaunset(void)
  * @return normalized volume
  */
 static double
-get_normalized_volume(snd_mixer_elem_t * elem,
-		snd_mixer_selem_channel_id_t channel)
+get_normalized_volume(snd_mixer_elem_t *elem,
+		      snd_mixer_selem_channel_id_t channel)
 {
 	long min, max, value;
 	double normalized, min_norm;
@@ -697,7 +697,7 @@ ismuted(void)
 	int muted = 1;
 	if (snd_mixer_selem_has_playback_switch(elem))
 		snd_mixer_selem_get_playback_switch(elem,
-				SND_MIXER_SCHN_FRONT_LEFT, &muted);
+						    SND_MIXER_SCHN_FRONT_LEFT, &muted);
 	return muted;
 }
 
@@ -711,14 +711,14 @@ getvol(void)
 {
 	if (normalize_vol()) {
 		return lrint(get_normalized_volume(
-					elem, SND_MIXER_SCHN_FRONT_RIGHT) * 100);
+				     elem, SND_MIXER_SCHN_FRONT_RIGHT) * 100);
 	} else {
 		long val, pmin = 0, pmax = 0;
 		snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
 		snd_mixer_selem_get_playback_volume(elem,
-				SND_MIXER_SCHN_FRONT_RIGHT, &val);
+						    SND_MIXER_SCHN_FRONT_RIGHT, &val);
 		DEBUG_PRINT("[getvol] From mixer: %li  pmin: %li  pmax: %li",
-				val, pmin, pmax);
+			    val, pmin, pmax);
 		return convert_prange(val, pmin, pmax);
 	}
 }

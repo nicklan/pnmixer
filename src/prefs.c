@@ -61,7 +61,7 @@ AlsaCard=default"
  * @param combo the GtkComboBox to use
  */
 static void
-load_icon_themes(GtkWidget * combo)
+load_icon_themes(GtkWidget *combo)
 {
 	GDir *dir;
 	GKeyFile *index_file;
@@ -84,7 +84,7 @@ load_icon_themes(GtkWidget * combo)
 	index_file = g_key_file_new();
 
 	active_theme_name = g_key_file_get_string(keyFile, "PNMixer",
-			"IconTheme", NULL);
+			    "IconTheme", NULL);
 	act = 1;
 
 	gtk_icon_theme_get_search_path(theme, &path, &n);
@@ -114,18 +114,18 @@ load_icon_themes(GtkWidget * combo)
 			/* Build filename for the index.theme of the current
 			 * icon theme directory */
 			index_filename = g_build_filename(path[i], file, "index.theme",
-					NULL);
+							  NULL);
 
 			/* Try to open the theme index file */
 			if (g_key_file_load_from_file(index_file, index_filename, 0,
-						NULL)) {
+						      NULL)) {
 				if (g_key_file_has_key
 				    (index_file, "Icon Theme", "Directories", NULL)
 				    && !g_key_file_get_boolean(index_file, "Icon Theme",
-						"Hidden", NULL)) {
+							       "Hidden", NULL)) {
 					theme_name =
-					    g_key_file_get_string(index_file, "Icon Theme",
-								"Name", NULL);
+						g_key_file_get_string(index_file, "Icon Theme",
+								      "Name", NULL);
 					if (theme_name) {
 						gtk_list_store_append(store, &iter);
 						gtk_list_store_set(store, &iter, 0, _(theme_name),
@@ -185,19 +185,19 @@ get_vol_meter_colors(void)
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolMeterColor", NULL))
 #ifdef WITH_GTK3
 		vol_meter_clrs =
-		    g_key_file_get_double_list(keyFile, "PNMixer",
-					"VolMeterColor", &numcols, NULL);
+			g_key_file_get_double_list(keyFile, "PNMixer",
+						   "VolMeterColor", &numcols, NULL);
 #else
 		vol_meter_clrs =
-		    g_key_file_get_integer_list(keyFile, "PNMixer",
-					"VolMeterColor", &numcols,
-						NULL);
+			g_key_file_get_integer_list(keyFile, "PNMixer",
+						    "VolMeterColor", &numcols,
+						    NULL);
 #endif
 	if (!vol_meter_clrs || (numcols != 3)) {
 		if (vol_meter_clrs) {	// corrupt value somehow
 			report_error(_
 				     ("Invalid color for volume meter in config file. "
-					  " Reverting to default."));
+				      " Reverting to default."));
 			g_free(vol_meter_clrs);
 		}
 #ifdef WITH_GTK3
@@ -227,7 +227,7 @@ ensure_prefs_dir(void)
 		if (g_file_test(prefs_dir, G_FILE_TEST_EXISTS))
 			report_error(_
 				     ("Error: %s exists but is not a directory, will "
-					  "not be able to save preferences."), prefs_dir);
+				      "not be able to save preferences."), prefs_dir);
 		else {
 			if (g_mkdir(prefs_dir, S_IRWXU))
 				report_error(_("Couldn't make prefs directory: %s"),
@@ -247,7 +247,7 @@ load_prefs(void)
 {
 	GError *err = NULL;
 	gchar *filename = g_strconcat(g_get_user_config_dir(),
-			"/pnmixer/config", NULL);
+				      "/pnmixer/config", NULL);
 	gchar *default_theme_name;
 	GtkSettings *settings;
 
@@ -257,7 +257,7 @@ load_prefs(void)
 	if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
 		if (!g_key_file_load_from_file(keyFile, filename, 0, &err)) {
 			report_error(_("Couldn't load preferences file: %s"),
-					err->message);
+				     err->message);
 			g_error_free(err);
 			g_key_file_free(keyFile);
 			keyFile = NULL;
@@ -266,16 +266,16 @@ load_prefs(void)
 		if (!g_key_file_load_from_data
 		    (keyFile, DEFAULT_PREFS, strlen(DEFAULT_PREFS), 0, &err)) {
 			report_error(_("Couldn't load default preferences: %s"),
-					err->message);
+				     err->message);
 			g_error_free(err);
 			g_key_file_free(keyFile);
 			keyFile = NULL;
 		}
 		settings = gtk_settings_get_default();
 		g_object_get(settings, "gtk-icon-theme-name",
-				&default_theme_name, NULL);
+			     &default_theme_name, NULL);
 		g_key_file_set_string(keyFile, "PNMixer", "IconTheme",
-				default_theme_name);
+				      default_theme_name);
 		g_free(default_theme_name);
 	}
 	g_free(filename);
@@ -292,8 +292,8 @@ load_prefs(void)
  * @return result of g_key_file_get_boolean() or def on error
  */
 static gboolean
-g_key_file_get_boolean_with_default(GKeyFile * keyFile,
-		gchar * group, gchar * key, gboolean def)
+g_key_file_get_boolean_with_default(GKeyFile *keyFile,
+				    gchar *group, gchar *key, gboolean def)
 {
 	gboolean ret;
 	GError *error = NULL;
@@ -316,8 +316,8 @@ g_key_file_get_boolean_with_default(GKeyFile * keyFile,
  * @return result of g_key_file_get_boolean() or def on error
  */
 static gint
-g_key_file_get_integer_with_default(GKeyFile * keyFile,
-		gchar * group, gchar * key, gint def)
+g_key_file_get_integer_with_default(GKeyFile *keyFile,
+				    gchar *group, gchar *key, gint def)
 {
 	gboolean ret;
 	GError *error = NULL;
@@ -337,22 +337,22 @@ static void
 set_notification_options(void)
 {
 	enable_noti =
-	    g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 				"EnableNotifications", FALSE);
 	hotkey_noti =
-	    g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 				"HotkeyNotifications", TRUE);
 	mouse_noti =
-	    g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 				"MouseNotifications", TRUE);
 	popup_noti =
-	    g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 				"PopupNotifications", FALSE);
 	external_noti =
-	    g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 				"ExternalNotifications", FALSE);
 	noti_timeout =
-	    g_key_file_get_integer_with_default(keyFile, "PNMixer",
+		g_key_file_get_integer_with_default(keyFile, "PNMixer",
 				"NotificationTimeout", 1500);
 }
 
@@ -374,7 +374,7 @@ apply_prefs(gint alsa_change)
 			"MouseScrollStep", 5);
 
 	if (g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-				"EnableHotKeys", FALSE)) {
+						"EnableHotKeys", FALSE)) {
 		gint mk, uk, dk, mm, um, dm, hstep;
 		mk = g_key_file_get_integer_with_default(keyFile, "PNMixer",
 				"VolMuteKey", -1);
@@ -389,7 +389,7 @@ apply_prefs(gint alsa_change)
 		dm = g_key_file_get_integer_with_default(keyFile, "PNMixer",
 				"VolDownMods", 0);
 		hstep =
-		    g_key_file_get_integer_with_default(keyFile, "PNMixer",
+			g_key_file_get_integer_with_default(keyFile, "PNMixer",
 					"HotkeyVolumeStep", 1);
 		grab_keys(mk, uk, dk, mm, um, dm, hstep);
 	} else
@@ -402,7 +402,7 @@ apply_prefs(gint alsa_change)
 
 	vol_meter_clrs = get_vol_meter_colors();
 	set_vol_meter_color(vol_meter_clrs[0], vol_meter_clrs[1],
-			vol_meter_clrs[2]);
+			    vol_meter_clrs[2]);
 	g_free(vol_meter_clrs);
 	update_status_icons();
 
@@ -419,9 +419,9 @@ get_icon_theme(void)
 {
 	if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
 		gchar *theme_name = g_key_file_get_string(keyFile, "PNMixer",
-				"IconTheme", NULL);
+				    "IconTheme", NULL);
 		if (icon_theme == NULL ||
-				(icon_theme == gtk_icon_theme_get_default()))
+		    (icon_theme == gtk_icon_theme_get_default()))
 			icon_theme = gtk_icon_theme_new();
 		gtk_icon_theme_set_custom_theme(icon_theme, theme_name);
 		g_free(theme_name);
@@ -451,7 +451,7 @@ get_selected_card(void)
  * NULL on failure
  */
 gchar *
-get_selected_channel(gchar * card)
+get_selected_channel(gchar *card)
 {
 	if (!card)
 		return NULL;
@@ -467,7 +467,7 @@ get_selected_channel(gchar * card)
  * @param selected the currently selected channel
  */
 void
-fill_channel_combo(GSList * channels, GtkWidget * combo, gchar * selected)
+fill_channel_combo(GSList *channels, GtkWidget *combo, gchar *selected)
 {
 	int idx = 0, sidx = 0;
 	GtkTreeIter iter;
@@ -493,7 +493,7 @@ fill_channel_combo(GSList * channels, GtkWidget * combo, gchar * selected)
  * @param channels_combo the GtkComboBoxText widget for the card channels
  */
 void
-fill_card_combo(GtkWidget * combo, GtkWidget * channels_combo)
+fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo)
 {
 	struct acard *c;
 	GSList *cur_card;
@@ -538,7 +538,7 @@ fill_card_combo(GtkWidget * combo, GtkWidget * channels_combo)
  * @param data user data set when the signal handler was connected
  */
 void
-on_card_changed(GtkComboBox * box, PrefsData * data)
+on_card_changed(GtkComboBox *box, PrefsData *data)
 {
 	struct acard *card;
 	gchar *card_name;
@@ -562,7 +562,7 @@ on_card_changed(GtkComboBox * box, PrefsData * data)
 * @param data user data set when the signal handler was connected
  */
 void
-on_vol_text_toggle(GtkToggleButton * button, PrefsData * data)
+on_vol_text_toggle(GtkToggleButton *button, PrefsData *data)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 	gtk_widget_set_sensitive(data->vol_pos_label, active);
@@ -577,7 +577,7 @@ on_vol_text_toggle(GtkToggleButton * button, PrefsData * data)
  * @param data user data set when the signal handler was connected
  */
 void
-on_draw_vol_toggle(GtkToggleButton * button, PrefsData * data)
+on_draw_vol_toggle(GtkToggleButton *button, PrefsData *data)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 	gtk_widget_set_sensitive(data->vol_meter_pos_label, active);
@@ -594,7 +594,7 @@ on_draw_vol_toggle(GtkToggleButton * button, PrefsData * data)
  * @param data user data set when the signal handler was connected
  */
 void
-on_middle_changed(GtkComboBox * box, PrefsData * data)
+on_middle_changed(GtkComboBox *box, PrefsData *data)
 {
 	gboolean cust = gtk_combo_box_get_active(GTK_COMBO_BOX(box)) == 3;
 	gtk_widget_set_sensitive(data->custom_label, cust);
@@ -609,7 +609,7 @@ on_middle_changed(GtkComboBox * box, PrefsData * data)
  * @param data user data set when the signal handler was connected
  */
 void
-on_notification_toggle(GtkToggleButton * button, PrefsData * data)
+on_notification_toggle(GtkToggleButton *button, PrefsData *data)
 {
 #ifdef HAVE_LIBN
 	gboolean active = gtk_toggle_button_get_active(button);
@@ -629,7 +629,7 @@ on_notification_toggle(GtkToggleButton * button, PrefsData * data)
  * @param data user data set when the signal handler was connected
  */
 void
-on_hotkey_toggle(GtkToggleButton * button, PrefsData * data)
+on_hotkey_toggle(GtkToggleButton *button, PrefsData *data)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
 	gtk_widget_set_sensitive(data->hotkey_vol_label, active);
@@ -640,11 +640,11 @@ on_hotkey_toggle(GtkToggleButton * button, PrefsData * data)
  * Default volume commands.
  */
 static const char *vol_cmds[] = { "pavucontrol",
-	"gnome-alsamixer",
-	"xfce4-mixer",
-	"alsamixergui",
-	NULL
-};
+				  "gnome-alsamixer",
+				  "xfce4-mixer",
+				  "alsamixergui",
+				  NULL
+				};
 
 /**
  * Gets the current volume command from the user preferences
@@ -659,7 +659,7 @@ get_vol_command(void)
 {
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolumeControlCommand", NULL))
 		return g_key_file_get_string(keyFile, "PNMixer",
-				"VolumeControlCommand", NULL);
+					     "VolumeControlCommand", NULL);
 	else {
 		gchar buf[256];
 		const char **cmd = vol_cmds;
@@ -690,34 +690,34 @@ get_vol_command(void)
  * @param data struct holding the GtkWidgets of the preferences windows
  */
 void
-acquire_hotkey(const char *widget_name, PrefsData * data)
+acquire_hotkey(const char *widget_name, PrefsData *data)
 {
 	gint resp, action;
 	GtkWidget *diag = data->hotkey_dialog;
 
 	action =
-	    (!strcmp(widget_name, "mute_eventbox")) ? 0 :
-	    (!strcmp(widget_name, "up_eventbox")) ? 1 :
-	    (!strcmp(widget_name, "down_eventbox")) ? 2 : -1;
+		(!strcmp(widget_name, "mute_eventbox")) ? 0 :
+		(!strcmp(widget_name, "up_eventbox")) ? 1 :
+		(!strcmp(widget_name, "down_eventbox")) ? 2 : -1;
 
 	if (action < 0) {
 		report_error(_("Invalid widget passed to acquire_hotkey: %s"),
-				widget_name);
+			     widget_name);
 		return;
 	}
 
 	switch (action) {
 	case 0:
 		gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),
-				_("Mute/Unmute"));
+				   _("Mute/Unmute"));
 		break;
 	case 1:
 		gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),
-				_("Volume Up"));
+				   _("Volume Up"));
 		break;
 	case 2:
 		gtk_label_set_text(GTK_LABEL(data->hotkey_key_label),
-				_("Volume Down"));
+				   _("Volume Down"));
 		break;
 	default:
 		break;
@@ -726,15 +726,15 @@ acquire_hotkey(const char *widget_name, PrefsData * data)
 	// grab keyboard
 	if (G_LIKELY(
 #ifdef WITH_GTK3
-			    gdk_device_grab(gtk_get_current_event_device(),
-					    gdk_screen_get_root_window(gdk_screen_get_default()),
-					    GDK_OWNERSHIP_APPLICATION,
-					    TRUE, GDK_ALL_EVENTS_MASK, NULL, GDK_CURRENT_TIME)
+		    gdk_device_grab(gtk_get_current_event_device(),
+				    gdk_screen_get_root_window(gdk_screen_get_default()),
+				    GDK_OWNERSHIP_APPLICATION,
+				    TRUE, GDK_ALL_EVENTS_MASK, NULL, GDK_CURRENT_TIME)
 #else
-			    gdk_keyboard_grab(gtk_widget_get_root_window(
-						GTK_WIDGET(diag)), TRUE, GDK_CURRENT_TIME)
+		    gdk_keyboard_grab(gtk_widget_get_root_window(
+					      GTK_WIDGET(diag)), TRUE, GDK_CURRENT_TIME)
 #endif
-			    == GDK_GRAB_SUCCESS)) {
+		    == GDK_GRAB_SUCCESS)) {
 		resp = gtk_dialog_run(GTK_DIALOG(diag));
 #ifdef WITH_GTK3
 		gdk_device_ungrab(gtk_get_current_event_device(), GDK_CURRENT_TIME);
@@ -743,22 +743,22 @@ acquire_hotkey(const char *widget_name, PrefsData * data)
 #endif
 		if (resp == GTK_RESPONSE_OK) {
 			const gchar *key_name =
-			    gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
+				gtk_label_get_text(GTK_LABEL(data->hotkey_key_label));
 			if (!strcasecmp(key_name, "<Primary>c")) {
 				key_name = "(None)";
 			}
 			switch (action) {
 			case 0:
 				gtk_label_set_text(GTK_LABEL(data->mute_hotkey_label),
-						key_name);
+						   key_name);
 				break;
 			case 1:
 				gtk_label_set_text(GTK_LABEL(data->up_hotkey_label),
-						key_name);
+						   key_name);
 				break;
 			case 2:
 				gtk_label_set_text(GTK_LABEL(data->down_hotkey_label),
-						key_name);
+						   key_name);
 				break;
 			default:
 				break;
@@ -780,7 +780,7 @@ acquire_hotkey(const char *widget_name, PrefsData * data)
  * FALSE to propagate the event further.
  */
 gboolean
-hotkey_pressed(GtkWidget * dialog, GdkEventKey * ev, PrefsData * data)
+hotkey_pressed(GtkWidget *dialog, GdkEventKey *ev, PrefsData *data)
 {
 	gchar *key_text;
 	guint keyval;
@@ -811,7 +811,7 @@ hotkey_pressed(GtkWidget * dialog, GdkEventKey * ev, PrefsData * data)
  * FALSE to propagate the event further.
  */
 gboolean
-hotkey_released(GtkWidget * dialog, GdkEventKey * ev, PrefsData * data)
+hotkey_released(GtkWidget *dialog, GdkEventKey *ev, PrefsData *data)
 {
 #ifdef WITH_GTK3
 	gdk_device_ungrab(gtk_get_current_event_device(), GDK_CURRENT_TIME);
@@ -831,7 +831,7 @@ hotkey_released(GtkWidget * dialog, GdkEventKey * ev, PrefsData * data)
  * @param mods the pressed keymod
  */
 static void
-set_label_for_keycode(GtkWidget * label, gint code, GdkModifierType mods)
+set_label_for_keycode(GtkWidget *label, gint code, GdkModifierType mods)
 {
 	int keysym;
 	gchar *key_text;
@@ -854,7 +854,7 @@ normalize_vol(void)
 {
 	if (g_key_file_has_key(keyFile, "PNMixer", "NormalizeVolume", NULL))
 		return (g_key_file_get_boolean(keyFile, "PNMixer",
-					"NormalizeVolume", NULL));
+					       "NormalizeVolume", NULL));
 	return FALSE;
 }
 
@@ -889,7 +889,7 @@ create_prefs_window(void)
 	if (!uifile) {
 		report_error(_
 			     ("Can't find preferences user interface file. "
-				  "Please ensure PNMixer is installed correctly."));
+			      "Please ensure PNMixer is installed correctly."));
 		return NULL;
 	}
 
@@ -945,27 +945,27 @@ create_prefs_window(void)
 
 	// vol text display
 	gtk_toggle_button_set_active
-	    (GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
-	     g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-			 "DisplayTextVolume", FALSE));
+	(GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
+	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+					     "DisplayTextVolume", FALSE));
 	gtk_combo_box_set_active
-	    (GTK_COMBO_BOX(prefs_data->vol_pos_combo),
-	     g_key_file_get_integer_with_default(keyFile, "PNMixer",
-			 "TextVolumePosition", 0));
+	(GTK_COMBO_BOX(prefs_data->vol_pos_combo),
+	 g_key_file_get_integer_with_default(keyFile, "PNMixer",
+					     "TextVolumePosition", 0));
 
 	// volume meter
 	gtk_toggle_button_set_active
-	    (GTK_TOGGLE_BUTTON(prefs_data->draw_vol_check),
-	     g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-			 "DrawVolMeter", FALSE));
+	(GTK_TOGGLE_BUTTON(prefs_data->draw_vol_check),
+	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+					     "DrawVolMeter", FALSE));
 	gtk_adjustment_set_upper
-	    (GTK_ADJUSTMENT(gtk_builder_get_object(builder,
-											   "vol_meter_pos_adjustment")),
-	     tray_icon_size() - 10);
+	(GTK_ADJUSTMENT(gtk_builder_get_object(builder,
+					       "vol_meter_pos_adjustment")),
+	 tray_icon_size() - 10);
 	gtk_spin_button_set_value
-	    (GTK_SPIN_BUTTON(prefs_data->vol_meter_pos_spin),
-	     g_key_file_get_integer_with_default(keyFile, "PNMixer",
-			 "VolMeterPos", 0));
+	(GTK_SPIN_BUTTON(prefs_data->vol_meter_pos_spin),
+	 g_key_file_get_integer_with_default(keyFile, "PNMixer",
+					     "VolMeterPos", 0));
 
 	// load available icon themes into icon theme combo box.  also sets active
 	load_icon_themes(prefs_data->icon_theme_combo);
@@ -977,12 +977,12 @@ create_prefs_window(void)
 	vol_meter_color_button_color.blue = vol_meter_clrs[2];
 #ifdef WITH_GTK3
 	gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(
-				prefs_data->vol_meter_color_button),
+					   prefs_data->vol_meter_color_button),
 #else
 	gtk_color_button_set_color(GTK_COLOR_BUTTON(
-				prefs_data->vol_meter_color_button),
+					   prefs_data->vol_meter_color_button),
 #endif
-			   &vol_meter_color_button_color);
+				   &vol_meter_color_button_color);
 	g_free(vol_meter_clrs);
 
 	// fill in card/channel combo boxes
@@ -990,9 +990,9 @@ create_prefs_window(void)
 
 	// volume normalization (ALSA mapped)
 	gtk_toggle_button_set_active
-	    (GTK_TOGGLE_BUTTON(prefs_data->normalize_vol_check),
-	     g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-			 "NormalizeVolume", FALSE));
+	(GTK_TOGGLE_BUTTON(prefs_data->normalize_vol_check),
+	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+					     "NormalizeVolume", FALSE));
 
 	// volume command
 	vol_cmd = get_vol_command();
@@ -1003,66 +1003,66 @@ create_prefs_window(void)
 	// mouse scroll step
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->scroll_step_spin),
 				  g_key_file_get_integer_with_default(keyFile, "PNMixer",
-								      "MouseScrollStep", 1));
+						  "MouseScrollStep", 1));
 
 	//  middle click
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->middle_click_combo),
 				 g_key_file_get_integer_with_default(keyFile, "PNMixer",
-								     "MiddleClickAction", 0));
+						 "MiddleClickAction", 0));
 
 	// custom command
 	gtk_entry_set_invisible_char(GTK_ENTRY(prefs_data->custom_entry), 8226);
 
 	custcmd = g_key_file_get_string(keyFile, "PNMixer",
-			"CustomCommand", NULL);
+					"CustomCommand", NULL);
 	if (custcmd) {
 		gtk_entry_set_text(GTK_ENTRY(prefs_data->custom_entry), custcmd);
 		g_free(custcmd);
 	}
 
 	on_vol_text_toggle(GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
-			prefs_data);
+			   prefs_data);
 	on_draw_vol_toggle(GTK_TOGGLE_BUTTON(prefs_data->draw_vol_check),
-			prefs_data);
+			   prefs_data);
 	on_middle_changed(GTK_COMBO_BOX(prefs_data->middle_click_combo),
-			prefs_data);
+			  prefs_data);
 
 	// hotkeys
 	gtk_toggle_button_set_active
-	    (GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
-	     g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-			 "EnableHotKeys", FALSE));
+	(GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
+	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+					     "EnableHotKeys", FALSE));
 
 	// hotkey step
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_vol_spin),
 				  g_key_file_get_integer_with_default(keyFile, "PNMixer",
-								      "HotkeyVolumeStep", 1));
+						  "HotkeyVolumeStep", 1));
 
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolMuteKey", NULL))
 		set_label_for_keycode(prefs_data->mute_hotkey_label,
 				      g_key_file_get_integer(keyFile, "PNMixer", "VolMuteKey",
-							     NULL),
+						      NULL),
 				      g_key_file_get_integer_with_default(keyFile, "PNMixer",
-									  "VolMuteMods", 0));
+						      "VolMuteMods", 0));
 
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolUpKey", NULL))
 		set_label_for_keycode(prefs_data->up_hotkey_label,
 				      g_key_file_get_integer(keyFile, "PNMixer",
-						  "VolUpKey", NULL),
+						      "VolUpKey", NULL),
 				      g_key_file_get_integer_with_default(keyFile, "PNMixer",
-									  "VolUpMods", 0));
+						      "VolUpMods", 0));
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolDownKey", NULL))
 		set_label_for_keycode(prefs_data->down_hotkey_label,
 				      g_key_file_get_integer(keyFile, "PNMixer", "VolDownKey",
-							     NULL),
+						      NULL),
 				      g_key_file_get_integer_with_default(keyFile, "PNMixer",
-									  "VolDownMods", 0));
+						      "VolDownMods", 0));
 
 	on_hotkey_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
-			prefs_data);
+			 prefs_data);
 
 	gtk_notebook_append_page(GTK_NOTEBOOK(gtk_builder_get_object(builder,
-					"notebook1")),
+					      "notebook1")),
 #ifdef HAVE_LIBN
 				 GTK_WIDGET(gtk_builder_get_object(builder,
 						 "notification_vbox")),
@@ -1076,20 +1076,20 @@ create_prefs_window(void)
 	// notification checkboxes
 	set_notification_options();
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
-				prefs_data->enable_noti_check), enable_noti);
+					     prefs_data->enable_noti_check), enable_noti);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
-				prefs_data->hotkey_noti_check), hotkey_noti);
+					     prefs_data->hotkey_noti_check), hotkey_noti);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
-				prefs_data->mouse_noti_check), mouse_noti);
+					     prefs_data->mouse_noti_check), mouse_noti);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
-				prefs_data->popup_noti_check), popup_noti);
+					     prefs_data->popup_noti_check), popup_noti);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
-				prefs_data->external_noti_check),
+					     prefs_data->external_noti_check),
 				     external_noti);
 	on_notification_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_noti_check),
-			prefs_data);
+			       prefs_data);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->noti_timeout_spin),
-			noti_timeout);
+				  noti_timeout);
 #endif
 
 	gtk_builder_connect_signals(builder, prefs_data);

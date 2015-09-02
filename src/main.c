@@ -69,10 +69,10 @@ report_error(char *err, ...)
 	if (popup_window) {
 		vsnprintf(err_buf, 512, err, ap);
 		GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(popup_window),
-							   GTK_DIALOG_DESTROY_WITH_PARENT,
-							   GTK_MESSAGE_ERROR,
-							   GTK_BUTTONS_CLOSE,
-							   NULL);
+				    GTK_DIALOG_DESTROY_WITH_PARENT,
+				    GTK_MESSAGE_ERROR,
+				    GTK_BUTTONS_CLOSE,
+				    NULL);
 		gtk_window_set_title(GTK_WINDOW(dialog), _("PNMixer Error"));
 		g_object_set(dialog, "text", err_buf, NULL);
 		gtk_dialog_run(GTK_DIALOG(dialog));
@@ -94,21 +94,21 @@ warn_sound_conn_lost(void)
 	if (popup_window) {
 		gint resp;
 		GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(popup_window),
-							   GTK_DIALOG_DESTROY_WITH_PARENT,
-							   GTK_MESSAGE_ERROR,
-							   GTK_BUTTONS_YES_NO,
-							   _
-							   ("Warning: Connection to sound system "
-								"failed."));
+				    GTK_DIALOG_DESTROY_WITH_PARENT,
+				    GTK_MESSAGE_ERROR,
+				    GTK_BUTTONS_YES_NO,
+				    _
+				    ("Warning: Connection to sound system "
+				     "failed."));
 		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-							 _
-							 ("Do you want to re-initialize the connection "
-							  " to alsa?\n\n"
-							  "If you do not, you will either need to "
-							  "restart PNMixer "
-							  "or select the 'Reload Alsa' option in the "
-							  "right click "
-							  "menu in order for PNMixer to function."));
+				_
+				("Do you want to re-initialize the connection "
+				 " to alsa?\n\n"
+				 "If you do not, you will either need to "
+				 "restart PNMixer "
+				 "or select the 'Reload Alsa' option in the "
+				 "right click "
+				 "menu in order for PNMixer to function."));
 		gtk_window_set_title(GTK_WINDOW(dialog), _("PNMixer Error"));
 		resp = gtk_dialog_run(GTK_DIALOG(dialog));
 		gtk_widget_destroy(dialog);
@@ -127,7 +127,7 @@ warn_sound_conn_lost(void)
  * @param cmd the command to run
  */
 void
-run_command(gchar * cmd)
+run_command(gchar *cmd)
 {
 	if (cmd) {
 		GError *error = NULL;
@@ -159,8 +159,8 @@ on_mixer(void)
 	} else
 		report_error(_
 			     ("No mixer application was found on your system. "
-				  "Please open preferences and set the command you want "
-				  "to run for volume control."));
+			      "Please open preferences and set the command you want "
+			      "to run for volume control."));
 }
 
 /* FIXME: return type should be gboolean */
@@ -174,14 +174,14 @@ on_mixer(void)
  * connected
  */
 void
-tray_icon_button(GtkStatusIcon * status_icon,
-		GdkEventButton * event, gpointer user_data)
+tray_icon_button(GtkStatusIcon *status_icon,
+		 GdkEventButton *event, gpointer user_data)
 {
 	if (event->button == 2) {
 		gint act = 0;
 		if (g_key_file_has_key(keyFile, "PNMixer", "MiddleClickAction", NULL))
 			act = g_key_file_get_integer(keyFile, "PNMixer",
-					"MiddleClickAction", NULL);
+						     "MiddleClickAction", NULL);
 		switch (act) {
 		case 0:	// mute/unmute
 			setmute(mouse_noti);
@@ -190,31 +190,31 @@ tray_icon_button(GtkStatusIcon * status_icon,
 		case 1:
 			do_prefs();
 			break;
-		case 2:{
-				on_mixer();
-				break;
-			}
+		case 2: {
+			on_mixer();
+			break;
+		}
 		case 3:
 			if (g_key_file_has_key(keyFile, "PNMixer",
-						"CustomCommand", NULL)) {
+					       "CustomCommand", NULL)) {
 				gchar *cmd =
-				    g_key_file_get_string(keyFile, "PNMixer",
-							"CustomCommand", NULL);
+					g_key_file_get_string(keyFile, "PNMixer",
+							      "CustomCommand", NULL);
 				if (cmd) {
 					run_command(cmd);
 					g_free(cmd);
-				// This shouldn't ever happen, so let's just write to console
+					// This shouldn't ever happen, so let's just write to console
 				} else
 					g_warning
-					    ("KeyFile has CustomCommand key, but get_string "
-						 "returned NULL");
+					("KeyFile has CustomCommand key, but get_string "
+					 "returned NULL");
 			} else
 				report_error(_
 					     ("You have not specified a custom command to run, "
-						  "please specify one in preferences."));
+					      "please specify one in preferences."));
 			break;
-		default:{
-			}	// nothing
+		default: {
+		}	// nothing
 		}
 	}
 }
@@ -227,7 +227,7 @@ tray_icon_button(GtkStatusIcon * status_icon,
  * @param user_data user data set when the signal handler was connected
  */
 void
-tray_icon_on_click(GtkStatusIcon * status_icon, gpointer user_data)
+tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data)
 {
 	get_current_levels();
 	if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
@@ -245,7 +245,7 @@ tray_icon_on_click(GtkStatusIcon * status_icon, gpointer user_data)
 					    GDK_BUTTON_PRESS_MASK,
 					    NULL, GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
 				g_warning("Could not grab %s\n",
-						gdk_device_get_name(pointer_dev));
+					  gdk_device_get_name(pointer_dev));
 			if (keyboard_dev != NULL) {
 				if (gdk_device_grab(keyboard_dev,
 						    gtk_widget_get_window(GTK_WIDGET(popup_window)),
@@ -259,7 +259,7 @@ tray_icon_on_click(GtkStatusIcon * status_icon, gpointer user_data)
 		}
 #else
 		gdk_keyboard_grab(gtk_widget_get_window(popup_window),
-				TRUE, GDK_CURRENT_TIME);
+				  TRUE, GDK_CURRENT_TIME);
 		gdk_pointer_grab(gtk_widget_get_window(popup_window), TRUE,
 				 GDK_BUTTON_PRESS_MASK, NULL, NULL, GDK_CURRENT_TIME);
 #endif
@@ -293,7 +293,7 @@ tray_icon_size(void)
  * @return FALSE, so Gtk+ scales the icon as necessary
  */
 static gboolean
-tray_icon_resized(GtkStatusIcon * status_icon, gint size, gpointer user_data)
+tray_icon_resized(GtkStatusIcon *status_icon, gint size, gpointer user_data)
 {
 	update_status_icons();
 	return FALSE;
@@ -312,9 +312,9 @@ create_tray_icon(void)
 
 	/* catch scroll-wheel events */
 	g_signal_connect((gpointer) tray_icon, "scroll_event",
-			G_CALLBACK(on_scroll), NULL);
+			 G_CALLBACK(on_scroll), NULL);
 	g_signal_connect((gpointer) tray_icon, "size-changed",
-			G_CALLBACK(tray_icon_resized), NULL);
+			 G_CALLBACK(tray_icon_resized), NULL);
 
 	gtk_status_icon_set_visible(tray_icon, TRUE);
 	return tray_icon;
@@ -339,7 +339,7 @@ create_popups(void)
 	if (!uifile) {
 		report_error(_
 			     ("Can't find main user interface file. Please "
-				  "ensure PNMixer is installed correctly. Exiting."));
+			      "ensure PNMixer is installed correctly. Exiting."));
 		exit(1);
 	}
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
@@ -351,7 +351,7 @@ create_popups(void)
 	g_free(uifile);
 
 	vol_adjustment = GTK_ADJUSTMENT(gtk_builder_get_object(builder,
-				"vol_scale_adjustment"));
+					"vol_scale_adjustment"));
 	/* get original adjustments */
 	get_current_levels();
 
@@ -378,13 +378,13 @@ create_popups(void)
  * @param menu user data set when the signal handler was connected
  */
 static void
-popup_callback(GtkStatusIcon * status_icon, guint button,
-		guint activate_time, GtkMenu * menu)
+popup_callback(GtkStatusIcon *status_icon, guint button,
+	       guint activate_time, GtkMenu *menu)
 {
 	gtk_widget_hide(popup_window);
 	gtk_menu_popup(menu, NULL, NULL,
 		       gtk_status_icon_position_menu, status_icon,
-			   button, activate_time);
+		       button, activate_time);
 }
 
 /**
@@ -434,7 +434,7 @@ create_about(void)
 	if (!uifile) {
 		report_error(_
 			     ("Can't find about interface file. Please ensure "
-				  "PNMixer is installed correctly."));
+			      "PNMixer is installed correctly."));
 		return;
 	}
 	builder = gtk_builder_new();
@@ -480,7 +480,7 @@ static guchar *vol_meter_row = NULL;
  * @param h height of the volume meter
  */
 static void
-draw_vol_meter(GdkPixbuf * pixbuf, int x, int y, int h)
+draw_vol_meter(GdkPixbuf *pixbuf, int x, int y, int h)
 {
 	int width, height, rowstride, n_channels, i;
 	guchar *pixels, *p;
@@ -543,14 +543,14 @@ get_mute_state(gboolean set_check)
 		else
 			icon = status_icons[VOLUME_HIGH];
 		sprintf(tooltip, _("%s (%s)\nVolume: %d %%"), active_card_name,
-				active_channel,
+			active_channel,
 			tmpvol);
 
 		if (vol_meter_row) {
 			GdkPixbuf *old_icon = icon_copy;
 			icon_copy = gdk_pixbuf_copy(icon);
 			draw_vol_meter(icon_copy, draw_offset, 5,
-					(tmpvol * vol_div_factor));
+				       (tmpvol * vol_div_factor));
 			if (old_icon)
 				g_object_unref(old_icon);
 			gtk_status_icon_set_from_pixbuf(tray_icon, icon_copy);
@@ -578,7 +578,7 @@ get_mute_state(gboolean set_check)
  * FALSE to propagate the event further
  */
 gboolean
-hide_me(GtkWidget * widget, GdkEvent * event, gpointer user_data)
+hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 #ifdef WITH_GTK3
 	GdkDevice *device = gtk_get_current_event_device();
@@ -586,31 +586,31 @@ hide_me(GtkWidget * widget, GdkEvent * event, gpointer user_data)
 	gint x, y;
 
 	switch (event->type) {
-		/* If a click happens outside of the popup, hide it */
+	/* If a click happens outside of the popup, hide it */
 	case GDK_BUTTON_PRESS:
 		if (
 #ifdef WITH_GTK3
-			   !gdk_device_get_window_at_position(device, &x, &y)
+			!gdk_device_get_window_at_position(device, &x, &y)
 #else
-			   !gdk_window_at_pointer(&x, &y)
+			!gdk_window_at_pointer(&x, &y)
 #endif
-		    )
+		)
 			gtk_widget_hide(popup_window);
 		break;
 
-		/* If 'Esc' is pressed, hide popup */
+	/* If 'Esc' is pressed, hide popup */
 	case GDK_KEY_PRESS:
 		if (event->key.keyval == GDK_KEY_Escape) {
 			gtk_widget_hide(popup_window);
 		}
 		break;
 
-		/* Broken grab, hide popup */
+	/* Broken grab, hide popup */
 	case GDK_GRAB_BROKEN:
 		gtk_widget_hide(popup_window);
 		break;
 
-		/* Unhandle event, do nothing */
+	/* Unhandle event, do nothing */
 	default:
 		break;
 	}
@@ -655,19 +655,19 @@ update_status_icons(void)
 		old_icons[i] = status_icons[i];
 	if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
 		status_icons[VOLUME_MUTED] = get_stock_pixbuf("audio-volume-muted",
-				size);
+					     size);
 		status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-off", size);
 		status_icons[VOLUME_LOW] = get_stock_pixbuf("audio-volume-low", size);
 		status_icons[VOLUME_MEDIUM] = get_stock_pixbuf("audio-volume-medium",
-				size);
+					      size);
 		status_icons[VOLUME_HIGH] = get_stock_pixbuf("audio-volume-high",
-				size);
+					    size);
 		/* 'audio-volume-off' is not available in every icon set. More info at:
 		 * http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
 		 */
 		if (status_icons[VOLUME_OFF] == NULL)
 			status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-low",
-					size);
+						   size);
 	} else {
 		status_icons[VOLUME_MUTED] = create_pixbuf("pnmixer-muted.png");
 		status_icons[VOLUME_OFF] = create_pixbuf("pnmixer-off.png");
@@ -681,7 +681,7 @@ update_status_icons(void)
 	if (vol_meter_width % 4 != 0)
 		vol_meter_width -= (vol_meter_width % 4);
 	if (!vol_meter_row && g_key_file_get_boolean(keyFile, "PNMixer",
-				"DrawVolMeter", NULL)) {
+			"DrawVolMeter", NULL)) {
 		int lim = vol_meter_width / 4;
 		vol_meter_row = g_malloc(vol_meter_width * sizeof(guchar));
 		for (i = 0; i < lim; i++) {
@@ -692,7 +692,7 @@ update_status_icons(void)
 		}
 	} else if (vol_meter_row
 		   && !g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter",
-			   NULL)) {
+					      NULL)) {
 		free(vol_meter_row);
 		vol_meter_row = NULL;
 		if (icon_copy)
@@ -700,7 +700,7 @@ update_status_icons(void)
 		icon_copy = NULL;
 	}
 	draw_offset = g_key_file_get_integer(keyFile, "PNMixer", "VolMeterPos",
-			NULL);
+					     NULL);
 	if (tray_icon)
 		get_mute_state(TRUE);
 	for (i = 0; i < N_VOLUME_ICONS; i++)
@@ -718,17 +718,17 @@ update_vol_text(void)
 	gboolean show = TRUE;
 	if (g_key_file_has_key(keyFile, "PNMixer", "DisplayTextVolume", NULL))
 		show = g_key_file_get_boolean(keyFile, "PNMixer", "DisplayTextVolume",
-				NULL);
+					      NULL);
 	if (show) {
 		GtkPositionType pos = GTK_POS_RIGHT;
 		if (g_key_file_has_key(keyFile, "PNMixer", "TextVolumePosition",
-					NULL)) {
+				       NULL)) {
 			gint pi =
-			    g_key_file_get_integer(keyFile, "PNMixer",
-						"TextVolumePosition", NULL);
+				g_key_file_get_integer(keyFile, "PNMixer",
+						       "TextVolumePosition", NULL);
 			pos =
-			    pi == 0 ? GTK_POS_TOP : pi == 1 ? GTK_POS_BOTTOM : pi ==
-			    2 ? GTK_POS_LEFT : GTK_POS_RIGHT;
+				pi == 0 ? GTK_POS_TOP : pi == 1 ? GTK_POS_BOTTOM : pi ==
+				2 ? GTK_POS_LEFT : GTK_POS_RIGHT;
 		}
 		gtk_scale_set_draw_value(GTK_SCALE(vol_scale), TRUE);
 		gtk_scale_set_value_pos(GTK_SCALE(vol_scale), pos);
@@ -738,8 +738,10 @@ update_vol_text(void)
 
 static gboolean version = FALSE;
 static GOptionEntry args[] = {
-	{"version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit",
-		NULL},
+	{
+		"version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit",
+		NULL
+	},
 	{NULL, 0, 0, 0, NULL, NULL, NULL}
 };
 
@@ -797,11 +799,11 @@ main(int argc, char *argv[])
 	apply_prefs(0);
 
 	g_signal_connect(G_OBJECT(tray_icon), "popup-menu",
-			G_CALLBACK(popup_callback), popup_menu);
+			 G_CALLBACK(popup_callback), popup_menu);
 	g_signal_connect(G_OBJECT(tray_icon), "activate",
-			G_CALLBACK(tray_icon_on_click), NULL);
+			 G_CALLBACK(tray_icon_on_click), NULL);
 	g_signal_connect(G_OBJECT(tray_icon), "button-release-event",
-			G_CALLBACK(tray_icon_button), NULL);
+			 G_CALLBACK(tray_icon_button), NULL);
 
 	gtk_main();
 	uninit_libnotify();
