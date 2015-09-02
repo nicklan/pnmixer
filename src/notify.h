@@ -29,6 +29,6 @@
 void init_libnotify(void);
 void uninit_libnotify(void);
 void do_notify_volume(gint level, gboolean muted);
-void do_notify_text(const gchar * body, const gchar * text);
+void do_notify_text(const gchar *body, const gchar *text);
 
 #endif				// NOTIFY_H_

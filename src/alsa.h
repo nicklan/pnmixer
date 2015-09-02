@@ -24,17 +24,17 @@
  * Struct representing an alsa card.
  */
 struct acard {
-  /**
-   * Real card name like 'HDA Intel PCH'.
-   */
+	/**
+	 * Real card name like 'HDA Intel PCH'.
+	 */
 	char *name;
-  /**
-   * HTCL device name, like 'hw:0'.
-   */
+	/**
+	 * HTCL device name, like 'hw:0'.
+	 */
 	char *dev;
-  /**
-   * All playable channels in a list.
-   */
+	/**
+	 * All playable channels in a list.
+	 */
 	GSList *channels;
 };
 
@@ -44,7 +44,7 @@ struct acard {
  */
 GSList *cards;
 
-struct acard *find_card(const gchar * card);
+struct acard *find_card(const gchar *card);
 int setvol(int vol, int dir, gboolean notify);
 void setmute(gboolean notify);
 int getvol(void);

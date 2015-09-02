@@ -77,7 +77,7 @@ checkModKey(int got, int want)
  * @return a GdkFilterReturn value, should be GDK_FILTER_CONTINUE only
  */
 static GdkFilterReturn
-key_filter(GdkXEvent * gdk_xevent, GdkEvent * event, gpointer data)
+key_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 {
 	int type;
 	guint key, state;
@@ -122,9 +122,9 @@ void
 add_filter(void)
 {
 	gdk_window_add_filter(
-			gdk_x11_window_foreign_new_for_display(
-				gdk_display_get_default(),GDK_ROOT_WINDOW()),
-			key_filter, NULL);
+		gdk_x11_window_foreign_new_for_display(
+			gdk_display_get_default(),GDK_ROOT_WINDOW()),
+		key_filter, NULL);
 }
 
 static char xErr;
@@ -142,7 +142,7 @@ static gchar *muteSymStr = NULL, *downSymStr = NULL, *upSymStr = NULL;
  * @return it's acceptable to return, but the return value is ignored
  */
 static int
-errhdl(Display * disp, XErrorEvent * ev)
+errhdl(Display *disp, XErrorEvent *ev)
 {
 	int p;
 	xErr = 1;
@@ -218,8 +218,8 @@ grab_keys(int mk, int uk, int dk, int mm, int um, int dm, int step)
 	xErr = 0;
 	errBuf = g_malloc(errBufSize * sizeof(gchar));
 	printBuf =
-	    errBuf + snprintf(errBuf, errBufSize,
-				_("Could not bind the following hotkeys:\n"));
+		errBuf + snprintf(errBuf, errBufSize,
+				  _("Could not bind the following hotkeys:\n"));
 	errBufSize -= (printBuf - errBuf);
 
 	if (muteSymStr)
@@ -230,22 +230,22 @@ grab_keys(int mk, int uk, int dk, int mm, int um, int dm, int step)
 		g_free(downSymStr);
 
 	muteSymStr =
-	    gtk_accelerator_name(
-				XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-					volMuteKey, 0, 0),
-				volMuteMods);
+		gtk_accelerator_name(
+			XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+					   volMuteKey, 0, 0),
+			volMuteMods);
 
 	upSymStr =
-	    gtk_accelerator_name(
-				XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-					volUpKey, 0, 0),
-				 volUpMods);
+		gtk_accelerator_name(
+			XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+					   volUpKey, 0, 0),
+			volUpMods);
 
 	downSymStr =
-	    gtk_accelerator_name(
-				XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-					volDownKey, 0, 0),
-				volDownMods);
+		gtk_accelerator_name(
+			XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
+					   volDownKey, 0, 0),
+			volDownMods);
 
 	XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
 	guint i;
@@ -253,22 +253,22 @@ grab_keys(int mk, int uk, int dk, int mm, int um, int dm, int step)
 		if (volMuteKey > 0) {
 			muteSerial = NextRequest(disp);
 			XGrabKey(disp, volMuteKey, volMuteMods | keymasks[i],
-					GDK_ROOT_WINDOW(), 1,
-					GrabModeAsync, GrabModeAsync);
+				 GDK_ROOT_WINDOW(), 1,
+				 GrabModeAsync, GrabModeAsync);
 		}
 
 		if (volUpKey > 0) {
 			upSerial = NextRequest(disp);
 			XGrabKey(disp, volUpKey, volUpMods | keymasks[i],
-					GDK_ROOT_WINDOW(), 1,
-					GrabModeAsync, GrabModeAsync);
+				 GDK_ROOT_WINDOW(), 1,
+				 GrabModeAsync, GrabModeAsync);
 		}
 
 		if (volDownKey > 0) {
 			downSerial = NextRequest(disp);
 			XGrabKey(disp, volDownKey, volDownMods | keymasks[i],
-					GDK_ROOT_WINDOW(), 1,
-					GrabModeAsync, GrabModeAsync);
+				 GDK_ROOT_WINDOW(), 1,
+				 GrabModeAsync, GrabModeAsync);
 		}
 	}
 

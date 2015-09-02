@@ -46,7 +46,7 @@ static GList *pixmaps_directories = NULL;
  * @param directory the directory containing pixmaps
  */
 void
-add_pixmap_directory(const gchar * directory)
+add_pixmap_directory(const gchar *directory)
 {
 	pixmaps_directories = g_list_prepend(pixmaps_directories, g_strdup(directory));
 }
@@ -60,7 +60,7 @@ add_pixmap_directory(const gchar * directory)
  * newly allocated or NULL on failure
  */
 static gchar *
-find_pixmap_file(const gchar * filename)
+find_pixmap_file(const gchar *filename)
 {
 	GList *elem;
 
@@ -86,7 +86,7 @@ find_pixmap_file(const gchar * filename)
  * an empty GtkImage if the file was not found
  */
 GtkWidget *
-create_pixmap(GtkWidget * widget, const gchar * filename)
+create_pixmap(GtkWidget *widget, const gchar *filename)
 {
 	gchar *pathname = NULL;
 	GtkWidget *pixmap;
@@ -113,7 +113,7 @@ create_pixmap(GtkWidget * widget, const gchar * filename)
  * @return the new GdkPixbuf, NULL on failure
  */
 GdkPixbuf *
-create_pixbuf(const gchar * filename)
+create_pixbuf(const gchar *filename)
 {
 	gchar *pathname = NULL;
 	GdkPixbuf *pixbuf;
@@ -132,7 +132,7 @@ create_pixbuf(const gchar * filename)
 	pixbuf = gdk_pixbuf_new_from_file(pathname, &error);
 	if (!pixbuf) {
 		report_error(_("Failed to load pixbuf file: %s: %s"),
-				pathname, error->message);
+			     pathname, error->message);
 		g_error_free(error);
 	}
 	g_free(pathname);
@@ -155,7 +155,7 @@ get_stock_pixbuf(const char *filename, gint size)
 	if (icon_theme == NULL)
 		get_icon_theme();
 	return_buf = gtk_icon_theme_load_icon(icon_theme, filename,
-			size, 0, &err);
+					      size, 0, &err);
 	if (err != NULL) {
 		DEBUG_PRINT("Unable to load icon %s: %s", filename, err->message);
 		g_error_free(err);
@@ -180,7 +180,7 @@ get_ui_file(const char *filename)
 		return path;
 	g_free(path);
 	path = g_build_filename(PACKAGE_DATA_DIR, "pnmixer", "ui",
-			filename, NULL);
+				filename, NULL);
 	if (g_file_test(path, G_FILE_TEST_EXISTS))
 		return path;
 	g_free(path);

@@ -43,7 +43,7 @@ extern int volume;
  * @param user_data user data set when the signal handler was connected
  */
 gboolean
-on_mute_clicked(GtkButton * button, GdkEvent * event, gpointer user_data)
+on_mute_clicked(GtkButton *button, GdkEvent *event, gpointer user_data)
 {
 
 	setmute(popup_noti);
@@ -64,8 +64,8 @@ on_mute_clicked(GtkButton * button, GdkEvent * event, gpointer user_data)
  * signal, FALSE to propagate the signal further
  */
 gboolean
-vol_scroll_event(GtkRange * range, GtkScrollType scroll,
-		gdouble value, gpointer user_data)
+vol_scroll_event(GtkRange *range, GtkScrollType scroll,
+		 gdouble value, gpointer user_data)
 {
 	GtkAdjustment *gtk_adj;
 	int volumeset;
@@ -105,8 +105,8 @@ vol_scroll_event(GtkRange * range, GtkScrollType scroll,
  * False to propagate the event further
  */
 gboolean
-on_scroll(GtkStatusIcon * status_icon, GdkEventScroll * event,
-		gpointer user_data)
+on_scroll(GtkStatusIcon *status_icon, GdkEventScroll *event,
+	  gpointer user_data)
 {
 	int cv = getvol();
 	if (event->direction == GDK_SCROLL_UP) {
@@ -136,8 +136,8 @@ on_scroll(GtkStatusIcon * status_icon, GdkEventScroll * event,
  * False to propagate the event further
  */
 gboolean
-on_hotkey_button_click(GtkWidget * widget, GdkEventButton * event,
-		PrefsData * data)
+on_hotkey_button_click(GtkWidget *widget, GdkEventButton *event,
+		       PrefsData *data)
 {
 
 	if (event->button == 1 && event->type == GDK_2BUTTON_PRESS)
@@ -153,7 +153,7 @@ on_hotkey_button_click(GtkWidget * widget, GdkEventButton * event,
  * @param data struct holding the GtkWidgets of the preferences windows
  */
 void
-on_ok_button_clicked(GtkButton * button, PrefsData * data)
+on_ok_button_clicked(GtkButton *button, PrefsData *data)
 {
 	gsize len;
 	GError *err = NULL;
@@ -232,7 +232,7 @@ on_ok_button_clicked(GtkButton * button, PrefsData * data)
 		g_key_file_remove_key(keyFile, "PNMixer", "IconTheme", NULL);
 	} else {
 		gchar *theme_name =
-		    gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(icon_combo));
+			gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(icon_combo));
 		if (theme_name) {
 			g_key_file_set_string(keyFile, "PNMixer", "IconTheme", theme_name);
 			g_free(theme_name);
@@ -328,16 +328,16 @@ on_ok_button_clicked(GtkButton * button, PrefsData * data)
 	nc = data->external_noti_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
 	g_key_file_set_boolean(keyFile, "PNMixer", "ExternalNotifications",
-			active);
+			       active);
 
 	nc = data->noti_timeout_spin;
 	noti_spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(nc));
 	g_key_file_set_integer(keyFile, "PNMixer", "NotificationTimeout",
-			noti_spin);
+			       noti_spin);
 #endif
 
 	gchar *filename = g_strconcat(g_get_user_config_dir(),
-			"/pnmixer/config", NULL);
+				      "/pnmixer/config", NULL);
 	gchar *filedata = g_key_file_to_data(keyFile, &len, NULL);
 	g_file_set_contents(filename, filedata, len, &err);
 	if (err != NULL) {
@@ -358,7 +358,7 @@ on_ok_button_clicked(GtkButton * button, PrefsData * data)
  * @param data struct holding the GtkWidgets of the preferences windows
  */
 void
-on_cancel_button_clicked(GtkButton * button, PrefsData * data)
+on_cancel_button_clicked(GtkButton *button, PrefsData *data)
 {
 	gtk_widget_destroy(data->prefs_window);
 	g_slice_free(PrefsData, data);
@@ -377,7 +377,7 @@ on_cancel_button_clicked(GtkButton * button, PrefsData * data)
  * False to propagate the event further
  */
 gboolean
-on_key_press(GtkWidget * widget, GdkEventKey * event, PrefsData * data)
+on_key_press(GtkWidget *widget, GdkEventKey *event, PrefsData *data)
 {
 
 	switch (event->keyval) {

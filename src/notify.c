@@ -107,7 +107,7 @@ do_notify_volume(gint level, gboolean muted)
 		notification = NOTIFICATION_NEW("", NULL, NULL);
 		notify_notification_set_timeout(notification, noti_timeout);
 		NOTIFICATION_SET_HINT_STRING(notification,
-				"x-canonical-private-synchronous", "");
+					     "x-canonical-private-synchronous", "");
 	}
 
 	if (level < 0)
@@ -119,7 +119,7 @@ do_notify_volume(gint level, gboolean muted)
 		summary = g_strdup("Volume muted");
 	else
 		summary =
-		    g_strdup_printf("%s (%s)\nVolume: %d%%\n",
+			g_strdup_printf("%s (%s)\nVolume: %d%%\n",
 					active_card_name, active_channel, level);
 
 	if (muted)
@@ -151,7 +151,7 @@ do_notify_volume(gint level, gboolean muted)
  * @param _body the notification body
  */
 void
-do_notify_text(const gchar * summary, const gchar * body)
+do_notify_text(const gchar *summary, const gchar *body)
 {
 	static NotifyNotification *notification = NULL;
 	GError *error = NULL;
@@ -160,7 +160,7 @@ do_notify_text(const gchar * summary, const gchar * body)
 		notification = NOTIFICATION_NEW("", NULL, NULL);
 		notify_notification_set_timeout(notification, noti_timeout * 2);
 		NOTIFICATION_SET_HINT_STRING(notification,
-				"x-canonical-private-synchronous", "");
+					     "x-canonical-private-synchronous", "");
 	}
 
 	notify_notification_update(notification, summary, body, NULL);
@@ -190,7 +190,7 @@ do_notify_volume(gint level, gboolean muted)
 }
 
 void
-do_notify_text(const gchar * summary, const gchar * body)
+do_notify_text(const gchar *summary, const gchar *body)
 {
 }
 
