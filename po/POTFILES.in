@@ -6,6 +6,7 @@ src/support.c
 src/prefs.c
 src/hotkeys.c
 src/alsa.c
+src/notify.c
 data/desktop/pnmixer.desktop.in
 data/ui/about-gtk3.glade
 data/ui/popup_window-gtk3.glade
