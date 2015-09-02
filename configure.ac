@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT([pnmixer], 0.6-rc2)
+AC_INIT([pnmixer], 0.6)
 
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
