@@ -61,6 +61,8 @@ version 0.2:
 		- amount to adjust per scoll
 		- middle click action
 
+
+
 Thursday 03 September 2009 -
 
 Changes from the previous version;
@@ -70,7 +72,6 @@ Changes from the previous version;
    the Master volume channel in future versions of ubuntu.
  - As interfacing with ALSA slows the application down, volume
    changes now only take affect when the scale is released.
-
 
 Friday 28 August 2009 -
 
