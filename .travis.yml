@@ -1,10 +1,10 @@
 language: c
 
 env:
-  - BUILD_FLAGS="--enable-debug --with-gtk3 --with-libnotify"
-  - BUILD_FLAGS="--enable-debug --with-gtk3 --without-libnotify"
-  - BUILD_FLAGS="--enable-debug --without-gtk3 --with-libnotify"
-  - BUILD_FLAGS="--enable-debug --without-gtk3 --without-libnotify"
+  - BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - BUILD_FLAGS="--without-gtk3 --without-libnotify"
 
 compiler:
   - clang
