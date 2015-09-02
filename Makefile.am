@@ -5,6 +5,10 @@ SUBDIRS = data po src
 EXTRA_DIST = \
 	autogen.sh
 
+dist-hook:
+	$(MAKE) -C "$(srcdir)/po" "$(GETTEXT_PACKAGE).pot"
+	cp "$(srcdir)/po/$(GETTEXT_PACKAGE).pot" "$(distdir)/po/"
+
 uninstall-local:
 	@$(NORMAL_UNINSTALL)
 	rm -rf $(DESTDIR)$(pkgdatadir)
