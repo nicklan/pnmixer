@@ -18,7 +18,7 @@ version 0.6:
 	  so that PNMixer is still usable and useful
 	- If USB card is re-plugged afterward, one should click 'Reload Alsa'
 	  in the popup menu, so that PNMixer selects the USB card
- - Lot of bug fixes
+ - Lots of bug fixes
 
 version 0.5:
  - Bug fixes (including but not limited to):
