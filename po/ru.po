@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-10 01:38+0200\n"
+"POT-Creation-Date: 2015-09-02 17:27+0200\n"
 "PO-Revision-Date: 2015-08-25 20:46+0500\n"
 "Last-Translator: Pavel Serebryakov <pshar@inbox.ru>\n"
 "Language-Team: \n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.3\n"
 
-#: ../src/main.c:74 ../src/main.c:102
+#: ../src/main.c:76 ../src/main.c:106
 msgid "PNMixer Error"
 msgstr "Ошибка PNMixer"
 
-#: ../src/main.c:96
+#: ../src/main.c:100
 msgid "Warning: Connection to sound system failed."
 msgstr "Внимание: не удалось подключиться к звуковой подсистеме"
 
-#: ../src/main.c:98
+#: ../src/main.c:102
 msgid ""
 "Do you want to re-initialize the connection to alsa?\n"
 "\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Если нет, вам необходимо будет либо перезапустить PNMixer, либо выбрать "
 "опцию 'Перезапустить Alsa' в меню правой кнопки, чтобы PNMixer работал."
 
-#: ../src/main.c:108
+#: ../src/main.c:113
 #, c-format
 msgid ""
 "Warning: Connection to sound system failed, you probably need to restart "
@@ -46,12 +46,12 @@ msgstr ""
 "Внимание: Не удалось подключиться к звуковой подсистеме, возможно вам "
 "необходимо перезапустить pnmixer\n"
 
-#: ../src/main.c:123
+#: ../src/main.c:131
 #, c-format
 msgid "Unable to run command: %s"
 msgstr "Не удалось выполнить команду: %s"
 
-#: ../src/main.c:144
+#: ../src/main.c:154
 msgid ""
 "No mixer application was found on your system. Please open preferences and "
 "set the command you want to run for volume control."
@@ -59,14 +59,14 @@ msgstr ""
 "В вашей системе не обнаружено приложений микширования. Пожалуйста, откройте "
 "настройки и задайте желаемую команду управления громкостью"
 
-#: ../src/main.c:186
+#: ../src/main.c:206
 msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
 msgstr ""
 "Вы не задали команду для выполнения, пожалуйста, сделайте это в настройках."
 
-#: ../src/main.c:298
+#: ../src/main.c:334
 msgid ""
 "Can't find main user interface file. Please ensure PNMixer is installed "
 "correctly. Exiting."
@@ -74,7 +74,7 @@ msgstr ""
 "Главный файл графического интерфейса программы не найден. Пожалуйста, "
 "убедитесь, что PNMixer установлен правильно. Завершение"
 
-#: ../src/main.c:382
+#: ../src/main.c:429
 msgid ""
 "Can't find about interface file. Please ensure PNMixer is installed "
 "correctly."
@@ -82,7 +82,7 @@ msgstr ""
 "Файл графического интерфейса окна \"О программе\" не найден. Пожалуйста, "
 "убедитесь, что PNMixer установлен правильно."
 
-#: ../src/main.c:484
+#: ../src/main.c:538
 #, c-format
 msgid ""
 "%s (%s)\n"
@@ -91,7 +91,7 @@ msgstr ""
 "%s (%s)\n"
 "Громкость: %d %%"
 
-#: ../src/main.c:499
+#: ../src/main.c:556
 #, c-format
 msgid ""
 "%s (%s)\n"
@@ -102,42 +102,41 @@ msgstr ""
 "Громкость: %d %%\n"
 "Звук выкл."
 
-#: ../src/main.c:687
+#: ../src/main.c:765
 msgid "- A mixer for the system tray."
 msgstr "- Звуковой микшер для системного трея."
 
-#: ../src/main.c:697
+#: ../src/main.c:774
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s версия: %s\n"
 
-#: ../src/callbacks.c:340
+#: ../src/callbacks.c:344
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "Не удалось записать файл настроек: %s"
 
-#: ../src/support.c:98 ../src/support.c:125
+#: ../src/support.c:100 ../src/support.c:128
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Не удалось найти файл изображения: %s"
 
-#: ../src/support.c:132
+#: ../src/support.c:134
 #, c-format
 msgid "Failed to load pixbuf file: %s: %s"
 msgstr "Не удалось загрузить pixbuf-файл: %s: %s"
 
-#: ../src/prefs.c:80
+#: ../src/prefs.c:81
 msgid "PNMixer Icons"
 msgstr "Иконки PNMixer"
 
-#. corrupt value somehow
-#: ../src/prefs.c:177
+#: ../src/prefs.c:199
 msgid "Invalid color for volume meter in config file. Reverting to default."
 msgstr ""
 "Недопустимое значение цвета для измерителя громкости в файле конфигурации. "
 "Использую значение по умолчанию."
 
-#: ../src/prefs.c:203
+#: ../src/prefs.c:229
 #, c-format
 msgid ""
 "Error: %s exists but is not a directory, will not be able to save "
@@ -146,44 +145,44 @@ msgstr ""
 "Ошибка: %s существует, но не является каталогом, сохранить настройки не "
 "получится"
 
-#: ../src/prefs.c:206
+#: ../src/prefs.c:233
 #, c-format
 msgid "Couldn't make prefs directory: %s"
 msgstr "Не удалось создать каталог настроек: %s"
 
-#: ../src/prefs.c:228
+#: ../src/prefs.c:259
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "Не удалось загрузить файл настроек: %s"
 
-#: ../src/prefs.c:236
+#: ../src/prefs.c:268
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "Не удалось загрузить настройки по умолчанию: %s"
 
-#: ../src/prefs.c:615
+#: ../src/prefs.c:704
 #, c-format
 msgid "Invalid widget passed to acquire_hotkey: %s"
 msgstr "Недопустимый виджет передан в acquire_hotkey: %s"
 
-#: ../src/prefs.c:621 ../data/ui/prefs-gtk3.glade.h:1
+#: ../src/prefs.c:712 ../data/ui/prefs-gtk3.glade.h:1
 #: ../data/ui/prefs-gtk2.glade.h:1
 msgid "Mute/Unmute"
 msgstr "Вкл/выкл звук"
 
-#: ../src/prefs.c:624
+#: ../src/prefs.c:716
 msgid "Volume Up"
 msgstr "Увеличить громкость"
 
-#: ../src/prefs.c:627
+#: ../src/prefs.c:720
 msgid "Volume Down"
 msgstr "Уменьшить громкость"
 
-#: ../src/prefs.c:677
+#: ../src/prefs.c:768
 msgid "Could not grab the keyboard."
 msgstr "Не удалось захватить клавиатуру."
 
-#: ../src/prefs.c:797
+#: ../src/prefs.c:891
 msgid ""
 "Can't find preferences user interface file. Please ensure PNMixer is "
 "installed correctly."
@@ -191,11 +190,11 @@ msgstr ""
 "Файл графического интерфейса окна настроек не найден. Пожалуйста, убедитесь, "
 "что PNMixer установлен правильно. "
 
-#: ../src/prefs.c:958
+#: ../src/prefs.c:1073
 msgid "Notifications"
 msgstr "Yведомления"
 
-#: ../src/hotkeys.c:220
+#: ../src/hotkeys.c:222
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
 msgstr "Не удалось записать следующие сочетания клавиш:\n"
@@ -205,11 +204,11 @@ msgstr "Не удалось записать следующие сочетани
 #. * In this case, reloading alsa is the nice thing to do, it will
 #. * cause PNMixer to select the first card available.
 #.
-#: ../src/alsa.c:280
+#: ../src/alsa.c:298
 msgid "Soundcard disconnected"
 msgstr "Звуковая карта отключена"
 
-#: ../src/alsa.c:281
+#: ../src/alsa.c:299
 msgid "Soundcard has been disconnected, reloading Alsa..."
 msgstr "Звуковая карта была отключена, перезагружаем Alsa..."
 
