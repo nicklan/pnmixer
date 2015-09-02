@@ -97,18 +97,12 @@ warn_sound_conn_lost(void)
 				    GTK_DIALOG_DESTROY_WITH_PARENT,
 				    GTK_MESSAGE_ERROR,
 				    GTK_BUTTONS_YES_NO,
-				    _
-				    ("Warning: Connection to sound system "
-				     "failed."));
+				    _("Warning: Connection to sound system failed."));
 		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-				_
-				("Do you want to re-initialize the connection "
-				 " to alsa?\n\n"
-				 "If you do not, you will either need to "
-				 "restart PNMixer "
-				 "or select the 'Reload Alsa' option in the "
-				 "right click "
-				 "menu in order for PNMixer to function."));
+				_("Do you want to re-initialize the connection to alsa?\n\n"
+				  "If you do not, you will either need to restart PNMixer "
+				  "or select the 'Reload Alsa' option in the right click "
+				  "menu in order for PNMixer to function."));
 		gtk_window_set_title(GTK_WINDOW(dialog), _("PNMixer Error"));
 		resp = gtk_dialog_run(GTK_DIALOG(dialog));
 		gtk_widget_destroy(dialog);
@@ -116,9 +110,8 @@ warn_sound_conn_lost(void)
 			do_alsa_reinit();
 	} else
 		fprintf(stderr,
-			_
-			("Warning: Connection to sound system failed, you probably "
-			 "need to restart pnmixer\n"));
+			_("Warning: Connection to sound system failed, "
+			  "you probably need to restart pnmixer\n"));
 }
 
 /**
