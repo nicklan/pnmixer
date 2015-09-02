@@ -45,7 +45,7 @@ Icons are a slightly modified versions of the icons from Paul Davey's
 Download
 --------
 Latest version can always be found at:
-[https://github.com/nicklan/pnmixer/downloads](https://github.com/nicklan/pnmixer/downloads)
+[https://github.com/nicklan/pnmixer/releases](https://github.com/nicklan/pnmixer/releases)
 
 Compilation and Install
 -----------------------
