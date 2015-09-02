@@ -55,27 +55,33 @@
  * @return FALSE if the source should be removed,
  * TRUE otherwise
  */
-static gboolean idle_report_error(gpointer data) {
-  report_error("Unable to initialize libnotify. Notifications will not be sent.");
-  return FALSE;
+static gboolean
+idle_report_error(gpointer data)
+{
+	report_error("Unable to initialize libnotify. Notifications will not be sent.");
+	return FALSE;
 }
 
 /**
  * Initializes libnotify if it's not already
  * initialized.
  */
-void init_libnotify() {
-  if (!notify_is_initted())
-    if (!notify_init(PACKAGE))
-      g_idle_add(idle_report_error, NULL);
+void
+init_libnotify()
+{
+	if (!notify_is_initted())
+		if (!notify_init(PACKAGE))
+			g_idle_add(idle_report_error, NULL);
 }
 
 /**
  * Uninitializes libnotify if it is initialized.
  */
-void uninit_libnotify() {
-  if (notify_is_initted())
-    notify_uninit();
+void
+uninit_libnotify()
+{
+	if (notify_is_initted())
+		notify_uninit();
 }
 
 /**
@@ -86,49 +92,56 @@ void uninit_libnotify() {
  * @param level the playback volume level
  * @param muted whether the playback is muted
  */
-void do_notify_volume(gint level, gboolean muted) {
-  static NotifyNotification *notification = NULL;
-  gchar  *summary, *icon, *active_card_name;
-  const char *active_channel;
-  GError *error = NULL;
+void
+do_notify_volume(gint level, gboolean muted)
+{
+	static NotifyNotification *notification = NULL;
+	gchar *summary, *icon, *active_card_name;
+	const char *active_channel;
+	GError *error = NULL;
 
-  active_card_name = (alsa_get_active_card())->name;
-  active_channel = alsa_get_active_channel();
+	active_card_name = (alsa_get_active_card())->name;
+	active_channel = alsa_get_active_channel();
 
-  if (notification == NULL) {
-    notification = NOTIFICATION_NEW("", NULL, NULL);
-    notify_notification_set_timeout(notification, noti_timeout);
-    NOTIFICATION_SET_HINT_STRING(notification, "x-canonical-private-synchronous", "");
-  }
+	if (notification == NULL) {
+		notification = NOTIFICATION_NEW("", NULL, NULL);
+		notify_notification_set_timeout(notification, noti_timeout);
+		NOTIFICATION_SET_HINT_STRING(notification,
+				"x-canonical-private-synchronous", "");
+	}
 
-  if (level < 0) level = 0;
-  if (level > 100) level = 100;
+	if (level < 0)
+		level = 0;
+	if (level > 100)
+		level = 100;
 
-  if (muted)
-    summary = g_strdup("Volume muted");
-  else
-    summary = g_strdup_printf("%s (%s)\nVolume: %d%%\n", active_card_name, active_channel, level);
+	if (muted)
+		summary = g_strdup("Volume muted");
+	else
+		summary =
+		    g_strdup_printf("%s (%s)\nVolume: %d%%\n",
+					active_card_name, active_channel, level);
 
-  if (muted)
-    icon = "audio-volume-muted";
-  else if (level == 0)
-    icon = "audio-volume-off";
-  else if (level < 33)
-    icon = "audio-volume-low";
-  else if (level < 66)
-    icon = "audio-volume-medium";
-  else
-    icon = "audio-volume-high";
+	if (muted)
+		icon = "audio-volume-muted";
+	else if (level == 0)
+		icon = "audio-volume-off";
+	else if (level < 33)
+		icon = "audio-volume-low";
+	else if (level < 66)
+		icon = "audio-volume-medium";
+	else
+		icon = "audio-volume-high";
 
-  notify_notification_update(notification, summary, NULL, icon);
-  NOTIFICATION_SET_HINT_INT32(notification, "value", level);
+	notify_notification_update(notification, summary, NULL, icon);
+	NOTIFICATION_SET_HINT_INT32(notification, "value", level);
 
-  if (!notify_notification_show(notification, &error)) {
-    report_error(_("Could not send notification: %s"), error->message);
-    g_error_free(error);
-  }
+	if (!notify_notification_show(notification, &error)) {
+		report_error(_("Could not send notification: %s"), error->message);
+		g_error_free(error);
+	}
 
-  g_free(summary);
+	g_free(summary);
 }
 
 /**
@@ -137,30 +150,48 @@ void do_notify_volume(gint level, gboolean muted) {
  * @param summary the notification summary
  * @param _body the notification body
  */
-void do_notify_text(const gchar *summary, const gchar *body) {
-  static NotifyNotification *notification = NULL;
-  GError *error = NULL;
+void
+do_notify_text(const gchar * summary, const gchar * body)
+{
+	static NotifyNotification *notification = NULL;
+	GError *error = NULL;
 
-  if (notification == NULL) {
-    notification = NOTIFICATION_NEW("", NULL, NULL);
-    notify_notification_set_timeout(notification, noti_timeout * 2);
-    NOTIFICATION_SET_HINT_STRING(notification, "x-canonical-private-synchronous", "");
-  }
+	if (notification == NULL) {
+		notification = NOTIFICATION_NEW("", NULL, NULL);
+		notify_notification_set_timeout(notification, noti_timeout * 2);
+		NOTIFICATION_SET_HINT_STRING(notification,
+				"x-canonical-private-synchronous", "");
+	}
 
-  notify_notification_update(notification, summary, body, NULL);
+	notify_notification_update(notification, summary, body, NULL);
 
-  if (!notify_notification_show(notification, &error)) {
-    report_error(_("Could not send notification: %s"), error->message);
-    g_error_free(error);
-  }
+	if (!notify_notification_show(notification, &error)) {
+		report_error(_("Could not send notification: %s"), error->message);
+		g_error_free(error);
+	}
 }
 
 #else
 
 // without libnotify everything is a no-op
-void init_libnotify(void) {}
-void uninit_libnotify(void) {}
-void do_notify_volume(gint level, gboolean muted) {}
-void do_notify_text(const gchar *summary, const gchar *body) {}
+void
+init_libnotify(void)
+{
+}
 
-#endif // HAVE_LIBN
+void
+uninit_libnotify(void)
+{
+}
+
+void
+do_notify_volume(gint level, gboolean muted)
+{
+}
+
+void
+do_notify_text(const gchar * summary, const gchar * body)
+{
+}
+
+#endif				// HAVE_LIBN

@@ -22,21 +22,21 @@
 
 #include "support.h"
 
-GKeyFile* keyFile;
+GKeyFile *keyFile;
 int scroll_step;
 gboolean enable_noti, hotkey_noti, mouse_noti, popup_noti, external_noti;
 gint noti_timeout;
-GtkIconTheme* icon_theme;
+GtkIconTheme *icon_theme;
 
-GtkWidget* create_prefs_window  (void);
-void       ensure_prefs_dir     (void);
-void       apply_prefs          (gint);
-void       load_prefs           (void);
-void       get_icon_theme       (void);
-gchar*     get_vol_command      (void);
-gchar*     get_selected_card    (void);
-gchar*     get_selected_channel (gchar*);
-void       acquire_hotkey       (const char*, PrefsData*);
-gboolean   normalize_vol        (void);
+GtkWidget *create_prefs_window(void);
+void ensure_prefs_dir(void);
+void apply_prefs(gint);
+void load_prefs(void);
+void get_icon_theme(void);
+gchar *get_vol_command(void);
+gchar *get_selected_card(void);
+gchar *get_selected_channel(gchar *);
+void acquire_hotkey(const char *, PrefsData *);
+gboolean normalize_vol(void);
 
-#endif // PREFS_H_
+#endif				// PREFS_H_

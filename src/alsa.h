@@ -27,15 +27,15 @@ struct acard {
   /**
    * Real card name like 'HDA Intel PCH'.
    */
-  char *name;
+	char *name;
   /**
    * HTCL device name, like 'hw:0'.
    */
-  char *dev;
+	char *dev;
   /**
    * All playable channels in a list.
    */
-  GSList *channels;
+	GSList *channels;
 };
 
 /**
@@ -44,16 +44,14 @@ struct acard {
  */
 GSList *cards;
 
+struct acard *find_card(const gchar * card);
+int setvol(int vol, int dir, gboolean notify);
+void setmute(gboolean notify);
+int getvol(void);
+int ismuted(void);
+void alsa_init(void);
+void alsa_close(void);
+struct acard *alsa_get_active_card(void);
+const char *alsa_get_active_channel(void);
 
-
-struct acard *find_card               (const gchar *card);
-int           setvol                  (int vol, int dir, gboolean notify);
-void          setmute                 (gboolean notify);
-int           getvol                  (void);
-int           ismuted                 (void);
-void          alsa_init               (void);
-void          alsa_close              (void);
-struct acard *alsa_get_active_card    (void);
-const char   *alsa_get_active_channel (void);
-
-#endif // ALSA_H_
+#endif				// ALSA_H_

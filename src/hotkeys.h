@@ -17,8 +17,7 @@
 #ifndef HOTKEYS_H_
 #define HOTKEYS_H_
 
-void add_filter (void);
-void grab_keys  (int, int, int, int, int, int, int);
+void add_filter(void);
+void grab_keys(int, int, int, int, int, int, int);
 
-#endif // HOTKEYS_H
-
+#endif				// HOTKEYS_H
