@@ -53,7 +53,7 @@ AC_ARG_WITH([gtk3],
             [with_gtk3=yes])
 
 if test "$with_gtk3" = "yes"; then
-	pkg_modules="$pkg_modules gtk+-3.0 >= 3.4.2"
+	pkg_modules="$pkg_modules gtk+-3.0 >= 3.6.0"
 	AC_DEFINE([WITH_GTK3], [], [Gtk3 mode])
 else
 	pkg_modules="$pkg_modules gtk+-2.0 >= 2.16.0"
