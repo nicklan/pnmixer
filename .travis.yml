@@ -1,19 +1,27 @@
-language: c
+sudo: required
+services:
+  - docker
 
 env:
-  - BUILD_FLAGS="--with-gtk3 --with-libnotify"
-  - BUILD_FLAGS="--with-gtk3 --without-libnotify"
-  - BUILD_FLAGS="--without-gtk3 --with-libnotify"
-  - BUILD_FLAGS="--without-gtk3 --without-libnotify"
+  - CC="clang" OS="Gentoo" BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - CC="clang" OS="Gentoo" BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - CC="clang" OS="Gentoo" BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - CC="clang" OS="Gentoo" BUILD_FLAGS="--without-gtk3 --without-libnotify"
+  - CC="gcc" OS="Gentoo" BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - CC="gcc" OS="Gentoo" BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - CC="gcc" OS="Gentoo" BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - CC="gcc" OS="Gentoo" BUILD_FLAGS="--without-gtk3 --without-libnotify"
+  - CC="clang" OS="Debian" BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - CC="clang" OS="Debian" BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - CC="clang" OS="Debian" BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - CC="clang" OS="Debian" BUILD_FLAGS="--without-gtk3 --without-libnotify"
+  - CC="gcc" OS="Debian" BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - CC="gcc" OS="Debian" BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - CC="gcc" OS="Debian" BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - CC="gcc" OS="Debian" BUILD_FLAGS="--without-gtk3 --without-libnotify"
 
-compiler:
-  - clang
-  - gcc
+before_install: ./.travis/before_install.sh
 
-before_install: sudo apt-get update
+install: ./.travis/install.sh
 
-install: sudo apt-get install libasound2-dev libgtk-3-dev libnotify-dev intltool
-
-script:
-  - ./autogen.sh --enable-debug $BUILD_FLAGS
-  - make
+script: ./.travis/script.sh
