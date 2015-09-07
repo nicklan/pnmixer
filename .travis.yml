@@ -19,6 +19,14 @@ env:
   - CC="gcc" OS="Debian" BUILD_FLAGS="--with-gtk3 --without-libnotify"
   - CC="gcc" OS="Debian" BUILD_FLAGS="--without-gtk3 --with-libnotify"
   - CC="gcc" OS="Debian" BUILD_FLAGS="--without-gtk3 --without-libnotify"
+  - CC="clang" OS="Ubuntu" BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - CC="clang" OS="Ubuntu" BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - CC="clang" OS="Ubuntu" BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - CC="clang" OS="Ubuntu" BUILD_FLAGS="--without-gtk3 --without-libnotify"
+  - CC="gcc" OS="Ubuntu" BUILD_FLAGS="--with-gtk3 --with-libnotify"
+  - CC="gcc" OS="Ubuntu" BUILD_FLAGS="--with-gtk3 --without-libnotify"
+  - CC="gcc" OS="Ubuntu" BUILD_FLAGS="--without-gtk3 --with-libnotify"
+  - CC="gcc" OS="Ubuntu" BUILD_FLAGS="--without-gtk3 --without-libnotify"
 
 before_install: ./.travis/before_install.sh
 

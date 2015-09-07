@@ -16,6 +16,10 @@ case $OS in
 		docker pull hasufell/debian-pnmixer-test:latest \
 			|| die "failed to pull docker image!"
 		;;
+	ubuntu|Ubuntu)
+		docker pull hasufell/ubuntu-pnmixer-test:latest \
+			|| die "failed to pull docker image!"
+		;;
 	*)
 		die "unsupported OS $OS!"
 		;;
