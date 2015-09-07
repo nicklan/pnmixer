@@ -11,21 +11,21 @@ case $OS in
 			-v "`pwd`":/pnmixer \
 			hasufell/gentoo-pnmixer-test:latest \
 			sh -c "cd /pnmixer && CC=$CC ./autogen.sh --enable-debug $BUILD_FLAGS && make" \
-			|| die "failed to build image"
+			|| die "failed to build image on $OS"
 		;;
 	debian|Debian)
 		docker run -ti \
 			-v "`pwd`":/pnmixer \
 			hasufell/debian-pnmixer-test:latest \
 			sh -c "cd /pnmixer && CC=$CC ./autogen.sh --enable-debug $BUILD_FLAGS && make" \
-			|| die "failed to build image"
+			|| die "failed to build image on $OS"
 		;;
 	ubuntu|Ubuntu)
 		docker run -ti \
 			-v "`pwd`":/pnmixer \
 			hasufell/ubuntu-pnmixer-test:latest \
 			sh -c "cd /pnmixer && CC=$CC ./autogen.sh --enable-debug $BUILD_FLAGS && make" \
-			|| die "failed to build image"
+			|| die "failed to build image on $OS"
 		;;
 	*)
 		die "unsupported OS: $OS!"
