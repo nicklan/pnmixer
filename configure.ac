@@ -1,5 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
+AC_PREREQ([2.60])
 AC_INIT([pnmixer], 0.6.1)
 
 AM_INIT_AUTOMAKE([foreign])
@@ -9,8 +10,7 @@ AM_MAINTAINER_MODE
 #                  Basic compiler settings              #
 # ===================================================== #
 AC_PROG_CC
-AC_ISC_POSIX
-AC_HEADER_STDC
+AC_PROG_INSTALL
 IT_PROG_INTLTOOL([0.40])
 
 # ======================================================= #
@@ -114,7 +114,7 @@ PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 data/Makefile
 data/desktop/Makefile
@@ -124,6 +124,8 @@ data/ui/Makefile
 src/Makefile
 po/Makefile.in
 ])
+
+AC_OUTPUT
 
 # ======================================================= #
 #                  Display build configuration            #
