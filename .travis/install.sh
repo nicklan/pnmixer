@@ -10,6 +10,8 @@ case $OS in
 		;;
 	debian|Debian)
 		;;
+	ubuntu|Ubuntu)
+		;;
 	*)
 		die "unsupported OS $OS!"
 		;;
