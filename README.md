@@ -32,20 +32,17 @@ a number of additions. These include:
 	- middle click action
 	- drawing of volume level on tray icon
 
-Source and so on are at:
-[https://github.com/nicklan/pnmixer](https://github.com/nicklan/pnmixer)
+Source and so on are at: <https://github.com/nicklan/pnmixer>
 
 Icons
 -----
 Icons are a slightly modified versions of the icons from Paul Davey's
 "Umicons Volume 2" icon set. You can find his website at:
-[http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945](http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945)
-
+<http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945>
 
 Download
 --------
-Latest version can always be found at:
-[https://github.com/nicklan/pnmixer/releases](https://github.com/nicklan/pnmixer/releases)
+Latest version can always be found at: <https://github.com/nicklan/pnmixer/releases>
 
 Compilation and Install
 -----------------------
