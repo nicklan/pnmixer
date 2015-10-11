@@ -241,7 +241,8 @@ alsa_cb(snd_mixer_elem_t *e, unsigned int mask)
 	if (mask & SND_CTL_EVENT_MASK_VALUE) {
 		int muted;
 		get_current_levels();
-		muted = get_mute_state(TRUE);
+		muted = ismuted();
+		on_volume_has_changed();
 		if (enable_noti && external_noti) {
 			int vol = getvol();
 			if (muted)

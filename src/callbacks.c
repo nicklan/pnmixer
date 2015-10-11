@@ -33,9 +33,9 @@ int volume;
 extern int volume;
 
 /**
- * Callback function when the mute_check (GtkCheckButton) in the
- * volume popup window received the pressed signal
- * or when the mute_item (GtkImageMenuItem) in the right-click
+ * Callback function when the mute_check_popup_window (GtkCheckButton) in the
+ * volume popup window received the pressed signal or
+ * when the mute_check_popup_menu (GtkCheckMenuItem) in the right-click
  * menu received the activate signal.
  *
  * @param button the object that received the signal
@@ -47,7 +47,7 @@ on_mute_clicked(GtkButton *button, GdkEvent *event, gpointer user_data)
 {
 
 	setmute(popup_noti);
-	get_mute_state(FALSE);
+	on_volume_has_changed();
 	return TRUE;
 }
 
@@ -87,10 +87,11 @@ vol_scroll_event(GtkRange *range, GtkScrollType scroll,
 	volumeset = (int) value;
 
 	setvol(volumeset, 0, popup_noti);
-	if (get_mute_state(TRUE) == 0) {
+	if (ismuted() == 0)
 		setmute(popup_noti);
-		get_mute_state(TRUE);
-	}
+
+	on_volume_has_changed();
+
 	return FALSE;
 }
 
@@ -115,12 +116,14 @@ on_scroll(GtkStatusIcon *status_icon, GdkEventScroll *event,
 		setvol(cv - scroll_step, -1, mouse_noti);
 	}
 
-	if (get_mute_state(TRUE) == 0) {
+	if (ismuted() == 0)
 		setmute(mouse_noti);
-		get_mute_state(TRUE);
-	}
+
 	// this will set the slider value
 	get_current_levels();
+
+	on_volume_has_changed();
+
 	return TRUE;
 }
 

@@ -93,7 +93,7 @@ key_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 
 		if ((int) key == volMuteKey && checkModKey(state, volMuteMods)) {
 			setmute(enable_noti && hotkey_noti);
-			get_mute_state(TRUE);
+			on_volume_has_changed();
 			return GDK_FILTER_CONTINUE;
 		} else {
 			int cv = getvol();
@@ -104,8 +104,10 @@ key_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 			}
 			// just ignore unknown hotkeys
 
-			if (get_mute_state(TRUE) == 0)
+			if (ismuted() == 0)
 				setmute(enable_noti && hotkey_noti);
+
+			on_volume_has_changed();
 
 			// this will set the slider value
 			get_current_levels();

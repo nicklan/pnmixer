@@ -67,7 +67,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="mute_check">
+          <object class="GtkCheckButton" id="mute_check_popup_window">
             <property name="label" translatable="yes">Mute</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
@@ -76,7 +76,6 @@
             <property name="halign">center</property>
             <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
-            <signal name="pressed" handler="on_mute_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -117,16 +116,13 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="mute_item">
-                        <property name="label" translatable="yes">_Mute/Unmute</property>
+                      <object class="GtkCheckMenuItem" id="mute_check_popup_menu">
+                        <property name="label" translatable="yes">_Mute</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Mute/Unmute Volume</property>
                         <property name="use_underline">True</property>
-                        <property name="image">image3</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_mute_clicked" swapped="no"/>
                       </object>
                     </child>
                     <child>

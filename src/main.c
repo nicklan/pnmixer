@@ -55,6 +55,21 @@ static GdkPixbuf *status_icons[N_VOLUME_ICONS] = { NULL };
 static char err_buf[512];
 
 /**
+ * Signal handler for the 'Mute' GtkCheckMenuItem in the right-click menu.
+ * We save the handler in the main() function to be able to block the signals
+ * in update_mute_checkboxes().
+ */
+gulong mute_check_popup_menu_handler;
+
+/**
+ * Signal handler for the 'Mute' GtkCheckButton in the left-click popup window.
+ * We save the handler in the main() function to be able to block the signals
+ * in update_mute_checkboxes().
+ */
+gulong mute_check_popup_window_handler;
+
+
+/**
  * Reports an error, usually via a dialog window or
  * on stderr.
  *
@@ -178,7 +193,7 @@ tray_icon_button(GtkStatusIcon *status_icon,
 		switch (act) {
 		case 0:	// mute/unmute
 			setmute(mouse_noti);
-			get_mute_state(TRUE);
+			on_volume_has_changed();
 			break;
 		case 1:
 			do_prefs();
@@ -349,7 +364,8 @@ create_popups(void)
 	get_current_levels();
 
 	vol_scale = GTK_WIDGET(gtk_builder_get_object(builder, "vol_scale"));
-	mute_check = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check"));
+	mute_check_popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_window"));
+	mute_check_popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_menu"));
 	popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "popup_window"));
 	popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "popup_menu"));
 
@@ -395,7 +411,7 @@ do_prefs(void)
 }
 
 /**
- * Reinitializes alsa and updates the tray icon.
+ * Reinitializes alsa and updates the various states.
  */
 void
 do_alsa_reinit(void)
@@ -403,7 +419,7 @@ do_alsa_reinit(void)
 	alsa_init();
 	update_status_icons();
 	update_vol_text();
-	get_mute_state(TRUE);
+	on_volume_has_changed();
 }
 
 /**
@@ -505,15 +521,11 @@ static int draw_offset = 0;
 static GdkPixbuf *icon_copy = NULL;
 
 /**
- * Checks whether playback is muted, updates the icon
- * and returns the result of ismuted().
- *
- * @param set_check whether the GtkCheckButton 'Mute' on the
- * volume popup_window is updated
- * @return result of ismuted()
+ * Updates the tray icon. Usually called after volume has been muted
+ * or changed.
  */
-int
-get_mute_state(gboolean set_check)
+void
+update_tray_icon(void)
 {
 	int muted;
 	int tmpvol = getvol();
@@ -525,8 +537,7 @@ get_mute_state(gboolean set_check)
 
 	if (muted == 1) {
 		GdkPixbuf *icon;
-		if (set_check)
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mute_check), FALSE);
+
 		if (tmpvol == 0)
 			icon = status_icons[VOLUME_OFF];
 		else if (tmpvol < 33)
@@ -550,14 +561,61 @@ get_mute_state(gboolean set_check)
 		} else
 			gtk_status_icon_set_from_pixbuf(tray_icon, icon);
 	} else {
-		if (set_check)
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mute_check), TRUE);
 		gtk_status_icon_set_from_pixbuf(tray_icon, status_icons[VOLUME_MUTED]);
 		sprintf(tooltip, _("%s (%s)\nVolume: %d %%\nMuted"), active_card_name,
 			active_channel, tmpvol);
 	}
 	gtk_status_icon_set_tooltip_text(tray_icon, tooltip);
-	return muted;
+}
+
+/**
+ * Updates all mute checkboxes and synchronizes them. This includes
+ * mute_check_popup_window and mute_check_popup_menu. Usually called after
+ * volume has been muted or changed.
+ */
+void
+update_mute_checkboxes(void)
+{
+	/* we only want to update the icons and not emit any signals */
+	g_signal_handler_block(G_OBJECT(mute_check_popup_menu),
+				mute_check_popup_menu_handler);
+	g_signal_handler_block(G_OBJECT(mute_check_popup_window),
+				mute_check_popup_window_handler);
+
+	if (ismuted() == 1) {
+		gtk_toggle_button_set_active(
+				GTK_TOGGLE_BUTTON(mute_check_popup_window),
+				FALSE);
+
+		gtk_check_menu_item_set_active(
+				GTK_CHECK_MENU_ITEM(mute_check_popup_menu),
+				FALSE);
+
+	} else {
+		gtk_toggle_button_set_active(
+				GTK_TOGGLE_BUTTON(mute_check_popup_window),
+				TRUE);
+
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(
+					mute_check_popup_menu), TRUE);
+	}
+
+	/* release the signal block */
+	g_signal_handler_unblock(G_OBJECT(mute_check_popup_menu),
+			mute_check_popup_menu_handler);
+	g_signal_handler_unblock(G_OBJECT(mute_check_popup_window),
+			mute_check_popup_window_handler);
+}
+
+/**
+ * Updates the states that always needs to be updated on volume changes.
+ * This is currently the tray icon and the mute checkboxes.
+ */
+void
+on_volume_has_changed(void)
+{
+	update_tray_icon();
+	update_mute_checkboxes();
 }
 
 /**
@@ -695,7 +753,7 @@ update_status_icons(void)
 	draw_offset = g_key_file_get_integer(keyFile, "PNMixer", "VolMeterPos",
 					     NULL);
 	if (tray_icon)
-		get_mute_state(TRUE);
+		on_volume_has_changed();
 	for (i = 0; i < N_VOLUME_ICONS; i++)
 		if (old_icons[i])
 			g_object_unref(old_icons[i]);
@@ -789,7 +847,6 @@ main(int argc, char *argv[])
 	add_filter();
 
 	tray_icon = create_tray_icon();
-	apply_prefs(0);
 
 	g_signal_connect(G_OBJECT(tray_icon), "popup-menu",
 			 G_CALLBACK(popup_callback), popup_menu);
@@ -797,6 +854,14 @@ main(int argc, char *argv[])
 			 G_CALLBACK(tray_icon_on_click), NULL);
 	g_signal_connect(G_OBJECT(tray_icon), "button-release-event",
 			 G_CALLBACK(tray_icon_button), NULL);
+	mute_check_popup_menu_handler =
+		g_signal_connect(G_OBJECT(mute_check_popup_menu),
+				"toggled", G_CALLBACK(on_mute_clicked), NULL);
+	mute_check_popup_window_handler =
+		g_signal_connect(G_OBJECT(mute_check_popup_window),
+				"toggled", G_CALLBACK(on_mute_clicked), NULL);
+
+	apply_prefs(0);
 
 	gtk_main();
 	uninit_libnotify();
