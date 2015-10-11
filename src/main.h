@@ -28,7 +28,8 @@
 
 GtkWidget *popup_window;
 GtkWidget *vol_scale;
-GtkWidget *mute_check;
+GtkWidget *mute_check_popup_window;
+GtkWidget *mute_check_popup_menu;
 GtkAdjustment *vol_adjustment;
 
 void create_popups(void);
@@ -39,8 +40,9 @@ void do_alsa_reinit(void);
 void report_error(char *, ...);
 void warn_sound_conn_lost(void);
 void get_current_levels(void);
-int get_mute_state(gboolean);
-int update_mute_state(void);
+void update_tray_icon(void);
+void update_mute_checkboxes(void);
+void on_volume_has_changed(void);
 gboolean hide_me(GtkWidget *, GdkEvent *, gpointer);
 gint tray_icon_size(void);
 void set_vol_meter_color(gdouble nr, gdouble ng, gdouble nb);
