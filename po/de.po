@@ -291,8 +291,8 @@ msgstr "Mixer"
 
 #: ../data/ui/popup_window-gtk3.glade.h:3
 #: ../data/ui/popup_window-gtk2.glade.h:3
-msgid "_Mute/Unmute"
-msgstr "_Stumm (ein/aus)"
+msgid "_Mute"
+msgstr "_Stumm"
 
 #: ../data/ui/popup_window-gtk3.glade.h:4
 #: ../data/ui/popup_window-gtk2.glade.h:4

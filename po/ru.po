@@ -285,8 +285,8 @@ msgstr "Микшер"
 
 #: ../data/ui/popup_window-gtk3.glade.h:3
 #: ../data/ui/popup_window-gtk2.glade.h:3
-msgid "_Mute/Unmute"
-msgstr "_Вкл/выкл звук"
+msgid "_Mute"
+msgstr "Выкл. звук"
 
 #: ../data/ui/popup_window-gtk3.glade.h:4
 #: ../data/ui/popup_window-gtk2.glade.h:4

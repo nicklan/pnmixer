@@ -1,29 +1,29 @@
-# Italian translation for pnmixer.
-# Copyright (C) 2011
+# Simplified Chinese translation for pnmixer.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pnmixer package.
-# mattia.b89 <tia.tif@fastwebnet.it>, 2011.
+# Yuexuan Gu <lastavengers@outlook.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 17:27+0200\n"
-"PO-Revision-Date: 2015-08-10 01:52+0200\n"
-"Last-Translator: Mattia Bertoni <mattia.b89@gmail.com>\n"
-"Language-Team: Italiano <gnome-it@gnome.org>\n"
-"Language: it\n"
+"POT-Creation-Date: 2015-10-22 18:51+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Yuexuan Gu <lastavengers@outlook.com>\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.3\n"
 
 #: ../src/main.c:76 ../src/main.c:106
 msgid "PNMixer Error"
-msgstr "Errore di PNMixer"
+msgstr "PNMixer 发生错误"
 
 #: ../src/main.c:100
 msgid "Warning: Connection to sound system failed."
-msgstr "Attenzione: Connessione al sistema audio fallita."
+msgstr "警告: 无法连接到 sound system。"
 
 #: ../src/main.c:102
 msgid ""
@@ -32,10 +32,10 @@ msgid ""
 "If you do not, you will either need to restart PNMixer or select the 'Reload "
 "Alsa' option in the right click menu in order for PNMixer to function."
 msgstr ""
-"Vuoi re-inizializzare la connessione ad ALSA?\n"
+"是否重新初始化到 alsa 的连接？\n"
 "\n"
-"Se non vuoi, avrai bisogno di riavviare PNMixer oppure selezionare l'opzione "
-"\"Ricarica ALSA\" nel menù del click destro perchè PNMixer funzioni."
+"若否，你需要重新启动 PNMixer 或者在右键菜单中选中 ’重新加载 Alsa’ 选项"
+"以使 PNmixer 生效。"
 
 #: ../src/main.c:113
 #, c-format
@@ -43,46 +43,43 @@ msgid ""
 "Warning: Connection to sound system failed, you probably need to restart "
 "pnmixer\n"
 msgstr ""
-"Attenzione: Connessione al sistema audio fallita, probabilmente è necessario "
-"riavviare PNMixer\n"
+"警告: 无法链接到 sound system，你可能需要重启"
+"pnmixer\n"
 
 #: ../src/main.c:131
 #, c-format
 msgid "Unable to run command: %s"
-msgstr "Impossibile eseguire il commando: %s"
+msgstr "无法运行命令： %s"
 
 #: ../src/main.c:154
 msgid ""
 "No mixer application was found on your system. Please open preferences and "
 "set the command you want to run for volume control."
 msgstr ""
-"Nessuna applicazione mixer è stata trovata nel tuo sistema. Per favore apri "
-"le preferenze ed imposta il comando che vuoi venga eseguito per controllare "
-"il volume."
+"没有在系统中发现混频器。请打开首选项并 "
+"设置用于音量控制的命令。"
 
 #: ../src/main.c:206
 msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
 msgstr ""
-"Non è stato specificato nessun commando personalizzato da eseguire, per "
-"favour specificane uno nelle preferenze."
+"没有指定一个命令用于运行，请在首选项中指定。"
 
 #: ../src/main.c:334
 msgid ""
 "Can't find main user interface file. Please ensure PNMixer is installed "
 "correctly. Exiting."
 msgstr ""
-"Impossibile trovare il file dell'interfaccia utente principale. Per favore "
-"assicurati che PNMixer sia installato correttamente. Uscita."
+"找不到主用户接口文件，请确认 PNMixer 已被正确安装。"
+"程序退出。"
 
 #: ../src/main.c:429
 msgid ""
 "Can't find about interface file. Please ensure PNMixer is installed "
 "correctly."
 msgstr ""
-"Impossibile trovare il file dell'interfaccia. Per favore assicurati che "
-"PNMixer sia installato correttamente."
+"找不到主用户接口文件，请确认 PNMixer 已被正确安装。"
 
 #: ../src/main.c:538
 #, c-format
@@ -91,7 +88,7 @@ msgid ""
 "Volume: %d %%"
 msgstr ""
 "%s (%s)\n"
-"Volume: %d %%"
+"音量: %d %%"
 
 #: ../src/main.c:556
 #, c-format
@@ -101,42 +98,42 @@ msgid ""
 "Muted"
 msgstr ""
 "%s (%s)\n"
-"Volume: %d %%\n"
-"Muto"
+"音量: %d %%\n"
+"已静音"
 
 #: ../src/main.c:765
 msgid "- A mixer for the system tray."
-msgstr "- Un mixer per la system tray."
+msgstr "- 一个运行在系统托盘上的混频器。"
 
 #: ../src/main.c:774
 #, c-format
 msgid "%s version: %s\n"
-msgstr "%s versione: %s\n"
+msgstr "%s 版本：%s\n"
 
 #: ../src/callbacks.c:344
 #, c-format
 msgid "Couldn't write preferences file: %s"
-msgstr "Impossibile scrivere nel file delle preferenze: %s"
+msgstr "无法写入配置文件： %s"
 
 #: ../src/support.c:100 ../src/support.c:128
 #, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "Impossibile trovare il file pixmap: %s"
+msgstr "找不到图片文件： %s"
 
 #: ../src/support.c:134
 #, c-format
 msgid "Failed to load pixbuf file: %s: %s"
-msgstr "Fallito il caricamento del file pixbuf: %s: %s"
+msgstr "载入 pixbuf 文件失败: %s: %s"
 
 #: ../src/prefs.c:81
 msgid "PNMixer Icons"
-msgstr "Icone di PNMixer"
+msgstr "PNMixer Icons"
 
 #: ../src/prefs.c:199
 msgid "Invalid color for volume meter in config file. Reverting to default."
 msgstr ""
-"Colore invalido per la scala del volume nel file di configurazione. Ritorno "
-"ai valori di default."
+"配置文件中音量计的颜色无效，使用默认值。"
+""
 
 #: ../src/prefs.c:229
 #, c-format
@@ -144,63 +141,62 @@ msgid ""
 "Error: %s exists but is not a directory, will not be able to save "
 "preferences."
 msgstr ""
-"Errore: %s esiste ma non è una cartella, sarà impossibile salvare le "
-"preferenze."
+"错误： %s 已存在但不是一个目录，因此无法保存 "
+"配置。"
 
 #: ../src/prefs.c:233
 #, c-format
 msgid "Couldn't make prefs directory: %s"
-msgstr "Impossibile creare la cartella per le preferenze: %s"
+msgstr "无法建立 prefs 目录：%s"
 
 #: ../src/prefs.c:259
 #, c-format
 msgid "Couldn't load preferences file: %s"
-msgstr "Impossibile caricare il file delle preferenze: %s"
+msgstr "无法载入默认配置文件：%s"
 
 #: ../src/prefs.c:268
 #, c-format
 msgid "Couldn't load default preferences: %s"
-msgstr "Impossibile caricare le preferenze: %s"
+msgstr "无法载入默认配置：%s"
 
-# original string could have errors
 #: ../src/prefs.c:704
 #, c-format
 msgid "Invalid widget passed to acquire_hotkey: %s"
-msgstr "Widget non valido fornito per acquire_hotkey: %s"
+msgstr "Invalid widget passed to acquire_hotkey: %s"
 
 #: ../src/prefs.c:712 ../data/ui/prefs-gtk3.glade.h:1
 #: ../data/ui/prefs-gtk2.glade.h:1
 msgid "Mute/Unmute"
-msgstr "Muto/Non muto"
+msgstr "静音/取消静音"
 
 #: ../src/prefs.c:716
 msgid "Volume Up"
-msgstr "Alza Volume"
+msgstr "提高音量"
 
 #: ../src/prefs.c:720
 msgid "Volume Down"
-msgstr "Abbassa Volume"
+msgstr "降低音量"
 
 #: ../src/prefs.c:768
 msgid "Could not grab the keyboard."
-msgstr "Impossibile attivare la tastiera."
+msgstr "Could not grab the keyboard."
 
 #: ../src/prefs.c:891
 msgid ""
 "Can't find preferences user interface file. Please ensure PNMixer is "
 "installed correctly."
 msgstr ""
-"Impossibile trovare il file delle preferenze dell'interfaccia utente. Per "
-"favore assicurarsi che PNMixer sia installato correttamente."
+"找不到用户首选项文件，请确认 PNMixer 已 "
+"被正确安装。"
 
 #: ../src/prefs.c:1073
 msgid "Notifications"
-msgstr "Notifiche"
+msgstr "通知"
 
 #: ../src/hotkeys.c:222
 #, c-format
 msgid "Could not bind the following hotkeys:\n"
-msgstr "Impossibile assegnare i seguenti HotKeys:\n"
+msgstr "无法绑定以下热键：\n"
 
 #. This happens when the file descriptor we're watching disappeared.
 #. * For example, if the USB soundcard has been unplugged.
@@ -209,11 +205,11 @@ msgstr "Impossibile assegnare i seguenti HotKeys:\n"
 #.
 #: ../src/alsa.c:298
 msgid "Soundcard disconnected"
-msgstr ""
+msgstr "声卡未连接"
 
 #: ../src/alsa.c:299
 msgid "Soundcard has been disconnected, reloading Alsa..."
-msgstr ""
+msgstr "已和声卡失去连接，正在重新加载 Alsa ……"
 
 #: ../data/desktop/pnmixer.desktop.in.h:1
 msgid "PNMixer"
@@ -221,19 +217,19 @@ msgstr "PNMixer"
 
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "System Tray Mixer"
-msgstr ""
+msgstr "系统托盘混频器"
 
 #: ../data/desktop/pnmixer.desktop.in.h:3
 msgid "An audio mixer for the system tray"
-msgstr "Un mixer per la system tray."
+msgstr "一个运行在系统托盘上的音频混合器"
 
 #: ../data/ui/about-gtk3.glade.h:1 ../data/ui/about-gtk2.glade.h:1
 msgid "Copyright © 2010-2015 Nick Lanham"
-msgstr "Copyright © 2010-2015 Nick Lanham"
+msgstr "版权所有 © 2010-2015 Nick Lanham"
 
 #: ../data/ui/about-gtk3.glade.h:2 ../data/ui/about-gtk2.glade.h:2
 msgid "A mixer for the system tray."
-msgstr "Un mixer per la system tray."
+msgstr "一个运行在系统托盘上的混频器。"
 
 #: ../data/ui/about-gtk3.glade.h:3 ../data/ui/about-gtk2.glade.h:3
 msgid ""
@@ -251,19 +247,19 @@ msgid ""
 "PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
-"PNMixer è un software libero; puoi ridistribuirlo e/o modificarlo sotto i "
-"termini della GNU General Public License come pubblicato dalla Free Software "
-"Foundation; sia la versione 3 della Licenza, o (a tua scelta) tutte le "
-"versioni successive.\n"
+"PNMixer is free software; you can redistribute it and/or modify it under the "
+"terms of the GNU General Public License as published by the Free Software "
+"Foundation; either version 3 of the License, or (at your option) any later "
+"version.\n"
 "\n"
-"PNMixer è distribuito nella speranza che sia utile, ma SENZA NESSUNA "
-"GARANZIA; senza neppure la garanzia implicita di COMMERCIABILITÀ o IDONEITÀ "
-"PER UN PARTICOLARE SCOPO. Vedi la GNU General Public License per maggiori "
-"dettagli.\n"
+"PNMixer is distributed in the hope that it will be useful, but WITHOUT ANY "
+"WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
+"FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
+"details.\n"
 "\n"
-"Dovreste aver ricevuto una copia della GNU General Public License con "
-"PNMixer; se così non fosse, scrivi alla Free Software Foundation, Inc., 51 "
-"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+"You should have received a copy of the GNU General Public License along with "
+"PNMixer; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
 #: ../data/ui/about-gtk3.glade.h:8 ../data/ui/about-gtk2.glade.h:8
 msgid ""
@@ -272,296 +268,288 @@ msgid ""
 "Italian: Mattia Bertoni\n"
 "Russian: Pavel Serebryakov"
 msgstr ""
-"Italiano: Mattia Bertoni\n"
-"Francese: Matthieu Bresson\n"
-"Tedesco: Mario Blättermann\n"
-"Russo: Pavel Serebryakov"
+"法语: Mario Blättermann\n"
+"德语: Matthieu Bresson\n"
+"意大利语: Mattia Bertoni\n"
+"俄语: Pavel Serebryakov"
 
 #: ../data/ui/popup_window-gtk3.glade.h:1
 #: ../data/ui/popup_window-gtk2.glade.h:1
+msgid "_Mute"
+msgstr "静音 (_M)"
+
 msgid "Mute"
-msgstr "Muto"
+msgstr "静音"
 
 #: ../data/ui/popup_window-gtk3.glade.h:2
 msgid "Mixer"
-msgstr "Mixer"
+msgstr "混频器"
 
 #: ../data/ui/popup_window-gtk3.glade.h:3
 #: ../data/ui/popup_window-gtk2.glade.h:3
-msgid "_Mute"
-msgstr "_Muto"
+msgid "_Mute/Unmute"
+msgstr "静音/取消静音 (_M)"
 
 #: ../data/ui/popup_window-gtk3.glade.h:4
 #: ../data/ui/popup_window-gtk2.glade.h:4
 msgid "Mute/Unmute Volume"
-msgstr "Volume Muto/Non Muto"
+msgstr "静音/取消静音"
 
 #: ../data/ui/popup_window-gtk3.glade.h:5
 #: ../data/ui/popup_window-gtk2.glade.h:5
 msgid "_Volume Control"
-msgstr "_Controllo del Volume"
+msgstr "音量控制 (_V)"
 
 #: ../data/ui/popup_window-gtk3.glade.h:6
 #: ../data/ui/popup_window-gtk2.glade.h:6
 msgid "Open Volume Control"
-msgstr "Apri Controllo del Volume"
+msgstr "打开音量控制"
 
 #: ../data/ui/popup_window-gtk3.glade.h:7
 #: ../data/ui/popup_window-gtk2.glade.h:7
 msgid "Preferences"
-msgstr "Preferenze"
+msgstr "首选项"
 
 #: ../data/ui/popup_window-gtk3.glade.h:8
 #: ../data/ui/popup_window-gtk2.glade.h:8
 msgid "_Reload Alsa"
-msgstr "_Ricarica ALSA"
+msgstr "重新加载 Alsa (_R)"
 
 #: ../data/ui/popup_window-gtk3.glade.h:9
 #: ../data/ui/popup_window-gtk2.glade.h:9
 msgid "Reload Alsa"
-msgstr "Ricarica ALSA"
+msgstr "重新加载 Alsa"
 
 #: ../data/ui/popup_window-gtk3.glade.h:10
 #: ../data/ui/popup_window-gtk2.glade.h:10
 msgid "About"
-msgstr "Informazioni"
+msgstr "关于"
 
 #: ../data/ui/popup_window-gtk3.glade.h:11
 #: ../data/ui/popup_window-gtk2.glade.h:11
 msgid "Quit"
-msgstr "Esci"
+msgstr "退出"
 
 #: ../data/ui/prefs-gtk3.glade.h:2 ../data/ui/prefs-gtk2.glade.h:2
 msgid "Show Preferences"
-msgstr "Mostra le Preferenze"
+msgstr "显示首选项"
 
 #: ../data/ui/prefs-gtk3.glade.h:3 ../data/ui/prefs-gtk2.glade.h:3
 msgid "Volume Control"
-msgstr "Controllo del Volume"
+msgstr "音量控制"
 
 #: ../data/ui/prefs-gtk3.glade.h:4 ../data/ui/prefs-gtk2.glade.h:4
 msgid "Custom (set below)"
-msgstr "Personalizza (imposta sotto)"
+msgstr "自定义"
 
 #: ../data/ui/prefs-gtk3.glade.h:5 ../data/ui/prefs-gtk2.glade.h:5
 msgid "Notification support not enabled at compile time."
-msgstr "Support alle notifiche non abilitato al momento della compilazione."
+msgstr "桌面通知的支持在编译时没有启用。"
 
 #: ../data/ui/prefs-gtk3.glade.h:6 ../data/ui/prefs-gtk2.glade.h:6
 msgid "Enable Notifications"
-msgstr "Abilita le Notifiche"
+msgstr "启用通知"
 
 #: ../data/ui/prefs-gtk3.glade.h:7 ../data/ui/prefs-gtk2.glade.h:7
 msgid "timeout (ms)"
-msgstr "timeout (ms)"
+msgstr "超时 (ms)"
 
 #: ../data/ui/prefs-gtk3.glade.h:8 ../data/ui/prefs-gtk2.glade.h:8
 msgid "Notify for volume changes from:"
-msgstr "Notifica per le variazioni di volume da:"
+msgstr "当音量因以下原因改变时发出通知："
 
 #: ../data/ui/prefs-gtk3.glade.h:9 ../data/ui/prefs-gtk2.glade.h:9
 msgid "HotKeys"
-msgstr "HotKeys"
+msgstr "热键"
 
 #: ../data/ui/prefs-gtk3.glade.h:10 ../data/ui/prefs-gtk2.glade.h:10
 msgid "Mouse Scroll"
-msgstr "Passo della Rotellina del Mouse"
+msgstr "鼠标滚轮"
 
 #: ../data/ui/prefs-gtk3.glade.h:11 ../data/ui/prefs-gtk2.glade.h:11
 msgid "Adjustment in Popup Window"
-msgstr "Aggiustamento nella Finestra di Popup"
+msgstr "在弹出窗口中调整"
 
 #: ../data/ui/prefs-gtk3.glade.h:12 ../data/ui/prefs-gtk2.glade.h:12
 msgid "External Change"
-msgstr "Cambiamento Esterno"
+msgstr "外部变化"
 
 #: ../data/ui/prefs-gtk3.glade.h:13 ../data/ui/prefs-gtk2.glade.h:13
 msgid "<b>Notification Options</b>"
-msgstr "<b>Opzioni Notifiche</b>"
+msgstr "<b>通知选项</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:14 ../data/ui/prefs-gtk2.glade.h:14
 msgid "Top"
-msgstr "Alto"
+msgstr "置顶"
 
 #: ../data/ui/prefs-gtk3.glade.h:15 ../data/ui/prefs-gtk2.glade.h:15
 msgid "Bottom"
-msgstr "Sotto"
+msgstr "置底"
 
 #: ../data/ui/prefs-gtk3.glade.h:16 ../data/ui/prefs-gtk2.glade.h:16
 msgid "Left"
-msgstr "Sinistra"
+msgstr "居右"
 
 #: ../data/ui/prefs-gtk3.glade.h:17 ../data/ui/prefs-gtk2.glade.h:17
 msgid "Right"
-msgstr "Destra"
+msgstr "居右"
 
 #: ../data/ui/prefs-gtk3.glade.h:18 ../data/ui/prefs-gtk2.glade.h:18
 msgid "PNMixer Preferences"
-msgstr "Preferenze di PNMixer"
+msgstr "PNMixer 首选项"
 
 #: ../data/ui/prefs-gtk3.glade.h:19 ../data/ui/prefs-gtk2.glade.h:19
 msgid "Display Text Volume"
-msgstr "Mostra un Testo per il Volume"
+msgstr "以文本形式显示音量"
 
 #: ../data/ui/prefs-gtk3.glade.h:20 ../data/ui/prefs-gtk2.glade.h:20
 msgid "Volume Text Position:"
-msgstr "Posizione del Testo:"
+msgstr "文本位置："
 
 #: ../data/ui/prefs-gtk3.glade.h:21 ../data/ui/prefs-gtk2.glade.h:21
 msgid "<b>Text</b>"
-msgstr "<b>Testo</b>"
+msgstr "<b>文本</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:22 ../data/ui/prefs-gtk2.glade.h:22
 msgid ""
 "Draw Volume Meter on Tray Icon\n"
 "(Will cause slightly higher CPU usage)"
 msgstr ""
-"Disegna la Scala del Volume nella Tray Icon\n"
-"(Causerà un leggero aumento nell'uso della CPU)"
+"在托盘图标上绘制音量计\n"
+"（会占用更多的 CPU 资源）"
 
 #: ../data/ui/prefs-gtk3.glade.h:24 ../data/ui/prefs-gtk2.glade.h:24
 msgid "Volume Meter Offset:"
-msgstr "Offset Scala del Volume:"
+msgstr "音量计偏移："
 
 #: ../data/ui/prefs-gtk3.glade.h:25 ../data/ui/prefs-gtk2.glade.h:25
 msgid "Volume Meter Color:"
-msgstr "Colore Scala del Volume:"
+msgstr "音量计颜色："
 
 #: ../data/ui/prefs-gtk3.glade.h:26 ../data/ui/prefs-gtk2.glade.h:26
 msgid "<b>Volume Meter</b>"
-msgstr "<b>Scala del Volume</b>"
+msgstr "<b>音量计</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:27 ../data/ui/prefs-gtk2.glade.h:27
 msgid "<b>Icon Theme</b>"
-msgstr "<b>Tema delle Icone</b>"
+msgstr "<b>图标</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:28 ../data/ui/prefs-gtk2.glade.h:28
 msgid "View"
-msgstr "Vista"
+msgstr "外观"
 
 #: ../data/ui/prefs-gtk3.glade.h:29 ../data/ui/prefs-gtk2.glade.h:29
 msgid "Card:"
-msgstr "Scheda:"
+msgstr "声卡："
 
 #: ../data/ui/prefs-gtk3.glade.h:30 ../data/ui/prefs-gtk2.glade.h:30
 msgid "Channel:"
-msgstr "Canale:"
+msgstr "声道："
 
 #: ../data/ui/prefs-gtk3.glade.h:31 ../data/ui/prefs-gtk2.glade.h:31
 msgid "Normalize Volume:"
-msgstr "Normalizza Volume:"
+msgstr "开启音量均衡："
 
 #: ../data/ui/prefs-gtk3.glade.h:32 ../data/ui/prefs-gtk2.glade.h:32
 msgid "<b>Sound Device</b>"
-msgstr "<b>Dispositivo Audio</b>"
+msgstr "<b>声音设备</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:33 ../data/ui/prefs-gtk2.glade.h:33
 msgid "Device"
-msgstr "Dispositivo"
+msgstr "设备"
 
 #: ../data/ui/prefs-gtk3.glade.h:34 ../data/ui/prefs-gtk2.glade.h:34
 msgid "<b>Volume Control Command</b>"
-msgstr "<b>Comando per il Controllo del Volume</b>"
+msgstr "<b>音量控制命令</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:35 ../data/ui/prefs-gtk2.glade.h:35
 msgid "Mouse Scroll Step:"
-msgstr "Passo della Rotellina del Mouse"
+msgstr "鼠标滚轮步长："
 
 #: ../data/ui/prefs-gtk3.glade.h:36 ../data/ui/prefs-gtk2.glade.h:36
 msgid "Middle Click Action:"
-msgstr "Azione del Click Centrale:"
+msgstr "中键点击动作："
 
 #: ../data/ui/prefs-gtk3.glade.h:37 ../data/ui/prefs-gtk2.glade.h:37
 msgid "Custom Command:"
-msgstr "Comando Personalizzato:"
+msgstr "自定义命令："
 
 #: ../data/ui/prefs-gtk3.glade.h:38 ../data/ui/prefs-gtk2.glade.h:38
 msgid "<b>Mouse</b>"
-msgstr "<b>Mouse</b>"
+msgstr "<b>鼠标</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:39 ../data/ui/prefs-gtk2.glade.h:39
 msgid "Behavior"
-msgstr "Comportamento"
+msgstr "行为"
 
 #: ../data/ui/prefs-gtk3.glade.h:40 ../data/ui/prefs-gtk2.glade.h:40
 msgid "Enable HotKeys"
-msgstr "Abilita HotKeys"
+msgstr "启用热键"
 
 #: ../data/ui/prefs-gtk3.glade.h:41 ../data/ui/prefs-gtk2.glade.h:41
 msgid "HotKey Volume Step:"
-msgstr "Passo del Volume attraverso HotKey:"
+msgstr "音量调整步长"
 
 #: ../data/ui/prefs-gtk3.glade.h:42 ../data/ui/prefs-gtk2.glade.h:42
 msgid "<b>HotKey Settings</b>"
-msgstr "<b>Impostazioni HotKey</b>"
+msgstr "<b>热键设置</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:43 ../data/ui/prefs-gtk2.glade.h:43
 msgid "Mute/Unmute:"
-msgstr "Muto/Non muto:"
+msgstr "静音/取消静音"
 
 #: ../data/ui/prefs-gtk3.glade.h:44 ../data/ui/prefs-gtk2.glade.h:44
 msgid "Volume Up:"
-msgstr "Alza il Volume:"
+msgstr "提高音量:"
 
 #: ../data/ui/prefs-gtk3.glade.h:45 ../data/ui/prefs-gtk2.glade.h:45
 msgid "Volume Down:"
-msgstr "Abbassare il Volume:"
+msgstr "降低音量："
 
 #: ../data/ui/prefs-gtk3.glade.h:46 ../data/ui/prefs-gtk2.glade.h:46
 msgid "Double click a HotKey to assign a new HotKey"
-msgstr "Doppio click su un HotKey per assegnare un nuovo HotKey"
+msgstr ""
+"双击以分配一个新热键"
 
 #: ../data/ui/prefs-gtk3.glade.h:47 ../data/ui/prefs-gtk2.glade.h:47
 msgid "Command"
-msgstr "Comando"
+msgstr "命令"
 
 #: ../data/ui/prefs-gtk3.glade.h:48 ../data/ui/prefs-gtk2.glade.h:48
 msgid "HotKey"
-msgstr "HotKey"
+msgstr "热键"
 
 #: ../data/ui/prefs-gtk3.glade.h:49 ../data/ui/prefs-gtk2.glade.h:49
 msgid "(None)"
-msgstr "(Nessuno)"
+msgstr "(空)"
 
 #: ../data/ui/prefs-gtk3.glade.h:50 ../data/ui/prefs-gtk2.glade.h:50
 msgid "<b>HotKeys</b>"
-msgstr "<b>HotKeys</b>"
+msgstr "<b>热键</b>"
 
 #: ../data/ui/prefs-gtk3.glade.h:51 ../data/ui/prefs-gtk2.glade.h:51
 msgid "Set HotKey"
-msgstr "Assegna HotKey"
+msgstr "设置热键"
 
 #: ../data/ui/prefs-gtk3.glade.h:52 ../data/ui/prefs-gtk2.glade.h:52
 msgid "Defining HotKey"
-msgstr "Definizione HotKey"
+msgstr "定义热键"
 
 #: ../data/ui/prefs-gtk3.glade.h:53 ../data/ui/prefs-gtk2.glade.h:53
 msgid "(press <Ctrl>C to reset)"
-msgstr "(premere <Ctrl>C per resettare)"
+msgstr "(按下 <Ctrl>C 以重设)"
 
 #: ../data/ui/prefs-gtk3.glade.h:54 ../data/ui/prefs-gtk2.glade.h:54
 msgid "Press new HotKey for:"
-msgstr "Premere il nuovo HotKey per:"
+msgstr "按下热键以设置："
 
 #: ../data/ui/prefs-gtk3.glade.h:55 ../data/ui/prefs-gtk2.glade.h:55
 msgid "(Unknown)"
-msgstr "(Sconosciuto)"
+msgstr "(未知)"
 
 #: ../data/ui/popup_window-gtk2.glade.h:2
 msgid "Volume Control..."
-msgstr "Controllo del Volume..."
+msgstr "音量控制……"
 
 #~ msgid "Unable to load icon %s: %s\n"
-#~ msgstr "Impossibile caricare l'icona %s: %s\n"
-
-#~ msgid "Hotkeys"
-#~ msgstr "Hotkeys"
-
-#~ msgid ""
-#~ "An unknown error occured trying to launch your volume control command"
-#~ msgstr ""
-#~ "Un errore sconosciuto è avvenuto provando a lanciare il tuo comando per "
-#~ "il controllo del volume"
-
-#~ msgid "Couldn't execute custom command: \"%s\"\n"
-#~ msgstr "Impossibile eseguire il comando personalizzato: \"%s\"\n"
+#~ msgstr "Symbol konnte nicht geladen werden: %s: %s\n"

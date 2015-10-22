@@ -288,8 +288,8 @@ msgstr "Mixeur"
 
 #: ../data/ui/popup_window-gtk3.glade.h:3
 #: ../data/ui/popup_window-gtk2.glade.h:3
-msgid "_Mute/Unmute"
-msgstr "_Muet actif/inactif"
+msgid "_Mute"
+msgstr "_Muet"
 
 #: ../data/ui/popup_window-gtk3.glade.h:4
 #: ../data/ui/popup_window-gtk2.glade.h:4
