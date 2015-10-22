@@ -282,6 +282,9 @@ msgstr ""
 msgid "Mute"
 msgstr "Muto"
 
+msgid "_Mute"
+msgstr "_Muto"
+
 #: ../data/ui/popup_window-gtk3.glade.h:2
 msgid "Mixer"
 msgstr "Mixer"
