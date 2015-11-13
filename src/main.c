@@ -183,8 +183,8 @@ on_mixer(void)
  * connected
  */
 void
-tray_icon_button(GtkStatusIcon *status_icon,
-		 GdkEventButton *event, gpointer user_data)
+tray_icon_button(G_GNUC_UNUSED GtkStatusIcon *status_icon,
+		 GdkEventButton *event, G_GNUC_UNUSED gpointer user_data)
 {
 	if (event->button == 2) {
 		gint act = 0;
@@ -236,7 +236,8 @@ tray_icon_button(GtkStatusIcon *status_icon,
  * @param user_data user data set when the signal handler was connected
  */
 void
-tray_icon_on_click(GtkStatusIcon *status_icon, gpointer user_data)
+tray_icon_on_click(G_GNUC_UNUSED GtkStatusIcon *status_icon,
+		G_GNUC_UNUSED gpointer user_data)
 {
 	get_current_levels();
 	if (!gtk_widget_get_visible(GTK_WIDGET(popup_window))) {
@@ -302,7 +303,8 @@ tray_icon_size(void)
  * @return FALSE, so Gtk+ scales the icon as necessary
  */
 static gboolean
-tray_icon_resized(GtkStatusIcon *status_icon, gint size, gpointer user_data)
+tray_icon_resized(G_GNUC_UNUSED GtkStatusIcon *status_icon,
+		G_GNUC_UNUSED gint size, G_GNUC_UNUSED gpointer user_data)
 {
 	update_status_icons();
 	return FALSE;
@@ -630,7 +632,8 @@ on_volume_has_changed(void)
  * FALSE to propagate the event further
  */
 gboolean
-hide_me(GtkWidget *widget, GdkEvent *event, gpointer user_data)
+hide_me(G_GNUC_UNUSED GtkWidget *widget,
+		GdkEvent *event, G_GNUC_UNUSED gpointer user_data)
 {
 #ifdef WITH_GTK3
 	GdkDevice *device = gtk_get_current_event_device();

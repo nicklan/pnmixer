@@ -87,7 +87,7 @@ find_pixmap_file(const gchar *filename)
  * an empty GtkImage if the file was not found
  */
 GtkWidget *
-create_pixmap(GtkWidget *widget, const gchar *filename)
+create_pixmap(G_GNUC_UNUSED GtkWidget *widget, const gchar *filename)
 {
 	gchar *pathname = NULL;
 	GtkWidget *pixmap;

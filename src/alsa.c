@@ -231,7 +231,7 @@ open_mixer(const char *card, struct snd_mixer_selem_regopt *opts, int level)
  * @return 0 on success otherwise a negative error code
  */
 static int
-alsa_cb(snd_mixer_elem_t *e, unsigned int mask)
+alsa_cb(G_GNUC_UNUSED snd_mixer_elem_t *e, unsigned int mask)
 {
 	/* Test MASK_REMOVE first, according to Alsa documentation */
 	if (mask == SND_CTL_EVENT_MASK_REMOVE) {
@@ -267,7 +267,7 @@ alsa_cb(snd_mixer_elem_t *e, unsigned int mask)
  * TRUE otherwise
  */
 static gboolean
-idle_alsa_reinit(gpointer data)
+idle_alsa_reinit(G_GNUC_UNUSED gpointer data)
 {
 	do_alsa_reinit();
 	return FALSE;
@@ -287,7 +287,7 @@ static gsize sread = 1;
  * @return FALSE if the event source should be removed
  */
 static gboolean
-poll_cb(GIOChannel *source, GIOCondition condition, gpointer data)
+poll_cb(GIOChannel *source, GIOCondition condition, G_GNUC_UNUSED gpointer data)
 {
 	snd_mixer_handle_events(handle);
 

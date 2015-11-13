@@ -56,7 +56,7 @@
  * TRUE otherwise
  */
 static gboolean
-idle_report_error(gpointer data)
+idle_report_error(G_GNUC_UNUSED gpointer data)
 {
 	report_error("Unable to initialize libnotify. Notifications will not be sent.");
 	return FALSE;
@@ -185,12 +185,13 @@ uninit_libnotify(void)
 }
 
 void
-do_notify_volume(gint level, gboolean muted)
+do_notify_volume(G_GNUC_UNUSED gint level, G_GNUC_UNUSED gboolean muted)
 {
 }
 
 void
-do_notify_text(const gchar *summary, const gchar *body)
+do_notify_text(G_GNUC_UNUSED const gchar *summary,
+		G_GNUC_UNUSED const gchar *body)
 {
 }
 

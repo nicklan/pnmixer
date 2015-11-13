@@ -43,7 +43,9 @@ extern int volume;
  * @param user_data user data set when the signal handler was connected
  */
 gboolean
-on_mute_clicked(GtkButton *button, GdkEvent *event, gpointer user_data)
+on_mute_clicked(G_GNUC_UNUSED GtkButton *button,
+		G_GNUC_UNUSED GdkEvent *event,
+		G_GNUC_UNUSED gpointer user_data)
 {
 
 	setmute(popup_noti);
@@ -64,8 +66,10 @@ on_mute_clicked(GtkButton *button, GdkEvent *event, gpointer user_data)
  * signal, FALSE to propagate the signal further
  */
 gboolean
-vol_scroll_event(GtkRange *range, GtkScrollType scroll,
-		 gdouble value, gpointer user_data)
+vol_scroll_event(GtkRange *range,
+		G_GNUC_UNUSED GtkScrollType scroll,
+		gdouble value,
+		G_GNUC_UNUSED gpointer user_data)
 {
 	GtkAdjustment *gtk_adj;
 	int volumeset;
@@ -106,8 +110,9 @@ vol_scroll_event(GtkRange *range, GtkScrollType scroll,
  * False to propagate the event further
  */
 gboolean
-on_scroll(GtkStatusIcon *status_icon, GdkEventScroll *event,
-	  gpointer user_data)
+on_scroll(G_GNUC_UNUSED GtkStatusIcon *status_icon,
+		GdkEventScroll *event,
+		G_GNUC_UNUSED gpointer user_data)
 {
 	int cv = getvol();
 	if (event->direction == GDK_SCROLL_UP) {
@@ -156,7 +161,7 @@ on_hotkey_button_click(GtkWidget *widget, GdkEventButton *event,
  * @param data struct holding the GtkWidgets of the preferences windows
  */
 void
-on_ok_button_clicked(GtkButton *button, PrefsData *data)
+on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 {
 	gsize len;
 	GError *err = NULL;
@@ -361,7 +366,7 @@ on_ok_button_clicked(GtkButton *button, PrefsData *data)
  * @param data struct holding the GtkWidgets of the preferences windows
  */
 void
-on_cancel_button_clicked(GtkButton *button, PrefsData *data)
+on_cancel_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 {
 	gtk_widget_destroy(data->prefs_window);
 	g_slice_free(PrefsData, data);
@@ -380,7 +385,7 @@ on_cancel_button_clicked(GtkButton *button, PrefsData *data)
  * False to propagate the event further
  */
 gboolean
-on_key_press(GtkWidget *widget, GdkEventKey *event, PrefsData *data)
+on_key_press(G_GNUC_UNUSED GtkWidget *widget, GdkEventKey *event, PrefsData *data)
 {
 
 	switch (event->keyval) {
