@@ -5,6 +5,7 @@ AC_INIT([pnmixer], 0.6.1)
 
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
+AC_CONFIG_HEADERS([src/config.h])
 
 # ===================================================== #
 #                  Basic compiler settings              #
