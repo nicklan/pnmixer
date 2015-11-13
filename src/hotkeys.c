@@ -78,7 +78,9 @@ checkModKey(int got, int want)
  * @return a GdkFilterReturn value, should be GDK_FILTER_CONTINUE only
  */
 static GdkFilterReturn
-key_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
+key_filter(GdkXEvent *gdk_xevent,
+		G_GNUC_UNUSED GdkEvent *event,
+		G_GNUC_UNUSED gpointer data)
 {
 	int type;
 	guint key, state;
@@ -145,7 +147,7 @@ static gchar *muteSymStr = NULL, *downSymStr = NULL, *upSymStr = NULL;
  * @return it's acceptable to return, but the return value is ignored
  */
 static int
-errhdl(Display *disp, XErrorEvent *ev)
+errhdl(G_GNUC_UNUSED Display *disp, XErrorEvent *ev)
 {
 	int p;
 	xErr = 1;
@@ -176,7 +178,7 @@ errhdl(Display *disp, XErrorEvent *ev)
  * TRUE otherwise
  */
 static gboolean
-idle_report_error(gpointer data)
+idle_report_error(G_GNUC_UNUSED gpointer data)
 {
 	report_error(errBuf);
 	g_free(errBuf);

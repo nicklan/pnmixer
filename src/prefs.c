@@ -608,17 +608,23 @@ on_middle_changed(GtkComboBox *box, PrefsData *data)
  * @param button the button which received the signal
  * @param data user data set when the signal handler was connected
  */
+#ifdef HAVE_LIBN
 void
 on_notification_toggle(GtkToggleButton *button, PrefsData *data)
 {
-#ifdef HAVE_LIBN
 	gboolean active = gtk_toggle_button_get_active(button);
 	gtk_widget_set_sensitive(data->hotkey_noti_check, active);
 	gtk_widget_set_sensitive(data->mouse_noti_check, active);
 	gtk_widget_set_sensitive(data->popup_noti_check, active);
 	gtk_widget_set_sensitive(data->external_noti_check, active);
-#endif
 }
+#else
+void
+on_notification_toggle(G_GNUC_UNUSED GtkToggleButton *button,
+		G_GNUC_UNUSED PrefsData *data)
+{
+}
+#endif
 
 /**
  * Handler for the signal 'toggled' on the GtkCheckButton
@@ -780,7 +786,9 @@ acquire_hotkey(const char *widget_name, PrefsData *data)
  * FALSE to propagate the event further.
  */
 gboolean
-hotkey_pressed(GtkWidget *dialog, GdkEventKey *ev, PrefsData *data)
+hotkey_pressed(G_GNUC_UNUSED GtkWidget *dialog,
+		GdkEventKey *ev,
+		PrefsData *data)
 {
 	gchar *key_text;
 	guint keyval;
@@ -811,7 +819,9 @@ hotkey_pressed(GtkWidget *dialog, GdkEventKey *ev, PrefsData *data)
  * FALSE to propagate the event further.
  */
 gboolean
-hotkey_released(GtkWidget *dialog, GdkEventKey *ev, PrefsData *data)
+hotkey_released(GtkWidget *dialog,
+		G_GNUC_UNUSED GdkEventKey *ev,
+		G_GNUC_UNUSED PrefsData *data)
 {
 #ifdef WITH_GTK3
 	gdk_device_ungrab(gtk_get_current_event_device(), GDK_CURRENT_TIME);
