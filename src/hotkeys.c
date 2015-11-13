@@ -16,6 +16,10 @@
  * @brief hotkey subsystem
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "support.h"
 #include "main.h"
 #include "prefs.h"
@@ -23,9 +27,6 @@
 #include <gdk/gdkx.h>
 #include <X11/XKBlib.h>
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
 
 static int volMuteKey = -1;
 static int volDownKey = -1;
