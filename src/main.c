@@ -32,6 +32,7 @@
 #include <fcntl.h>
 #include <locale.h>
 #include "alsa.h"
+#include "debug.h"
 #include "callbacks.h"
 #include "main.h"
 #include "notify.h"
@@ -793,6 +794,10 @@ static GOptionEntry args[] = {
 		"version", 0, 0, G_OPTION_ARG_NONE, &version, "Show version and exit",
 		NULL
 	},
+	{
+		"debug", 'd', 0, G_OPTION_ARG_NONE, &want_debug, "Run in debug mode",
+		NULL
+	},
 	{NULL, 0, 0, 0, NULL, NULL, NULL}
 };
 
@@ -810,6 +815,7 @@ main(int argc, char *argv[])
 {
 	GError *error = NULL;
 	GOptionContext *context;
+	want_debug = FALSE;
 
 #ifdef ENABLE_NLS
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);

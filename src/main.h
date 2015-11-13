@@ -20,11 +20,6 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
-#ifdef DEBUG
-#define DEBUG_PRINT(fmt, ...) printf(fmt"\n", ##__VA_ARGS__)
-#else
-#define DEBUG_PRINT(...)
-#endif
 
 GtkWidget *popup_window;
 GtkWidget *vol_scale;

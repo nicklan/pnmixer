@@ -35,6 +35,7 @@
 
 #define _GNU_SOURCE
 #include "alsa.h"
+#include "debug.h"
 #include "main.h"
 #include "notify.h"
 #include "prefs.h"
@@ -138,19 +139,19 @@ get_cards(void)
 		cur_card->channels = get_channels(buf);
 		cards = g_slist_append(cards, cur_card);
 	}
-#ifdef DEBUG
-	GSList *tmp = cards;
-	if (tmp) {
-		printf("------ Card list ------\n");
-		while (tmp) {
-			struct acard *c = tmp->data;
-			printf("\t%s\t%s\t%s\n", c->dev, c->name,
-			       c->channels ? "" : "No chann");
-			tmp = tmp->next;
+	if (want_debug == TRUE) {
+		GSList *tmp = cards;
+		if (tmp) {
+			printf("------ Card list ------\n");
+			while (tmp) {
+				struct acard *c = tmp->data;
+				printf("\t%s\t%s\t%s\n", c->dev, c->name,
+					   c->channels ? "" : "No chann");
+				tmp = tmp->next;
+			}
+			printf("-----------------------\n");
 		}
-		printf("-----------------------\n");
 	}
-#endif
 }
 
 /**
@@ -435,18 +436,18 @@ get_channels(const char *card)
 		telem = snd_mixer_elem_next(telem);
 	}
 
-#ifdef DEBUG
-	GSList *tmp = channels;
-	if (tmp) {
-		printf("Card %s: available channels\n", card);
-		while (tmp) {
-			printf("\t%s\n", (char *) tmp->data);
-			tmp = tmp->next;
+	if (want_debug == TRUE) {
+		GSList *tmp = channels;
+		if (tmp) {
+			printf("Card %s: available channels\n", card);
+			while (tmp) {
+				printf("\t%s\n", (char *) tmp->data);
+				tmp = tmp->next;
+			}
+		} else {
+			printf("Card %s: no playable channels\n", card);
 		}
-	} else {
-		printf("Card %s: no playable channels\n", card);
 	}
-#endif
 
 	close_mixer(mixer, card);
 

@@ -79,35 +79,6 @@ if test "$with_libnotify" = "yes" || test "$HAVE_LIBN" = "1"; then
 fi
 
 # ======================================================= #
-#                  Debug compilation support              #
-# ======================================================= #
-AC_MSG_CHECKING([whether to build with debug information])
-AC_ARG_ENABLE([debug],
-              [AS_HELP_STRING([--enable-debug], [enable debug data generation (def=no)])],
-              [debugit="$enableval"],
-              [debugit=no])
-AC_MSG_RESULT([$debugit])
-
-AC_ARG_ENABLE([minimal-flags],
-              [AS_HELP_STRING([--enable-minimal-flags], [respect system CFLAGS (def=no)])],
-              [minimalflags="$enableval"],
-              [minimalflags=no])
-
-if test "$debugit" = "yes"; then
-	AC_DEFINE([DEBUG], [], [Debug Mode])
-	if test "$minimalflags" = "no"; then
-		CFLAGS="$CFLAGS -g -Wall -Werror -Wno-uninitialized  -Wno-deprecated-declarations -Wformat -Wformat-security -O0"
-	fi
-else
-	AC_DEFINE([NDEBUG], [], [No-debug Mode])
-	if test "$minimalflags" = "no"; then
-		CFLAGS="$CFLAGS -O2"
-	fi
-fi
-
-LDFLAGS="$LDFLAGS -rdynamic"
-
-# ======================================================= #
 #                  Check for modules                      #
 # ======================================================= #
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])

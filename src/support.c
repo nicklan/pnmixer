@@ -29,6 +29,7 @@
 
 #include <gtk/gtk.h>
 
+#include "debug.h"
 #include "main.h"
 #include "support.h"
 #include "prefs.h"
