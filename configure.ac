@@ -32,17 +32,24 @@ pkg_modules=""
 # Check that we have -lm and add it to LIBS
 AC_CHECK_LIB(m,ceil,,AC_MSG_FAILURE([libm not found. Check 'config.log' for more details.]))
 
-# Make sure we have X11, and also have it added to LIBS
-AC_CHECK_LIB(X11,XOpenDisplay,,AC_MSG_FAILURE([libX11 not found. Check 'config.log' for more details.]))
+# Make sure we have X11
+echo -n "checking for x11... "
+if pkg-config --exists x11; then
+        echo "yes"
+        pkg_modules="$pkg_modules x11"
+else
+        echo "no"
+        AC_MSG_ERROR([x11 not found])
+fi
 
 # Make sure we have Alsa
-echo -n "checking for alsasound ... "
+echo -n "checking for alsa... "
 if pkg-config --exists alsa; then
 	echo "yes"
 	pkg_modules="$pkg_modules alsa"
 else
 	echo "no"
-	AC_MSG_ERROR(alsa not found)
+	AC_MSG_ERROR([alsa not found])
 fi
 
 # ======================================================= #
