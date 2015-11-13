@@ -14,7 +14,8 @@ pnmixer_SOURCES = \
 	notify.c notify.h \
 	alsa.c alsa.h \
 	callbacks.c callbacks.h \
-	prefs.c prefs.h
+	prefs.c prefs.h \
+	debug.h
 
 pnmixer_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 
