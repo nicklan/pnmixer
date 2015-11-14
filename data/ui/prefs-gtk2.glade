@@ -277,7 +277,7 @@
     <property name="default_width">350</property>
     <property name="default_height">500</property>
     <property name="icon_name">preferences-system</property>
-    <signal name="key_press_event" handler="on_key_press" swapped="no"/>
+    <signal name="key-press-event" handler="on_key_press" swapped="no"/>
     <child>
       <object class="GtkAlignment" id="alignment1">
         <property name="visible">True</property>
@@ -520,10 +520,12 @@
                             <property name="bottom_padding">5</property>
                             <property name="left_padding">12</property>
                             <child>
-                              <object class="GtkComboBoxText" id="icon_theme_combo">
+                              <object class="GtkCheckButton" id="system_theme">
+                                <property name="label" translatable="yes">Use system theme</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-				<property name="entry_text_column">0</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
                               </object>
                             </child>
                           </object>
@@ -606,7 +608,7 @@
                                   <object class="GtkComboBoxText" id="card_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-				    <property name="entry_text_column">0</property>
+                                    <property name="entry_text_column">0</property>
                                     <signal name="changed" handler="on_card_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -619,7 +621,7 @@
                                   <object class="GtkComboBoxText" id="chan_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-				    <property name="entry_text_column">0</property>
+                                    <property name="entry_text_column">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>

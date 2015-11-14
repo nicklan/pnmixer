@@ -154,7 +154,7 @@ get_stock_pixbuf(const char *filename, gint size)
 	GError *err = NULL;
 	GdkPixbuf *return_buf = NULL;
 	if (icon_theme == NULL)
-		get_icon_theme();
+		icon_theme = gtk_icon_theme_get_default();
 	return_buf = gtk_icon_theme_load_icon(icon_theme, filename,
 					      size, 0, &err);
 	if (err != NULL) {

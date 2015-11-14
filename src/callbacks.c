@@ -234,18 +234,10 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	g_free(chan);
 
 	// icon theme
-	GtkWidget *icon_combo = data->icon_theme_combo;
-	idx = gtk_combo_box_get_active(GTK_COMBO_BOX(icon_combo));
-	if (idx == 0) {		// internal theme
-		g_key_file_remove_key(keyFile, "PNMixer", "IconTheme", NULL);
-	} else {
-		gchar *theme_name =
-			gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(icon_combo));
-		if (theme_name) {
-			g_key_file_set_string(keyFile, "PNMixer", "IconTheme", theme_name);
-			g_free(theme_name);
-		}
-	}
+	GtkWidget *system_theme = data->system_theme;
+	active = gtk_toggle_button_get_active(
+			GTK_TOGGLE_BUTTON(system_theme));
+	g_key_file_set_boolean(keyFile, "PNMixer", "SystemTheme", active);
 
 	// volume control command
 	GtkWidget *ve = data->vol_control_entry;

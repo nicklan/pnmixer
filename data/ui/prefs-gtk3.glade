@@ -123,8 +123,8 @@
                   <object class="GtkLabel" id="label26">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Notify for volume changes from:</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                     </attributes>
@@ -351,8 +351,8 @@
                                   <object class="GtkLabel" id="vol_pos_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Volume Text Position:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -443,8 +443,8 @@
                                   <object class="GtkLabel" id="vol_meter_pos_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Volume Meter Offset:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -456,8 +456,8 @@
                                   <object class="GtkLabel" id="vol_meter_color_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Volume Meter Color:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -536,9 +536,14 @@
                             <property name="bottom_padding">5</property>
                             <property name="left_padding">12</property>
                             <child>
-                              <object class="GtkComboBoxText" id="icon_theme_combo">
+                              <object class="GtkCheckButton" id="system_theme">
+                                <property name="label" translatable="yes">Use system theme</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="xalign">0</property>
+                                <property name="draw_indicator">True</property>
                               </object>
                             </child>
                           </object>
@@ -601,8 +606,8 @@
                                   <object class="GtkLabel" id="label10">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Card:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="y_options">GTK_EXPAND</property>
@@ -612,8 +617,8 @@
                                   <object class="GtkLabel" id="label11">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Channel:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -669,8 +674,8 @@
                                   <object class="GtkLabel" id="label23">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.15999999642372131</property>
                                     <property name="label" translatable="yes">Normalize Volume:</property>
+                                    <property name="xalign">0.15999999642372131</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -784,8 +789,8 @@
                                   <object class="GtkLabel" id="label14">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Mouse Scroll Step:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="y_options">GTK_EXPAND</property>
@@ -795,8 +800,8 @@
                                   <object class="GtkLabel" id="label15">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Middle Click Action:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -808,8 +813,8 @@
                                   <object class="GtkLabel" id="custom_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Custom Command:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -951,8 +956,8 @@
                                   <object class="GtkLabel" id="hotkey_vol_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">HotKey Volume Step:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -1021,8 +1026,8 @@
                                   <object class="GtkLabel" id="label7">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Mute/Unmute:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -1033,8 +1038,8 @@
                                   <object class="GtkLabel" id="label8">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Volume Up:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -1045,8 +1050,8 @@
                                   <object class="GtkLabel" id="label18">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0.079999998211860657</property>
                                     <property name="label" translatable="yes">Volume Down:</property>
+                                    <property name="xalign">0.079999998211860657</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">3</property>
@@ -1270,6 +1275,34 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
         <child>
           <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
@@ -1312,8 +1345,8 @@
                   <object class="GtkLabel" id="hotkey_reset_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="yalign">0.10000000149011612</property>
                     <property name="label" translatable="yes">(press &lt;Ctrl&gt;C to reset)</property>
+                    <property name="yalign">0.10000000149011612</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -1350,8 +1383,8 @@
           <object class="GtkLabel" id="def_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="yalign">0.89999997615814209</property>
             <property name="label" translatable="yes">Press new HotKey for:</property>
+            <property name="yalign">0.89999997615814209</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -1359,40 +1392,12 @@
             <property name="position">2</property>
           </packing>
         </child>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="button1">
-                <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkLabel" id="hotkey_key_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="yalign">0.10000000149011612</property>
             <property name="label" translatable="yes">(Unknown)</property>
+            <property name="yalign">0.10000000149011612</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>

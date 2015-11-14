@@ -52,104 +52,9 @@ CustomCommand=\n\
 VolMuteKey=-1\n\
 VolUpKey=-1\n\
 VolDownKey=-1\n\
-AlsaCard=default"
+AlsaCard=default\n\
+SystemTheme=false"
 
-/**
- * Get available icon themes.
- * This code is based on code from xfce4-appearance-settings.
- *
- * @param combo the GtkComboBox to use
- */
-static void
-load_icon_themes(GtkWidget *combo)
-{
-	GDir *dir;
-	GKeyFile *index_file;
-	const gchar *file;
-	gchar *index_filename;
-	gchar *theme_name;
-	gchar *active_theme_name;
-	gint i, j, n, act;
-	gboolean is_dup;
-	GtkIconTheme *theme;
-	gchar **path;
-	GtkTreeIter iter;
-	GtkListStore *store =
-		GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(combo)));
-
-	gtk_list_store_append(store, &iter);
-	gtk_list_store_set(store, &iter, 0, _("PNMixer Icons"), -1);
-
-	theme = gtk_icon_theme_get_default();
-	index_file = g_key_file_new();
-
-	active_theme_name = g_key_file_get_string(keyFile, "PNMixer",
-			    "IconTheme", NULL);
-	act = 1;
-
-	gtk_icon_theme_get_search_path(theme, &path, &n);
-	for (i = 0; i < n; i++) {
-		/* Make sure we don't double search */
-		is_dup = FALSE;
-		for (j = 0; j < n; j++) {
-			if (j >= i)
-				break;
-			if (g_strcmp0(path[i], path[j]) == 0) {
-				is_dup = TRUE;
-				break;
-			}
-		}
-		if (is_dup)
-			continue;
-
-		/* Open directory handle */
-		dir = g_dir_open(path[i], 0, NULL);
-
-		/* Try next base directory if this one cannot be read */
-		if (G_UNLIKELY(dir == NULL))
-			continue;
-
-		/* Iterate over filenames in the directory */
-		while ((file = g_dir_read_name(dir)) != NULL) {
-			/* Build filename for the index.theme of the current
-			 * icon theme directory */
-			index_filename = g_build_filename(path[i], file, "index.theme",
-							  NULL);
-
-			/* Try to open the theme index file */
-			if (g_key_file_load_from_file(index_file, index_filename, 0,
-						      NULL)) {
-				if (g_key_file_has_key
-				    (index_file, "Icon Theme", "Directories", NULL)
-				    && !g_key_file_get_boolean(index_file, "Icon Theme",
-							       "Hidden", NULL)) {
-					theme_name =
-						g_key_file_get_string(index_file, "Icon Theme",
-								      "Name", NULL);
-					if (theme_name) {
-						gtk_list_store_append(store, &iter);
-						gtk_list_store_set(store, &iter, 0, _(theme_name),
-								   -1);
-						if ((active_theme_name != NULL)
-						    && g_strcmp0(theme_name,
-								 active_theme_name) == 0)
-							gtk_combo_box_set_active(GTK_COMBO_BOX
-										 (combo), act);
-						else
-							act++;
-						g_free(theme_name);
-					}
-				}
-			}
-			g_free(index_filename);
-		}
-	}
-	g_key_file_free(index_file);
-	if (active_theme_name != NULL)
-		g_free(active_theme_name);
-	else
-		gtk_combo_box_set_active(GTK_COMBO_BOX(combo), 0);
-}
 
 #ifdef WITH_GTK3
 /**
@@ -239,8 +144,7 @@ ensure_prefs_dir(void)
 
 /**
  * Loads the preferences from the config and creates the global keyFile
- * object (GKeyFile type). Also sets the default gtk icon theme
- * in the keyFile if there is no config file yet.
+ * object (GKeyFile type).
  */
 void
 load_prefs(void)
@@ -248,8 +152,6 @@ load_prefs(void)
 	GError *err = NULL;
 	gchar *filename = g_strconcat(g_get_user_config_dir(),
 				      "/pnmixer/config", NULL);
-	gchar *default_theme_name;
-	GtkSettings *settings;
 
 	if (keyFile != NULL)
 		g_key_file_free(keyFile);
@@ -271,12 +173,6 @@ load_prefs(void)
 			g_key_file_free(keyFile);
 			keyFile = NULL;
 		}
-		settings = gtk_settings_get_default();
-		g_object_get(settings, "gtk-icon-theme-name",
-			     &default_theme_name, NULL);
-		g_key_file_set_string(keyFile, "PNMixer", "IconTheme",
-				      default_theme_name);
-		g_free(default_theme_name);
 	}
 	g_free(filename);
 }
@@ -398,8 +294,6 @@ apply_prefs(gint alsa_change)
 
 	set_notification_options();
 
-	get_icon_theme();
-
 	vol_meter_clrs = get_vol_meter_colors();
 	set_vol_meter_color(vol_meter_clrs[0], vol_meter_clrs[1],
 			    vol_meter_clrs[2]);
@@ -408,25 +302,6 @@ apply_prefs(gint alsa_change)
 
 	if (alsa_change)
 		do_alsa_reinit();
-}
-
-/**
- * Gets the current icon theme from the global keyFile. This
- * sets the global icon_theme.
- */
-void
-get_icon_theme(void)
-{
-	if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
-		gchar *theme_name = g_key_file_get_string(keyFile, "PNMixer",
-				    "IconTheme", NULL);
-		if (icon_theme == NULL ||
-		    (icon_theme == gtk_icon_theme_get_default()))
-			icon_theme = gtk_icon_theme_new();
-		gtk_icon_theme_set_custom_theme(icon_theme, theme_name);
-		g_free(theme_name);
-	} else
-		icon_theme = gtk_icon_theme_get_default();
 }
 
 /**
@@ -931,7 +806,7 @@ create_prefs_window(void)
 	GO(custom_entry);
 	GO(vol_text_check);
 	GO(draw_vol_check);
-	GO(icon_theme_combo);
+	GO(system_theme);
 	GO(vol_control_entry);
 	GO(scroll_step_spin);
 	GO(middle_click_combo);
@@ -977,8 +852,10 @@ create_prefs_window(void)
 	 g_key_file_get_integer_with_default(keyFile, "PNMixer",
 					     "VolMeterPos", 0));
 
-	// load available icon themes into icon theme combo box.  also sets active
-	load_icon_themes(prefs_data->icon_theme_combo);
+	gtk_toggle_button_set_active
+	(GTK_TOGGLE_BUTTON(prefs_data->system_theme),
+	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
+		 "SystemTheme", FALSE));
 
 	// set color button color
 	vol_meter_clrs = get_vol_meter_colors();

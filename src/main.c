@@ -708,7 +708,8 @@ update_status_icons(void)
 	int size = tray_icon_size();
 	for (i = 0; i < N_VOLUME_ICONS; i++)
 		old_icons[i] = status_icons[i];
-	if (g_key_file_has_key(keyFile, "PNMixer", "IconTheme", NULL)) {
+	if (g_key_file_get_boolean(keyFile, "PNMixer", "SystemTheme", NULL)
+			== TRUE) {
 		status_icons[VOLUME_MUTED] = get_stock_pixbuf("audio-volume-muted",
 					     size);
 		status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-off", size);
