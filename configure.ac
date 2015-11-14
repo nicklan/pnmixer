@@ -13,6 +13,8 @@ AC_CONFIG_HEADERS([src/config.h])
 AC_PROG_CC
 AC_PROG_INSTALL
 IT_PROG_INTLTOOL([0.40])
+# necessary for correct runtime behavior
+LDFLAGS="$LDFLAGS -rdynamic"
 
 # ======================================================= #
 #                  I18n support                           #
