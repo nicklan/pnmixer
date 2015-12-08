@@ -29,6 +29,8 @@ AM_GLIB_GNU_GETTEXT
 # ======================================================= #
 #                  Required packages                      #
 # ======================================================= #
+PKG_PROG_PKG_CONFIG
+
 pkg_modules=""
 
 # Check that we have -lm and add it to LIBS
@@ -36,7 +38,7 @@ AC_CHECK_LIB(m,ceil,,AC_MSG_FAILURE([libm not found. Check 'config.log' for more
 
 # Make sure we have X11
 echo -n "checking for x11... "
-if pkg-config --exists x11; then
+if ${PKG_CONFIG} --exists x11; then
         echo "yes"
         pkg_modules="$pkg_modules x11"
 else
@@ -46,7 +48,7 @@ fi
 
 # Make sure we have Alsa
 echo -n "checking for alsa... "
-if pkg-config --exists alsa; then
+if ${PKG_CONFIG} --exists alsa; then
 	echo "yes"
 	pkg_modules="$pkg_modules alsa"
 else
