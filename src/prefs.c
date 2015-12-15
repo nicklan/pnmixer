@@ -215,7 +215,7 @@ static gint
 g_key_file_get_integer_with_default(GKeyFile *keyFile,
 				    gchar *group, gchar *key, gint def)
 {
-	gboolean ret;
+	gint ret;
 	GError *error = NULL;
 	ret = g_key_file_get_integer(keyFile, group, key, &error);
 	if (error) {
