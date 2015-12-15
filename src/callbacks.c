@@ -246,8 +246,8 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 
 	// scroll step
 	GtkWidget *sss = data->scroll_step_spin;
-	gint spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(sss));
-	g_key_file_set_integer(keyFile, "PNMixer", "MouseScrollStep", spin);
+	gdouble spin = gtk_spin_button_get_value(GTK_SPIN_BUTTON(sss));
+	g_key_file_set_double(keyFile, "PNMixer", "MouseScrollStep", spin);
 
 	// middle click
 	GtkWidget *mcc = data->middle_click_combo;

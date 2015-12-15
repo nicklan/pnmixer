@@ -226,6 +226,30 @@ g_key_file_get_integer_with_default(GKeyFile *keyFile,
 }
 
 /**
+ * Gets a double value from a keyFile in the specified group at the
+ * specified key. On error, returns def as default value.
+ *
+ * @param keyFile the GKeyFile to parse
+ * @param group the settings group
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return result of g_key_file_get_boolean() or def on error
+ */
+static gdouble
+g_key_file_get_double_with_default(GKeyFile *keyFile,
+				   gchar *group, gchar *key, gdouble def)
+{
+	gdouble ret;
+	GError *error = NULL;
+	ret = g_key_file_get_double(keyFile, group, key, &error);
+	if (error) {
+		g_error_free(error);
+		return def;
+	}
+	return ret;
+}
+
+/**
  * Sets the global options enable_noti, hotkey_noti, mouse_noti, popup_noti,
  * noti_timeout and external_noti from the user settings.
  */
@@ -889,7 +913,7 @@ create_prefs_window(void)
 	}
 	// mouse scroll step
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->scroll_step_spin),
-				  g_key_file_get_integer_with_default(keyFile, "PNMixer",
+				  g_key_file_get_double_with_default(keyFile, "PNMixer",
 						  "MouseScrollStep", 1));
 
 	//  middle click
