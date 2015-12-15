@@ -2,25 +2,6 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.6"/>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">audio-volume-muted</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-execute</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="ypad">2</property>
-    <property name="stock">gtk-refresh</property>
-    <property name="icon_size">1</property>
-  </object>
   <object class="GtkAdjustment" id="vol_scale_adjustment">
     <property name="upper">100</property>
     <property name="step_increment">1</property>
@@ -42,8 +23,8 @@
       <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">8</property>
-        <property name="margin_right">8</property>
+        <property name="margin_start">8</property>
+        <property name="margin_end">8</property>
         <property name="margin_top">8</property>
         <property name="margin_bottom">8</property>
         <property name="orientation">vertical</property>
@@ -74,7 +55,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="halign">center</property>
-            <property name="xalign">0.5</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -116,63 +96,196 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkCheckMenuItem" id="mute_check_popup_menu">
-                        <property name="label" translatable="yes">_Mute</property>
+                      <object class="GtkMenuItem" id="mute_item">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Mute/Unmute Volume</property>
-                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_mute_item_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkBox" id="box0">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkCheckButton" id="mute_check_popup_menu">
+                                <property name="label" translatable="yes">Mute</property>
+                                <property name="use_action_appearance">False</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">center</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkAccelLabel" id="accellabel0">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">4</property>
+                                <property name="margin_end">8</property>
+                                <property name="label" translatable="yes">Mute/Unmute Volume</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                      </child>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="volcontrol_item">
-                        <property name="label" translatable="yes">_Volume Control</property>
+                      <object class="GtkMenuItem" id="volcontrol_item">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Open Volume Control</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">image4</property>
-                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_mixer" swapped="no"/>
+                        <child>
+                          <object class="GtkBox" id="box1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="image1">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">system-run</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkAccelLabel" id="accellabel1">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">4</property>
+                                <property name="margin_end">8</property>
+                                <property name="label" translatable="yes">Volume Control</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="prefs_item">
-                        <property name="label">gtk-preferences</property>
+                      <object class="GtkMenuItem" id="prefs_item">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Preferences</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="do_prefs" swapped="no"/>
+                        <child>
+                          <object class="GtkBox" id="box2">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="image2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">preferences-desktop</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkAccelLabel" id="accellabel2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">4</property>
+                                <property name="margin_end">8</property>
+                                <property name="label" translatable="yes">Preferences</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="reload_item">
-                        <property name="label" translatable="yes">_Reload Alsa</property>
+                      <object class="GtkMenuItem" id="reload_item">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Reload Alsa</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">image5</property>
-                        <property name="use_stock">False</property>
                         <signal name="activate" handler="do_alsa_reinit" swapped="no"/>
+                        <child>
+                          <object class="GtkBox" id="box3">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="image3">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">gtk-refresh</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkAccelLabel" id="accellabel3">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">4</property>
+                                <property name="margin_end">8</property>
+                                <property name="label" translatable="yes">Reload Alsa</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="about_item">
-                        <property name="label">gtk-about</property>
+                      <object class="GtkMenuItem" id="about_item">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">About</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="create_about" swapped="no"/>
+                        <child>
+                          <object class="GtkBox" id="box4">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="image4">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">help-about</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkAccelLabel" id="accellabel4">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">4</property>
+                                <property name="margin_end">8</property>
+                                <property name="label" translatable="yes">About</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
@@ -183,15 +296,41 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="quit_item">
-                        <property name="label">gtk-quit</property>
+                      <object class="GtkMenuItem" id="quit_item">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Quit</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="gtk_main_quit" swapped="no"/>
+                        <child>
+                          <object class="GtkBox" id="box5">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="image5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">gtk-quit</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkAccelLabel" id="accellabel5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_start">4</property>
+                                <property name="margin_end">8</property>
+                                <property name="label" translatable="yes">Quit</property>
+                              </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

@@ -590,8 +590,8 @@ update_mute_checkboxes(void)
 				GTK_TOGGLE_BUTTON(mute_check_popup_window),
 				FALSE);
 
-		gtk_check_menu_item_set_active(
-				GTK_CHECK_MENU_ITEM(mute_check_popup_menu),
+		gtk_toggle_button_set_active(
+				GTK_TOGGLE_BUTTON(mute_check_popup_menu),
 				FALSE);
 
 	} else {
@@ -599,7 +599,7 @@ update_mute_checkboxes(void)
 				GTK_TOGGLE_BUTTON(mute_check_popup_window),
 				TRUE);
 
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
 					mute_check_popup_menu), TRUE);
 	}
 
@@ -608,6 +608,17 @@ update_mute_checkboxes(void)
 			mute_check_popup_menu_handler);
 	g_signal_handler_unblock(G_OBJECT(mute_check_popup_window),
 			mute_check_popup_window_handler);
+}
+
+/**
+ * Propagates the activate signal on mute_item (GtkMenuItem) in the right-click
+ * popup menu to the underlying mute_check_popup_menu (GtkCheckButton) as
+ * toggled signal.
+ */
+void
+on_mute_item_clicked(void)
+{
+	gtk_toggle_button_toggled(GTK_TOGGLE_BUTTON(mute_check_popup_window));
 }
 
 /**
