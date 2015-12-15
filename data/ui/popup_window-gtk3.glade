@@ -108,7 +108,6 @@
                             <property name="can_focus">False</property>
                             <child>
                               <object class="GtkCheckButton" id="mute_check_popup_menu">
-                                <property name="label" translatable="yes">Mute</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
