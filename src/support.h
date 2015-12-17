@@ -69,6 +69,7 @@ typedef struct {
 	GtkWidget *system_theme;
 	GtkWidget *vol_control_entry;
 	GtkWidget *scroll_step_spin;
+	GtkWidget *fine_scroll_step_spin;
 	GtkWidget *middle_click_combo;
 	GtkWidget *enable_hotkeys_check;
 	GtkWidget *hotkey_vol_label;

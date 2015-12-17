@@ -45,7 +45,8 @@
 #define DEFAULT_PREFS "[PNMixer]\n\
 DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
-MouseScrollStep=5\n\
+ScrollStep=5\n\
+FineScrollStep=1\n\
 HotkeyVolumeStep=1\n\
 MiddleClickAction=0\n\
 CustomCommand=\n\
@@ -291,7 +292,9 @@ apply_prefs(gint alsa_change)
 	gint *vol_meter_clrs;
 #endif
 	scroll_step = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-			"MouseScrollStep", 5);
+		"ScrollStep", 5);
+	fine_scroll_step = g_key_file_get_integer_with_default(keyFile,
+		"PNMixer", "FineScrollStep", 1);
 
 	if (g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 						"EnableHotKeys", FALSE)) {
@@ -833,6 +836,7 @@ create_prefs_window(void)
 	GO(system_theme);
 	GO(vol_control_entry);
 	GO(scroll_step_spin);
+	GO(fine_scroll_step_spin);
 	GO(middle_click_combo);
 	GO(enable_hotkeys_check);
 	GO(hotkey_vol_label);
@@ -911,10 +915,13 @@ create_prefs_window(void)
 		gtk_entry_set_text(GTK_ENTRY(prefs_data->vol_control_entry), vol_cmd);
 		g_free(vol_cmd);
 	}
-	// mouse scroll step
+	// volume scroll steps
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->scroll_step_spin),
-				  g_key_file_get_double_with_default(keyFile, "PNMixer",
-						  "MouseScrollStep", 1));
+		g_key_file_get_double_with_default(keyFile, "PNMixer",
+			"ScrollStep", 5));
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->fine_scroll_step_spin),
+		g_key_file_get_double_with_default(keyFile, "PNMixer",
+			"FineScrollStep", 1));
 
 	//  middle click
 	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->middle_click_combo),
