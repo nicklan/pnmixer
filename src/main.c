@@ -589,18 +589,31 @@ update_mute_checkboxes(void)
 		gtk_toggle_button_set_active(
 				GTK_TOGGLE_BUTTON(mute_check_popup_window),
 				FALSE);
-
+#ifdef WITH_GTK3
 		gtk_toggle_button_set_active(
 				GTK_TOGGLE_BUTTON(mute_check_popup_menu),
 				FALSE);
+#else
+		gtk_check_menu_item_set_active(
+				GTK_CHECK_MENU_ITEM(mute_check_popup_menu),
+				FALSE);
+#endif
 
 	} else {
 		gtk_toggle_button_set_active(
 				GTK_TOGGLE_BUTTON(mute_check_popup_window),
 				TRUE);
 
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(
-					mute_check_popup_menu), TRUE);
+#ifdef WITH_GTK3
+		gtk_toggle_button_set_active(
+				GTK_TOGGLE_BUTTON(mute_check_popup_menu),
+				TRUE);
+
+#else
+		gtk_check_menu_item_set_active(
+				GTK_CHECK_MENU_ITEM(mute_check_popup_menu),
+				TRUE);
+#endif
 	}
 
 	/* release the signal block */
