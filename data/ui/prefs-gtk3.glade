@@ -45,7 +45,7 @@
   <object class="GtkBox" id="notification_vbox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+    <property name="orientation">vertical</property>
     <property name="margin">5</property>
     <child>
       <object class="GtkFrame" id="frame9">
@@ -67,7 +67,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="halign">GTK_ALIGN_START</property>
+                <property name="halign">start</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="on_notification_toggle" swapped="no"/>
               </object>
@@ -79,7 +79,7 @@
               <object class="GtkLabel" id="noti_timeout_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">GTK_ALIGN_START</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Timeout (ms):</property>
               </object>
               <packing>
@@ -132,7 +132,7 @@
               <object class="GtkBox" id="vbox7">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                <property name="orientation">vertical</property>
                 <property name="margin_start">12</property>
                 <property name="spacing">3</property>
                 <child>
@@ -142,7 +142,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="halign">GTK_ALIGN_START</property>
+                        <property name="halign">start</property>
                         <property name="draw_indicator">True</property>
                       </object>
                   <packing>
@@ -158,7 +158,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="halign">GTK_ALIGN_START</property>
+                        <property name="halign">start</property>
                         <property name="draw_indicator">True</property>
                       </object>
                   <packing>
@@ -174,7 +174,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="halign">GTK_ALIGN_START</property>
+                        <property name="halign">start</property>
                         <property name="draw_indicator">True</property>
                       </object>
                   <packing>
@@ -190,7 +190,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="halign">GTK_ALIGN_START</property>
+                        <property name="halign">start</property>
                         <property name="draw_indicator">True</property>
                       </object>
                   <packing>
@@ -266,7 +266,7 @@
           <object class="GtkBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+            <property name="orientation">vertical</property>
             <property name="spacing">10</property>
             <property name="margin">5</property>
             <child>
@@ -278,7 +278,7 @@
                   <object class="GtkBox" id="vbox2">
                     <property name="visible">True</property>
 		    <property name="can_focus">False</property>
-		    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+		    <property name="orientation">vertical</property>
                     <property name="spacing">20</property>
                     <property name="margin">5</property>
                     <child>
@@ -301,7 +301,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="on_vol_text_toggle" swapped="no"/>
                                   </object>
@@ -315,7 +315,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Volume Text Position:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -384,7 +384,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="on_draw_vol_toggle" swapped="no"/>
                                   </object>
@@ -398,7 +398,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Volume Meter Offset:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -411,7 +411,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Volume Meter Color:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -486,7 +486,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="margin_start">12</property>
-                                <property name="halign">GTK_ALIGN_START</property>
+                                <property name="halign">start</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                         </child>
@@ -523,7 +523,7 @@
                   <object class="GtkBox" id="vbox3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                    <property name="orientation">vertical</property>
                     <property name="margin">5</property>
                     <child>
                       <object class="GtkFrame" id="frame3">
@@ -543,7 +543,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Card:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="y_options">GTK_EXPAND</property>
@@ -554,7 +554,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Channel:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -610,7 +610,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Normalize Volume:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -655,7 +655,7 @@
                   <object class="GtkBox" id="vbox4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                    <property name="orientation">vertical</property>
                     <property name="margin">5</property>
                     <child>
                       <object class="GtkFrame" id="frame4">
@@ -708,7 +708,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Scroll Step:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="y_options">GTK_EXPAND</property>
@@ -719,7 +719,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Fine Scroll Step:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -801,7 +801,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Middle Click Action:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
 				    <property name="y_options">GTK_EXPAND</property>
@@ -812,7 +812,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Custom Command:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
 				    <property name="top_attach">1</property>
@@ -894,7 +894,7 @@
                   <object class="GtkBox" id="vbox5">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">20</property>
                     <property name="margin">5</property>
                     <child>
@@ -917,7 +917,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="on_hotkey_toggle" swapped="no"/>
                                   </object>
@@ -930,7 +930,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">HotKey Volume Step:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -990,7 +990,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Command</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -1001,7 +1001,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Mute/Unmute:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">1</property>
@@ -1013,7 +1013,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Volume Up:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">2</property>
@@ -1025,7 +1025,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Volume Down:</property>
-                                    <property name="halign">GTK_ALIGN_START</property>
+                                    <property name="halign">start</property>
                                   </object>
                                   <packing>
                                     <property name="top_attach">3</property>
@@ -1187,7 +1187,7 @@
                       <object class="GtkBox" id="box2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">GTK_ALIGN_CENTER</property>
+                        <property name="halign">center</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -1233,7 +1233,7 @@
                       <object class="GtkBox" id="box3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">GTK_ALIGN_CENTER</property>
+                        <property name="halign">center</property>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -1306,7 +1306,7 @@
                   <object class="GtkBox" id="box4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="halign">GTK_ALIGN_CENTER</property>
+                    <property name="halign">center</property>
                     <child>
                       <object class="GtkImage" id="image4">
                         <property name="visible">True</property>
@@ -1373,7 +1373,7 @@
               <object class="GtkBox" id="vbox6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel" id="label22">
                     <property name="visible">True</property>
