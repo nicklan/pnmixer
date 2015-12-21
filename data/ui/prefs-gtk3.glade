@@ -76,7 +76,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label25">
+              <object class="GtkLabel" id="noti_timeout_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">GTK_ALIGN_START</property>
