@@ -81,6 +81,7 @@ typedef struct {
 	GtkWidget *down_hotkey_label;
 #ifdef HAVE_LIBN
 	GtkWidget *enable_noti_check;
+	GtkWidget *noti_timeout_label;
 	GtkWidget *noti_timeout_spin;
 	GtkWidget *hotkey_noti_check;
 	GtkWidget *mouse_noti_check;

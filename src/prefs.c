@@ -515,6 +515,8 @@ void
 on_notification_toggle(GtkToggleButton *button, PrefsData *data)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
+	gtk_widget_set_sensitive(data->noti_timeout_label, active);
+	gtk_widget_set_sensitive(data->noti_timeout_spin, active);
 	gtk_widget_set_sensitive(data->hotkey_noti_check, active);
 	gtk_widget_set_sensitive(data->mouse_noti_check, active);
 	gtk_widget_set_sensitive(data->popup_noti_check, active);
@@ -849,6 +851,7 @@ create_prefs_window(void)
 #ifdef HAVE_LIBN
 	GO(enable_noti_check);
 	GO(noti_timeout_spin);
+	GO(noti_timeout_label);
 	GO(hotkey_noti_check);
 	GO(mouse_noti_check);
 	GO(popup_noti_check);
