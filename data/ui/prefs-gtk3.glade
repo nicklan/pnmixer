@@ -53,84 +53,88 @@
         <property name="can_focus">False</property>
         <property name="shadow_type">none</property>
         <child>
+          <object class="GtkTable" id="table8">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_start">12</property>
+            <property name="n_rows">2</property>
+            <property name="n_columns">2</property>
+            <property name="row_spacing">15</property>
+            <child>
+              <object class="GtkCheckButton" id="enable_noti_check">
+                <property name="label" translatable="yes">Enable Notifications</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">GTK_ALIGN_START</property>
+                <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="on_notification_toggle" swapped="no"/>
+              </object>
+              <packing>
+                <property name="y_options">GTK_EXPAND</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label25">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">GTK_ALIGN_START</property>
+                <property name="label" translatable="yes">Timeout (ms):</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="y_options">GTK_EXPAND</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="noti_timeout_spin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="adjustment">noti_timeout_adjustment</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="y_options">GTK_EXPAND</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child type="label">
+          <object class="GtkLabel" id="label34">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_bottom">5</property>
+            <property name="label" translatable="yes">&lt;b&gt;Notification Options&lt;/b&gt;</property>
+            <property name="use_markup">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">False</property>
+        <property name="padding">5</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkFrame" id="frame11">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="shadow_type">none</property>
+        <child>
               <object class="GtkBox" id="vbox7">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                 <property name="margin_start">12</property>
                 <property name="spacing">3</property>
-                <child>
-                  <object class="GtkCheckButton" id="enable_noti_check">
-                    <property name="label" translatable="yes">Enable Notifications</property>
-                    <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="halign">GTK_ALIGN_START</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_notification_toggle" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="padding">8</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="box1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkSpinButton" id="noti_timeout_spin">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="secondary_icon_activatable">False</property>
-                        <property name="adjustment">noti_timeout_adjustment</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label25">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">timeout (ms)</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="padding">5</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label26">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Notify for volume changes from:</property>
-                    <property name="halign">GTK_ALIGN_START</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
                 <child>
                       <object class="GtkCheckButton" id="hotkey_noti_check">
                         <property name="label" translatable="yes">HotKeys</property>
@@ -144,7 +148,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">3</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -160,7 +164,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">4</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -176,7 +180,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">5</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -192,7 +196,7 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">6</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
@@ -202,7 +206,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_bottom">5</property>
-            <property name="label" translatable="yes">&lt;b&gt;Notification Options&lt;/b&gt;</property>
+            <property name="label" translatable="yes">&lt;b&gt;Notify for volume changes from:&lt;/b&gt;</property>
             <property name="use_markup">True</property>
           </object>
         </child>
@@ -211,7 +215,7 @@
         <property name="expand">False</property>
         <property name="fill">False</property>
         <property name="padding">5</property>
-        <property name="position">0</property>
+        <property name="position">1</property>
       </packing>
     </child>
   </object>
