@@ -253,6 +253,11 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="fine_scroll_step_adjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="vol_meter_pos_adjustment">
     <property name="upper">22</property>
     <property name="step_increment">1</property>
@@ -759,6 +764,107 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkFrame" id="frame10">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_start">5</property>
+                        <property name="margin_end">5</property>
+                        <property name="shadow_type">none</property>
+                        <child>
+                          <object class="GtkAlignment" id="alignment15">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_start">12</property>
+                            <child>
+                              <object class="GtkTable" id="table7">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="n_rows">2</property>
+                                <property name="n_columns">2</property>
+                                <property name="column_spacing">5</property>
+                                <property name="row_spacing">15</property>
+                                <child>
+                                  <object class="GtkLabel" id="label31">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Scroll Step:</property>
+                                    <property name="halign">0.079999998211860657</property>
+                                  </object>
+                                  <packing>
+                                    <property name="y_options">GTK_EXPAND</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label32">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Fine Scroll Step:</property>
+                                    <property name="halign">0.079999998211860657</property>
+                                  </object>
+                                  <packing>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                    <property name="y_options">GTK_EXPAND</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="scroll_step_spin">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+				    <property name="digits">2</property>
+				    <property name="numeric">True</property>
+                                    <property name="invisible_char">•</property>
+                                    <property name="primary_icon_activatable">False</property>
+                                    <property name="secondary_icon_activatable">False</property>
+                                    <property name="adjustment">scroll_step_adjustment</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+                                    <property name="y_options">GTK_EXPAND</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="fine_scroll_step_spin">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+				    <property name="digits">2</property>
+				    <property name="numeric">True</property>
+                                    <property name="invisible_char">•</property>
+                                    <property name="primary_icon_activatable">False</property>
+                                    <property name="secondary_icon_activatable">False</property>
+                                    <property name="adjustment">fine_scroll_step_adjustment</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                    <property name="y_options">GTK_EXPAND</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="label">
+                          <object class="GtkLabel" id="label33">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Volume Scrolling&lt;/b&gt;</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="padding">5</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkFrame" id="frame5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -779,17 +885,6 @@
                                 <property name="column_spacing">5</property>
                                 <property name="row_spacing">15</property>
                                 <child>
-                                  <object class="GtkLabel" id="label14">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Mouse Scroll Step:</property>
-                                    <property name="halign">0.079999998211860657</property>
-                                  </object>
-                                  <packing>
-                                    <property name="y_options">GTK_EXPAND</property>
-                                  </packing>
-                                </child>
-                                <child>
                                   <object class="GtkLabel" id="label15">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
@@ -797,9 +892,7 @@
                                     <property name="halign">0.079999998211860657</property>
                                   </object>
                                   <packing>
-                                    <property name="top_attach">1</property>
-                                    <property name="bottom_attach">2</property>
-                                    <property name="y_options">GTK_EXPAND</property>
+				    <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -810,23 +903,8 @@
                                     <property name="halign">0.079999998211860657</property>
                                   </object>
                                   <packing>
-                                    <property name="top_attach">2</property>
-                                    <property name="bottom_attach">3</property>
-                                    <property name="y_options">GTK_EXPAND</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSpinButton" id="scroll_step_spin">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">•</property>
-                                    <property name="primary_icon_activatable">False</property>
-                                    <property name="secondary_icon_activatable">False</property>
-                                    <property name="adjustment">scroll_step_adjustment</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="right_attach">2</property>
+				    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -844,10 +922,8 @@
                                     </child>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">1</property>
+				    <property name="left_attach">1</property>
                                     <property name="right_attach">2</property>
-                                    <property name="top_attach">1</property>
-                                    <property name="bottom_attach">2</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -860,10 +936,10 @@
                                     <property name="secondary_icon_activatable">False</property>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">1</property>
+				    <property name="left_attach">1</property>
                                     <property name="right_attach">2</property>
-                                    <property name="top_attach">2</property>
-                                    <property name="bottom_attach">3</property>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -884,7 +960,7 @@
                         <property name="expand">False</property>
                         <property name="fill">False</property>
                         <property name="padding">20</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>

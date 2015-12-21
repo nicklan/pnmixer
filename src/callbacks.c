@@ -244,11 +244,18 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	const gchar *vc = gtk_entry_get_text(GTK_ENTRY(ve));
 	g_key_file_set_string(keyFile, "PNMixer", "VolumeControlCommand", vc);
 
-	// scroll step
+	// volume scroll steps
 	GtkWidget *sss = data->scroll_step_spin;
-	gint spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(sss));
-	g_key_file_set_integer(keyFile, "PNMixer", "MouseScrollStep", spin);
+	gdouble step = gtk_spin_button_get_value(GTK_SPIN_BUTTON(sss));
+	g_key_file_set_double(keyFile, "PNMixer", "ScrollStep", step);
 
+	GtkWidget *fsss = data->fine_scroll_step_spin;
+	gdouble fine_step = gtk_spin_button_get_value(GTK_SPIN_BUTTON(fsss));
+	g_key_file_set_double(keyFile, "PNMixer", "FineScrollStep", fine_step);
+
+	gtk_adjustment_set_page_increment(vol_adjustment, step);
+	gtk_adjustment_set_step_increment(vol_adjustment, fine_step);
+	
 	// middle click
 	GtkWidget *mcc = data->middle_click_combo;
 	idx = gtk_combo_box_get_active(GTK_COMBO_BOX(mcc));
@@ -274,7 +281,7 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	GtkWidget *hs = data->hotkey_vol_spin;
 	gint hotstep = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(hs));
 	g_key_file_set_integer(keyFile, "PNMixer", "HotkeyVolumeStep", hotstep);
-
+	
 	// hotkeys
 	guint keysym;
 	gint keycode;
