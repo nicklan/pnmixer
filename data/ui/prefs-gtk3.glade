@@ -46,12 +46,11 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+    <property name="margin">5</property>
     <child>
       <object class="GtkFrame" id="frame9">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_start">5</property>
-        <property name="margin_end">5</property>
         <property name="shadow_type">none</property>
         <child>
               <object class="GtkBox" id="vbox7">
@@ -129,7 +128,6 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="padding">2</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -203,6 +201,7 @@
           <object class="GtkLabel" id="label28">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_bottom">5</property>
             <property name="label" translatable="yes">&lt;b&gt;Notification Options&lt;/b&gt;</property>
             <property name="use_markup">True</property>
           </object>
@@ -265,10 +264,7 @@
             <property name="can_focus">False</property>
             <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
             <property name="spacing">10</property>
-            <property name="margin_start">5</property>
-            <property name="margin_end">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
+            <property name="margin">5</property>
             <child>
               <object class="GtkNotebook" id="notebook1">
                 <property name="visible">True</property>
@@ -280,10 +276,7 @@
 		    <property name="can_focus">False</property>
 		    <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                     <property name="spacing">20</property>
-                    <property name="margin_start">5</property>
-                    <property name="margin_end">5</property>
-                    <property name="margin_top">5</property>
-                    <property name="margin_bottom">5</property>
+                    <property name="margin">5</property>
                     <child>
                       <object class="GtkFrame" id="frame1">
                         <property name="visible">True</property>
@@ -353,14 +346,15 @@
                           <object class="GtkLabel" id="label4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Text&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="padding">5</property>
                         <property name="position">0</property>
                       </packing>
@@ -462,15 +456,16 @@
                           <object class="GtkLabel" id="label5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Volume Meter&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="padding">9</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="padding">5</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -495,14 +490,16 @@
                           <object class="GtkLabel" id="label17">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Icon Theme&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="padding">5</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
@@ -523,24 +520,20 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+                    <property name="margin">5</property>
                     <child>
                       <object class="GtkFrame" id="frame3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="valign">start</property>
-                        <property name="margin_start">5</property>
-                        <property name="margin_end">5</property>
-                        <property name="vexpand">False</property>
                         <property name="shadow_type">none</property>
                             <child>
                               <object class="GtkTable" id="table3">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="margin_start">12</property>
                                 <property name="n_rows">3</property>
                                 <property name="n_columns">2</property>
-                                <property name="column_spacing">5</property>
                                 <property name="row_spacing">15</property>
-                                <property name="margin-start">12</property>
                                 <child>
                                   <object class="GtkLabel" id="label10">
                                     <property name="visible">True</property>
@@ -587,7 +580,6 @@
                                     <property name="right_attach">2</property>
                                     <property name="top_attach">1</property>
                                     <property name="bottom_attach">2</property>
-                                    <property name="x_options">GTK_FILL</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -606,6 +598,7 @@
                                     <property name="right_attach">2</property>
                                     <property name="top_attach">2</property>
                                     <property name="bottom_attach">3</property>
+                                    <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -618,7 +611,6 @@
                                   <packing>
                                     <property name="top_attach">2</property>
                                     <property name="bottom_attach">3</property>
-                                    <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
                               </object>
@@ -627,6 +619,7 @@
                           <object class="GtkLabel" id="label9">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Sound Device&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -636,7 +629,6 @@
                         <property name="expand">False</property>
                         <property name="fill">False</property>
                         <property name="padding">5</property>
-                        <property name="position">0</property>
                       </packing>
                     </child>
                   </object>
@@ -660,10 +652,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
-                    <property name="margin_start">5</property>
-                    <property name="margin_end">5</property>
-                    <property name="margin_top">5</property>
-                    <property name="margin_bottom">5</property>
+                    <property name="margin">5</property>
                     <child>
                       <object class="GtkFrame" id="frame4">
                         <property name="visible">True</property>
@@ -674,8 +663,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="margin_start">12</property>
-                                <property name="margin_top">5</property>
-                                <property name="margin_bottom">15</property>
                                 <property name="invisible_char">•</property>
                                 <property name="primary_icon_activatable">False</property>
                                 <property name="secondary_icon_activatable">False</property>
@@ -685,6 +672,7 @@
                           <object class="GtkLabel" id="label12">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Volume Control Command&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -777,6 +765,7 @@
                           <object class="GtkLabel" id="label33">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Volume Scrolling&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -793,8 +782,6 @@
                       <object class="GtkFrame" id="frame5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_start">5</property>
-                        <property name="margin_end">5</property>
                         <property name="shadow_type">none</property>
                         <child>
                               <object class="GtkTable" id="table4">
@@ -870,6 +857,7 @@
                           <object class="GtkLabel" id="label13">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Mouse&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -878,7 +866,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="padding">20</property>
+                        <property name="padding">5</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
@@ -904,12 +892,11 @@
                     <property name="can_focus">False</property>
                     <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
                     <property name="spacing">20</property>
+                    <property name="margin">5</property>
                     <child>
                       <object class="GtkFrame" id="frame8">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_start">5</property>
-                        <property name="margin_end">5</property>
                         <property name="shadow_type">none</property>
                         <child>
                               <object class="GtkTable" id="table6">
@@ -918,7 +905,6 @@
                                 <property name="margin_start">12</property>
                                 <property name="n_rows">2</property>
                                 <property name="n_columns">2</property>
-                                <property name="column_spacing">5</property>
                                 <property name="row_spacing">15</property>
                                 <child>
                                   <object class="GtkCheckButton" id="enable_hotkeys_check">
@@ -969,9 +955,9 @@
                           <object class="GtkLabel" id="label24">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;HotKey Settings&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
-                            <property name="margin_bottom">5</property>
                           </object>
                         </child>
                       </object>
@@ -986,8 +972,6 @@
                       <object class="GtkFrame" id="frame7">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_start">5</property>
-                        <property name="margin_end">5</property>
                         <property name="shadow_type">none</property>
                         <child>
                               <object class="GtkTable" id="table5">
@@ -996,7 +980,6 @@
                                 <property name="margin_start">12</property>
                                 <property name="n_rows">5</property>
                                 <property name="n_columns">2</property>
-                                <property name="column_spacing">5</property>
                                 <property name="row_spacing">15</property>
                                 <child>
                                   <object class="GtkLabel" id="label20">
@@ -1146,6 +1129,7 @@
                           <object class="GtkLabel" id="label16">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;HotKeys&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
