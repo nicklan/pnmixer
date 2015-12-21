@@ -23,10 +23,7 @@
       <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_start">8</property>
-        <property name="margin_end">8</property>
-        <property name="margin_top">8</property>
-        <property name="margin_bottom">8</property>
+        <property name="margin">8</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
