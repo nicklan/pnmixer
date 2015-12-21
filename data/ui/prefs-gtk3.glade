@@ -1178,12 +1178,12 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="valign">0.47999998927116394</property>
                     <signal name="clicked" handler="on_cancel_button_clicked" swapped="no"/>
                     <child>
                       <object class="GtkBox" id="box2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">GTK_ALIGN_CENTER</property>
                         <child>
                           <object class="GtkImage" id="image2">
                             <property name="visible">True</property>
@@ -1200,7 +1200,7 @@
                           <object class="GtkLabel" id="label27">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_start">8</property>
+                            <property name="margin_start">5</property>
                             <property name="label" translatable="yes">Cancel</property>
                           </object>
                           <packing>
@@ -1229,6 +1229,7 @@
                       <object class="GtkBox" id="box3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">GTK_ALIGN_CENTER</property>
                         <child>
                           <object class="GtkImage" id="image3">
                             <property name="visible">True</property>
@@ -1245,7 +1246,7 @@
                           <object class="GtkLabel" id="label29">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_start">8</property>
+                            <property name="margin_start">5</property>
                             <property name="label" translatable="yes">Ok</property>
                           </object>
                           <packing>
@@ -1256,9 +1257,9 @@
                         </child>
                       </object>
                     </child>
-				  </object>
-				</child>
-			  </object>
+		  </object>
+		</child>
+	      </object>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
@@ -1301,6 +1302,7 @@
                   <object class="GtkBox" id="box4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">GTK_ALIGN_CENTER</property>
                     <child>
                       <object class="GtkImage" id="image4">
                         <property name="visible">True</property>
@@ -1317,7 +1319,7 @@
                       <object class="GtkLabel" id="label30">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_start">8</property>
+                        <property name="margin_start">5</property>
                         <property name="label" translatable="yes">Cancel</property>
                       </object>
                       <packing>
