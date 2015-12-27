@@ -41,6 +41,13 @@
 #include "support.h"
 #include "main.h"
 #include "hotkeys.h"
+#include "debug.h"
+
+#ifdef WITH_GTK3
+#define PREFS_UI_FILE "prefs-gtk3.glade"
+#else
+#define PREFS_UI_FILE "prefs-gtk2.glade"
+#endif
 
 #define DEFAULT_PREFS "[PNMixer]\n\
 DisplayTextVolume=true\n\
@@ -795,11 +802,7 @@ create_prefs_window(void)
 
 	PrefsData *prefs_data;
 
-#ifdef WITH_GTK3
-	uifile = get_ui_file("prefs-gtk3.glade");
-#else
-	uifile = get_ui_file("prefs-gtk2.glade");
-#endif
+	uifile = get_ui_file(PREFS_UI_FILE);
 	if (!uifile) {
 		report_error(_
 			     ("Can't find preferences user interface file. "
@@ -807,6 +810,7 @@ create_prefs_window(void)
 		return NULL;
 	}
 
+	DEBUG_PRINT("Loading prefs ui from '%s'", uifile);
 	builder = gtk_builder_new();
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
 		g_warning("%s", error->message);

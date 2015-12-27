@@ -40,6 +40,14 @@
 #include "hotkeys.h"
 #include "prefs.h"
 
+#ifdef WITH_GTK3
+#define POPUP_WINDOW_UI_FILE "popup_window-gtk3.glade"
+#define ABOUT_UI_FILE        "about-gtk3.glade"
+#else
+#define POPUP_WINDOW_UI_FILE "popup_window-gtk2.glade"
+#define ABOUT_UI_FILE        "about-gtk2.glade"
+#endif
+
 enum {
 	VOLUME_MUTED,
 	VOLUME_OFF,
@@ -341,18 +349,17 @@ create_popups(void)
 	GtkBuilder *builder;
 	GError *error = NULL;
 	gchar *uifile;
-	builder = gtk_builder_new();
-#ifdef WITH_GTK3
-	uifile = get_ui_file("popup_window-gtk3.glade");
-#else
-	uifile = get_ui_file("popup_window-gtk2.glade");
-#endif
+
+	uifile = get_ui_file(POPUP_WINDOW_UI_FILE);
 	if (!uifile) {
 		report_error(_
 			     ("Can't find main user interface file. Please "
 			      "ensure PNMixer is installed correctly. Exiting."));
 		exit(1);
 	}
+
+	DEBUG_PRINT("Loading popup ui from '%s'", uifile);
+	builder = gtk_builder_new();
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
 		g_warning("%s", error->message);
 		report_error(error->message);
@@ -438,17 +445,15 @@ create_about(void)
 	GtkWidget *about;
 	gchar *uifile;
 
-#ifdef WITH_GTK3
-	uifile = get_ui_file("about-gtk3.glade");
-#else
-	uifile = get_ui_file("about-gtk2.glade");
-#endif
+	uifile = get_ui_file(ABOUT_UI_FILE);
 	if (!uifile) {
 		report_error(_
 			     ("Can't find about interface file. Please ensure "
 			      "PNMixer is installed correctly."));
 		return;
 	}
+
+	DEBUG_PRINT("Loading about ui from '%s'", uifile);
 	builder = gtk_builder_new();
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
 		g_warning("%s", error->message);
@@ -458,7 +463,9 @@ create_about(void)
 		g_object_unref(G_OBJECT(builder));
 		return;
 	}
+
 	g_free(uifile);
+
 	gtk_builder_connect_signals(builder, NULL);
 	about = GTK_WIDGET(gtk_builder_get_object(builder, "about_dialog"));
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about), VERSION);
