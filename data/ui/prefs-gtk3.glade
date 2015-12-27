@@ -480,7 +480,7 @@
                         <property name="shadow_type">none</property>
                         <child>
                               <object class="GtkCheckButton" id="system_theme">
-                                <property name="label" translatable="yes">Use system theme</property>
+                                <property name="label" translatable="yes">Use System Theme</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>

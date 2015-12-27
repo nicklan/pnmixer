@@ -526,7 +526,7 @@
                             <property name="left_padding">12</property>
                             <child>
                               <object class="GtkCheckButton" id="system_theme">
-                                <property name="label" translatable="yes">Use system theme</property>
+                                <property name="label" translatable="yes">Use System Theme</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
