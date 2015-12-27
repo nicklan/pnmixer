@@ -291,9 +291,37 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="margin_start">12</property>
-                                <property name="n_rows">2</property>
+                                <property name="n_rows">3</property>
                                 <property name="n_columns">2</property>
                                 <property name="row_spacing">15</property>
+				<child>
+				  <object class="GtkLabel" id="label35">
+				    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+				    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Slider orientation:
+(Effective after restart)</property>
+				  </object>
+				  <packing>
+                                    <property name="y_options">GTK_EXPAND</property>
+                                  </packing>
+				</child>
+				<child>
+				  <object class="GtkComboBoxText" id="slider_orientation_combo">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+				    <property name="active">0</property>
+				    <items>
+				      <item translatable="yes" id="vertical">Vertical</item>
+				      <item translatable="yes" id="horizontal">Horizontal</item>
+				    </items>
+				  </object>
+				  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="right_attach">2</property>
+				    <property name="y_options">GTK_EXPAND</property>
+				  </packing>
+				</child>
                                 <child>
                                   <object class="GtkCheckButton" id="vol_text_check">
                                     <property name="label" translatable="yes">Display Text Volume</property>
@@ -307,6 +335,8 @@
                                   </object>
                                   <packing>
                                     <property name="right_attach">2</property>
+				    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -318,8 +348,8 @@
                                     <property name="halign">start</property>
                                   </object>
                                   <packing>
-                                    <property name="top_attach">1</property>
-                                    <property name="bottom_attach">2</property>
+                                    <property name="top_attach">2</property>
+                                    <property name="bottom_attach">3</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -339,8 +369,8 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="right_attach">2</property>
-                                    <property name="top_attach">1</property>
-                                    <property name="bottom_attach">2</property>
+                                    <property name="top_attach">2</property>
+                                    <property name="bottom_attach">3</property>
                                     <property name="y_options">GTK_EXPAND</property>
                                   </packing>
                                 </child>
@@ -351,7 +381,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_bottom">5</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Text&lt;/b&gt;</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Popup&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                         </child>
