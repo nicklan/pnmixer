@@ -62,7 +62,7 @@ fi
 AC_ARG_WITH([gtk3],
             [AS_HELP_STRING([--with-gtk3], [Use Gtk3 as toolkit (def=yes)])],
             [with_gtk3="$withval"],
-            [with_gtk3=yes])
+            [with_gtk3="yes"])
 
 if test "$with_gtk3" = "yes"; then
 	pkg_modules="$pkg_modules gtk+-3.0 >= 3.6.0"
@@ -77,7 +77,7 @@ AM_CONDITIONAL([WITH_GTK3], [test "$with_gtk3" = "yes"])
 # ======================================================= #
 AC_ARG_WITH([libnotify],
             [AS_HELP_STRING([--with-libnotify], [Enable sending of notifications @<:@default=check@:>@])],
-            [with_libnotify=$withval],
+            [with_libnotify="$withval"],
             [with_libnotify="check"])
 
 AS_IF([test "$with_libnotify" != no],
