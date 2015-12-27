@@ -169,6 +169,11 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 
 	// pull out various prefs
 
+	// slider orientation
+	GtkWidget *soc = data->slider_orientation_combo;
+	const gchar *orientation = gtk_combo_box_get_active_id(GTK_COMBO_BOX(soc));
+	g_key_file_set_string(keyFile, "PNMixer", "SliderOrientation", orientation);
+	
 	// show vol text
 	GtkWidget *vtc = data->vol_text_check;
 	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vtc));

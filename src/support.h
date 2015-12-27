@@ -64,6 +64,7 @@ typedef struct {
 	GtkWidget *vol_meter_color_button;
 	GtkWidget *custom_label;
 	GtkWidget *custom_entry;
+	GtkWidget *slider_orientation_combo;
 	GtkWidget *vol_text_check;
 	GtkWidget *draw_vol_check;
 	GtkWidget *system_theme;

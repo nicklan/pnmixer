@@ -43,6 +43,7 @@
 #include "hotkeys.h"
 
 #define DEFAULT_PREFS "[PNMixer]\n\
+SliderOrientation=vertical\n\
 DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
 ScrollStep=5\n\
@@ -833,6 +834,7 @@ create_prefs_window(void)
 	GO(vol_meter_color_button);
 	GO(custom_label);
 	GO(custom_entry);
+	GO(slider_orientation_combo);
 	GO(vol_text_check);
 	GO(draw_vol_check);
 	GO(system_theme);
@@ -858,6 +860,11 @@ create_prefs_window(void)
 	GO(external_noti_check);
 #endif
 #undef GO
+
+	// slider orientation
+	gtk_combo_box_set_active_id
+	(GTK_COMBO_BOX(prefs_data->slider_orientation_combo),
+	 g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation", NULL));
 
 	// vol text display
 	gtk_toggle_button_set_active
