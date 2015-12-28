@@ -153,6 +153,28 @@ on_hotkey_button_click(GtkWidget *widget, GdkEventButton *event,
 	return TRUE;
 }
 
+#ifndef WITH_GTK3
+/**
+ * Gtk2 cludge
+ * Gtk2 ComboBoxes don't have ids. We workaround that by
+ * mapping the id with a ComboBox index. We're fine as long
+ * as nobody changes the content of the ComboBox.
+ *
+ * @param combo_box a GtkComboBox
+ * @return the ID of the active row
+ */
+static const gchar*
+gtk_combo_box_get_active_id(GtkComboBox *combo_box)
+{
+	gint index = gtk_combo_box_get_active(combo_box);
+
+	if (index == 1)
+		return "horizontal";
+
+	return "vertical";
+}
+#endif
+
 /**
  * Callback function when the ok_button (GtkButton) of the
  * preferences window received the clicked signal.
