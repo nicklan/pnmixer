@@ -341,11 +341,20 @@ create_popup_window(void)
 	GtkBuilder *builder;
 	GError *error = NULL;
 	gchar *uifile;
+	gchar *slider_orientation;
 
+	slider_orientation = get_slider_orientation();
+	
 #ifdef WITH_GTK3
-	uifile = get_ui_file("popup-window-gtk3.glade");
+	if (!strcmp(slider_orientation, "horizontal"))
+		uifile = get_ui_file("popup-window-horizontal-gtk3.glade");
+	else
+		uifile = get_ui_file("popup-window-vertical-gtk3.glade");
 #else
-	uifile = get_ui_file("popup-window-gtk2.glade");
+	if (!strcmp(slider_orientation, "horizontal"))
+		uifile = get_ui_file("popup-window-horizontal-gtk2.glade");
+	else
+		uifile = get_ui_file("popup-window-vertical-gtk2.glade");	
 #endif
 
 	if (!uifile) {
