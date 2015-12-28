@@ -858,8 +858,6 @@ main(int argc, char *argv[])
 	textdomain(GETTEXT_PACKAGE);
 #endif
 
-	DEBUG_PRINT("[Debugging Mode Build]\n");
-
 	setlocale(LC_ALL, "");
 	context = g_option_context_new(_("- A mixer for the system tray."));
 	g_option_context_add_main_entries(context, args, GETTEXT_PACKAGE);
