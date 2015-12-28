@@ -9,8 +9,8 @@
   </object>
   <object class="GtkWindow" id="popup_window">
     <property name="type">popup</property>
-    <property name="width_request">285</property>
-    <property name="height_request">82</property>
+    <property name="width_request">280</property>
+    <property name="height_request">80</property>
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
@@ -22,29 +22,17 @@
     <signal name="key-press-event" handler="hide_me" swapped="no"/>
     <signal name="grab-broken-event" handler="hide_me" swapped="no"/>
     <child>
+      <object class="GtkAlignment" id="alignment1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="left_padding">12</property>
+	<property name="right_padding">12</property>
+        <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkHBox" id="hbox1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkImage" id="image1">
-                <property name="width_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stock">gtk-remove</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkHScale" id="vol_scale">
-                <property name="width_request">205</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="adjustment">vol_scale_adjustment</property>
@@ -54,31 +42,11 @@
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">0</property>
               </packing>
-            </child>
-            <child>
-              <object class="GtkImage" id="image2">
-                <property name="width_request">40</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stock">gtk-add</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox2">
+          <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -99,9 +67,8 @@
             </child>
             <child>
               <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes">Volume Control...</property>
+                <property name="label" translatable="yes">Mixer</property>
                 <property name="use_action_appearance">False</property>
-                <property name="width_request">185</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -116,10 +83,12 @@
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
+        </child>
+      </object>
         </child>
       </object>
     </child>
