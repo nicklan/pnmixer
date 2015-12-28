@@ -9,8 +9,10 @@ src/alsa.c
 src/notify.c
 data/desktop/pnmixer.desktop.in
 data/ui/about-gtk3.glade
-data/ui/popup_window-gtk3.glade
+data/ui/popup-menu-gtk3.glade
+data/ui/popup-window-gtk3.glade
 data/ui/prefs-gtk3.glade
 data/ui/about-gtk2.glade
-data/ui/popup_window-gtk2.glade
+data/ui/popup-menu-gtk2.glade
+data/ui/popup-window-gtk2.glade
 data/ui/prefs-gtk2.glade

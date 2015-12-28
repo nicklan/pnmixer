@@ -332,27 +332,30 @@ create_tray_icon(void)
 }
 
 /**
- * Creates the popup windows from popup_window-gtk3.glade or
- * popup_window-gtk2.glade
+ * Creates the volume popup window from popup-window-gtk3.glade or
+ * popup-window-gtk2.glade
  */
 void
-create_popups(void)
+create_popup_window(void)
 {
 	GtkBuilder *builder;
 	GError *error = NULL;
 	gchar *uifile;
-	builder = gtk_builder_new();
+
 #ifdef WITH_GTK3
-	uifile = get_ui_file("popup_window-gtk3.glade");
+	uifile = get_ui_file("popup-window-gtk3.glade");
 #else
-	uifile = get_ui_file("popup_window-gtk2.glade");
+	uifile = get_ui_file("popup-window-gtk2.glade");
 #endif
+
 	if (!uifile) {
 		report_error(_
-			     ("Can't find main user interface file. Please "
-			      "ensure PNMixer is installed correctly. Exiting."));
+			     ("Can't find the volume popup window interface file. "
+			      "Please ensure PNMixer is installed correctly. Exiting."));
 		exit(1);
 	}
+
+	builder = gtk_builder_new();
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
 		g_warning("%s", error->message);
 		report_error(error->message);
@@ -368,14 +371,53 @@ create_popups(void)
 
 	vol_scale = GTK_WIDGET(gtk_builder_get_object(builder, "vol_scale"));
 	mute_check_popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_window"));
-	mute_check_popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_menu"));
+
 	popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "popup_window"));
-	popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "popup_menu"));
 
 	gtk_builder_connect_signals(builder, NULL);
 	g_object_unref(G_OBJECT(builder));
 
 	gtk_widget_grab_focus(vol_scale);
+}
+
+/**
+ * Creates the menu popup window from popup-menu-gtk3.glade or
+ * popup-menu-gtk2.glade
+ */
+void
+create_popup_menu(void)
+{
+	GtkBuilder *builder;
+	GError *error = NULL;
+	gchar *uifile;
+
+#ifdef WITH_GTK3
+	uifile = get_ui_file("popup-menu-gtk3.glade");
+#else
+	uifile = get_ui_file("popup-menu-gtk2.glade");
+#endif
+
+	if (!uifile) {
+		report_error(_
+			     ("Can't find the menu popup window interface file. "
+			      "Please ensure PNMixer is installed correctly. Exiting."));
+		exit(1);
+	}
+
+	builder = gtk_builder_new();
+	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
+		g_warning("%s", error->message);
+		report_error(error->message);
+		exit(1);
+	}
+
+	g_free(uifile);
+
+	mute_check_popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_menu"));
+	popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "popup_menu"));
+
+	gtk_builder_connect_signals(builder, NULL);
+	g_object_unref(G_OBJECT(builder));
 }
 
 /**
@@ -877,7 +919,8 @@ main(int argc, char *argv[])
 	cards = NULL;		// so we don't try and free on first run
 	alsa_init();
 	init_libnotify();
-	create_popups();
+	create_popup_window();
+	create_popup_menu();
 	add_filter();
 
 	tray_icon = create_tray_icon();
