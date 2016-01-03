@@ -229,8 +229,8 @@ msgid "An audio mixer for the system tray"
 msgstr "Ein Audiomixer für das Benachrichtigungsfeld"
 
 #: ../data/ui/about-gtk3.glade.h:1 ../data/ui/about-gtk2.glade.h:1
-msgid "Copyright © 2010-2015 Nick Lanham"
-msgstr "Copyright © 2010-2015 Nick Lanham"
+msgid "Copyright © 2010-2016 Nick Lanham"
+msgstr "Copyright © 2010-2016 Nick Lanham"
 
 #: ../data/ui/about-gtk3.glade.h:2 ../data/ui/about-gtk2.glade.h:2
 msgid "A mixer for the system tray."

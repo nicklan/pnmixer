@@ -224,8 +224,8 @@ msgid "An audio mixer for the system tray"
 msgstr "一个运行在系统托盘上的音频混合器"
 
 #: ../data/ui/about-gtk3.glade.h:1 ../data/ui/about-gtk2.glade.h:1
-msgid "Copyright © 2010-2015 Nick Lanham"
-msgstr "版权所有 © 2010-2015 Nick Lanham"
+msgid "Copyright © 2010-2016 Nick Lanham"
+msgstr "版权所有 © 2010-2016 Nick Lanham"
 
 #: ../data/ui/about-gtk3.glade.h:2 ../data/ui/about-gtk2.glade.h:2
 msgid "A mixer for the system tray."
