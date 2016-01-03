@@ -41,12 +41,15 @@
 #include "prefs.h"
 
 #ifdef WITH_GTK3
-#define POPUP_WINDOW_UI_FILE "popup_window-gtk3.glade"
-#define ABOUT_UI_FILE        "about-gtk3.glade"
+#define GTKX "gtk3"
 #else
-#define POPUP_WINDOW_UI_FILE "popup_window-gtk2.glade"
-#define ABOUT_UI_FILE        "about-gtk2.glade"
+#define GTKX "gtk2"
 #endif
+
+#define UI_FILE_POPUP_MENU              "popup-menu-" GTKX ".glade"
+#define UI_FILE_POPUP_VOLUME_HORIZONTAL "popup-window-horizontal-" GTKX ".glade"
+#define UI_FILE_POPUP_VOLUME_VERTICAL   "popup-window-vertical-" GTKX ".glade"
+#define UI_FILE_ABOUT                   "about-" GTKX ".glade"
 
 enum {
 	VOLUME_MUTED,
@@ -340,25 +343,31 @@ create_tray_icon(void)
 }
 
 /**
- * Creates the popup windows from popup_window-gtk3.glade or
- * popup_window-gtk2.glade
+ * Creates the volume popup window.
  */
 void
-create_popups(void)
+create_popup_window(void)
 {
 	GtkBuilder *builder;
 	GError *error = NULL;
 	gchar *uifile;
+	gchar *slider_orientation;
 
-	uifile = get_ui_file(POPUP_WINDOW_UI_FILE);
+	slider_orientation = get_slider_orientation();
+
+	if (!strcmp(slider_orientation, "horizontal"))
+		uifile = get_ui_file(UI_FILE_POPUP_VOLUME_HORIZONTAL);
+	else
+		uifile = get_ui_file(UI_FILE_POPUP_VOLUME_VERTICAL);
+
 	if (!uifile) {
 		report_error(_
-			     ("Can't find main user interface file. Please "
-			      "ensure PNMixer is installed correctly. Exiting."));
+			     ("Can't find the volume popup window interface file. "
+			      "Please ensure PNMixer is installed correctly. Exiting."));
 		exit(1);
 	}
 
-	DEBUG_PRINT("Loading popup ui from '%s'", uifile);
+	DEBUG_PRINT("Loading volume popup ui from '%s'", uifile);
 	builder = gtk_builder_new();
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
 		g_warning("%s", error->message);
@@ -375,14 +384,47 @@ create_popups(void)
 
 	vol_scale = GTK_WIDGET(gtk_builder_get_object(builder, "vol_scale"));
 	mute_check_popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_window"));
-	mute_check_popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_menu"));
 	popup_window = GTK_WIDGET(gtk_builder_get_object(builder, "popup_window"));
-	popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "popup_menu"));
 
 	gtk_builder_connect_signals(builder, NULL);
 	g_object_unref(G_OBJECT(builder));
 
 	gtk_widget_grab_focus(vol_scale);
+}
+
+/**
+ * Creates the menu popup window.
+ */
+void
+create_popup_menu(void)
+{
+	GtkBuilder *builder;
+	GError *error = NULL;
+	gchar *uifile;
+
+	uifile = get_ui_file(UI_FILE_POPUP_MENU);
+
+	if (!uifile) {
+		report_error(_
+			     ("Can't find the menu popup window interface file. "
+			      "Please ensure PNMixer is installed correctly. Exiting."));
+		exit(1);
+	}
+
+	builder = gtk_builder_new();
+	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
+		g_warning("%s", error->message);
+		report_error(error->message);
+		exit(1);
+	}
+
+	g_free(uifile);
+
+	mute_check_popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "mute_check_popup_menu"));
+	popup_menu = GTK_WIDGET(gtk_builder_get_object(builder, "popup_menu"));
+
+	gtk_builder_connect_signals(builder, NULL);
+	g_object_unref(G_OBJECT(builder));
 }
 
 /**
@@ -445,15 +487,17 @@ create_about(void)
 	GtkWidget *about;
 	gchar *uifile;
 
-	uifile = get_ui_file(ABOUT_UI_FILE);
+#ifdef WITH_GTK3
+	uifile = get_ui_file("about-gtk3.glade");
+#else
+	uifile = get_ui_file("about-gtk2.glade");
+#endif
 	if (!uifile) {
 		report_error(_
 			     ("Can't find about interface file. Please ensure "
 			      "PNMixer is installed correctly."));
 		return;
 	}
-
-	DEBUG_PRINT("Loading about ui from '%s'", uifile);
 	builder = gtk_builder_new();
 	if (!gtk_builder_add_from_file(builder, uifile, &error)) {
 		g_warning("%s", error->message);
@@ -463,9 +507,7 @@ create_about(void)
 		g_object_unref(G_OBJECT(builder));
 		return;
 	}
-
 	g_free(uifile);
-
 	gtk_builder_connect_signals(builder, NULL);
 	about = GTK_WIDGET(gtk_builder_get_object(builder, "about_dialog"));
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about), VERSION);
@@ -858,6 +900,8 @@ main(int argc, char *argv[])
 	textdomain(GETTEXT_PACKAGE);
 #endif
 
+	DEBUG_PRINT("[Debugging Mode Build]\n");
+
 	setlocale(LC_ALL, "");
 	context = g_option_context_new(_("- A mixer for the system tray."));
 	g_option_context_add_main_entries(context, args, GETTEXT_PACKAGE);
@@ -882,7 +926,8 @@ main(int argc, char *argv[])
 	cards = NULL;		// so we don't try and free on first run
 	alsa_init();
 	init_libnotify();
-	create_popups();
+	create_popup_window();
+	create_popup_menu();
 	add_filter();
 
 	tray_icon = create_tray_icon();

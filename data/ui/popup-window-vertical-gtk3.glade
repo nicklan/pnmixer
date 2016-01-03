@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
+<interface>
+  <requires lib="gtk+" version="3.6"/>
+  <object class="GtkAdjustment" id="vol_scale_adjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkWindow" id="popup_window">
+    <property name="type">popup</property>
+    <property name="width_request">80</property>
+    <property name="height_request">280</property>
+    <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="window_position">mouse</property>
+    <property name="type_hint">utility</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="skip_pager_hint">True</property>
+    <property name="decorated">False</property>
+    <signal name="button-press-event" handler="hide_me" swapped="no"/>
+    <signal name="grab-broken-event" handler="hide_me" swapped="no"/>
+    <signal name="key-press-event" handler="hide_me" swapped="no"/>
+    <child>
+      <object class="GtkBox" id="vbox1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+	<property name="margin">8</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkScale" id="vol_scale">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="orientation">vertical</property>
+            <property name="adjustment">vol_scale_adjustment</property>
+            <property name="inverted">True</property>
+            <property name="round_digits">0</property>
+            <property name="digits">0</property>
+            <signal name="change-value" handler="vol_scroll_event" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="vbox2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+        <child>
+          <object class="GtkCheckButton" id="mute_check_popup_window">
+            <property name="label" translatable="yes">Mute</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button1">
+            <property name="label" translatable="yes">Mixer</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="pressed" handler="on_mixer" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

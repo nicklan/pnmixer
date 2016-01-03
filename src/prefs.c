@@ -50,6 +50,7 @@
 #endif
 
 #define DEFAULT_PREFS "[PNMixer]\n\
+SliderOrientation=vertical\n\
 DisplayTextVolume=true\n\
 TextVolumePosition=3\n\
 ScrollStep=5\n\
@@ -256,6 +257,26 @@ g_key_file_get_double_with_default(GKeyFile *keyFile,
 	}
 	return ret;
 }
+
+#ifndef WITH_GTK3
+/**
+ * Gtk2 cludge
+ * Gtk2 ComboBoxes don't have ids. We workaround that by
+ * mapping the id with a ComboBox index. We're fine as long
+ * as nobody changes the content of the ComboBox.
+ *
+ * @param combo_box a GtkComboBox
+ * @param active_id the ID of the row to select
+ */
+static void
+gtk_combo_box_set_active_id(GtkComboBox *combo_box, const gchar *active_id)
+{
+	if (!strcmp(active_id, "horizontal"))
+		return gtk_combo_box_set_active(combo_box, 1);
+
+	return gtk_combo_box_set_active(combo_box, 0);
+}
+#endif
 
 /**
  * Sets the global options enable_noti, hotkey_noti, mouse_noti, popup_noti,
@@ -554,6 +575,17 @@ on_hotkey_toggle(GtkToggleButton *button, PrefsData *data)
 }
 
 /**
+ * Gets the slider orientation from the user preferences.
+ *
+ * @return slider orientation from user preferences
+ */
+gchar *
+get_slider_orientation(void)
+{
+	return g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation", NULL);
+}
+
+/**
  * Default volume commands.
  */
 static const char *vol_cmds[] = { "pavucontrol",
@@ -837,6 +869,7 @@ create_prefs_window(void)
 	GO(vol_meter_color_button);
 	GO(custom_label);
 	GO(custom_entry);
+	GO(slider_orientation_combo);
 	GO(vol_text_check);
 	GO(draw_vol_check);
 	GO(system_theme);
@@ -863,6 +896,11 @@ create_prefs_window(void)
 #endif
 #undef GO
 
+	// slider orientation
+	gtk_combo_box_set_active_id
+	(GTK_COMBO_BOX(prefs_data->slider_orientation_combo),
+	 g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation", NULL));
+	
 	// vol text display
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
