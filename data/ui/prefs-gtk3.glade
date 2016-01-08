@@ -234,26 +234,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkListStore" id="vol_pos_liststore">
-    <columns>
-      <!-- column-name Text -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Top</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Bottom</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Left</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Right</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkWindow" id="prefs_window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">PNMixer Preferences</property>
@@ -354,17 +334,16 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="vol_pos_combo">
+                                  <object class="GtkComboBoxText" id="vol_pos_combo">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="model">vol_pos_liststore</property>
                                     <property name="active">0</property>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="vol_pos_rend"/>
-                                      <attributes>
-                                        <attribute name="text">0</attribute>
-                                      </attributes>
-                                    </child>
+                                    <items>
+                                      <item translatable="yes" id="top">Top</item>
+                                      <item translatable="yes" id="bottom">Bottom</item>
+                                      <item translatable="yes" id="left">Left</item>
+                                      <item translatable="yes" id="right">Right</item>
+                                    </items>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
