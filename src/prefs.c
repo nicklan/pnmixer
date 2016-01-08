@@ -64,7 +64,6 @@ VolDownKey=-1\n\
 AlsaCard=default\n\
 SystemTheme=false"
 
-
 #ifdef WITH_GTK3
 /**
  * Gets the volume meter colors which are drawn on top of the
@@ -187,22 +186,19 @@ load_prefs(void)
 }
 
 /**
- * Gets a boolean value from a keyFile in the specified group at the
- * specified key. On error, returns def as default value.
+ * Gets a boolean value from preferences.
+ * On error, returns def as default value.
  *
- * @param keyFile the GKeyFile to parse
- * @param group the settings group
  * @param key the specific settings key
  * @param def the default value to return on error
- * @return result of g_key_file_get_boolean() or def on error
+ * @return the preference value or def on error
  */
-static gboolean
-g_key_file_get_boolean_with_default(GKeyFile *keyFile,
-				    gchar *group, gchar *key, gboolean def)
+gboolean
+prefs_get_boolean(gchar *key, gboolean def)
 {
 	gboolean ret;
 	GError *error = NULL;
-	ret = g_key_file_get_boolean(keyFile, group, key, &error);
+	ret = g_key_file_get_boolean(keyFile, "PNMixer", key, &error);
 	if (error) {
 		g_error_free(error);
 		return def;
@@ -211,22 +207,19 @@ g_key_file_get_boolean_with_default(GKeyFile *keyFile,
 }
 
 /**
- * Gets an int value from a keyFile in the specified group at the
- * specified key. On error, returns def as default value.
+ * Gets an int value from a preferences.
+ * On error, returns def as default value.
  *
- * @param keyFile the GKeyFile to parse
- * @param group the settings group
  * @param key the specific settings key
  * @param def the default value to return on error
- * @return result of g_key_file_get_boolean() or def on error
+ * @return the preference value or def on error
  */
-static gint
-g_key_file_get_integer_with_default(GKeyFile *keyFile,
-				    gchar *group, gchar *key, gint def)
+gint
+prefs_get_integer(gchar *key, gint def)
 {
 	gint ret;
 	GError *error = NULL;
-	ret = g_key_file_get_integer(keyFile, group, key, &error);
+	ret = g_key_file_get_integer(keyFile, "PNMixer", key, &error);
 	if (error) {
 		g_error_free(error);
 		return def;
@@ -235,25 +228,44 @@ g_key_file_get_integer_with_default(GKeyFile *keyFile,
 }
 
 /**
- * Gets a double value from a keyFile in the specified group at the
- * specified key. On error, returns def as default value.
+ * Gets a double value from preferences.
+ * On error, returns def as default value.
  *
- * @param keyFile the GKeyFile to parse
- * @param group the settings group
  * @param key the specific settings key
  * @param def the default value to return on error
- * @return result of g_key_file_get_boolean() or def on error
+ * @return the preference value or def on error
  */
-static gdouble
-g_key_file_get_double_with_default(GKeyFile *keyFile,
-				   gchar *group, gchar *key, gdouble def)
+gdouble
+prefs_get_double(gchar *key, gdouble def)
 {
 	gdouble ret;
 	GError *error = NULL;
-	ret = g_key_file_get_double(keyFile, group, key, &error);
+	ret = g_key_file_get_double(keyFile, "PNMixer", key, &error);
 	if (error) {
 		g_error_free(error);
 		return def;
+	}
+	return ret;
+}
+
+/**
+ * Gets a string value from preferences.
+ * On error, returns def as default value.
+ *
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return the preference value or def on error, must be freed.
+ */
+gchar *
+prefs_get_string(gchar *key, const gchar *def)
+{
+	gchar *ret = NULL;
+	GError *error = NULL;
+
+	ret = g_key_file_get_string(keyFile, "PNMixer", key, &error);
+	if (error) {
+		g_error_free(error);
+		return g_strdup(def);
 	}
 	return ret;
 }
@@ -285,24 +297,12 @@ gtk_combo_box_set_active_id(GtkComboBox *combo_box, const gchar *active_id)
 static void
 set_notification_options(void)
 {
-	enable_noti =
-		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-				"EnableNotifications", FALSE);
-	hotkey_noti =
-		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-				"HotkeyNotifications", TRUE);
-	mouse_noti =
-		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-				"MouseNotifications", TRUE);
-	popup_noti =
-		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-				"PopupNotifications", FALSE);
-	external_noti =
-		g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-				"ExternalNotifications", FALSE);
-	noti_timeout =
-		g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"NotificationTimeout", 1500);
+	enable_noti = prefs_get_boolean("EnableNotifications", FALSE);
+	hotkey_noti = prefs_get_boolean("HotkeyNotifications", TRUE);
+	mouse_noti = prefs_get_boolean("MouseNotifications", TRUE);
+	popup_noti = prefs_get_boolean("PopupNotifications", FALSE);
+	external_noti = prefs_get_boolean("ExternalNotifications", FALSE);
+	noti_timeout = prefs_get_integer("NotificationTimeout", 1500);
 }
 
 /**
@@ -319,32 +319,21 @@ apply_prefs(gint alsa_change)
 #else
 	gint *vol_meter_clrs;
 #endif
-	scroll_step = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-		"ScrollStep", 5);
+	scroll_step = prefs_get_integer("ScrollStep", 5);
 	gtk_adjustment_set_page_increment(vol_adjustment, scroll_step);
 
-	fine_scroll_step = g_key_file_get_integer_with_default(keyFile,
-		"PNMixer", "FineScrollStep", 1);
+	fine_scroll_step = prefs_get_integer("FineScrollStep", 1);
 	gtk_adjustment_set_step_increment(vol_adjustment, fine_scroll_step);
 
-	if (g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-						"EnableHotKeys", FALSE)) {
+	if (prefs_get_boolean("EnableHotKeys", FALSE)) {
 		gint mk, uk, dk, mm, um, dm, hstep;
-		mk = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"VolMuteKey", -1);
-		uk = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"VolUpKey", -1);
-		dk = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"VolDownKey", -1);
-		mm = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"VolMuteMods", 0);
-		um = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"VolUpMods", 0);
-		dm = g_key_file_get_integer_with_default(keyFile, "PNMixer",
-				"VolDownMods", 0);
-		hstep =
-			g_key_file_get_integer_with_default(keyFile, "PNMixer",
-					"HotkeyVolumeStep", 1);
+		mk = prefs_get_integer("VolMuteKey", -1);
+		uk = prefs_get_integer("VolUpKey", -1);
+		dk = prefs_get_integer("VolDownKey", -1);
+		mm = prefs_get_integer("VolMuteMods", 0);
+		um = prefs_get_integer("VolUpMods", 0);
+		dm = prefs_get_integer("VolDownMods", 0);
+		hstep = prefs_get_integer("HotkeyVolumeStep", 1);
 		grab_keys(mk, uk, dk, mm, um, dm, hstep);
 	} else
 		// will actually just ungrab everything
@@ -364,19 +353,6 @@ apply_prefs(gint alsa_change)
 }
 
 /**
- * Gets the currently selected Alsa Card from the global keyFile
- * and returns the result.
- *
- * @return the currently selected Alsa Card as a newly allocated string,
- * NULL on failure
- */
-gchar *
-get_selected_card(void)
-{
-	return g_key_file_get_string(keyFile, "PNMixer", "AlsaCard", NULL);
-}
-
-/**
  * Gets the currently selected channel of the specified Alsa Card
  * from the global keyFile and returns the result.
  *
@@ -385,7 +361,7 @@ get_selected_card(void)
  * NULL on failure
  */
 gchar *
-get_selected_channel(gchar *card)
+prefs_get_selected_channel(const gchar *card)
 {
 	if (!card)
 		return NULL;
@@ -448,7 +424,7 @@ fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo)
 			continue;
 		}
 		if (active_card && !strcmp(c->name, active_card->name)) {
-			gchar *sel_chan = get_selected_channel(c->name);
+			gchar *sel_chan = prefs_get_selected_channel(c->name);
 			sidx = idx;
 			fill_channel_combo(c->channels, channels_combo, sel_chan);
 			if (sel_chan)
@@ -482,7 +458,7 @@ on_card_changed(GtkComboBox *box, PrefsData *data)
 	g_free(card_name);
 
 	if (card) {
-		gchar *sel_chan = get_selected_channel(card->name);
+		gchar *sel_chan = prefs_get_selected_channel(card->name);
 		fill_channel_combo(card->channels, data->chan_combo, sel_chan);
 		g_free(sel_chan);
 	}
@@ -597,12 +573,13 @@ static const char *vol_cmds[] = { "pavucontrol",
  * from vol_cmds or NULL on failure
  */
 gchar *
-get_vol_command(void)
+prefs_get_vol_command(void)
 {
-	if (g_key_file_has_key(keyFile, "PNMixer", "VolumeControlCommand", NULL))
-		return g_key_file_get_string(keyFile, "PNMixer",
-					     "VolumeControlCommand", NULL);
-	else {
+	gchar *ret;
+
+	ret = prefs_get_string("VolumeControlCommand", NULL);
+
+	if (ret == NULL) {
 		gchar buf[256];
 		const char **cmd = vol_cmds;
 		while (*cmd) {
@@ -611,8 +588,9 @@ get_vol_command(void)
 				return g_strdup(*cmd);
 			cmd++;
 		}
-		return NULL;
 	}
+
+	return ret;
 }
 
 /**
@@ -823,7 +801,7 @@ create_prefs_window(void)
 	GdkColor vol_meter_color_button_color;
 	gint *vol_meter_clrs;
 #endif
-	gchar *vol_cmd, *uifile, *custcmd;
+	gchar *uifile, *slider_orientation, *vol_cmd, *custcmd;
 
 	PrefsData *prefs_data;
 
@@ -890,38 +868,44 @@ create_prefs_window(void)
 #undef GO
 
 	// slider orientation
+	slider_orientation = prefs_get_string("SliderOrientation", NULL);
+	if (slider_orientation) {
+		gtk_combo_box_set_active_id
+		(GTK_COMBO_BOX(prefs_data->slider_orientation_combo),
+		 slider_orientation);
+		g_free(slider_orientation);
+	}
+
 	gtk_combo_box_set_active_id
 	(GTK_COMBO_BOX(prefs_data->slider_orientation_combo),
-	 g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation", NULL));
+	 prefs_get_string("SliderOrientation", NULL));
 	
 	// vol text display
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(prefs_data->vol_text_check),
-	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-					     "DisplayTextVolume", FALSE));
+	 prefs_get_boolean("DisplayTextVolume", FALSE));
+
 	gtk_combo_box_set_active
 	(GTK_COMBO_BOX(prefs_data->vol_pos_combo),
-	 g_key_file_get_integer_with_default(keyFile, "PNMixer",
-					     "TextVolumePosition", 0));
+	 prefs_get_integer("TextVolumePosition", 0));
 
 	// volume meter
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(prefs_data->draw_vol_check),
-	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-					     "DrawVolMeter", FALSE));
+	 prefs_get_boolean("DrawVolMeter", FALSE));
+
 	gtk_adjustment_set_upper
 	(GTK_ADJUSTMENT(gtk_builder_get_object(builder,
-					       "vol_meter_pos_adjustment")),
+	                                       "vol_meter_pos_adjustment")),
 	 tray_icon_size() - 10);
+
 	gtk_spin_button_set_value
 	(GTK_SPIN_BUTTON(prefs_data->vol_meter_pos_spin),
-	 g_key_file_get_integer_with_default(keyFile, "PNMixer",
-					     "VolMeterPos", 0));
+	 prefs_get_integer("VolMeterPos", 0));
 
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(prefs_data->system_theme),
-	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-		 "SystemTheme", FALSE));
+	 prefs_get_boolean("SystemTheme", FALSE));
 
 	// set color button color
 	vol_meter_clrs = get_vol_meter_colors();
@@ -944,33 +928,33 @@ create_prefs_window(void)
 	// volume normalization (ALSA mapped)
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(prefs_data->normalize_vol_check),
-	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-					     "NormalizeVolume", FALSE));
+	 prefs_get_boolean("NormalizeVolume", FALSE));
 
 	// volume command
-	vol_cmd = get_vol_command();
+	vol_cmd = prefs_get_vol_command();
 	if (vol_cmd) {
 		gtk_entry_set_text(GTK_ENTRY(prefs_data->vol_control_entry), vol_cmd);
 		g_free(vol_cmd);
 	}
+	                           
 	// volume scroll steps
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->scroll_step_spin),
-		g_key_file_get_double_with_default(keyFile, "PNMixer",
-			"ScrollStep", 5));
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->fine_scroll_step_spin),
-		g_key_file_get_double_with_default(keyFile, "PNMixer",
-			"FineScrollStep", 1));
+	gtk_spin_button_set_value
+	(GTK_SPIN_BUTTON(prefs_data->scroll_step_spin),
+	 prefs_get_double("ScrollStep", 5));
+
+	gtk_spin_button_set_value
+	(GTK_SPIN_BUTTON(prefs_data->fine_scroll_step_spin),
+	 prefs_get_double("FineScrollStep", 1));
 
 	//  middle click
-	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->middle_click_combo),
-				 g_key_file_get_integer_with_default(keyFile, "PNMixer",
-						 "MiddleClickAction", 0));
+	gtk_combo_box_set_active
+	(GTK_COMBO_BOX(prefs_data->middle_click_combo),
+	 prefs_get_integer("MiddleClickAction", 0));
 
 	// custom command
 	gtk_entry_set_invisible_char(GTK_ENTRY(prefs_data->custom_entry), 8226);
 
-	custcmd = g_key_file_get_string(keyFile, "PNMixer",
-					"CustomCommand", NULL);
+	custcmd = prefs_get_string("CustomCommand", NULL);
 	if (custcmd) {
 		gtk_entry_set_text(GTK_ENTRY(prefs_data->custom_entry), custcmd);
 		g_free(custcmd);
@@ -986,33 +970,27 @@ create_prefs_window(void)
 	// hotkeys
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
-	 g_key_file_get_boolean_with_default(keyFile, "PNMixer",
-					     "EnableHotKeys", FALSE));
+	 prefs_get_boolean("EnableHotKeys", FALSE));
 
 	// hotkey step
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(prefs_data->hotkey_vol_spin),
-				  g_key_file_get_integer_with_default(keyFile, "PNMixer",
-						  "HotkeyVolumeStep", 1));
+	gtk_spin_button_set_value
+	(GTK_SPIN_BUTTON(prefs_data->hotkey_vol_spin),
+	 prefs_get_integer("HotkeyVolumeStep", 1));
 
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolMuteKey", NULL))
 		set_label_for_keycode(prefs_data->mute_hotkey_label,
-				      g_key_file_get_integer(keyFile, "PNMixer", "VolMuteKey",
-						      NULL),
-				      g_key_file_get_integer_with_default(keyFile, "PNMixer",
-						      "VolMuteMods", 0));
+		                      prefs_get_integer("VolMuteKey", 0),
+		                      prefs_get_integer("VolMuteMods", 0));
 
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolUpKey", NULL))
 		set_label_for_keycode(prefs_data->up_hotkey_label,
-				      g_key_file_get_integer(keyFile, "PNMixer",
-						      "VolUpKey", NULL),
-				      g_key_file_get_integer_with_default(keyFile, "PNMixer",
-						      "VolUpMods", 0));
+		                      prefs_get_integer("VolUpKey", 0),
+		                      prefs_get_integer("VolUpMods", 0));
+
 	if (g_key_file_has_key(keyFile, "PNMixer", "VolDownKey", NULL))
 		set_label_for_keycode(prefs_data->down_hotkey_label,
-				      g_key_file_get_integer(keyFile, "PNMixer", "VolDownKey",
-						      NULL),
-				      g_key_file_get_integer_with_default(keyFile, "PNMixer",
-						      "VolDownMods", 0));
+		                      prefs_get_integer("VolDownKey", 0),
+		                      prefs_get_integer("VolDownMods", 0));
 
 	on_hotkey_toggle(GTK_TOGGLE_BUTTON(prefs_data->enable_hotkeys_check),
 			 prefs_data);

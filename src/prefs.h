@@ -28,13 +28,19 @@ gboolean enable_noti, hotkey_noti, mouse_noti, popup_noti, external_noti;
 gint noti_timeout;
 GtkIconTheme *icon_theme;
 
+gboolean prefs_get_boolean(gchar *key, gboolean def);
+gint prefs_get_integer(gchar *key, gint def);
+gdouble prefs_get_double(gchar *key, gdouble def);
+gchar *prefs_get_string(gchar *key, const gchar *def);
+
+gchar *prefs_get_vol_command(void);
+gchar *prefs_get_selected_channel(const gchar *);
+
+
 GtkWidget *create_prefs_window(void);
 void ensure_prefs_dir(void);
 void apply_prefs(gint);
 void load_prefs(void);
-gchar *get_vol_command(void);
-gchar *get_selected_card(void);
-gchar *get_selected_channel(gchar *);
 void acquire_hotkey(const char *, PrefsData *);
 gboolean normalize_vol(void);
 

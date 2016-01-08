@@ -238,7 +238,7 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 
 	// alsa card
 	GtkWidget *acc = data->card_combo;
-	gchar *old_card = get_selected_card();
+	gchar *old_card = prefs_get_string("AlsaCard", NULL);
 	gchar *card = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(acc));
 	if (old_card && strcmp(old_card, card))
 		alsa_change = 1;
@@ -247,13 +247,14 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	// channel
 	GtkWidget *ccc = data->chan_combo;
 	gchar *old_channel = NULL;
-	if (old_card)
-		old_channel = get_selected_channel(old_card);
+	if (old_card) {
+		old_channel = prefs_get_selected_channel(old_card);
+		g_free(old_card);
+	}
 	gchar *chan = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(ccc));
 	if (old_channel) {
 		if (strcmp(old_channel, chan))
 			alsa_change = 1;
-		g_free(old_card);
 		g_free(old_channel);
 	}
 	g_key_file_set_string(keyFile, card, "Channel", chan);

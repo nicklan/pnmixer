@@ -172,7 +172,7 @@ run_command(gchar *cmd)
 void
 on_mixer(void)
 {
-	gchar *cmd = get_vol_command();
+	gchar *cmd = prefs_get_vol_command();
 	if (cmd) {
 		run_command(cmd);
 		g_free(cmd);
@@ -198,10 +198,10 @@ tray_icon_button(G_GNUC_UNUSED GtkStatusIcon *status_icon,
 		 GdkEventButton *event, G_GNUC_UNUSED gpointer user_data)
 {
 	if (event->button == 2) {
-		gint act = 0;
-		if (g_key_file_has_key(keyFile, "PNMixer", "MiddleClickAction", NULL))
-			act = g_key_file_get_integer(keyFile, "PNMixer",
-						     "MiddleClickAction", NULL);
+		gint act;
+
+		act = prefs_get_integer("MiddleClickAction", 0);
+
 		switch (act) {
 		case 0:	// mute/unmute
 			setmute(mouse_noti);
@@ -214,25 +214,20 @@ tray_icon_button(G_GNUC_UNUSED GtkStatusIcon *status_icon,
 			on_mixer();
 			break;
 		}
-		case 3:
-			if (g_key_file_has_key(keyFile, "PNMixer",
-					       "CustomCommand", NULL)) {
-				gchar *cmd =
-					g_key_file_get_string(keyFile, "PNMixer",
-							      "CustomCommand", NULL);
-				if (cmd) {
-					run_command(cmd);
-					g_free(cmd);
-					// This shouldn't ever happen, so let's just write to console
-				} else
-					g_warning
-					("KeyFile has CustomCommand key, but get_string "
-					 "returned NULL");
+		case 3: {
+			gchar *cmd;
+
+			cmd = prefs_get_string("CustomCommand", NULL);
+
+			if (cmd) {
+				run_command(cmd);
+				g_free(cmd);
 			} else
 				report_error(_
-					     ("You have not specified a custom command to run, "
-					      "please specify one in preferences."));
+				             ("You have not specified a custom command to run, "
+				              "please specify one in preferences."));
 			break;
+		}
 		default: {
 		}	// nothing
 		}
@@ -351,16 +346,16 @@ create_popup_window(void)
 	GtkBuilder *builder;
 	GError *error = NULL;
 	gchar *uifile;
-	gchar *slider_orientation = "vertical";
+	gchar *slider_orientation;
 
-	if (g_key_file_has_key(keyFile, "PNMixer", "SliderOrientation", NULL))
-		slider_orientation = g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation",
-					      NULL);
+	slider_orientation = prefs_get_string("SliderOrientation", "vertical");
 
-	if (!strcmp(slider_orientation, "horizontal"))
+	if (!g_strcmp0(slider_orientation, "horizontal"))
 		uifile = get_ui_file(UI_FILE_POPUP_VOLUME_HORIZONTAL);
 	else
 		uifile = get_ui_file(UI_FILE_POPUP_VOLUME_VERTICAL);
+
+	g_free(slider_orientation);
 
 	if (!uifile) {
 		report_error(_
@@ -783,8 +778,7 @@ update_status_icons(void)
 	int size = tray_icon_size();
 	for (i = 0; i < N_VOLUME_ICONS; i++)
 		old_icons[i] = status_icons[i];
-	if (g_key_file_get_boolean(keyFile, "PNMixer", "SystemTheme", NULL)
-			== TRUE) {
+	if (prefs_get_boolean("SystemTheme", FALSE)) {
 		status_icons[VOLUME_MUTED] = get_stock_pixbuf("audio-volume-muted",
 					     size);
 		status_icons[VOLUME_OFF] = get_stock_pixbuf("audio-volume-off", size);
@@ -811,8 +805,7 @@ update_status_icons(void)
 	vol_meter_width = 1.25 * icon_width;
 	if (vol_meter_width % 4 != 0)
 		vol_meter_width -= (vol_meter_width % 4);
-	if (!vol_meter_row && g_key_file_get_boolean(keyFile, "PNMixer",
-			"DrawVolMeter", NULL)) {
+	if (!vol_meter_row && prefs_get_boolean("DrawVolMeter", FALSE)) {
 		int lim = vol_meter_width / 4;
 		vol_meter_row = g_malloc(vol_meter_width * sizeof(guchar));
 		for (i = 0; i < lim; i++) {
@@ -821,17 +814,15 @@ update_status_icons(void)
 			vol_meter_row[i * 4 + 2] = vol_meter_blue;
 			vol_meter_row[i * 4 + 3] = 255;
 		}
-	} else if (vol_meter_row
-		   && !g_key_file_get_boolean(keyFile, "PNMixer", "DrawVolMeter",
-					      NULL)) {
+	} else if (vol_meter_row && prefs_get_boolean("DrawVolMeter", FALSE)) {
 		free(vol_meter_row);
 		vol_meter_row = NULL;
 		if (icon_copy)
 			g_object_unref(icon_copy);
 		icon_copy = NULL;
 	}
-	draw_offset = g_key_file_get_integer(keyFile, "PNMixer", "VolMeterPos",
-					     NULL);
+	draw_offset = prefs_get_integer("VolMeterPos", 0);
+
 	if (tray_icon)
 		on_volume_has_changed();
 	for (i = 0; i < N_VOLUME_ICONS; i++)
@@ -846,21 +837,19 @@ update_status_icons(void)
 void
 update_vol_text(void)
 {
-	gboolean show = TRUE;
-	if (g_key_file_has_key(keyFile, "PNMixer", "DisplayTextVolume", NULL))
-		show = g_key_file_get_boolean(keyFile, "PNMixer", "DisplayTextVolume",
-					      NULL);
+	gboolean show;
+	
+	show = prefs_get_boolean("DisplayTextVolume", TRUE);
+
 	if (show) {
-		GtkPositionType pos = GTK_POS_RIGHT;
-		if (g_key_file_has_key(keyFile, "PNMixer", "TextVolumePosition",
-				       NULL)) {
-			gint pi =
-				g_key_file_get_integer(keyFile, "PNMixer",
-						       "TextVolumePosition", NULL);
-			pos =
-				pi == 0 ? GTK_POS_TOP : pi == 1 ? GTK_POS_BOTTOM : pi ==
-				2 ? GTK_POS_LEFT : GTK_POS_RIGHT;
-		}
+		gint pi;
+		GtkPositionType pos;
+
+		pi = prefs_get_integer("TextVolumePosition", 0);
+
+		pos = pi == 0 ? GTK_POS_TOP : pi == 1 ? GTK_POS_BOTTOM : pi ==
+			2 ? GTK_POS_LEFT : GTK_POS_RIGHT;
+
 		gtk_scale_set_draw_value(GTK_SCALE(vol_scale), TRUE);
 		gtk_scale_set_value_pos(GTK_SCALE(vol_scale), pos);
 	} else

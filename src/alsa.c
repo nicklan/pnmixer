@@ -474,12 +474,13 @@ alsaset(void)
 
 	// get selected card
 	assert(active_card == NULL);
-	card_name = get_selected_card();
+	card_name = prefs_get_string("AlsaCard", NULL);
 	DEBUG_PRINT("Selected card: %s", card_name);
 	if (card_name) {
 		active_card = find_card(card_name);
 		g_free(card_name);
 	}
+
 	// if not available, use the default card
 	if (!active_card) {
 		DEBUG_PRINT("Using default soundcard");
@@ -515,7 +516,7 @@ alsaset(void)
 	// is modified. The channel names of the new default card may
 	// not match the channel names of the previous default card.
 	assert(elem == NULL);
-	channel = get_selected_channel(active_card->name);
+	channel = prefs_get_selected_channel(active_card->name);
 	if (channel) {
 		snd_mixer_selem_id_t *sid;
 		snd_mixer_selem_id_alloca(&sid);
