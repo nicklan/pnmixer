@@ -579,17 +579,6 @@ on_hotkey_toggle(GtkToggleButton *button, PrefsData *data)
 }
 
 /**
- * Gets the slider orientation from the user preferences.
- *
- * @return slider orientation from user preferences
- */
-gchar *
-get_slider_orientation(void)
-{
-	return g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation", NULL);
-}
-
-/**
  * Default volume commands.
  */
 static const char *vol_cmds[] = { "pavucontrol",

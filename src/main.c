@@ -351,9 +351,11 @@ create_popup_window(void)
 	GtkBuilder *builder;
 	GError *error = NULL;
 	gchar *uifile;
-	gchar *slider_orientation;
+	gchar *slider_orientation = "vertical";
 
-	slider_orientation = get_slider_orientation();
+	if (g_key_file_has_key(keyFile, "PNMixer", "SliderOrientation", NULL))
+		slider_orientation = g_key_file_get_string(keyFile, "PNMixer", "SliderOrientation",
+					      NULL);
 
 	if (!strcmp(slider_orientation, "horizontal"))
 		uifile = get_ui_file(UI_FILE_POPUP_VOLUME_HORIZONTAL);

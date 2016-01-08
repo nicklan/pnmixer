@@ -32,7 +32,6 @@ GtkWidget *create_prefs_window(void);
 void ensure_prefs_dir(void);
 void apply_prefs(gint);
 void load_prefs(void);
-gchar *get_slider_orientation(void);
 gchar *get_vol_command(void);
 gchar *get_selected_card(void);
 gchar *get_selected_channel(gchar *);
