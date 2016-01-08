@@ -354,6 +354,7 @@ apply_prefs(gint alsa_change)
 			    vol_meter_clrs[2]);
 	g_free(vol_meter_clrs);
 	update_status_icons();
+	update_vol_text();
 
 	if (alsa_change)
 		do_alsa_reinit();
