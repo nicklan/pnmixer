@@ -52,7 +52,7 @@
 #define DEFAULT_PREFS "[PNMixer]\n\
 SliderOrientation=vertical\n\
 DisplayTextVolume=true\n\
-TextVolumePosition=3\n\
+TextVolumePosition=0\n\
 ScrollStep=5\n\
 FineScrollStep=1\n\
 HotkeyVolumeStep=1\n\
