@@ -321,8 +321,11 @@ apply_prefs(gint alsa_change)
 #endif
 	scroll_step = g_key_file_get_integer_with_default(keyFile, "PNMixer",
 		"ScrollStep", 5);
+	gtk_adjustment_set_page_increment(vol_adjustment, scroll_step);
+
 	fine_scroll_step = g_key_file_get_integer_with_default(keyFile,
 		"PNMixer", "FineScrollStep", 1);
+	gtk_adjustment_set_step_increment(vol_adjustment, fine_scroll_step);
 
 	if (g_key_file_get_boolean_with_default(keyFile, "PNMixer",
 						"EnableHotKeys", FALSE)) {

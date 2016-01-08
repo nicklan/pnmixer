@@ -279,9 +279,6 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	GtkWidget *fsss = data->fine_scroll_step_spin;
 	gdouble fine_step = gtk_spin_button_get_value(GTK_SPIN_BUTTON(fsss));
 	g_key_file_set_double(keyFile, "PNMixer", "FineScrollStep", fine_step);
-
-	gtk_adjustment_set_page_increment(vol_adjustment, step);
-	gtk_adjustment_set_step_increment(vol_adjustment, fine_step);
 	
 	// middle click
 	GtkWidget *mcc = data->middle_click_combo;
