@@ -52,9 +52,10 @@ void prefs_set_vol_meter_colors(gint *colors, gsize n);
 
 void prefs_load(void);
 void prefs_save(void);
+void prefs_ensure_save_dir(void);
+
 
 GtkWidget *create_prefs_window(void);
-void ensure_prefs_dir(void);
 void apply_prefs(gint);
 void acquire_hotkey(const char *, PrefsData *);
 gboolean normalize_vol(void);

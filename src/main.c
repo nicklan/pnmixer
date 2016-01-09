@@ -914,7 +914,7 @@ main(int argc, char *argv[])
 	add_pixmap_directory(PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
 	add_pixmap_directory("./data/pixmaps");
 
-	ensure_prefs_dir();
+	prefs_ensure_save_dir();
 	prefs_load();
 	cards = NULL;		// so we don't try and free on first run
 	alsa_init();

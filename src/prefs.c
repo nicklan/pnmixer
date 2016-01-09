@@ -363,28 +363,6 @@ prefs_set_vol_meter_colors(gint *colors, gsize n)
 #endif
 
 /**
- * Checks if the preferences dir is present (creates it if not) and
- * accessible. Reports errors via report_error().
- */
-void
-ensure_prefs_dir(void)
-{
-	gchar *prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
-	if (!g_file_test(prefs_dir, G_FILE_TEST_IS_DIR)) {
-		if (g_file_test(prefs_dir, G_FILE_TEST_EXISTS))
-			report_error(_
-				     ("Error: %s exists but is not a directory, will "
-				      "not be able to save preferences."), prefs_dir);
-		else {
-			if (g_mkdir(prefs_dir, S_IRWXU))
-				report_error(_("Couldn't make prefs directory: %s"),
-					     strerror(errno));
-		}
-	}
-	g_free(prefs_dir);
-}
-
-/**
  * Loads the preferences from the config file to the keyFile object (GKeyFile type).
  * Creates the keyFile object if it doesn't exist.
  */
@@ -443,6 +421,30 @@ prefs_save(void)
 
 	g_free(filename);
 	g_free(filedata);
+}
+
+/**
+ * Checks if the preferences dir for saving is present and accessible.
+ * Creates it if doesn't exist. Reports errors via report_error().
+ */
+void
+prefs_ensure_save_dir(void)
+{
+	gchar *prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
+
+	if (!g_file_test(prefs_dir, G_FILE_TEST_IS_DIR)) {
+		if (g_file_test(prefs_dir, G_FILE_TEST_EXISTS))
+			report_error(_
+				     ("Error: %s exists but is not a directory, will "
+				      "not be able to save preferences."), prefs_dir);
+		else {
+			if (g_mkdir(prefs_dir, S_IRWXU))
+				report_error(_("Couldn't make prefs directory: %s"),
+					     strerror(errno));
+		}
+	}
+
+	g_free(prefs_dir);
 }
 
 /**
