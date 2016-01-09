@@ -270,26 +270,6 @@ prefs_get_string(gchar *key, const gchar *def)
 	return ret;
 }
 
-#ifndef WITH_GTK3
-/**
- * Gtk2 cludge
- * Gtk2 ComboBoxes don't have ids. We workaround that by
- * mapping the id with a ComboBox index. We're fine as long
- * as nobody changes the content of the ComboBox.
- *
- * @param combo_box a GtkComboBox
- * @param active_id the ID of the row to select
- */
-static void
-gtk_combo_box_set_active_id(GtkComboBox *combo_box, const gchar *active_id)
-{
-	if (!strcmp(active_id, "horizontal"))
-		return gtk_combo_box_set_active(combo_box, 1);
-
-	return gtk_combo_box_set_active(combo_box, 0);
-}
-#endif
-
 /**
  * Sets the global options enable_noti, hotkey_noti, mouse_noti, popup_noti,
  * noti_timeout and external_noti from the user settings.
@@ -870,9 +850,17 @@ create_prefs_window(void)
 	// slider orientation
 	slider_orientation = prefs_get_string("SliderOrientation", NULL);
 	if (slider_orientation) {
-		gtk_combo_box_set_active_id
-		(GTK_COMBO_BOX(prefs_data->slider_orientation_combo),
-		 slider_orientation);
+		GtkComboBox *combo_box = GTK_COMBO_BOX
+			(prefs_data->slider_orientation_combo);
+#ifndef WITH_GTK3
+		/* Gtk2 ComboBoxes don't have item ids */
+		if (!strcmp(slider_orientation, "horizontal"))
+			gtk_combo_box_set_active(combo_box, 1);
+		else
+			gtk_combo_box_set_active(combo_box, 0);
+#else
+		gtk_combo_box_set_active_id(combo_box, slider_orientation);
+#endif
 		g_free(slider_orientation);
 	}
 
