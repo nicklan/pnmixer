@@ -33,9 +33,8 @@ gint prefs_get_integer(gchar *key, gint def);
 gdouble prefs_get_double(gchar *key, gdouble def);
 gchar *prefs_get_string(gchar *key, const gchar *def);
 
-gchar *prefs_get_vol_command(void);
 gchar *prefs_get_selected_channel(const gchar *);
-
+gchar *prefs_get_vol_command(void);
 
 GtkWidget *create_prefs_window(void);
 void ensure_prefs_dir(void);

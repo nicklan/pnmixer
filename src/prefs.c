@@ -64,6 +64,148 @@ VolDownKey=-1\n\
 AlsaCard=default\n\
 SystemTheme=false"
 
+/**
+ * Gets a boolean value from preferences.
+ * On error, returns def as default value.
+ *
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return the preference value or def on error
+ */
+gboolean
+prefs_get_boolean(gchar *key, gboolean def)
+{
+	gboolean ret;
+	GError *error = NULL;
+	ret = g_key_file_get_boolean(keyFile, "PNMixer", key, &error);
+	if (error) {
+		g_error_free(error);
+		return def;
+	}
+	return ret;
+}
+
+/**
+ * Gets an int value from a preferences.
+ * On error, returns def as default value.
+ *
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return the preference value or def on error
+ */
+gint
+prefs_get_integer(gchar *key, gint def)
+{
+	gint ret;
+	GError *error = NULL;
+	ret = g_key_file_get_integer(keyFile, "PNMixer", key, &error);
+	if (error) {
+		g_error_free(error);
+		return def;
+	}
+	return ret;
+}
+
+/**
+ * Gets a double value from preferences.
+ * On error, returns def as default value.
+ *
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return the preference value or def on error
+ */
+gdouble
+prefs_get_double(gchar *key, gdouble def)
+{
+	gdouble ret;
+	GError *error = NULL;
+	ret = g_key_file_get_double(keyFile, "PNMixer", key, &error);
+	if (error) {
+		g_error_free(error);
+		return def;
+	}
+	return ret;
+}
+
+/**
+ * Gets a string value from preferences.
+ * On error, returns def as default value.
+ *
+ * @param key the specific settings key
+ * @param def the default value to return on error
+ * @return the preference value or def on error, must be freed.
+ */
+gchar *
+prefs_get_string(gchar *key, const gchar *def)
+{
+	gchar *ret = NULL;
+	GError *error = NULL;
+
+	ret = g_key_file_get_string(keyFile, "PNMixer", key, &error);
+	if (error) {
+		g_error_free(error);
+		return g_strdup(def);
+	}
+	return ret;
+}
+
+/**
+ * Gets the currently selected channel of the specified Alsa Card
+ * from the global keyFile and returns the result.
+ *
+ * @param card the Alsa Card to get the currently selected channel of
+ * @return the currently selected channel as newly allocated string,
+ * NULL on failure
+ */
+gchar *
+prefs_get_selected_channel(const gchar *card)
+{
+	if (!card)
+		return NULL;
+	return g_key_file_get_string(keyFile, card, "Channel", NULL);
+}
+
+
+/**
+ * Default volume commands.
+ */
+static const gchar *vol_commands[] = {
+	"pavucontrol",
+	"gnome-alsamixer",
+	"xfce4-mixer",
+	"alsamixergui",
+	NULL
+};
+
+/**
+ * Gets the current volume command from the user preferences
+ * and returns it. If none is set, iterates through the list vol_commands to
+ * determine the volume command.
+ *
+ * @return volume command from user preferences or valid command
+ * from vol_commands or NULL on failure. Must be freed.
+ */
+gchar *
+prefs_get_vol_command(void)
+{
+	gchar *ret;
+
+	ret = prefs_get_string("VolumeControlCommand", NULL);
+
+	if (ret == NULL) {
+		gchar buf[256];
+		const char **cmd = vol_commands;
+		while (*cmd) {
+			snprintf(buf, 256, "which %s | grep /%s > /dev/null", *cmd, *cmd);
+			if (!system(buf))
+				return g_strdup(*cmd);
+			cmd++;
+		}
+	}
+
+	return ret;
+}
+
 #ifdef WITH_GTK3
 /**
  * Gets the volume meter colors which are drawn on top of the
@@ -73,7 +215,7 @@ SystemTheme=false"
  * @return array of doubles which holds the RGB values, from
  * 0 to 1.0
  */
-gdouble *
+static gdouble *
 get_vol_meter_colors(void)
 {
 #else
@@ -85,7 +227,7 @@ get_vol_meter_colors(void)
  * @return array of ints which holds the RGB values, from
  * 0 to 65536
  */
-gint *
+static gint *
 get_vol_meter_colors(void)
 {
 #endif
@@ -186,91 +328,6 @@ load_prefs(void)
 }
 
 /**
- * Gets a boolean value from preferences.
- * On error, returns def as default value.
- *
- * @param key the specific settings key
- * @param def the default value to return on error
- * @return the preference value or def on error
- */
-gboolean
-prefs_get_boolean(gchar *key, gboolean def)
-{
-	gboolean ret;
-	GError *error = NULL;
-	ret = g_key_file_get_boolean(keyFile, "PNMixer", key, &error);
-	if (error) {
-		g_error_free(error);
-		return def;
-	}
-	return ret;
-}
-
-/**
- * Gets an int value from a preferences.
- * On error, returns def as default value.
- *
- * @param key the specific settings key
- * @param def the default value to return on error
- * @return the preference value or def on error
- */
-gint
-prefs_get_integer(gchar *key, gint def)
-{
-	gint ret;
-	GError *error = NULL;
-	ret = g_key_file_get_integer(keyFile, "PNMixer", key, &error);
-	if (error) {
-		g_error_free(error);
-		return def;
-	}
-	return ret;
-}
-
-/**
- * Gets a double value from preferences.
- * On error, returns def as default value.
- *
- * @param key the specific settings key
- * @param def the default value to return on error
- * @return the preference value or def on error
- */
-gdouble
-prefs_get_double(gchar *key, gdouble def)
-{
-	gdouble ret;
-	GError *error = NULL;
-	ret = g_key_file_get_double(keyFile, "PNMixer", key, &error);
-	if (error) {
-		g_error_free(error);
-		return def;
-	}
-	return ret;
-}
-
-/**
- * Gets a string value from preferences.
- * On error, returns def as default value.
- *
- * @param key the specific settings key
- * @param def the default value to return on error
- * @return the preference value or def on error, must be freed.
- */
-gchar *
-prefs_get_string(gchar *key, const gchar *def)
-{
-	gchar *ret = NULL;
-	GError *error = NULL;
-
-	ret = g_key_file_get_string(keyFile, "PNMixer", key, &error);
-	if (error) {
-		g_error_free(error);
-		return g_strdup(def);
-	}
-	return ret;
-}
-
-/**
  * Sets the global options enable_noti, hotkey_noti, mouse_noti, popup_noti,
  * noti_timeout and external_noti from the user settings.
  */
@@ -330,22 +387,6 @@ apply_prefs(gint alsa_change)
 
 	if (alsa_change)
 		do_alsa_reinit();
-}
-
-/**
- * Gets the currently selected channel of the specified Alsa Card
- * from the global keyFile and returns the result.
- *
- * @param card the Alsa Card to get the currently selected channel of
- * @return the currently selected channel as newly allocated string,
- * NULL on failure
- */
-gchar *
-prefs_get_selected_channel(const gchar *card)
-{
-	if (!card)
-		return NULL;
-	return g_key_file_get_string(keyFile, card, "Channel", NULL);
 }
 
 /**
@@ -532,45 +573,6 @@ on_hotkey_toggle(GtkToggleButton *button, PrefsData *data)
 	gboolean active = gtk_toggle_button_get_active(button);
 	gtk_widget_set_sensitive(data->hotkey_vol_label, active);
 	gtk_widget_set_sensitive(data->hotkey_vol_spin, active);
-}
-
-/**
- * Default volume commands.
- */
-static const char *vol_cmds[] = { "pavucontrol",
-				  "gnome-alsamixer",
-				  "xfce4-mixer",
-				  "alsamixergui",
-				  NULL
-				};
-
-/**
- * Gets the current volume command from the user preferences
- * and returns it. If none is set, iterates through the list vol_cmds to
- * determine the volume command.
- *
- * @return volume command from user preferences or valid command
- * from vol_cmds or NULL on failure
- */
-gchar *
-prefs_get_vol_command(void)
-{
-	gchar *ret;
-
-	ret = prefs_get_string("VolumeControlCommand", NULL);
-
-	if (ret == NULL) {
-		gchar buf[256];
-		const char **cmd = vol_cmds;
-		while (*cmd) {
-			snprintf(buf, 256, "which %s | grep /%s > /dev/null", *cmd, *cmd);
-			if (!system(buf))
-				return g_strdup(*cmd);
-			cmd++;
-		}
-	}
-
-	return ret;
 }
 
 /**
