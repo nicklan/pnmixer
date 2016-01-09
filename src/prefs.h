@@ -54,7 +54,6 @@ void prefs_load(void);
 void prefs_save(void);
 void prefs_ensure_save_dir(void);
 
-
 GtkWidget *create_prefs_window(void);
 void apply_prefs(gint);
 void acquire_hotkey(const char *, PrefsData *);

@@ -370,8 +370,8 @@ void
 prefs_load(void)
 {
 	GError *err = NULL;
-	gchar *filename = g_strconcat(g_get_user_config_dir(),
-				      "/pnmixer/config", NULL);
+	gchar *filename = g_build_filename(g_get_user_config_dir(),
+	                                   "pnmixer", "config", NULL);
 
 	if (keyFile != NULL)
 		g_key_file_free(keyFile);
@@ -408,8 +408,8 @@ prefs_save(void)
 {
 	gsize len;
 	GError *err = NULL;
-	gchar *filename = g_strconcat(g_get_user_config_dir(),
-				      "/pnmixer/config", NULL);
+	gchar *filename = g_build_filename(g_get_user_config_dir(),
+	                                   "pnmixer", "config", NULL);
 	gchar *filedata = g_key_file_to_data(keyFile, &len, NULL);
 
 	g_file_set_contents(filename, filedata, len, &err);
@@ -430,7 +430,8 @@ prefs_save(void)
 void
 prefs_ensure_save_dir(void)
 {
-	gchar *prefs_dir = g_strconcat(g_get_user_config_dir(), "/pnmixer", NULL);
+	gchar *prefs_dir = g_build_filename(g_get_user_config_dir(),
+	                                   "pnmixer", NULL);
 
 	if (!g_file_test(prefs_dir, G_FILE_TEST_IS_DIR)) {
 		if (g_file_test(prefs_dir, G_FILE_TEST_EXISTS))
