@@ -185,8 +185,6 @@ gtk_combo_box_get_active_id(GtkComboBox *combo_box)
 void
 on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 {
-	gsize len;
-	GError *err = NULL;
 	gint alsa_change = 0;
 
 	// pull out various prefs
@@ -194,27 +192,27 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	// slider orientation
 	GtkWidget *soc = data->slider_orientation_combo;
 	const gchar *orientation = gtk_combo_box_get_active_id(GTK_COMBO_BOX(soc));
-	g_key_file_set_string(keyFile, "PNMixer", "SliderOrientation", orientation);
+	prefs_set_string("SliderOrientation", orientation);
 	
 	// show vol text
 	GtkWidget *vtc = data->vol_text_check;
 	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vtc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "DisplayTextVolume", active);
+	prefs_set_boolean("DisplayTextVolume", active);
 
 	// vol pos
 	GtkWidget *vpc = data->vol_pos_combo;
 	gint idx = gtk_combo_box_get_active(GTK_COMBO_BOX(vpc));
-	g_key_file_set_integer(keyFile, "PNMixer", "TextVolumePosition", idx);
+	prefs_set_integer("TextVolumePosition", idx);
 
 	// show vol meter
 	GtkWidget *dvc = data->draw_vol_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dvc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "DrawVolMeter", active);
+	prefs_set_boolean("DrawVolMeter", active);
 
 	// vol meter pos
 	GtkWidget *vmps = data->vol_meter_pos_spin;
 	gint vmpos = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(vmps));
-	g_key_file_set_integer(keyFile, "PNMixer", "VolMeterPos", vmpos);
+	prefs_set_integer("VolMeterPos", vmpos);
 
 	GtkWidget *vcb = data->vol_meter_color_button;
 #ifdef WITH_GTK3
@@ -229,12 +227,7 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	colints[0] = color.red;
 	colints[1] = color.green;
 	colints[2] = color.blue;
-
-#ifdef WITH_GTK3
-	g_key_file_set_double_list(keyFile, "PNMixer", "VolMeterColor", colints, 3);
-#else
-	g_key_file_set_integer_list(keyFile, "PNMixer", "VolMeterColor", colints, 3);
-#endif
+	prefs_set_vol_meter_colors(colints, sizeof colints);
 
 	// alsa card
 	GtkWidget *acc = data->card_combo;
@@ -242,13 +235,13 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	gchar *card = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(acc));
 	if (old_card && strcmp(old_card, card))
 		alsa_change = 1;
-	g_key_file_set_string(keyFile, "PNMixer", "AlsaCard", card);
+	prefs_set_string("AlsaCard", card);
 
 	// channel
 	GtkWidget *ccc = data->chan_combo;
 	gchar *old_channel = NULL;
 	if (old_card) {
-		old_channel = prefs_get_selected_channel(old_card);
+		old_channel = prefs_get_channel(old_card);
 		g_free(old_card);
 	}
 	gchar *chan = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(ccc));
@@ -257,7 +250,7 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 			alsa_change = 1;
 		g_free(old_channel);
 	}
-	g_key_file_set_string(keyFile, card, "Channel", chan);
+	prefs_set_channel(card, chan);
 	g_free(card);
 	g_free(chan);
 
@@ -265,47 +258,47 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	GtkWidget *system_theme = data->system_theme;
 	active = gtk_toggle_button_get_active(
 			GTK_TOGGLE_BUTTON(system_theme));
-	g_key_file_set_boolean(keyFile, "PNMixer", "SystemTheme", active);
+	prefs_set_boolean("SystemTheme", active);
 
 	// volume control command
 	GtkWidget *ve = data->vol_control_entry;
 	const gchar *vc = gtk_entry_get_text(GTK_ENTRY(ve));
-	g_key_file_set_string(keyFile, "PNMixer", "VolumeControlCommand", vc);
+	prefs_set_string("VolumeControlCommand", vc);
 
 	// volume scroll steps
 	GtkWidget *sss = data->scroll_step_spin;
 	gdouble step = gtk_spin_button_get_value(GTK_SPIN_BUTTON(sss));
-	g_key_file_set_double(keyFile, "PNMixer", "ScrollStep", step);
+	prefs_set_double("ScrollStep", step);
 
 	GtkWidget *fsss = data->fine_scroll_step_spin;
 	gdouble fine_step = gtk_spin_button_get_value(GTK_SPIN_BUTTON(fsss));
-	g_key_file_set_double(keyFile, "PNMixer", "FineScrollStep", fine_step);
+	prefs_set_double("FineScrollStep", fine_step);
 	
 	// middle click
 	GtkWidget *mcc = data->middle_click_combo;
 	idx = gtk_combo_box_get_active(GTK_COMBO_BOX(mcc));
-	g_key_file_set_integer(keyFile, "PNMixer", "MiddleClickAction", idx);
+	prefs_set_integer("MiddleClickAction", idx);
 
 	// custom command
 	GtkWidget *ce = data->custom_entry;
 	const gchar *cc = gtk_entry_get_text(GTK_ENTRY(ce));
-	g_key_file_set_string(keyFile, "PNMixer", "CustomCommand", cc);
+	prefs_set_string("CustomCommand", cc);
 
 	// normalize volume
 	GtkWidget *vnorm = data->normalize_vol_check;
 	gboolean is_pressed;
 	is_pressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(vnorm));
-	g_key_file_set_boolean(keyFile, "PNMixer", "NormalizeVolume", is_pressed);
+	prefs_set_boolean("NormalizeVolume", is_pressed);
 
 	// hotkey enable
 	GtkWidget *hkc = data->enable_hotkeys_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hkc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "EnableHotKeys", active);
+	prefs_set_boolean("EnableHotKeys", active);
 
 	// scroll step
 	GtkWidget *hs = data->hotkey_vol_spin;
 	gint hotstep = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(hs));
-	g_key_file_set_integer(keyFile, "PNMixer", "HotkeyVolumeStep", hotstep);
+	prefs_set_integer("HotkeyVolumeStep", hotstep);
 	
 	// hotkeys
 	guint keysym;
@@ -317,8 +310,8 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 		keycode = XKeysymToKeycode(gdk_x11_get_default_xdisplay(), keysym);
 	else
 		keycode = -1;
-	g_key_file_set_integer(keyFile, "PNMixer", "VolMuteKey", keycode);
-	g_key_file_set_integer(keyFile, "PNMixer", "VolMuteMods", mods);
+	prefs_set_integer("VolMuteKey", keycode);
+	prefs_set_integer("VolMuteMods", mods);
 
 	kl = data->up_hotkey_label;
 	gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)), &keysym, &mods);
@@ -326,8 +319,8 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 		keycode = XKeysymToKeycode(gdk_x11_get_default_xdisplay(), keysym);
 	else
 		keycode = -1;
-	g_key_file_set_integer(keyFile, "PNMixer", "VolUpKey", keycode);
-	g_key_file_set_integer(keyFile, "PNMixer", "VolUpMods", mods);
+	prefs_set_integer("VolUpKey", keycode);
+	prefs_set_integer("VolUpMods", mods);
 
 	kl = data->down_hotkey_label;
 	gtk_accelerator_parse(gtk_label_get_text(GTK_LABEL(kl)), &keysym, &mods);
@@ -335,49 +328,40 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 		keycode = XKeysymToKeycode(gdk_x11_get_default_xdisplay(), keysym);
 	else
 		keycode = -1;
-	g_key_file_set_integer(keyFile, "PNMixer", "VolDownKey", keycode);
-	g_key_file_set_integer(keyFile, "PNMixer", "VolDownMods", mods);
+	prefs_set_integer("VolDownKey", keycode);
+	prefs_set_integer("VolDownMods", mods);
 
 #ifdef HAVE_LIBN
 	// notification prefs
 	GtkWidget *nc = data->enable_noti_check;
 	gint noti_spin;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "EnableNotifications", active);
+	prefs_set_boolean("EnableNotifications", active);
 
 	nc = data->hotkey_noti_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "HotkeyNotifications", active);
+	prefs_set_boolean("HotkeyNotifications", active);
 
 	nc = data->mouse_noti_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "MouseNotifications", active);
+	prefs_set_boolean("MouseNotifications", active);
 
 	nc = data->popup_noti_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "PopupNotifications", active);
+	prefs_set_boolean("PopupNotifications", active);
 
 	nc = data->external_noti_check;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
-	g_key_file_set_boolean(keyFile, "PNMixer", "ExternalNotifications",
-			       active);
+	prefs_set_boolean("ExternalNotifications", active);
 
 	nc = data->noti_timeout_spin;
 	noti_spin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(nc));
-	g_key_file_set_integer(keyFile, "PNMixer", "NotificationTimeout",
-			       noti_spin);
+	prefs_set_integer("NotificationTimeout", noti_spin);
 #endif
 
-	gchar *filename = g_strconcat(g_get_user_config_dir(),
-				      "/pnmixer/config", NULL);
-	gchar *filedata = g_key_file_to_data(keyFile, &len, NULL);
-	g_file_set_contents(filename, filedata, len, &err);
-	if (err != NULL) {
-		report_error(_("Couldn't write preferences file: %s"), err->message);
-		g_error_free(err);
-	} else
-		apply_prefs(alsa_change);
-	g_free(filename);
+	prefs_save();
+	apply_prefs(alsa_change);
+
 	gtk_widget_destroy(data->prefs_window);
 	g_slice_free(PrefsData, data);
 }

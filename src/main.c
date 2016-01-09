@@ -915,7 +915,7 @@ main(int argc, char *argv[])
 	add_pixmap_directory("./data/pixmaps");
 
 	ensure_prefs_dir();
-	load_prefs();
+	prefs_load();
 	cards = NULL;		// so we don't try and free on first run
 	alsa_init();
 	init_libnotify();

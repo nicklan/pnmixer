@@ -64,6 +64,8 @@ VolDownKey=-1\n\
 AlsaCard=default\n\
 SystemTheme=false"
 
+static GKeyFile *keyFile;
+
 /**
  * Gets a boolean value from preferences.
  * On error, returns def as default value.
@@ -158,7 +160,7 @@ prefs_get_string(gchar *key, const gchar *def)
  * NULL on failure
  */
 gchar *
-prefs_get_selected_channel(const gchar *card)
+prefs_get_channel(const gchar *card)
 {
 	if (!card)
 		return NULL;
@@ -215,8 +217,8 @@ prefs_get_vol_command(void)
  * @return array of doubles which holds the RGB values, from
  * 0 to 1.0
  */
-static gdouble *
-get_vol_meter_colors(void)
+gdouble *
+prefs_get_vol_meter_colors(void)
 {
 #else
 /**
@@ -227,8 +229,8 @@ get_vol_meter_colors(void)
  * @return array of ints which holds the RGB values, from
  * 0 to 65536
  */
-static gint *
-get_vol_meter_colors(void)
+gint *
+prefs_get_vol_meter_colors(void)
 {
 #endif
 	gsize numcols = 3;
@@ -271,6 +273,96 @@ get_vol_meter_colors(void)
 }
 
 /**
+ * Sets a boolean value to preferences.
+ *
+ * @param key the specific settings key
+ * @param def the value to set
+ */
+void
+prefs_set_boolean(const gchar *key, gboolean value)
+{
+	g_key_file_set_boolean(keyFile, "PNMixer", key, value);
+}
+
+/**
+ * Sets a integer value to preferences.
+ *
+ * @param key the specific settings key
+ * @param def the value to set
+ */
+void
+prefs_set_integer(const gchar *key, gint value)
+{
+	g_key_file_set_integer(keyFile, "PNMixer", key, value);
+}
+
+/**
+ * Sets a double value to preferences.
+ *
+ * @param key the specific settings key
+ * @param def the value to set
+ */
+void
+prefs_set_double(const gchar *key, gdouble value)
+{
+	g_key_file_set_double(keyFile, "PNMixer", key, value);
+}
+
+/**
+ * Sets a string value to preferences.
+ *
+ * @param key the specific settings key
+ * @param def the value to set
+ */
+void
+prefs_set_string(const gchar *key, const gchar *value)
+{
+	g_key_file_set_string(keyFile, "PNMixer", key, value);
+}
+
+/**
+ * Sets the channel for a given card in preferences.
+ *
+ * @param card the Alsa Card associated with the channel
+ * @param channel the channel to save in the preferences.
+ */
+void
+prefs_set_channel(const gchar *card, const gchar *channel)
+{
+	g_key_file_set_string(keyFile, card, "Channel", channel);
+}
+
+#ifdef WITH_GTK3
+/**
+ * Sets the volume meter colors which are drawn on top of the
+ * tray_icon.
+ *
+ * @param colors an array of color swhich holds the RGB values,
+ *        from 0 to 1.0
+ * @param n the array size
+ */
+void
+prefs_set_vol_meter_colors(gdouble *colors, gsize n)
+{
+	g_key_file_set_double_list(keyFile, "PNMixer", "VolMeterColor", colors, n);
+}
+#else
+/**
+ * Sets the volume meter colors which are drawn on top of the
+ * tray_icon.
+ *
+ * @param colors an array of color swhich holds the RGB values,
+ *        from 0 to 65536
+ * @param n the array size
+ */
+void
+prefs_set_vol_meter_colors(gint *colors, gsize n)
+{
+	g_key_file_set_integer_list(keyFile, "PNMixer", "VolMeterColor", colors, n);
+}
+#endif
+
+/**
  * Checks if the preferences dir is present (creates it if not) and
  * accessible. Reports errors via report_error().
  */
@@ -293,11 +385,11 @@ ensure_prefs_dir(void)
 }
 
 /**
- * Loads the preferences from the config and creates the global keyFile
- * object (GKeyFile type).
+ * Loads the preferences from the config file to the keyFile object (GKeyFile type).
+ * Creates the keyFile object if it doesn't exist.
  */
 void
-load_prefs(void)
+prefs_load(void)
 {
 	GError *err = NULL;
 	gchar *filename = g_strconcat(g_get_user_config_dir(),
@@ -305,7 +397,9 @@ load_prefs(void)
 
 	if (keyFile != NULL)
 		g_key_file_free(keyFile);
+
 	keyFile = g_key_file_new();
+
 	if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
 		if (!g_key_file_load_from_file(keyFile, filename, 0, &err)) {
 			report_error(_("Couldn't load preferences file: %s"),
@@ -324,7 +418,31 @@ load_prefs(void)
 			keyFile = NULL;
 		}
 	}
+
 	g_free(filename);
+}
+
+/**
+ * Save the preferences from the keyFile object to the config file.
+ */
+void
+prefs_save(void)
+{
+	gsize len;
+	GError *err = NULL;
+	gchar *filename = g_strconcat(g_get_user_config_dir(),
+				      "/pnmixer/config", NULL);
+	gchar *filedata = g_key_file_to_data(keyFile, &len, NULL);
+
+	g_file_set_contents(filename, filedata, len, &err);
+
+	if (err != NULL) {
+		report_error(_("Couldn't write preferences file: %s"), err->message);
+		g_error_free(err);
+	}
+
+	g_free(filename);
+	g_free(filedata);
 }
 
 /**
@@ -378,7 +496,7 @@ apply_prefs(gint alsa_change)
 
 	set_notification_options();
 
-	vol_meter_clrs = get_vol_meter_colors();
+	vol_meter_clrs = prefs_get_vol_meter_colors();
 	set_vol_meter_color(vol_meter_clrs[0], vol_meter_clrs[1],
 			    vol_meter_clrs[2]);
 	g_free(vol_meter_clrs);
@@ -445,7 +563,7 @@ fill_card_combo(GtkWidget *combo, GtkWidget *channels_combo)
 			continue;
 		}
 		if (active_card && !strcmp(c->name, active_card->name)) {
-			gchar *sel_chan = prefs_get_selected_channel(c->name);
+			gchar *sel_chan = prefs_get_channel(c->name);
 			sidx = idx;
 			fill_channel_combo(c->channels, channels_combo, sel_chan);
 			if (sel_chan)
@@ -479,7 +597,7 @@ on_card_changed(GtkComboBox *box, PrefsData *data)
 	g_free(card_name);
 
 	if (card) {
-		gchar *sel_chan = prefs_get_selected_channel(card->name);
+		gchar *sel_chan = prefs_get_channel(card->name);
 		fill_channel_combo(card->channels, data->chan_combo, sel_chan);
 		g_free(sel_chan);
 	}
@@ -898,7 +1016,7 @@ create_prefs_window(void)
 	 prefs_get_boolean("SystemTheme", FALSE));
 
 	// set color button color
-	vol_meter_clrs = get_vol_meter_colors();
+	vol_meter_clrs = prefs_get_vol_meter_colors();
 	vol_meter_color_button_color.red = vol_meter_clrs[0];
 	vol_meter_color_button_color.green = vol_meter_clrs[1];
 	vol_meter_color_button_color.blue = vol_meter_clrs[2];

@@ -516,7 +516,7 @@ alsaset(void)
 	// is modified. The channel names of the new default card may
 	// not match the channel names of the previous default card.
 	assert(elem == NULL);
-	channel = prefs_get_selected_channel(active_card->name);
+	channel = prefs_get_channel(active_card->name);
 	if (channel) {
 		snd_mixer_selem_id_t *sid;
 		snd_mixer_selem_id_alloca(&sid);
