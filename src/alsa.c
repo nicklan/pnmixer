@@ -638,9 +638,10 @@ setvol(int vol, int dir, gboolean notify)
 	long min = 0, max = 0, value;
 	int cur_perc = getvol();
 	double dvol = 0.01 * vol;
+	gboolean normalize = prefs_get_boolean("NormalizeVolume", FALSE);
 
 	int err = snd_mixer_selem_get_playback_dB_range(elem, &min, &max);
-	if (err < 0 || min >= max || !normalize_vol()) {
+	if (err < 0 || min >= max || !normalize) {
 		err = snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
 		value = lrint_dir(dvol * (max - min), dir) + min;
 		snd_mixer_selem_set_playback_volume_all(elem, value);
@@ -712,7 +713,9 @@ ismuted(void)
 int
 getvol(void)
 {
-	if (normalize_vol()) {
+	gboolean normalize = prefs_get_boolean("NormalizeVolume", FALSE);
+
+	if (normalize) {
 		return lrint(get_normalized_volume(
 				     elem, SND_MIXER_SCHN_FRONT_RIGHT) * 100);
 	} else {

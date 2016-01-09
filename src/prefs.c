@@ -871,21 +871,6 @@ set_label_for_keycode(GtkWidget *label, gint code, GdkModifierType mods)
 }
 
 /**
- * Checks whether NormalizeVolume preference is set in the user config,
- * by reading the global keyFile.
- *
- * @return TRUE if it's set, FALSE otherwise
- */
-gboolean
-normalize_vol(void)
-{
-	if (g_key_file_has_key(keyFile, "PNMixer", "NormalizeVolume", NULL))
-		return (g_key_file_get_boolean(keyFile, "PNMixer",
-					       "NormalizeVolume", NULL));
-	return FALSE;
-}
-
-/**
  * Creates the whole preferences window by reading prefs-gtk3.glade
  * or prefs-gtk2.glade and returns the result.
  *

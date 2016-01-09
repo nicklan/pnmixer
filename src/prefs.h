@@ -57,6 +57,5 @@ void prefs_ensure_save_dir(void);
 GtkWidget *create_prefs_window(void);
 void apply_prefs(gint);
 void acquire_hotkey(const char *, PrefsData *);
-gboolean normalize_vol(void);
 
 #endif				// PREFS_H_
