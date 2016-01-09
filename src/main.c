@@ -147,18 +147,18 @@ warn_sound_conn_lost(void)
  * @param cmd the command to run
  */
 void
-run_command(gchar *cmd)
+run_command(const gchar *cmd)
 {
-	if (cmd) {
-		GError *error = NULL;
+	GError *error = NULL;
 
-		gtk_widget_hide(popup_window);
+	g_assert(cmd != NULL);
 
-		if (g_spawn_command_line_async(cmd, &error) == FALSE) {
-			report_error(_("Unable to run command: %s"), error->message);
-			g_error_free(error);
-			error = NULL;
-		}
+	gtk_widget_hide(popup_window);
+
+	if (g_spawn_command_line_async(cmd, &error) == FALSE) {
+		report_error(_("Unable to run command: %s"), error->message);
+		g_error_free(error);
+		error = NULL;
 	}
 }
 
@@ -172,7 +172,10 @@ run_command(gchar *cmd)
 void
 on_mixer(void)
 {
-	gchar *cmd = prefs_get_vol_command();
+	gchar *cmd;
+
+	cmd = prefs_get_vol_command();
+
 	if (cmd) {
 		run_command(cmd);
 		g_free(cmd);
@@ -197,40 +200,39 @@ void
 tray_icon_button(G_GNUC_UNUSED GtkStatusIcon *status_icon,
 		 GdkEventButton *event, G_GNUC_UNUSED gpointer user_data)
 {
-	if (event->button == 2) {
-		gint act;
+	gint action;
 
-		act = prefs_get_integer("MiddleClickAction", 0);
+	if (event->button != 2)
+		return;
+	
+	action = prefs_get_integer("MiddleClickAction", 0);
 
-		switch (act) {
-		case 0:	// mute/unmute
-			setmute(mouse_noti);
-			on_volume_has_changed();
-			break;
-		case 1:
-			do_prefs();
-			break;
-		case 2: {
-			on_mixer();
-			break;
-		}
-		case 3: {
-			gchar *cmd;
+	switch (action) {
+	case 0:	// mute/unmute
+		setmute(mouse_noti);
+		on_volume_has_changed();
+		break;
+	case 1:
+		do_prefs();
+		break;
+	case 2:
+		on_mixer();
+		break;
+	case 3: {
+		gchar *cmd;
 
-			cmd = prefs_get_string("CustomCommand", NULL);
+		cmd = prefs_get_string("CustomCommand", NULL);
 
-			if (cmd) {
-				run_command(cmd);
-				g_free(cmd);
-			} else
-				report_error(_
-				             ("You have not specified a custom command to run, "
-				              "please specify one in preferences."));
-			break;
-		}
-		default: {
-		}	// nothing
-		}
+		if (cmd) {
+			run_command(cmd);
+			g_free(cmd);
+		} else
+			report_error(_("You have not specified a custom command to run, "
+			               "please specify one in preferences."));
+		break;
+	}
+	default: {
+	}	// nothing
 	}
 }
 
