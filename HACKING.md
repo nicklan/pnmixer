@@ -12,7 +12,7 @@ This is more or less kernel coding style. Try to match the surroundings.
 You can also use the tool [astyle](http://astyle.sourceforge.net/) and
 execute the following command to fix the source files:
 ```sh
-astyle --style=linux -T8 --align-pointer=name src/*.[ch]
+astyle --style=linux --indent=tab=8 --align-pointer=name src/*.[ch]
 ```
 
 ## Comments
