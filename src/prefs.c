@@ -971,10 +971,6 @@ create_prefs_window(void)
 #endif
 		g_free(slider_orientation);
 	}
-
-	gtk_combo_box_set_active_id
-	(GTK_COMBO_BOX(prefs_data->slider_orientation_combo),
-	 prefs_get_string("SliderOrientation", NULL));
 	
 	// vol text display
 	gtk_toggle_button_set_active
