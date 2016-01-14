@@ -953,6 +953,7 @@ create_prefs_window(void)
 	vol_meter_color_button_color.red = vol_meter_clrs[0];
 	vol_meter_color_button_color.green = vol_meter_clrs[1];
 	vol_meter_color_button_color.blue = vol_meter_clrs[2];
+	vol_meter_color_button_color.alpha = 1.0;
 
 	gtk_color_chooser_set_rgba(
 	GTK_COLOR_CHOOSER(prefs_data->vol_meter_color_button),
