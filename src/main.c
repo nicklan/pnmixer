@@ -778,8 +778,10 @@ update_status_icons(void)
 	int i, icon_width;
 	GdkPixbuf *old_icons[N_VOLUME_ICONS];
 	int size = tray_icon_size();
+
 	for (i = 0; i < N_VOLUME_ICONS; i++)
 		old_icons[i] = status_icons[i];
+
 	if (prefs_get_boolean("SystemTheme", FALSE)) {
 		status_icons[VOLUME_MUTED] = get_stock_pixbuf("audio-volume-muted",
 					     size);
@@ -802,11 +804,13 @@ update_status_icons(void)
 		status_icons[VOLUME_MEDIUM] = create_pixbuf("pnmixer-medium.png");
 		status_icons[VOLUME_HIGH] = create_pixbuf("pnmixer-high.png");
 	}
+
 	icon_width = gdk_pixbuf_get_height(status_icons[0]);
 	vol_div_factor = ((gdk_pixbuf_get_height(status_icons[0]) - 10) / 100.0);
 	vol_meter_width = 1.25 * icon_width;
 	if (vol_meter_width % 4 != 0)
 		vol_meter_width -= (vol_meter_width % 4);
+
 	if (!vol_meter_row && prefs_get_boolean("DrawVolMeter", FALSE)) {
 		int lim = vol_meter_width / 4;
 		vol_meter_row = g_malloc(vol_meter_width * sizeof(guchar));
@@ -823,10 +827,12 @@ update_status_icons(void)
 			g_object_unref(icon_copy);
 		icon_copy = NULL;
 	}
+
 	draw_offset = prefs_get_integer("VolMeterPos", 0);
 
 	if (tray_icon)
 		on_volume_has_changed();
+
 	for (i = 0; i < N_VOLUME_ICONS; i++)
 		if (old_icons[i])
 			g_object_unref(old_icons[i]);
