@@ -761,9 +761,6 @@ set_vol_meter_color(gdouble nr, gdouble ng, gdouble nb)
 	vol_meter_red = nr * 255;
 	vol_meter_green = ng * 255;
 	vol_meter_blue = nb * 255;
-	if (vol_meter_row)
-		g_free(vol_meter_row);
-	vol_meter_row = NULL;
 }
 
 /**
@@ -782,6 +779,7 @@ update_status_icons(void)
 	for (i = 0; i < N_VOLUME_ICONS; i++)
 		old_icons[i] = status_icons[i];
 
+	/* Handle icons depending on the theme */
 	if (prefs_get_boolean("SystemTheme", FALSE)) {
 		status_icons[VOLUME_MUTED] = get_stock_pixbuf("audio-volume-muted",
 					     size);
@@ -805,23 +803,30 @@ update_status_icons(void)
 		status_icons[VOLUME_HIGH] = create_pixbuf("pnmixer-high.png");
 	}
 
+	/* Handle volume meter */
 	icon_width = gdk_pixbuf_get_height(status_icons[0]);
 	vol_div_factor = ((gdk_pixbuf_get_height(status_icons[0]) - 10) / 100.0);
 	vol_meter_width = 1.25 * icon_width;
 	if (vol_meter_width % 4 != 0)
 		vol_meter_width -= (vol_meter_width % 4);
 
-	if (!vol_meter_row && prefs_get_boolean("DrawVolMeter", FALSE)) {
-		int lim = vol_meter_width / 4;
+	if (prefs_get_boolean("DrawVolMeter", FALSE)) {
+		int lim;
+
+		if (vol_meter_row)
+			g_free(vol_meter_row);
 		vol_meter_row = g_malloc(vol_meter_width * sizeof(guchar));
+
+		lim = vol_meter_width / 4;
 		for (i = 0; i < lim; i++) {
 			vol_meter_row[i * 4] = vol_meter_red;
 			vol_meter_row[i * 4 + 1] = vol_meter_green;
 			vol_meter_row[i * 4 + 2] = vol_meter_blue;
 			vol_meter_row[i * 4 + 3] = 255;
 		}
-	} else if (vol_meter_row && !prefs_get_boolean("DrawVolMeter", FALSE)) {
-		free(vol_meter_row);
+	} else {
+		if (vol_meter_row)
+			g_free(vol_meter_row);
 		vol_meter_row = NULL;
 		if (icon_copy)
 			g_object_unref(icon_copy);
