@@ -816,7 +816,7 @@ update_status_icons(void)
 			vol_meter_row[i * 4 + 2] = vol_meter_blue;
 			vol_meter_row[i * 4 + 3] = 255;
 		}
-	} else if (vol_meter_row && prefs_get_boolean("DrawVolMeter", FALSE)) {
+	} else if (vol_meter_row && !prefs_get_boolean("DrawVolMeter", FALSE)) {
 		free(vol_meter_row);
 		vol_meter_row = NULL;
 		if (icon_copy)
