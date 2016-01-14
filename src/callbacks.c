@@ -227,7 +227,7 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	colints[0] = color.red;
 	colints[1] = color.green;
 	colints[2] = color.blue;
-	prefs_set_vol_meter_colors(colints, sizeof colints);
+	prefs_set_vol_meter_colors(colints, 3);
 
 	// alsa card
 	GtkWidget *acc = data->card_combo;
