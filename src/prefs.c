@@ -208,7 +208,6 @@ prefs_get_vol_command(void)
 	return ret;
 }
 
-#ifdef WITH_GTK3
 /**
  * Gets the volume meter colors which are drawn on top of the
  * tray_icon by reading the VolMeterColor entry of the config
@@ -220,56 +219,27 @@ prefs_get_vol_command(void)
 gdouble *
 prefs_get_vol_meter_colors(void)
 {
-#else
-/**
- * Gets the volume meter colors which are drawn on top of the
- * tray_icon by reading the VolMeterColor entry of the config
- * file.
- *
- * @return array of ints which holds the RGB values, from
- * 0 to 65536
- */
-gint *
-prefs_get_vol_meter_colors(void)
-{
-#endif
-	gsize numcols = 3;
-#ifdef WITH_GTK3
-	gdouble *vol_meter_clrs = NULL;
-#else
-	gint *vol_meter_clrs = NULL;
-#endif
-	if (g_key_file_has_key(keyFile, "PNMixer", "VolMeterColor", NULL))
-#ifdef WITH_GTK3
-		vol_meter_clrs =
-			g_key_file_get_double_list(keyFile, "PNMixer",
-						   "VolMeterColor", &numcols, NULL);
-#else
-		vol_meter_clrs =
-			g_key_file_get_integer_list(keyFile, "PNMixer",
-						    "VolMeterColor", &numcols,
-						    NULL);
-#endif
-	if (!vol_meter_clrs || (numcols != 3)) {
-		if (vol_meter_clrs) {	// corrupt value somehow
-			report_error(_
-				     ("Invalid color for volume meter in config file. "
-				      "Reverting to default."));
-			g_free(vol_meter_clrs);
-		}
-#ifdef WITH_GTK3
-		vol_meter_clrs = g_malloc(3 * sizeof(gdouble));
-		vol_meter_clrs[0] = 0.909803921569;
-		vol_meter_clrs[1] = 0.43137254902;
-		vol_meter_clrs[2] = 0.43137254902;
-#else
-		vol_meter_clrs = g_malloc(3 * sizeof(gint));
-		vol_meter_clrs[0] = 59624;
-		vol_meter_clrs[1] = 28270;
-		vol_meter_clrs[2] = 28270;
-#endif
+	gdouble *colors;
+	gsize i, numcols;
+
+	colors = g_key_file_get_double_list(keyFile, "PNMixer", "VolMeterColor",
+	                                    &numcols, NULL);
+
+	if (!colors) {
+		colors = g_malloc(3 * sizeof(gdouble));
+		colors[0] = 0.909803921569;
+		colors[1] = 0.43137254902;
+		colors[2] = 0.43137254902;
+	}	
+
+	for (i =0; i < 3; i++) {
+		if (colors[i] < 0)
+			colors[i] = 0;
+		if (colors[i] > 1)
+			colors[i] = 1;
 	}
-	return vol_meter_clrs;
+
+	return colors;
 }
 
 /**
@@ -332,7 +302,6 @@ prefs_set_channel(const gchar *card, const gchar *channel)
 	g_key_file_set_string(keyFile, card, "Channel", channel);
 }
 
-#ifdef WITH_GTK3
 /**
  * Sets the volume meter colors which are drawn on top of the
  * tray_icon.
@@ -346,21 +315,6 @@ prefs_set_vol_meter_colors(gdouble *colors, gsize n)
 {
 	g_key_file_set_double_list(keyFile, "PNMixer", "VolMeterColor", colors, n);
 }
-#else
-/**
- * Sets the volume meter colors which are drawn on top of the
- * tray_icon.
- *
- * @param colors an array of color swhich holds the RGB values,
- *        from 0 to 65536
- * @param n the array size
- */
-void
-prefs_set_vol_meter_colors(gint *colors, gsize n)
-{
-	g_key_file_set_integer_list(keyFile, "PNMixer", "VolMeterColor", colors, n);
-}
-#endif
 
 /**
  * Loads the preferences from the config file to the keyFile object (GKeyFile type).
@@ -472,11 +426,8 @@ set_notification_options(void)
 void
 apply_prefs(gint alsa_change)
 {
-#ifdef WITH_GTK3
 	gdouble *vol_meter_clrs;
-#else
-	gint *vol_meter_clrs;
-#endif
+
 	scroll_step = prefs_get_integer("ScrollStep", 5);
 	gtk_adjustment_set_page_increment(vol_adjustment, scroll_step);
 
@@ -503,6 +454,7 @@ apply_prefs(gint alsa_change)
 	set_vol_meter_color(vol_meter_clrs[0], vol_meter_clrs[1],
 			    vol_meter_clrs[2]);
 	g_free(vol_meter_clrs);
+
 	update_status_icons();
 	update_vol_text();
 
@@ -882,13 +834,7 @@ create_prefs_window(void)
 	GtkBuilder *builder;
 	GError *error = NULL;
 
-#ifdef WITH_GTK3
-	GdkRGBA vol_meter_color_button_color;
 	gdouble *vol_meter_clrs;
-#else
-	GdkColor vol_meter_color_button_color;
-	gint *vol_meter_clrs;
-#endif
 	gchar *uifile, *slider_orientation, *vol_cmd, *custcmd;
 
 	PrefsData *prefs_data;
@@ -1001,17 +947,27 @@ create_prefs_window(void)
 
 	// set color button color
 	vol_meter_clrs = prefs_get_vol_meter_colors();
+#ifdef WITH_GTK3
+	GdkRGBA vol_meter_color_button_color;
+
 	vol_meter_color_button_color.red = vol_meter_clrs[0];
 	vol_meter_color_button_color.green = vol_meter_clrs[1];
 	vol_meter_color_button_color.blue = vol_meter_clrs[2];
-#ifdef WITH_GTK3
-	gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(
-					   prefs_data->vol_meter_color_button),
+
+	gtk_color_chooser_set_rgba(
+	GTK_COLOR_CHOOSER(prefs_data->vol_meter_color_button),
+	&vol_meter_color_button_color);
 #else
-	gtk_color_button_set_color(GTK_COLOR_BUTTON(
-					   prefs_data->vol_meter_color_button),
+	GdkColor vol_meter_color_button_color;
+
+	vol_meter_color_button_color.red = (guint32) (vol_meter_clrs[0] * 65536);
+	vol_meter_color_button_color.green = (guint32) (vol_meter_clrs[1] * 65536);
+	vol_meter_color_button_color.blue = (guint32) (vol_meter_clrs[2] * 65536);
+
+	gtk_color_button_set_color(
+	GTK_COLOR_BUTTON(prefs_data->vol_meter_color_button),
+	&vol_meter_color_button_color);
 #endif
-				   &vol_meter_color_button_color);
 	g_free(vol_meter_clrs);
 
 	// fill in card/channel combo boxes

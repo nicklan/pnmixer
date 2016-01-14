@@ -215,19 +215,23 @@ on_ok_button_clicked(G_GNUC_UNUSED GtkButton *button, PrefsData *data)
 	prefs_set_integer("VolMeterPos", vmpos);
 
 	GtkWidget *vcb = data->vol_meter_color_button;
+	gdouble colors[3];
 #ifdef WITH_GTK3
 	GdkRGBA color;
 	gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(vcb), &color);
-	gdouble colints[3];
+	colors[0] = color.red;
+	colors[1] = color.green;
+	colors[2] = color.blue;
+
 #else
 	GdkColor color;
 	gtk_color_button_get_color(GTK_COLOR_BUTTON(vcb), &color);
-	gint colints[3];
+	colors[0] = (gdouble) color.red / 65536;
+	colors[1] = (gdouble) color.green / 65536;
+	colors[2] = (gdouble) color.blue / 65536;
+
 #endif
-	colints[0] = color.red;
-	colints[1] = color.green;
-	colints[2] = color.blue;
-	prefs_set_vol_meter_colors(colints, 3);
+	prefs_set_vol_meter_colors(colors, 3);
 
 	// alsa card
 	GtkWidget *acc = data->card_combo;
