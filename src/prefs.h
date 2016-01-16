@@ -22,20 +22,32 @@
 
 #include "support.h"
 
-GKeyFile *keyFile;
 gint scroll_step, fine_scroll_step;
 gboolean enable_noti, hotkey_noti, mouse_noti, popup_noti, external_noti;
 gint noti_timeout;
 GtkIconTheme *icon_theme;
 
+gboolean prefs_get_boolean(gchar *key, gboolean def);
+gint     prefs_get_integer(gchar *key, gint def);
+gdouble  prefs_get_double(gchar *key, gdouble def);
+gchar   *prefs_get_string(gchar *key, const gchar *def);
+gchar   *prefs_get_channel(const gchar *card);
+gchar   *prefs_get_vol_command(void);
+gdouble *prefs_get_vol_meter_colors(void);
+
+void prefs_set_boolean(const gchar *key, gboolean value);
+void prefs_set_integer(const gchar *key, gint value);
+void prefs_set_double(const gchar *key, gdouble value);
+void prefs_set_string(const gchar *key, const gchar *value);
+void prefs_set_channel(const gchar *card, const gchar *channel);
+void prefs_set_vol_meter_colors(gdouble *colors, gsize n);
+
+void prefs_load(void);
+void prefs_save(void);
+void prefs_ensure_save_dir(void);
+
 GtkWidget *create_prefs_window(void);
-void ensure_prefs_dir(void);
 void apply_prefs(gint);
-void load_prefs(void);
-gchar *get_vol_command(void);
-gchar *get_selected_card(void);
-gchar *get_selected_channel(gchar *);
 void acquire_hotkey(const char *, PrefsData *);
-gboolean normalize_vol(void);
 
 #endif				// PREFS_H_

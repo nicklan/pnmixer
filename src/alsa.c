@@ -474,12 +474,13 @@ alsaset(void)
 
 	// get selected card
 	assert(active_card == NULL);
-	card_name = get_selected_card();
+	card_name = prefs_get_string("AlsaCard", NULL);
 	DEBUG_PRINT("Selected card: %s", card_name);
 	if (card_name) {
 		active_card = find_card(card_name);
 		g_free(card_name);
 	}
+
 	// if not available, use the default card
 	if (!active_card) {
 		DEBUG_PRINT("Using default soundcard");
@@ -515,7 +516,7 @@ alsaset(void)
 	// is modified. The channel names of the new default card may
 	// not match the channel names of the previous default card.
 	assert(elem == NULL);
-	channel = get_selected_channel(active_card->name);
+	channel = prefs_get_channel(active_card->name);
 	if (channel) {
 		snd_mixer_selem_id_t *sid;
 		snd_mixer_selem_id_alloca(&sid);
@@ -637,9 +638,10 @@ setvol(int vol, int dir, gboolean notify)
 	long min = 0, max = 0, value;
 	int cur_perc = getvol();
 	double dvol = 0.01 * vol;
+	gboolean normalize = prefs_get_boolean("NormalizeVolume", FALSE);
 
 	int err = snd_mixer_selem_get_playback_dB_range(elem, &min, &max);
-	if (err < 0 || min >= max || !normalize_vol()) {
+	if (err < 0 || min >= max || !normalize) {
 		err = snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
 		value = lrint_dir(dvol * (max - min), dir) + min;
 		snd_mixer_selem_set_playback_volume_all(elem, value);
@@ -711,7 +713,9 @@ ismuted(void)
 int
 getvol(void)
 {
-	if (normalize_vol()) {
+	gboolean normalize = prefs_get_boolean("NormalizeVolume", FALSE);
+
+	if (normalize) {
 		return lrint(get_normalized_volume(
 				     elem, SND_MIXER_SCHN_FRONT_RIGHT) * 100);
 	} else {
