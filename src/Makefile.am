@@ -7,15 +7,23 @@ AM_CPPFLAGS = \
 
 bin_PROGRAMS = pnmixer
 
-pnmixer_SOURCES = \
-	support.c support.h \
-	main.c main.h \
-	hotkeys.c hotkeys.h \
-	notify.c notify.h \
-	alsa.c alsa.h \
-	callbacks.c callbacks.h \
-	prefs.c prefs.h \
-	debug.h
+pnmixer_SOURCES =		\
+	alsa.c			\
+	audio.c			\
+	hotkey.c		\
+	hotkeys.c		\
+	main.c			\
+	notif.c			\
+	prefs.c			\
+	support-intl.c		\
+	support-log.c		\
+	support-ui.c		\
+	ui-about-dialog.c	\
+	ui-hotkey-dialog.c	\
+	ui-popup-menu.c		\
+	ui-popup-window.c	\
+	ui-prefs-dialog.c	\
+	ui-tray-icon.c
 
 pnmixer_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

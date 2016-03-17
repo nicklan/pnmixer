@@ -47,7 +47,7 @@ Latest version can always be found at: <https://github.com/nicklan/pnmixer/relea
 Compilation and Install
 -----------------------
 Needed dependencies:
-- >=gtk+-3.6	(or >=gtk+-2.22 via --without-gtk3)
+- >=gtk+-3.12	(or >=gtk+-2.24 via --without-gtk3)
 - glib-2
 - alsa-lib	(aka libasound on some distros)
 - libX11
@@ -66,11 +66,14 @@ To install this program cd to this directory and run:
 
 Documentation
 -------------
-Run:
+Needed dependencies:
+- doxygen
+- graphviz
+
+To build the documentation, run:
 
     make doc
 
-to build the documentation. It's in src/html. You can install
-it via:
+The documentation is built in `src/html`. To install it, run:
 
     make install-doc

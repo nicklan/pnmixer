@@ -1,4 +1,4 @@
-/* notify.h
+/* notif.h
  * PNmixer is written by Nick Lanham, a fork of OBmixer
  * which was programmed by Lee Ferrett, derived
  * from the program "AbsVolume" by Paul Sherman
@@ -9,26 +9,22 @@
  */
 
 /**
- * @file notify.h
- * Header for notify.c.
- * @brief header for notify.c
+ * @file notif.h
+ * Header for notif.c.
+ * @brief Header for notif.c.
  */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
-#ifndef NOTIFY_H_
-#define NOTIFY_H_
+#ifndef _NOTIF_H_
+#define _NOTIF_H_
 
-#ifdef HAVE_LIBN
-// only include if we have libnotify
-#include <libnotify/notify.h>
-#endif				// HAVE_LIBN
+typedef struct notif Notif;
 
-void init_libnotify(void);
-void uninit_libnotify(void);
-void do_notify_volume(gint level, gboolean muted);
-void do_notify_text(const gchar *body, const gchar *text);
+Notif *notif_new(Audio *audio);
+void notif_free(Notif *notif);
+void notif_reload(Notif *notif);
 
-#endif				// NOTIFY_H_
+#endif				// _NOTIF_H_

@@ -2,7 +2,22 @@ Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
 version 0.7:
- - New translations: Simplified Chinese
+ - PNMixer went through a major rewrite !
+   The new code share little with the previous 0.6 version.
+ - New translations: Simplified Chinese.
+ - Icon theme is now more restrictive and more usable. The user can
+   choose between the system icon theme, or the PNMixer icon theme.
+ - Volume change improvements:
+	- 2 steps are configurable: normal and fine.
+	- They apply to every way of changing volume: keyboard, mouse, hotkeys.
+	  Before, there was still some hard-coded steps here and there.
+	- Fine-grained (decimal) steps are now possible. Some USB DACs need
+	  such fine tuning.
+ - Volume popup orientation is now configurable (horizontal or vertical).
+ - Debug messages are now available using the `-d` command-line option.
+   There's no need to rebuild PNMixer anymore.
+ - Build infrastructure:
+	- new rules `indent-code` and `indent-xml`.
 
 version 0.6:
  - GTK3 support (use './autogen.sh --without-gtk3' to use GTK2 instead)
