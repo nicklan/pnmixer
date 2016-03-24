@@ -74,7 +74,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="button-press-event" handler="on_mixer_button_clicked" swapped="no"/>
+                <signal name="button-press-event" handler="on_mixer_button_press_event" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
