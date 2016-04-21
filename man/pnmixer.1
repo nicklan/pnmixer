@@ -1,0 +1,51 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" (C) Copyright 2015-2016 Arnaud Rébillout <elboulangero@gmail.com>,
+.\"
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH PNMIXER 1 "April 2016"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+pnmixer \- a mixer for the system tray
+.SH SYNOPSIS
+.B pnmixer
+.RB [\| \fIOPTION\fP \|]
+.SH DESCRIPTION
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBpnmixer\fP is a simple mixer application designed to run in your system
+tray. It integrates nicely into desktop environments that don't have
+a panel that supports applets and therefore can't run a mixer applet.
+In particular it's been used quite a lot with \fIfbpanel\fP and \fItint2\fP,
+but should run fine in any system tray.
+
+\fBpnmixer\fP is designed to work on systems that use \fIALSA\fP
+for sound management. Any other sound driver like \fIOSS\fP or \fIFFADO\fP
+are currently not supported (patches welcome). \fBpnmixer\fP has been reported
+to work well with \fIPulseAudio\fP, but we lack feedback on this matter.
+.SH OPTIONS
+\fBpnmixer\fP follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+.TP
+.B \-d, \-\-debug
+enable debug messages
+.TP
+.B \-h, \-\-help
+show summary of options and exit
+.TP
+.B \-v \-\-version
+show version information and exit

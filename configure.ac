@@ -104,8 +104,9 @@ data/desktop/Makefile
 data/icons/Makefile
 data/pixmaps/Makefile
 data/ui/Makefile
-src/Makefile
+man/Makefile
 po/Makefile.in
+src/Makefile
 ])
 
 AC_OUTPUT
