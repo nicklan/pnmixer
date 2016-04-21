@@ -10,66 +10,71 @@
 
 /**
  * @file hotkeys.c
- * This file handles the hotkey subsystem, including
- * communcation with Xlib and intercepting key presses
- * before they can be interpreted by gdk/gtk.
- * @brief hotkey subsystem
+ * This file handles the hotkeys subsystem, including
+ * communication with Xlib and intercepting key presses
+ * before they can be interpreted by Gtk/Gdk.
+ * @brief Hotkeys subsystem.
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
-#include "support.h"
-#include "main.h"
-#include "prefs.h"
-#include "alsa.h"
 #include <gdk/gdkx.h>
 #include <X11/XKBlib.h>
 
+#include "audio.h"
+#include "prefs.h"
+#include "support-intl.h"
+#include "support-log.h"
+#include "hotkey.h"
+#include "hotkeys.h"
 
-static int volMuteKey = -1;
-static int volDownKey = -1;
-static int volUpKey = -1;
-static int volMuteMods = -1;
-static int volDownMods = -1;
-static int volUpMods = -1;
-static int volStep = 1;
+#include "main.h"
 
-// `xmodmap -pm`
-/**
- * List of key modifiers which will be ignored whenever
- * we check whether the defined hotkeys have been pressed.
+/* Helpers */
+
+/* Removes the previously attached key_filter() function from
+ * the root window.
  */
-static guint keymasks[] = {
-	0,			/* No Modkey */
-	GDK_MOD2_MASK,		/* Numlock */
-	GDK_LOCK_MASK,		/* Capslock */
-	GDK_MOD2_MASK | GDK_LOCK_MASK	/* Both */
+static void
+hotkeys_remove_filter(GdkFilterFunc filter, gpointer data)
+{
+	GdkWindow *window;
+
+	window = gdk_x11_window_foreign_new_for_display
+	         (gdk_display_get_default(), GDK_ROOT_WINDOW());
+
+	gdk_window_remove_filter(window, filter, data);
+}
+
+/* Ataches the key_filter() function as a filter
+ * to the root window, so it will intercept window events.
+ */
+static void
+hotkeys_add_filter(GdkFilterFunc filter, gpointer data)
+{
+	GdkWindow *window;
+
+	window = gdk_x11_window_foreign_new_for_display
+	         (gdk_display_get_default(), GDK_ROOT_WINDOW());
+
+	gdk_window_add_filter(window, filter, data);
+}
+
+/* Public functions & callbacks */
+
+struct hotkeys {
+	/* Audio system */
+	Audio  *audio;
+	/* Hotkeys */
+	Hotkey *mute_hotkey;
+	Hotkey *up_hotkey;
+	Hotkey *down_hotkey;
 };
 
 /**
- * Checks if the keycode we got (minus modifiers like
- * numlock/capslock) matches the keycode we want.
- * Thus numlock + o will match o.
- *
- * @param got the key we got
- * @param want the key we want
- * @return TRUE if there is a match,
- * FALSE otherwise
- */
-static gboolean
-checkModKey(int got, int want)
-{
-	guint i;
-	for (i = 0; i < G_N_ELEMENTS(keymasks); i++)
-		if ((int) (want | keymasks[i]) == got)
-			return TRUE;
-	return FALSE;
-}
-
-/**
- * This function is called before gdk/gtk can respond
+ * This function is called before Gtk/Gdk can respond
  * to any(!) window event and handles pressed hotkeys.
  *
  * @param gdk_xevent the native event to filter
@@ -78,211 +83,183 @@ checkModKey(int got, int want)
  * @return a GdkFilterReturn value, should be GDK_FILTER_CONTINUE only
  */
 static GdkFilterReturn
-key_filter(GdkXEvent *gdk_xevent,
-		G_GNUC_UNUSED GdkEvent *event,
-		G_GNUC_UNUSED gpointer data)
+key_filter(GdkXEvent *gdk_xevent, G_GNUC_UNUSED GdkEvent *event, gpointer data)
 {
-	int type;
+	gint type;
 	guint key, state;
-	XKeyEvent *xevent;
-	//gboolean bResult;
+	XKeyEvent *xevent = (XKeyEvent *) gdk_xevent;
+	Hotkeys *hotkeys = (Hotkeys *) data;
+	Audio *audio = hotkeys->audio;
 
-	xevent = gdk_xevent;
 	type = xevent->type;
+	key = xevent->keycode;
+	state = xevent->state;
 
 	if (type == KeyPress) {
-		key = ((XKeyEvent *) xevent)->keycode;
-		state = ((XKeyEvent *) xevent)->state;
-
-		if ((int) key == volMuteKey && checkModKey(state, volMuteMods)) {
-			setmute(enable_noti && hotkey_noti);
-			on_volume_has_changed();
-			return GDK_FILTER_CONTINUE;
-		} else {
-			int cv = getvol();
-			if ((int) key == volUpKey && checkModKey(state, volUpMods)) {
-				setvol(cv + volStep, 1, enable_noti && hotkey_noti);
-			} else if ((int) key == volDownKey && checkModKey(state, volDownMods)) {
-				setvol(cv - volStep, -1, enable_noti && hotkey_noti);
-			}
-			// just ignore unknown hotkeys
-
-			if (ismuted() == 0)
-				setmute(enable_noti && hotkey_noti);
-
-			on_volume_has_changed();
-
-			// this will set the slider value
-			get_current_levels();
-		}
+		if (hotkey_matches(hotkeys->mute_hotkey, key, state))
+			audio_toggle_mute(audio, AUDIO_USER_HOTKEYS);
+		else if (hotkey_matches(hotkeys->up_hotkey, key, state))
+			audio_raise_volume(audio, AUDIO_USER_HOTKEYS);
+		else if (hotkey_matches(hotkeys->down_hotkey, key, state))
+			audio_lower_volume(audio, AUDIO_USER_HOTKEYS);
+		// just ignore unknown hotkeys
 	}
+
 	return GDK_FILTER_CONTINUE;
 }
 
 /**
- * Attaches the key_filter() function as a filter
- * to the the root window, so it will intercept window events.
+ * Reload hotkey preferences.
+ * This has to be called each time the preferences are modified.
+ *
+ * @param hotkeys a Hotkeys instance.
  */
 void
-add_filter(void)
+hotkeys_reload(Hotkeys *hotkeys)
 {
-	gdk_window_add_filter(
-		gdk_x11_window_foreign_new_for_display(
-			gdk_display_get_default(),GDK_ROOT_WINDOW()),
-		key_filter, NULL);
-}
+	gboolean enabled;
+	gint key, mods;
+	gboolean mute_err, up_err, down_err;
 
-static char xErr;
-int errBufSize = 512;
-char *errBuf, *printBuf;
-static unsigned long muteSerial, downSerial, upSerial;
-static gchar *muteSymStr = NULL, *downSymStr = NULL, *upSymStr = NULL;
+	/* Free any hotkey that may be currently assigned */
+	hotkey_free(hotkeys->mute_hotkey);
+	hotkeys->mute_hotkey = NULL;
 
-/**
- * When an Xlib error occurs, this function is called. It is
- * set via XSetErrorHandler().
- *
- * @param disp the display where the error occured
- * @param ev the error event
- * @return it's acceptable to return, but the return value is ignored
- */
-static int
-errhdl(G_GNUC_UNUSED Display *disp, XErrorEvent *ev)
-{
-	int p;
-	xErr = 1;
-	if (ev->serial == muteSerial)
-		p = snprintf(printBuf, errBufSize, " %s\n", muteSymStr);
-	else if (ev->serial == downSerial)
-		p = snprintf(printBuf, errBufSize, " %s\n", downSymStr);
-	else if (ev->serial == upSerial)
-		p = snprintf(printBuf, errBufSize, " %s\n", upSymStr);
-	else {
-		p = 0;
-		g_warning("Unknown serial in X error handler\n");
-	}
-	errBufSize -= p;
-	printBuf = printBuf + p;
-	return 0;
-}
+	hotkey_free(hotkeys->up_hotkey);
+	hotkeys->up_hotkey = NULL;
 
-/**
- * We need to report error in idle moment
- * since we can't report_error before gtk_main is called.
- * This function is attached via g_idle_add() in grab_keys(),
- * whenever there is an Xerror.
- *
- * @param data passed to the function,
- * set when the source was created
- * @return FALSE if the source should be removed,
- * TRUE otherwise
- */
-static gboolean
-idle_report_error(G_GNUC_UNUSED gpointer data)
-{
-	report_error(errBuf);
-	g_free(errBuf);
-	return FALSE;
-}
+	hotkey_free(hotkeys->down_hotkey);
+	hotkeys->down_hotkey = NULL;
 
-/**
- * Grabs keys on the Xserver level via XGrabKey(),
- * so they can be intercepted and interpreted by
- * our application, thus having global hotkeys.
- *
- * If mk, uk and dk parameters are -1, then
- * this function will just ungrab everything.
- *
- * @param mk mutekey
- * @param uk volume up key
- * @param dk volume down key
- * @param mm volume mute mod key
- * @param um volume up mod key
- * @param dm volume down mod key
- * @param step hotkey volume step
- */
-void
-grab_keys(int mk, int uk, int dk, int mm, int um, int dm, int step)
-{
-	Display *disp = gdk_x11_get_default_xdisplay();
-
-	// ungrab any previous keys
-	XUngrabKey(disp, AnyKey, AnyModifier, GDK_ROOT_WINDOW());
-
-	volMuteKey = mk;
-	volUpKey = uk;
-	volDownKey = dk;
-	volMuteMods = mm;
-	volUpMods = um;
-	volDownMods = dm;
-	volStep = step;
-
-	if (mk < 0 && uk < 0 && dk < 0)
+	/* Return if hotkeys are disabled */
+	enabled = prefs_get_boolean("EnableHotKeys", FALSE);
+	if (enabled == FALSE)
 		return;
 
-	xErr = 0;
-	errBuf = g_malloc(errBufSize * sizeof(gchar));
-	printBuf =
-		errBuf + snprintf(errBuf, errBufSize,
-				  _("Could not bind the following hotkeys:\n"));
-	errBufSize -= (printBuf - errBuf);
-
-	if (muteSymStr)
-		g_free(muteSymStr);
-	if (upSymStr)
-		g_free(upSymStr);
-	if (downSymStr)
-		g_free(downSymStr);
-
-	muteSymStr =
-		gtk_accelerator_name(
-			XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-					   volMuteKey, 0, 0),
-			volMuteMods);
-
-	upSymStr =
-		gtk_accelerator_name(
-			XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-					   volUpKey, 0, 0),
-			volUpMods);
-
-	downSymStr =
-		gtk_accelerator_name(
-			XkbKeycodeToKeysym(gdk_x11_get_default_xdisplay(),
-					   volDownKey, 0, 0),
-			volDownMods);
-
-	XErrorHandler old_hdlr = XSetErrorHandler(errhdl);
-	guint i;
-	for (i = 0; i < G_N_ELEMENTS(keymasks); i++) {
-		if (volMuteKey > 0) {
-			muteSerial = NextRequest(disp);
-			XGrabKey(disp, volMuteKey, volMuteMods | keymasks[i],
-				 GDK_ROOT_WINDOW(), 1,
-				 GrabModeAsync, GrabModeAsync);
-		}
-
-		if (volUpKey > 0) {
-			upSerial = NextRequest(disp);
-			XGrabKey(disp, volUpKey, volUpMods | keymasks[i],
-				 GDK_ROOT_WINDOW(), 1,
-				 GrabModeAsync, GrabModeAsync);
-		}
-
-		if (volDownKey > 0) {
-			downSerial = NextRequest(disp);
-			XGrabKey(disp, volDownKey, volDownMods | keymasks[i],
-				 GDK_ROOT_WINDOW(), 1,
-				 GrabModeAsync, GrabModeAsync);
-		}
+	/* Setup mute hotkey */
+	mute_err = FALSE;
+	key = prefs_get_integer("VolMuteKey", -1);
+	mods = prefs_get_integer("VolMuteMods", 0);
+	if (key != -1) {
+		hotkeys->mute_hotkey = hotkey_new(key, mods);
+		if (hotkeys->mute_hotkey == NULL)
+			mute_err = TRUE;
 	}
 
-	XFlush(disp);
-	XSync(disp, False);
-	(void) XSetErrorHandler(old_hdlr);
+	/* Setup volume up hotkey */
+	up_err = FALSE;
+	key = prefs_get_integer("VolUpKey", -1);
+	mods = prefs_get_integer("VolUpMods", 0);
+	if (key != -1) {
+		hotkeys->up_hotkey = hotkey_new(key, mods);
+		if (hotkeys->up_hotkey == NULL)
+			up_err = TRUE;
+	}
 
-	if (xErr)
-		g_idle_add(idle_report_error, NULL);
-	else
-		g_free(errBuf);
+	/* Setup volume down hotkey */
+	down_err = FALSE;
+	key = prefs_get_integer("VolDownKey", -1);
+	mods = prefs_get_integer("VolDownMods", 0);
+	if (key != -1) {
+		hotkeys->down_hotkey = hotkey_new(key, mods);
+		if (hotkeys->down_hotkey == NULL)
+			down_err = TRUE;
+	}
+
+	/* Display error message if needed */
+	if (mute_err || up_err || down_err) {
+		run_error_dialog("%s:\n%s%s%s%s%s%s",
+		                 _("Could not grab the following hotkeys"),
+		                 mute_err ? _("Mute/Unmute") : "",
+		                 mute_err ? "\n" : "",
+		                 up_err ? _("Volume Up") : "",
+		                 up_err ? "\n" : "",
+		                 down_err ? _("Volume Down") : "",
+		                 down_err ? "\n" : ""
+		                );
+	}
+}
+
+/**
+ * Unbind hotkeys manually. Should be paired with a hotkeys_bind() call.
+ *
+ * @param hotkeys a Hotkeys instance.
+ */
+void
+hotkeys_unbind(Hotkeys *hotkeys)
+{
+	hotkeys_remove_filter(key_filter, hotkeys);
+
+	if (hotkeys->mute_hotkey)
+		hotkey_ungrab(hotkeys->mute_hotkey);
+	if (hotkeys->up_hotkey)
+		hotkey_ungrab(hotkeys->up_hotkey);
+	if (hotkeys->down_hotkey)
+		hotkey_ungrab(hotkeys->down_hotkey);
+}
+
+/**
+ * Bind hotkeys manually. Should be paired with a hotkeys_unbind() call.
+ *
+ * @param hotkeys a Hotkeys instance.
+ */
+void
+hotkeys_bind(Hotkeys *hotkeys)
+{
+	if (hotkeys->mute_hotkey)
+		hotkey_grab(hotkeys->mute_hotkey);
+	if (hotkeys->up_hotkey)
+		hotkey_grab(hotkeys->up_hotkey);
+	if (hotkeys->down_hotkey)
+		hotkey_grab(hotkeys->down_hotkey);
+
+	hotkeys_add_filter(key_filter, hotkeys);
+}
+
+/**
+ * Cleanup the hotkey subsystem.
+ *
+ * @param hotkeys a Hotkeys instance.
+ */
+void
+hotkeys_free(Hotkeys *hotkeys)
+{
+	if (hotkeys == NULL)
+		return;
+
+	/* Disable hotkeys */
+	hotkeys_remove_filter(key_filter, hotkeys);
+
+	/* Free anything */
+	hotkey_free(hotkeys->mute_hotkey);
+	hotkey_free(hotkeys->up_hotkey);
+	hotkey_free(hotkeys->down_hotkey);
+	g_free(hotkeys);
+}
+
+/**
+ * Creates the hotkeys subsystem, and bind the hotkeys.
+ *
+ * @param audio the audio system, needed to control the audio.
+ * @return the newly created Hotkeys instance.
+ */
+Hotkeys *
+hotkeys_new(Audio *audio)
+{
+	Hotkeys *hotkeys;
+
+	DEBUG("Creating hotkeys control");
+
+	hotkeys = g_new0(Hotkeys, 1);
+
+	/* Save audio pointer */
+	hotkeys->audio = audio;
+
+	/* Load preferences */
+	hotkeys_reload(hotkeys);
+
+	/* Bind hotkeys */
+	hotkeys_add_filter(key_filter, hotkeys);
+
+	return hotkeys;
 }

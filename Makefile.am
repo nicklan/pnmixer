@@ -22,5 +22,21 @@ install-doc: doc
 	$(MKDIR_P) "$(DESTDIR)$(htmldir)"
 	cp -pR "$(top_srcdir)"/src/html/* "$(DESTDIR)$(htmldir)"/
 
+indent-code:
+	@which astyle >/dev/null || { echo "'astyle' is required, please install it"; exit 1; }	
+	astyle  --style=linux		\
+		--indent=tab=8		\
+		--align-pointer=name	\
+		--suffix=none		\
+		src/*.[ch]
+
+indent-xml:
+	@which xmllint >/dev/null || { echo "'xmllint' is required, please install it"; exit 1; }
+	for f in data/ui/*.glade; do			\
+		mv "$$f" "$$f.bck";			\
+		xmllint --format "$$f.bck" > "$$f";	\
+		rm "$$f.bck";				\
+	done
+
 clean-local:
 	rm -rf src/html src/latex

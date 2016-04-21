@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkAdjustment" id="vol_scale_adjustment">
+  <object class="GtkAdjustment" id="vol_scale_adj">
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
@@ -18,46 +18,26 @@
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
-    <signal name="button-press-event" handler="hide_me" swapped="no"/>
-    <signal name="key-press-event" handler="hide_me" swapped="no"/>
-    <signal name="grab-broken-event" handler="hide_me" swapped="no"/>
+    <signal name="button-press-event" handler="on_popup_window_event" swapped="no"/>
+    <signal name="key-press-event" handler="on_popup_window_event" swapped="no"/>
+    <signal name="grab-broken-event" handler="on_popup_window_event" swapped="no"/>
     <child>
       <object class="GtkAlignment" id="alignment1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="left_padding">12</property>
-	<property name="right_padding">12</property>
+        <property name="right_padding">12</property>
         <child>
-      <object class="GtkVBox" id="vbox1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-              <object class="GtkHScale" id="vol_scale">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="adjustment">vol_scale_adjustment</property>
-                <property name="digits">0</property>
-                <signal name="change-value" handler="vol_scroll_event" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkCheckButton" id="mute_check_popup_window">
-                <property name="label" translatable="yes">Mute</property>
-                <property name="use_action_appearance">False</property>
+              <object class="GtkHScale" id="vol_scale">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="border_width">8</property>
-                <property name="draw_indicator">True</property>
+                <property name="adjustment">vol_scale_adj</property>
+                <property name="digits">0</property>
+                <signal name="value-changed" handler="on_vol_scale_value_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -66,14 +46,42 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes">Mixer</property>
-                <property name="use_action_appearance">False</property>
+              <object class="GtkHBox" id="hbox1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">6</property>
-                <signal name="pressed" handler="on_mixer" swapped="no"/>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkCheckButton" id="mute_check">
+                    <property name="label" translatable="yes">Mute</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="border_width">8</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_mute_check_toggled" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="mixer_button">
+                    <property name="label" translatable="yes">Mixer</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="border_width">6</property>
+                    <signal name="button-press-event" handler="on_mixer_button_press_event" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -82,13 +90,6 @@
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
         </child>
       </object>
     </child>

@@ -2,26 +2,20 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">audio-volume-muted</property>
-    <property name="icon_size">1</property>
-  </object>
-  <object class="GtkImage" id="image4">
+  <object class="GtkImage" id="mixer_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-execute</property>
     <property name="icon_size">1</property>
   </object>
-  <object class="GtkImage" id="image5">
+  <object class="GtkImage" id="reload_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="ypad">2</property>
     <property name="stock">gtk-refresh</property>
     <property name="icon_size">1</property>
   </object>
-  <object class="GtkWindow" id="popup_window">
+  <object class="GtkWindow" id="menu_window">
     <property name="type">popup</property>
     <property name="width_request">285</property>
     <property name="height_request">82</property>
@@ -32,44 +26,42 @@
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
-    <signal name="button-press-event" handler="hide_me" swapped="no"/>
-    <signal name="key-press-event" handler="hide_me" swapped="no"/>
-    <signal name="grab-broken-event" handler="hide_me" swapped="no"/>
     <child>
-      <object class="GtkMenuBar" id="popup_menubar">
+      <object class="GtkMenuBar" id="menubar">
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkMenuItem" id="popup_menuitem">
+          <object class="GtkMenuItem" id="menuitem">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="no">_Popup</property>
             <property name="use_underline">True</property>
             <child type="submenu">
-              <object class="GtkMenu" id="popup_menu">
+              <object class="GtkMenu" id="menu">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkCheckMenuItem" id="mute_check_popup_menu">
+                  <object class="GtkCheckMenuItem" id="mute_item">
                     <property name="label" translatable="yes">_Mute</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Mute/Unmute Volume</property>
                     <property name="use_underline">True</property>
+                    <signal name="activate" handler="on_mute_item_activate" swapped="no"/>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkImageMenuItem" id="volcontrol_item">
+                  <object class="GtkImageMenuItem" id="mixer_item">
                     <property name="label" translatable="yes">_Volume Control</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Open Volume Control</property>
                     <property name="use_underline">True</property>
-                    <property name="image">image4</property>
+                    <property name="image">mixer_image</property>
                     <property name="use_stock">False</property>
-                    <signal name="activate" handler="on_mixer" swapped="no"/>
+                    <signal name="activate" handler="on_mixer_item_activate" swapped="no"/>
                   </object>
                 </child>
                 <child>
@@ -81,20 +73,20 @@
                     <property name="tooltip_text" translatable="yes">Preferences</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
-                    <signal name="activate" handler="do_prefs" swapped="no"/>
+                    <signal name="activate" handler="on_prefs_item_activate" swapped="no"/>
                   </object>
                 </child>
                 <child>
                   <object class="GtkImageMenuItem" id="reload_item">
-                    <property name="label" translatable="yes">_Reload Alsa</property>
+                    <property name="label" translatable="yes">_Reload Sound</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Reload Alsa</property>
+                    <property name="tooltip_text" translatable="yes">Reload Sound</property>
                     <property name="use_underline">True</property>
-                    <property name="image">image5</property>
+                    <property name="image">reload_image</property>
                     <property name="use_stock">False</property>
-                    <signal name="activate" handler="do_alsa_reinit" swapped="no"/>
+                    <signal name="activate" handler="on_reload_item_activate" swapped="no"/>
                   </object>
                 </child>
                 <child>
@@ -106,7 +98,7 @@
                     <property name="tooltip_text" translatable="yes">About</property>
                     <property name="use_underline">True</property>
                     <property name="use_stock">True</property>
-                    <signal name="activate" handler="create_about" swapped="no"/>
+                    <signal name="activate" handler="on_about_item_activate" swapped="no"/>
                   </object>
                 </child>
                 <child>

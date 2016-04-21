@@ -10,48 +10,37 @@
 
 /**
  * @file alsa.h
- * Header for alsa.c. Holds the acard struct and public
- * functions.
- * @brief header for alsa.c
+ * Header for alsa.c.
+ * @brief Header for alsa.c.
  */
 
-#ifndef ALSA_H_
-#define ALSA_H_
+#ifndef _ALSA_H_
+#define _ALSA_H_
 
 #include <glib.h>
 
-/**
- * Struct representing an alsa card.
- */
-struct acard {
-	/**
-	 * Real card name like 'HDA Intel PCH'.
-	 */
-	char *name;
-	/**
-	 * HTCL device name, like 'hw:0'.
-	 */
-	char *dev;
-	/**
-	 * All playable channels in a list.
-	 */
-	GSList *channels;
+GSList *alsa_list_cards(void);
+GSList *alsa_list_channels(const char *card_name);
+
+typedef struct alsa_card AlsaCard;
+
+AlsaCard *alsa_card_new(const char *card, const char *channel, gboolean normalize);
+void alsa_card_free(AlsaCard *card);
+
+enum alsa_event {
+	ALSA_CARD_ERROR,
+	ALSA_CARD_DISCONNECTED,
+	ALSA_CARD_VALUES_CHANGED
 };
 
-/**
- * The list of cards detected. Not all of them are
- * playable (ie, the channels field may be NULL).
- */
-GSList *cards;
+typedef void (*AlsaCb) (enum alsa_event event, gpointer data);
+void alsa_card_install_callback(AlsaCard *card, AlsaCb callback, gpointer data);
 
-struct acard *find_card(const gchar *card);
-int setvol(int vol, int dir, gboolean notify);
-void setmute(gboolean notify);
-int getvol(void);
-int ismuted(void);
-void alsa_init(void);
-void alsa_close(void);
-struct acard *alsa_get_active_card(void);
-const char *alsa_get_active_channel(void);
+const char *alsa_card_get_name(AlsaCard *card);
+const char *alsa_card_get_channel(AlsaCard *card);
+gboolean alsa_card_is_muted(AlsaCard *card);
+void alsa_card_toggle_mute(AlsaCard *card);
+gdouble alsa_card_get_volume(AlsaCard *card);
+void alsa_card_set_volume(AlsaCard *card, gdouble value, int dir);
 
-#endif				// ALSA_H_
+#endif				// _ALSA_H_
