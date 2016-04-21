@@ -201,8 +201,6 @@ struct prefs_dialog {
 	GtkWidget *custom_entry;
 	/* Hotkeys panel */
 	GtkWidget *hotkeys_enable_check;
-	GtkWidget *hotkeys_vol_label;
-	GtkWidget *hotkeys_vol_spin;
 	GtkWidget *hotkeys_mute_eventbox;
 	GtkWidget *hotkeys_mute_label;
 	GtkWidget *hotkeys_up_eventbox;
@@ -299,8 +297,7 @@ void
 on_hotkeys_enable_check_toggled(GtkToggleButton *button, PrefsDialog *dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
-	gtk_widget_set_sensitive(dialog->hotkeys_vol_label, active);
-	gtk_widget_set_sensitive(dialog->hotkeys_vol_spin, active);
+	(void) active;
 }
 
 /**
@@ -544,11 +541,6 @@ prefs_dialog_retrieve(PrefsDialog *dialog)
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hkc));
 	prefs_set_boolean("EnableHotKeys", active);
 
-	// hotkeys scroll step
-	GtkWidget *hs = dialog->hotkeys_vol_spin;
-	gint hotstep = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(hs));
-	prefs_set_integer("HotkeyVolumeStep", hotstep);
-
 	// hotkeys
 	GtkWidget *kl;
 	gint keycode;
@@ -733,11 +725,6 @@ prefs_dialog_populate(PrefsDialog *dialog)
 	(GTK_TOGGLE_BUTTON(dialog->hotkeys_enable_check),
 	 prefs_get_boolean("EnableHotKeys", FALSE));
 
-	// hotkeys scroll step
-	gtk_spin_button_set_value
-	(GTK_SPIN_BUTTON(dialog->hotkeys_vol_spin),
-	 prefs_get_integer("HotkeyVolumeStep", 1));
-
 	// hotkeys
 	set_label_for_keycode(GTK_LABEL(dialog->hotkeys_mute_label),
 	                      prefs_get_integer("VolMuteKey", -1),
@@ -887,8 +874,6 @@ prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys)
 	assign_gtk_widget(builder, dialog, custom_entry);
 	// Hotkeys panel
 	assign_gtk_widget(builder, dialog, hotkeys_enable_check);
-	assign_gtk_widget(builder, dialog, hotkeys_vol_label);
-	assign_gtk_widget(builder, dialog, hotkeys_vol_spin);
 	assign_gtk_widget(builder, dialog, hotkeys_mute_eventbox);
 	assign_gtk_widget(builder, dialog, hotkeys_mute_label);
 	assign_gtk_widget(builder, dialog, hotkeys_up_eventbox);
