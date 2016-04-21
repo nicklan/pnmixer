@@ -235,26 +235,17 @@ on_mute_check_toggled(G_GNUC_UNUSED GtkToggleButton *button, PopupWindow *window
 }
 
 /**
- * Handles the 'button-press-event' signal on the GtkButton 'mixer_button',
+ * Handles the 'clicked' signal on the GtkButton 'mixer_button',
  * therefore opening the mixer application.
  *
  * @param button the GtkButton that received the signal.
- * @param event the GdkEventButton which triggered this signal.
  * @param window user data set when the signal handler was connected.
- * @return TRUE to stop other handlers from being invoked for the event.
- * FALSE to propagate the event further.
  */
-gboolean
-on_mixer_button_press_event(G_GNUC_UNUSED GtkButton *button,
-                            GdkEventButton *event, PopupWindow *window)
+void
+on_mixer_button_clicked(G_GNUC_UNUSED GtkButton *button, PopupWindow *window)
 {
-	if (event->button != 1)
-		return FALSE;
-
 	popup_window_hide(window);
 	run_mixer_command();
-
-	return FALSE;
 }
 
 /**
