@@ -143,21 +143,11 @@ run_prefs_dialog(void)
 	 * while new prefs are applied.
 	 */
 	if (resp == GTK_RESPONSE_OK) {
-		/* Popup window, we must rebuild it from scratch in case
-		 * the slider orientation was modified.
-		 */
+		/* Ask every instance to reload its preferences */
 		popup_window_reload(popup_window);
-
-		/* Tray icon preferences */
 		tray_icon_reload(tray_icon);
-
-		/* Hotkeys preferences */
 		hotkeys_reload(hotkeys);
-
-		/* Notifications preferences */
 		notif_reload(notif);
-
-		/* Reload audio */
 		audio_reload(audio);
 
 		/* Save preferences to file */

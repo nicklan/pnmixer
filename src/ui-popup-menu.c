@@ -259,13 +259,15 @@ popup_menu_create(Audio *audio)
 #endif
 
 #ifdef WITH_GTK3
-	/* Gtk3 doesn't seem to scale images enclosed in a GtkMenuItem.
-	 * If the theme has several icon sizes (32x32, 48x48, 64x64, ...),
-	 * it looks like Gtk3 picks up the right size, and it works.
-	 * But if the theme has only one icon size (let's say 128x128),
-	 * Gtk3 displays it as it, without scaling, which screws up the menu.
-	 * So yes, we need to do that manually... Yes, that sucks.
-	 * Not really hoping for a better solution though...
+	/* Gtk3 doesn't seem to scale images automatically like Gtk2 did.
+	 * If we have a 'broken' icon set that only provides one size of icon
+	 * (let's say 128x128), Gtk2 would scale it appropriately, but not Gtk3.
+	 * This will result in huge icons in the menu.
+	 * If we follow the Gtk3 logic, then we shouldn't do anything to handle that,
+	 * and when users report such problem, we tell them to fix the icon theme.
+	 * If we want PNMixer to work in as many cases as possible, then we must
+	 * handle the broken icon theme and resize the icons by ourself.
+	 * We choose the second option here.
 	 */
 	GtkRequisition label_req;
 	GtkRequisition image_req;
