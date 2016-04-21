@@ -19,6 +19,7 @@ Makefile.in.in
 /data/desktop/pnmixer.desktop
 /depcomp
 /install-sh
+/man/pnmixer.1
 /missing
 /mkinstalldirs
 /pixmaps/pnmixer.xcf
