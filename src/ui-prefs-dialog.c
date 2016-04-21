@@ -201,6 +201,7 @@ struct prefs_dialog {
 	GtkWidget *custom_entry;
 	/* Hotkeys panel */
 	GtkWidget *hotkeys_enable_check;
+	GtkWidget *hotkeys_table;
 	GtkWidget *hotkeys_mute_eventbox;
 	GtkWidget *hotkeys_mute_label;
 	GtkWidget *hotkeys_up_eventbox;
@@ -297,7 +298,7 @@ void
 on_hotkeys_enable_check_toggled(GtkToggleButton *button, PrefsDialog *dialog)
 {
 	gboolean active = gtk_toggle_button_get_active(button);
-	(void) active;
+	gtk_widget_set_sensitive(dialog->hotkeys_table, active);
 }
 
 /**
@@ -874,6 +875,7 @@ prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys)
 	assign_gtk_widget(builder, dialog, custom_entry);
 	// Hotkeys panel
 	assign_gtk_widget(builder, dialog, hotkeys_enable_check);
+	assign_gtk_widget(builder, dialog, hotkeys_table);
 	assign_gtk_widget(builder, dialog, hotkeys_mute_eventbox);
 	assign_gtk_widget(builder, dialog, hotkeys_mute_label);
 	assign_gtk_widget(builder, dialog, hotkeys_up_eventbox);
