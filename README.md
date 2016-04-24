@@ -8,8 +8,10 @@ In particular it's been used quite a lot with fbpanel and tint2, but
 should run fine in any system tray.
 
 PNMixer is designed to work on systems that use ALSA for sound management.
-Any other sound driver like OSS or FFADO, or sound server like PulseAudio
-or Jackd, are currently not supported (patches welcome).
+Any other sound driver like OSS or FFADO are currently not supported
+(patches welcome). There is no *official* PulseAudio support at the moment,
+but it seems that PNMixer behaves quite well anyway when PA is running.
+Feel free to try and to give some feedback.
 
 PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with
 a number of additions. These include:
