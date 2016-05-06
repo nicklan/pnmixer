@@ -223,8 +223,6 @@
     <property name="type_hint">dialog</property>
     <property name="title" translatable="yes">PNMixer Preferences</property>
     <property name="resizable">False</property>
-    <property name="default_width">350</property>
-    <property name="default_height">500</property>
     <property name="icon_name">preferences-system</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="vbox1">
