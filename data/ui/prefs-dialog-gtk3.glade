@@ -358,7 +358,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
-                            <property name="label" translatable="yes">Slider orientation:</property>
+                            <property name="label" translatable="yes">Slider Orientation:</property>
                           </object>
                           <packing>
                             <property name="y_options">GTK_EXPAND</property>
