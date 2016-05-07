@@ -86,31 +86,26 @@ about_dialog_create(GtkWindow *parent)
 		NULL
 	};
 	const gchar *authors[] = {
-		"Nick Lanham",
 		"Brian Bidulock",
 		"El Boulangero <elboulangero@gmail.com>",
 		"Julian Ospald <hasufell@gentoo.org>",
+		"Nick Lanham",
 		"Steven Honeyman",
 		NULL
 	};
-	const gchar *tp_credit;
-	const gchar *translator_names;
-	gchar *translator_credits;
+	const gchar *translators =
+	        "The Translation Project http://translationproject.org\n" \
+	        "Mario Blättermann (de)\n" \
+	        "Matthieu Bresson (fr)\n" \
+	        "Mattia Bertoni (it)\n" \
+	        "Pavel Serebryakov (ru)\n" \
+	        "Yuexuan Gu (zh_CN)";
 
 	/* Create about dialog */
 	dialog = g_new0(AboutDialog, 1);
 	dialog->about_dialog = gtk_about_dialog_new();
 
 	/* Fill with the relevant information */
-	tp_credit = "The Translation Project http://translationproject.org";
-	translator_names = _("translator-credits");
-	if (!g_strcmp0(translator_names, "translator-credits"))
-		/* Untranslated, just credit the TP */
-		translator_credits = g_strdup_printf("%s", tp_credit);
-	else
-		/* Translated, add translator names to credit */
-		translator_credits = g_strdup_printf("%s\n%s", tp_credit, translator_names);
-
 	g_object_set(dialog->about_dialog,
 	             "artists",            artists,
 	             "authors",            authors,
@@ -124,12 +119,10 @@ about_dialog_create(GtkWindow *parent)
 #endif
 	             "logo-icon-name",     "pnmixer",
 	             "program-name",       "PNMixer",
-	             "translator-credits", translator_credits,
+	             "translator-credits", translators,
 	             "version",            PACKAGE_VERSION,
 	             "website",            "http://github.com/nicklan/pnmixer",
 	             NULL);
-
-	g_free(translator_credits);
 
 	/* More config for window */
 	gtk_window_set_skip_taskbar_hint(GTK_WINDOW(dialog->about_dialog), TRUE);
