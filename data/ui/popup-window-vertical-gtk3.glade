@@ -9,8 +9,6 @@
   </object>
   <object class="GtkWindow" id="popup_window">
     <property name="type">popup</property>
-    <property name="width_request">80</property>
-    <property name="height_request">280</property>
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
@@ -37,6 +35,7 @@
             <property name="inverted">True</property>
             <property name="round_digits">0</property>
             <property name="digits">0</property>
+            <property name="height_request">200</property>
             <signal name="value-changed" handler="on_vol_scale_value_changed" swapped="no"/>
           </object>
           <packing>

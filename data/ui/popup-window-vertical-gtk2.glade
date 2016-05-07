@@ -9,8 +9,6 @@
   </object>
   <object class="GtkWindow" id="popup_window">
     <property name="type">popup</property>
-    <property name="height_request">280</property>
-    <property name="width_request">80</property>
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
@@ -25,11 +23,15 @@
       <object class="GtkAlignment" id="alignment1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="top_padding">12</property>
+        <property name="top_padding">8</property>
+        <property name="bottom_padding">8</property>
+        <property name="left_padding">8</property>
+        <property name="right_padding">8</property>
         <child>
           <object class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="spacing">5</property>
             <child>
               <object class="GtkHScale" id="vol_scale">
                 <property name="visible">True</property>
@@ -38,6 +40,7 @@
                 <property name="adjustment">vol_scale_adj</property>
                 <property name="inverted">True</property>
                 <property name="digits">0</property>
+                <property name="height_request">200</property>
                 <signal name="value-changed" handler="on_vol_scale_value_changed" swapped="no"/>
               </object>
               <packing>
@@ -57,7 +60,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="border_width">8</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_mute_check_toggled" swapped="no"/>
                   </object>
@@ -74,7 +76,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="border_width">6</property>
                     <signal name="clicked" handler="on_mixer_button_clicked" swapped="no"/>
                   </object>
                   <packing>
