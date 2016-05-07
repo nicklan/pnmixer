@@ -252,14 +252,13 @@ run_audio_error_dialog(void)
 void
 do_toggle_popup_window(void)
 {
-	/* If the prefs dialog (which is modal) is shown,
-	 * we can open the popup window (the tray icon catches the mouse click),
-	 * but we can't close it anymore (the popup window doesn't catch clicks,
-	 * because of the prefs dialog).
+	/* If a modal dialog is opened, we can open the popup window
+	 * (the tray icon catches the mouse click), but we can't close it anymore
+	 * (the popup window doesn't catch clicks, because the modal dialog does).
 	 * A simple way to solve that is just to forbid showing the popup window
-	 * when the prefs dialog is shown.
+	 * when there's a modal dialog opened.
 	 */
-	if (prefs_dialog)
+	if (prefs_dialog || about_dialog)
 		return;
 
 	popup_window_toggle(popup_window);
