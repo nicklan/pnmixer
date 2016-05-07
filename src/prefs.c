@@ -49,6 +49,7 @@ VolMuteKey=-1\n\
 VolUpKey=-1\n\
 VolDownKey=-1\n\
 AlsaCard=(default)\n\
+NormalizeVolume=true\n\
 SystemTheme=false"
 
 static GKeyFile *keyFile;
