@@ -15,13 +15,11 @@ src/ui-popup-window.c
 src/ui-prefs-dialog.c
 src/ui-tray-icon.c
 data/desktop/pnmixer.desktop.in
-data/ui/about-dialog-gtk3.glade
 data/ui/hotkey-dialog-gtk3.glade
 data/ui/popup-menu-gtk3.glade
 data/ui/popup-window-horizontal-gtk3.glade
 data/ui/popup-window-vertical-gtk3.glade
 data/ui/prefs-dialog-gtk3.glade
-data/ui/about-dialog-gtk2.glade
 data/ui/hotkey-dialog-gtk2.glade
 data/ui/popup-menu-gtk2.glade
 data/ui/popup-window-horizontal-gtk2.glade

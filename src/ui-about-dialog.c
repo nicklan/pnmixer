@@ -20,14 +20,24 @@
 
 #include <gtk/gtk.h>
 
-#include "support-log.h"
-#include "support-ui.h"
+#include "support-intl.h"
 #include "ui-about-dialog.h"
 
-#ifdef WITH_GTK3
-#define ABOUT_UI_FILE "about-dialog-gtk3.glade"
-#else
-#define ABOUT_UI_FILE "about-dialog-gtk2.glade"
+#ifndef WITH_GTK3
+#define LICENSE_GPL3 \
+	"PNMixer is free software; you can redistribute it and/or modify it "	\
+	"under the terms of the GNU General Public License as published by the " \
+	"Free Software Foundation; either version 3 of the License, or " \
+	"(at your option) any later version.\n" \
+	"\n" \
+	"PNMixer is distributed in the hope that it will be useful, but " \
+	"WITHOUT ANY WARRANTY; without even the implied warranty of " \
+	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. " \
+	"See the GNU General Public License for more details.\n" \
+	"\n" \
+	"You should have received a copy of the GNU General Public License " \
+	"along with PNMixer; if not, write to the Free Software Foundation, "	\
+	"Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 #endif
 
 /* Public functions */
@@ -70,31 +80,60 @@ about_dialog_destroy(AboutDialog *dialog)
 AboutDialog *
 about_dialog_create(GtkWindow *parent)
 {
-	gchar *uifile;
-	GtkBuilder *builder;
 	AboutDialog *dialog;
+	const gchar *artists[] = {
+		"Paul Davey",
+		NULL
+	};
+	const gchar *authors[] = {
+		"Nick Lanham",
+		"Brian Bidulock",
+		"El Boulangero <elboulangero@gmail.com>",
+		"Julian Ospald <hasufell@gentoo.org>",
+		"Steven Honeyman",
+		NULL
+	};
+	const gchar *tp_credit;
+	const gchar *translator_names;
+	gchar *translator_credits;
 
+	/* Create about dialog */
 	dialog = g_new0(AboutDialog, 1);
+	dialog->about_dialog = gtk_about_dialog_new();
 
-	/* Build UI file */
-	uifile = get_ui_file(ABOUT_UI_FILE);
-	g_assert(uifile);
+	/* Fill with the relevant information */
+	tp_credit = "The Translation Project http://translationproject.org";
+	translator_names = _("translator-credits");
+	if (!g_strcmp0(translator_names, "translator-credits"))
+		/* Untranslated, just credit the TP */
+		translator_credits = g_strdup_printf("%s", tp_credit);
+	else
+		/* Translated, add translator names to credit */
+		translator_credits = g_strdup_printf("%s\n%s", tp_credit, translator_names);
 
-	DEBUG("Building from ui file '%s'", uifile);
-	builder = gtk_builder_new_from_file(uifile);
+	g_object_set(dialog->about_dialog,
+	             "artists",            artists,
+	             "authors",            authors,
+	             "comments",           _("A mixer for the system tray"),
+	             "copyright",          _("Copyright © 2010-2016 Nick Lanham"),
+#ifdef WITH_GTK3
+	             "license-type",       GTK_LICENSE_GPL_3_0,
+#else
+	             "license",            LICENSE_GPL3,
+	             "wrap-license",       TRUE,
+#endif
+	             "logo-icon-name",     "pnmixer",
+	             "program-name",       "PNMixer",
+	             "translator-credits", translator_credits,
+	             "version",            PACKAGE_VERSION,
+	             "website",            "http://github.com/nicklan/pnmixer",
+	             NULL);
 
-	/* Save some widgets for later use */
-	assign_gtk_widget(builder, dialog, about_dialog);
+	g_free(translator_credits);
 
-	/* Configure some widgets */
-	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog->about_dialog), VERSION);
-
-	/* Set transient parent */
+	/* More config for window */
+	gtk_window_set_skip_taskbar_hint(GTK_WINDOW(dialog->about_dialog), TRUE);
 	gtk_window_set_transient_for(GTK_WINDOW(dialog->about_dialog), parent);
-
-	/* Cleanup */
-	g_object_unref(builder);
-	g_free(uifile);
 
 	return dialog;
 }
