@@ -402,7 +402,7 @@
                           <object class="GtkLabel" id="vol_pos_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Volume Text Position:</property>
+                            <property name="label" translatable="yes">Text Volume Position:</property>
                             <property name="halign">start</property>
                           </object>
                           <packing>
@@ -698,6 +698,7 @@
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Normalize Volume:</property>
                             <property name="halign">start</property>
+                            <property name="tooltip_text" translatable="yes">Change volume on a logarithmic scale, closer to human perception.</property>
                           </object>
                           <packing>
                             <property name="top_attach">2</property>
