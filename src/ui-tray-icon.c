@@ -328,10 +328,10 @@ update_status_icon_tooltip(GtkStatusIcon *status_icon,
 	char tooltip[64];
 
 	if (!muted)
-		snprintf(tooltip, sizeof tooltip, _("%s (%s)\n%s: %ld %%"),
+		snprintf(tooltip, sizeof tooltip, "%s (%s)\n%s: %ld %%",
 		         card, channel, _("Volume"), lround(volume));
 	else
-		snprintf(tooltip, sizeof tooltip, _("%s (%s)\n%s: %ld %%\n%s"),
+		snprintf(tooltip, sizeof tooltip, "%s (%s)\n%s: %ld %%\n%s",
 		         card, channel, _("Volume"), lround(volume), _("Muted"));
 
 	gtk_status_icon_set_tooltip_text(status_icon, tooltip);

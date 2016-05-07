@@ -1,5 +1,5 @@
 [Desktop Entry]
-_Name=PNMixer
+Name=PNMixer
 _GenericName=System Tray Mixer
 _Comment=An audio mixer for the system tray
 Exec=pnmixer

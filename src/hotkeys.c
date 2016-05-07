@@ -169,7 +169,7 @@ hotkeys_reload(Hotkeys *hotkeys)
 	/* Display error message if needed */
 	if (mute_err || up_err || down_err) {
 		run_error_dialog("%s:\n%s%s%s%s%s%s",
-		                 _("Could not grab the following hotkeys"),
+		                 _("Could not grab the following HotKeys"),
 		                 mute_err ? _("Mute/Unmute") : "",
 		                 mute_err ? "\n" : "",
 		                 up_err ? _("Volume Up") : "",
