@@ -42,6 +42,15 @@ Icons are a slightly modified versions of the icons from Paul Davey's
 "Umicons Volume 2" icon set. You can find his website at:
 <http://mattahan.deviantart.com/art/Umicons-Volume-2-1948945>
 
+Translation
+-----------
+PNMixer is translated through the [Translation Project](http://translationproject.org/).
+If you wish to make or update a translation for PNMixer, please get in touch
+with the relevant team on the TP.
+
+You can visit the PNMixer page on the TP at
+<http://translationproject.org/domain/pnmixer.html>.
+
 Download
 --------
 Latest version can always be found at: <https://github.com/nicklan/pnmixer/releases>

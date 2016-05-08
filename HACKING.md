@@ -83,6 +83,24 @@ In order to update the po files, run the following command:
 
 	cd po && make update-po 
 
+Then, you need to have an archive of the project, containing the POT file,
+and give it to the [Translation Project](http://translationproject.org).
+The POT file (`po/pnmixer.pot`) is NOT versioned by git. 
+To make it available, you need to build an archive.
+
+	make dist
+
+Then, on the github page of the project, create a new release, and attach
+the archive. Copy the link of this archive, and send a mail to the TP with
+this link. More detailed information are available on the
+[maintainers](http://translationproject.org/html/maintainers.html)
+page of the TP.
+
+Furthermore, please notice that the TP will process a POT file only once,
+so another submission must use a newer VERSION. Therefore, before creating
+an archive, you should bump the version and tag the commit to something like
+`v0.7-rc1`. It makes things cleaner.
+
 ## How to contribute
 
 * [pull request on github](https://github.com/nicklan/pnmixer/pulls)
