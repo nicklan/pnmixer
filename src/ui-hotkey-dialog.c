@@ -131,20 +131,44 @@ hotkey_dialog_run(HotkeyDialog *dialog)
 {
 	GtkDialog *hotkey_dialog = GTK_DIALOG(dialog->hotkey_dialog);
 	GtkLabel *key_pressed_label = GTK_LABEL(dialog->key_pressed_label);
+	GdkWindow *window;
 	GdkGrabStatus grab_status;
 	gint resp;
 
+	/* Show widget at first, otherwise the following calls fail */
+	gtk_widget_show_now(GTK_WIDGET(hotkey_dialog));
+
 	/* Grab keyboard */
-	grab_status =
 #ifdef WITH_GTK3
-	        gdk_device_grab(gtk_get_current_event_device(),
-	                        gdk_screen_get_root_window(gdk_screen_get_default()),
-	                        GDK_OWNERSHIP_APPLICATION,
-	                        TRUE, GDK_ALL_EVENTS_MASK, NULL, GDK_CURRENT_TIME);
+	GdkDevice *device;
+
+	device = gtk_get_current_event_device();
+	if (device == NULL) {
+		WARN("Couldn't get current device");
+                return NULL;
+	}
+
+	window = gtk_widget_get_window(GTK_WIDGET(hotkey_dialog));
+
+#if GTK_CHECK_VERSION(3,20,0)
+	grab_status = gdk_seat_grab
+		(gdk_device_get_seat(device),
+		 window,
+		 GDK_SEAT_CAPABILITY_KEYBOARD, TRUE,
+		 NULL, NULL, NULL, NULL);
 #else
-	        gdk_keyboard_grab(gtk_widget_get_root_window(GTK_WIDGET(hotkey_dialog)),
-	                          TRUE, GDK_CURRENT_TIME);
-#endif
+	grab_status = gdk_device_grab
+		(device,
+		 window,
+		 GDK_OWNERSHIP_APPLICATION, TRUE,
+		 GDK_KEY_PRESS_MASK, NULL, GDK_CURRENT_TIME);
+#endif /*  GTK_CHECK_VERSION(3,20,0) */
+#else
+	window = gtk_widget_get_window(GTK_WIDGET(hotkey_dialog));
+
+	grab_status = gdk_keyboard_grab
+		(window, TRUE, GDK_CURRENT_TIME);
+#endif /* WITH_GTK3 */
 
 	if (grab_status != GDK_GRAB_SUCCESS) {
 		run_error_dialog(_("Could not grab the keyboard."));
@@ -156,10 +180,14 @@ hotkey_dialog_run(HotkeyDialog *dialog)
 
 	/* Ungrab keyboard */
 #ifdef WITH_GTK3
-	gdk_device_ungrab(gtk_get_current_event_device(), GDK_CURRENT_TIME);
+#if GTK_CHECK_VERSION(3,20,0)
+	gdk_seat_ungrab(gdk_device_get_seat(device));
+#else
+	gdk_device_ungrab(device, GDK_CURRENT_TIME);
+#endif /* GTK_CHECK_VERSION(3,20,0) */
 #else
 	gdk_keyboard_ungrab(GDK_CURRENT_TIME);
-#endif
+#endif /* WITH_GTK3 */
 
 	/* Handle response */
 	if (resp != GTK_RESPONSE_OK)

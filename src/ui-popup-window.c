@@ -134,6 +134,84 @@ update_volume_slider(GtkAdjustment *vol_scale_adj, gdouble volume)
 	gtk_adjustment_set_value(vol_scale_adj, volume);
 }
 
+/* Grab mouse and keyboard */
+#ifdef WITH_GTK3
+#if GTK_CHECK_VERSION(3,20,0)
+static void
+grab_devices(GtkWidget *window)
+{
+	GdkGrabStatus status;
+	GdkDevice *device;
+
+	/* Grab the current event device */
+	device = gtk_get_current_event_device();
+	if (device == NULL) {
+		WARN("Couldn't get current device");
+                return;
+	}
+
+	/* Grab every seat capabilities */
+	status = gdk_seat_grab(gdk_device_get_seat(device),
+	                       gtk_widget_get_window(window),
+	                       GDK_SEAT_CAPABILITY_ALL, TRUE,
+	                       NULL, NULL, NULL, NULL);
+	if (status != GDK_GRAB_SUCCESS)
+		WARN("Could not grab %s", gdk_device_get_name(device));
+}
+#else
+static void
+grab_devices(GtkWidget *window)
+{
+	GdkDevice *pointer_dev;
+	GdkDevice *keyboard_dev;
+	GdkGrabStatus status;
+
+	/* Grab the mouse */
+	pointer_dev = gtk_get_current_event_device();
+	if (pointer_dev == NULL) {
+		WARN("Couldn't get current device");
+                return;
+	}
+
+	status = gdk_device_grab(pointer_dev,
+	                         gtk_widget_get_window(window),
+	                         GDK_OWNERSHIP_NONE,
+	                         TRUE,
+	                         GDK_BUTTON_PRESS_MASK,
+	                         NULL,
+	                         GDK_CURRENT_TIME);
+	if (status != GDK_GRAB_SUCCESS)
+		WARN("Could not grab %s", gdk_device_get_name(pointer_dev));
+
+	/* Grab the keyboard */
+	keyboard_dev = gdk_device_get_associated_device(pointer_dev);
+	if (keyboard_dev == NULL) {
+		WARN("Couldn't get associated device");
+                return;
+        }
+
+	status = gdk_device_grab(keyboard_dev,
+	                         gtk_widget_get_window(window),
+	                         GDK_OWNERSHIP_NONE,
+	                         TRUE,
+	                         GDK_KEY_PRESS_MASK,
+	                         NULL, GDK_CURRENT_TIME);
+	if (status != GDK_GRAB_SUCCESS)
+		WARN("Could not grab %s", gdk_device_get_name(keyboard_dev));
+}
+#endif /*  GTK_CHECK_VERSION(3,20,0) */
+#else
+static void
+grab_devices(GtkWidget *window)
+{
+	gdk_pointer_grab(gtk_widget_get_window(window), TRUE,
+	                 GDK_BUTTON_PRESS_MASK, NULL, NULL,
+	                 GDK_CURRENT_TIME);
+	gdk_keyboard_grab(gtk_widget_get_window(window), TRUE,
+	                  GDK_CURRENT_TIME);
+}
+#endif /* WITH_GTK3 */
+
 /* Public functions & signal handlers */
 
 struct popup_window {
@@ -306,40 +384,8 @@ popup_window_show(PopupWindow *window)
 	/* Give focus to volume scale */
 	gtk_widget_grab_focus(vol_scale);
 
-	/* Grab keyboard */
-#ifdef WITH_GTK3
-	GdkDevice *pointer_dev = gtk_get_current_event_device();
-
-	if (pointer_dev == NULL)
-		return;
-
-	if (gdk_device_grab(pointer_dev,
-	                    gtk_widget_get_window(popup_window),
-	                    GDK_OWNERSHIP_NONE,
-	                    TRUE,
-	                    GDK_BUTTON_PRESS_MASK,
-	                    NULL,
-	                    GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
-		WARN("Could not grab %s\n", gdk_device_get_name(pointer_dev));
-
-	GdkDevice *keyboard_dev = gdk_device_get_associated_device(pointer_dev);
-
-	if (keyboard_dev == NULL)
-		return;
-
-	if (gdk_device_grab(keyboard_dev,
-	                    gtk_widget_get_window(popup_window),
-	                    GDK_OWNERSHIP_NONE,
-	                    TRUE,
-	                    GDK_KEY_PRESS_MASK,
-	                    NULL, GDK_CURRENT_TIME) != GDK_GRAB_SUCCESS)
-		WARN("Could not grab %s\n", gdk_device_get_name(keyboard_dev));
-#else
-	gdk_pointer_grab(gtk_widget_get_window(popup_window), TRUE,
-	                 GDK_BUTTON_PRESS_MASK, NULL, NULL, GDK_CURRENT_TIME);
-	gdk_keyboard_grab(gtk_widget_get_window(popup_window), TRUE,
-	                  GDK_CURRENT_TIME);
-#endif
+	/* Grab mouse and keyboard */
+	grab_devices(popup_window);
 }
 
 /**
