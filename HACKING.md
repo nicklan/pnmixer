@@ -101,6 +101,10 @@ so another submission must use a newer VERSION. Therefore, before creating
 an archive, you should bump the version and tag the commit to something like
 `v0.7-rc1`. It makes things cleaner.
 
+When the translation is done, don't forget to update the translators list
+in the `About` dialog, and to update the `ChangeLog` file in case new
+languages have been added.
+
 ## How to contribute
 
 * [pull request on github](https://github.com/nicklan/pnmixer/pulls)
