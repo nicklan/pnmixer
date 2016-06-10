@@ -21,7 +21,10 @@
 
 #include <math.h>
 #include <glib.h>
+
+#ifdef HAVE_LIBN
 #include <libnotify/notify.h>
+#endif
 
 #include "audio.h"
 #include "prefs.h"
