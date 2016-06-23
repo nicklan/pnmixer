@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-07 13:58+0700\n"
-"PO-Revision-Date: 2015-08-25 20:46+0500\n"
-"Last-Translator: Pavel Serebryakov <pshar@inbox.ru>\n"
+"PO-Revision-Date: 2016-06-23 19:30+0300\n"
+"Last-Translator: Pavel Roschin <rpg89(at)post(dot)ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -65,22 +65,21 @@ msgid "Warning: Connection to sound system failed."
 msgstr "Внимание: не удалось подключиться к звуковой подсистеме"
 
 #: ../src/main.c:237
-#, fuzzy
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
 "If you do not, you will either need to restart PNMixer or select the 'Reload "
 "Audio' option in the right-click menu in order for PNMixer to function."
 msgstr ""
-"Вы хотите переустановить соединение с alsa?\n"
+"Вы хотите переустановить соединение с звуковым сервером?\n"
 "\n"
 "Если нет, вам необходимо будет либо перезапустить PNMixer, либо выбрать "
-"опцию 'Перезапустить Alsa' в меню правой кнопки, чтобы PNMixer работал."
+"опцию 'Перезагрузить звук' в меню правой кнопки, чтобы PNMixer работал."
 
 #. Parse options
 #: ../src/main.c:328
 msgid "- A mixer for the system tray."
-msgstr "- Звуковой микшер для системного трея."
+msgstr "- Звуковой микшер для области уведомлений."
 
 #: ../src/main.c:336
 #, c-format
@@ -89,20 +88,19 @@ msgstr "%s версия: %s\n"
 
 #: ../src/notif.c:130
 msgid "No sound card"
-msgstr ""
+msgstr "Нет звуковой карты"
 
 #: ../src/notif.c:131
 msgid "No playable soundcard found"
-msgstr ""
+msgstr "Не найдена звуковая карта для воспроизведения"
 
 #: ../src/notif.c:136
 msgid "Soundcard disconnected"
 msgstr "Звуковая карта отключена"
 
 #: ../src/notif.c:137
-#, fuzzy
 msgid "Soundcard has been disconnected, reloading sound system..."
-msgstr "Звуковая карта была отключена, перезагружаем Alsa..."
+msgstr "Звуковая карта была отключена, перезагружаем звуковую систему..."
 
 #: ../src/prefs.c:356
 #, c-format
@@ -120,71 +118,67 @@ msgid "Couldn't write preferences file: %s"
 msgstr "Не удалось записать файл настроек: %s"
 
 #: ../src/prefs.c:411
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
 msgstr ""
 "Ошибка: %s существует, но не является каталогом, сохранить настройки не "
 "получится"
 
 #: ../src/prefs.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Не удалось создать каталог настроек: %s"
 
 #: ../src/ui-about-dialog.c:112
-#, fuzzy
 msgid "A mixer for the system tray"
-msgstr "Звуковой микшер для системного трея."
+msgstr "Звуковой микшер для панели уведомлений"
 
 #: ../src/ui-about-dialog.c:113
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "Авторские права © 2010-2016 Nick Lanham"
 
 #: ../src/ui-hotkey-dialog.c:48
-#, fuzzy, c-format
+#, c-format
 msgid "Set %s HotKey"
-msgstr "Назначить горячую клавишу"
+msgstr "Назначить горячую клавишу %s"
 
 #: ../src/ui-hotkey-dialog.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Press new HotKey for <b>%s</b>"
-msgstr "Нажмите новую клавишу для:"
+msgstr "Нажмите новую клавишу для <b>%s</b>"
 
 #: ../src/ui-hotkey-dialog.c:150
 msgid "Could not grab the keyboard."
 msgstr "Не удалось захватить клавиатуру."
 
 #: ../src/ui-prefs-dialog.c:370
-#, fuzzy
 msgid "None"
-msgstr "(Пусто)"
+msgstr "Пусто"
 
 #: ../src/ui-prefs-dialog.c:845
 msgid "Notifications"
 msgstr "Yведомления"
 
 #: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
-#, fuzzy
 msgid "Volume"
-msgstr "Увеличить громкость"
+msgstr "Громкость"
 
 #: ../src/ui-tray-icon.c:335
-#, fuzzy
 msgid "Muted"
 msgstr "Выкл. звук"
 
 #: ../data/desktop/pnmixer.desktop.in.h:1
 msgid "System Tray Mixer"
-msgstr "Микшер для системного трея"
+msgstr "Микшер для панели уведомлений"
 
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "An audio mixer for the system tray"
-msgstr "Звуковой микшер для системного трея"
+msgstr "Звуковой микшер для панели уведомлений"
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:2
 #: ../data/ui/hotkey-dialog-gtk2.glade.h:1
@@ -222,9 +216,8 @@ msgid "Preferences"
 msgstr "Параметры"
 
 #: ../data/ui/popup-menu-gtk3.glade.h:6 ../data/ui/popup-menu-gtk2.glade.h:7
-#, fuzzy
 msgid "Reload Sound"
-msgstr "Перезапустить Alsa"
+msgstr "Перезагрузить звук"
 
 #: ../data/ui/popup-menu-gtk3.glade.h:7 ../data/ui/popup-menu-gtk2.glade.h:8
 msgid "About"
@@ -525,9 +518,8 @@ msgid "_Volume Control"
 msgstr "_Настройки громкости"
 
 #: ../data/ui/popup-menu-gtk2.glade.h:6
-#, fuzzy
 msgid "_Reload Sound"
-msgstr "_Перезапустить Alsa"
+msgstr "_Перезагрузить звук"
 
 #: ../data/ui/prefs-dialog-gtk2.glade.h:4
 msgid "Notify for volume changes from:"
