@@ -247,7 +247,7 @@ vol_meter_draw(VolMeter *vol_meter, GdkPixbuf *pixbuf, int volume)
 	/* Let's check if the icon width changed, in which case we
 	 * must reinit our internal row of pixels.
 	 */
-	vol_meter_width = icon_width / 8;
+	vol_meter_width = icon_width / 6;
 	if (vol_meter_width != vol_meter->width) {
 		vol_meter->width = vol_meter_width;
 		g_free(vol_meter->row);
