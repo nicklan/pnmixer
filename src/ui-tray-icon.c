@@ -33,7 +33,7 @@
 
 #include "main.h"
 
-#define ICON_MIN_SIZE 16
+#define ICON_MIN_SIZE 32 // Minimum size required by Gtk3
 
 enum {
 	VOLUME_MUTED,
@@ -457,9 +457,11 @@ on_size_changed(G_GNUC_UNUSED GtkStatusIcon *status_icon, gint size, TrayIcon *i
 {
 	DEBUG("Tray icon size is now %d", size);
 
-	/* Ensure a minimum size. This is needed for Gtk2.
-	 * With Gtk2, this handler is invoked with a zero size at startup,
-	 * which screws up things here and there.
+	/* Ensure a minimum size. Both Gtk2 and Gtk3 are happier with that.
+	 * - with Gtk2, this handler is invoked with a zero size at startup,
+	 *   which is not OK. So we must force a minimum size.
+	 * - Gtk3 complains if we try to "underallocate toplevel GtkTrayIcon".
+	 *   The minimum required size is 32x32.
 	 */
 	if (size < ICON_MIN_SIZE) {
 		size = ICON_MIN_SIZE;
