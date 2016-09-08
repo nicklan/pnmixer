@@ -255,7 +255,7 @@ vol_meter_draw(VolMeter *vol_meter, GdkPixbuf *pixbuf, int volume)
 	}
 
 	if (vol_meter->row == NULL) {
-		DEBUG("Allocating vol meter row (%d)", vol_meter->width);
+		DEBUG("Allocating vol meter row (width %d)", vol_meter->width);
 		vol_meter->row = g_malloc(vol_meter->width * sizeof(guchar) * 4);
 		for (i = 0; i < vol_meter->width; i++) {
 			vol_meter->row[i * 4 + 0] = vol_meter->red;
