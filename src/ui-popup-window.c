@@ -345,19 +345,20 @@ on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
 	if (!gtk_widget_get_visible(popup_window))
 		return;
 
-	/* If the user changes the volume through the popup window,
+	/* Update mute checkbox */
+	update_mute_check(GTK_TOGGLE_BUTTON(window->mute_check),
+	                  G_CALLBACK(on_mute_check_toggled), window, event->muted);
+
+
+	/* Update volume slider 
+	 * If the user changes the volume through the popup window,
 	 * we MUST NOT update the slider value, it's been done already.
 	 * It means that, as long as the popup window is visible,
 	 * the slider value reflects the value set by user,
 	 * and not the real value reported by the audio system.
 	 */
-	if (event->user == AUDIO_USER_POPUP)
-		return;
-
-	/* Let's update now */
-	update_mute_check(GTK_TOGGLE_BUTTON(window->mute_check),
-	                  G_CALLBACK(on_mute_check_toggled), window, event->muted);
-	update_volume_slider(window->vol_scale_adj, event->volume);
+	if (event->user != AUDIO_USER_POPUP)
+		update_volume_slider(window->vol_scale_adj, event->volume);
 }
 
 /**
