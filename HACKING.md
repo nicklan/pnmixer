@@ -83,7 +83,7 @@ In order to update the po files, run the following command:
 
 	cd po && make update-po 
 
-Then, you need to have an archive of the project, containing the POT file,
+Then, you need to build an archive of the project, containing the POT file,
 and give it to the [Translation Project](http://translationproject.org).
 The POT file (`po/pnmixer.pot`) is NOT versioned by git. 
 To make it available, you need to build an archive.
@@ -101,9 +101,14 @@ so another submission must use a newer VERSION. Therefore, before creating
 an archive, you should bump the version and tag the commit to something like
 `v0.7-rc1`. It makes things cleaner.
 
-When the translation is done, don't forget to update the translators list
-in the `About` dialog, and to update the `ChangeLog` file in case new
-languages have been added.
+When the translation is done, you can import the PO files with the command:
+
+	rsync -Lrtvz translationproject.org::tp/latest/pnmixer/ po/
+
+At last, don't forget to update the translators list in the About dialog.
+If new languages have beend added, update the files `Changelog`, `po/LINGUAS`,
+and the variable `ALL_LINGUAS` in `configure.ac`.
+
 
 ## How to contribute
 
