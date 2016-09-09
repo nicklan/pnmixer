@@ -23,7 +23,7 @@ GETTEXT_PACKAGE=pnmixer
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package.])
 # Add more languages here
-ALL_LINGUAS="de fr it ru zh_CN"
+ALL_LINGUAS="de fr hr it nl ru uk vi zh_CN"
 AM_GLIB_GNU_GETTEXT
 
 # ======================================================= #
