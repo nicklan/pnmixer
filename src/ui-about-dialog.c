@@ -99,7 +99,7 @@ about_dialog_create(GtkWindow *parent)
 	        "Matthieu Bresson (fr)\n" \
 	        "Mattia Bertoni (it)\n" \
 	        "Pavel Serebryakov (ru)\n" \
-	        "Yuexuan Gu (zh_CN)";
+	        "Shengyu Zhang (zh_CN)";
 
 	/* Create about dialog */
 	dialog = g_new0(AboutDialog, 1);

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 13:58+0700\n"
+"POT-Creation-Date: 2016-08-10 20:59+0800\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Yuexuan Gu <lastavengers@outlook.com>\n"
+"Last-Translator: Shengyu Zhang <lastavengers@outlook.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Generator: Poedit 1.8.3\n"
 
 #: ../src/hotkeys.c:172
-#, fuzzy
 msgid "Could not grab the following HotKeys"
-msgstr "无法绑定以下热键：\n"
+msgstr "无法绑定以下热键"
 
 #: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
 #: ../data/ui/prefs-dialog-gtk3.glade.h:43
@@ -45,13 +44,13 @@ msgstr "无法运行命令： %s"
 msgid ""
 "No mixer application was found on your system. Please open preferences and "
 "set the command you want to run for volume control."
-msgstr "没有在系统中发现混频器。请打开首选项并 设置用于音量控制的命令。"
+msgstr "没有在系统中发现混频器。请打开首选项并设置用于音量控制的命令。"
 
 #: ../src/main.c:109
 msgid ""
 "You have not specified a custom command to run, please specify one in "
 "preferences."
-msgstr "没有指定一个命令用于运行，请在首选项中指定。"
+msgstr "没有指定一个命令用于运行，请在首选项中设置。"
 
 #: ../src/main.c:204 ../src/main.c:242
 msgid "PNMixer Error"
@@ -59,20 +58,19 @@ msgstr "PNMixer 发生错误"
 
 #: ../src/main.c:233
 msgid "Warning: Connection to sound system failed."
-msgstr "警告: 无法连接到 sound system。"
+msgstr "警告: 无法连接到音频系统。"
 
 #: ../src/main.c:237
-#, fuzzy
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
 "If you do not, you will either need to restart PNMixer or select the 'Reload "
 "Audio' option in the right-click menu in order for PNMixer to function."
 msgstr ""
-"是否重新初始化到 alsa 的连接？\n"
+"是否重新初始化音频连接？\n"
 "\n"
-"若否，你需要重新启动 PNMixer 或者在右键菜单中选中 ’重新加载 Alsa’ 选项以使 "
-"PNmixer 生效。"
+"若否，你需要重新启动 PNMixer 或者在右键菜单中选中「重载音频」选项以使 "
+"PNmixer 继续工作。"
 
 #. Parse options
 #: ../src/main.c:328
@@ -86,20 +84,19 @@ msgstr "%s 版本：%s\n"
 
 #: ../src/notif.c:130
 msgid "No sound card"
-msgstr ""
+msgstr "没有声卡"
 
 #: ../src/notif.c:131
 msgid "No playable soundcard found"
-msgstr ""
+msgstr "没有可用的声卡"
 
 #: ../src/notif.c:136
 msgid "Soundcard disconnected"
 msgstr "声卡未连接"
 
 #: ../src/notif.c:137
-#, fuzzy
 msgid "Soundcard has been disconnected, reloading sound system..."
-msgstr "已和声卡失去连接，正在重新加载 Alsa ……"
+msgstr "已和声卡失去连接，正在重新加载音频系统 ……"
 
 #: ../src/prefs.c:356
 #, c-format
@@ -117,17 +114,16 @@ msgid "Couldn't write preferences file: %s"
 msgstr "无法写入配置文件： %s"
 
 #: ../src/prefs.c:411
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
-msgstr "错误： %s 已存在但不是一个目录，因此无法保存 配置。"
+msgstr "错误：%s 已存在但不是一个目录，无法保存配置。"
 
 #: ../src/prefs.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't make preferences directory: %s"
-msgstr "无法建立 prefs 目录：%s"
+msgstr "无法建立配置目录：%s"
 
 #: ../src/ui-about-dialog.c:112
-#, fuzzy
 msgid "A mixer for the system tray"
 msgstr "一个运行在系统托盘上的混频器。"
 
@@ -136,35 +132,32 @@ msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "版权所有 © 2010-2016 Nick Lanham"
 
 #: ../src/ui-hotkey-dialog.c:48
-#, fuzzy, c-format
+#, c-format
 msgid "Set %s HotKey"
-msgstr "设置热键"
+msgstr "设置热键 %s"
 
 #: ../src/ui-hotkey-dialog.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Press new HotKey for <b>%s</b>"
-msgstr "按下热键以设置："
+msgstr "按下热键以设置 <b>%s</b>"
 
 #: ../src/ui-hotkey-dialog.c:150
 msgid "Could not grab the keyboard."
 msgstr "Could not grab the keyboard."
 
 #: ../src/ui-prefs-dialog.c:370
-#, fuzzy
 msgid "None"
-msgstr "(空)"
+msgstr "空"
 
 #: ../src/ui-prefs-dialog.c:845
 msgid "Notifications"
 msgstr "通知"
 
 #: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
-#, fuzzy
 msgid "Volume"
-msgstr "提高音量"
+msgstr "音量"
 
 #: ../src/ui-tray-icon.c:335
-#, fuzzy
 msgid "Muted"
 msgstr "静音"
 
@@ -179,7 +172,7 @@ msgstr "一个运行在系统托盘上的音频混合器"
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:2
 #: ../data/ui/hotkey-dialog-gtk2.glade.h:1
@@ -217,9 +210,8 @@ msgid "Preferences"
 msgstr "首选项"
 
 #: ../data/ui/popup-menu-gtk3.glade.h:6 ../data/ui/popup-menu-gtk2.glade.h:7
-#, fuzzy
 msgid "Reload Sound"
-msgstr "重新加载 Alsa"
+msgstr "重载音频系统"
 
 #: ../data/ui/popup-menu-gtk3.glade.h:7 ../data/ui/popup-menu-gtk2.glade.h:8
 msgid "About"
@@ -238,7 +230,6 @@ msgstr "混频器"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk2.glade.h:1
-#, fuzzy
 msgid "Notification support disabled at compile time."
 msgstr "桌面通知的支持在编译时没有启用。"
 
@@ -249,9 +240,8 @@ msgstr "启用通知"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:3
 #: ../data/ui/prefs-dialog-gtk2.glade.h:3
-#, fuzzy
 msgid "Timeout (ms):"
-msgstr "超时 (ms)"
+msgstr "超时 (ms)："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:4
 #: ../data/ui/prefs-dialog-gtk2.glade.h:9
@@ -270,9 +260,8 @@ msgstr "鼠标滚轮"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:7
 #: ../data/ui/prefs-dialog-gtk2.glade.h:7
-#, fuzzy
 msgid "Adjustment in Popups"
-msgstr "在弹出窗口中调整"
+msgstr "在弹窗中调整"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:8
 #: ../data/ui/prefs-dialog-gtk2.glade.h:8
@@ -280,9 +269,8 @@ msgid "External Change"
 msgstr "外部变化"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:9
-#, fuzzy
 msgid "<b>Notify for volume changes from:</b>"
-msgstr "当音量因以下原因改变时发出通知："
+msgstr "<b>当音量因以下原因改变时发出通知：</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:10
 #: ../data/ui/prefs-dialog-gtk2.glade.h:10
@@ -291,22 +279,22 @@ msgstr "PNMixer 首选项"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:12
 msgid "Ok"
-msgstr ""
+msgstr "确定"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
 #: ../data/ui/prefs-dialog-gtk2.glade.h:11
 msgid "Slider Orientation:"
-msgstr ""
+msgstr "滑动条滑动方向"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
 #: ../data/ui/prefs-dialog-gtk2.glade.h:12
 msgid "Vertical"
-msgstr ""
+msgstr "垂直"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:15
 #: ../data/ui/prefs-dialog-gtk2.glade.h:13
 msgid "Horizontal"
-msgstr ""
+msgstr "水平"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:16
 #: ../data/ui/prefs-dialog-gtk2.glade.h:14
@@ -315,7 +303,6 @@ msgstr "以文本形式显示音量"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:17
 #: ../data/ui/prefs-dialog-gtk2.glade.h:15
-#, fuzzy
 msgid "Text Volume Position:"
 msgstr "文本位置："
 
@@ -341,19 +328,17 @@ msgstr "居右"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:22
 #: ../data/ui/prefs-dialog-gtk2.glade.h:20
-#, fuzzy
 msgid "<b>Volume Popup</b>"
-msgstr "<b>音量计</b>"
+msgstr "<b>音量弹窗</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:23
 #: ../data/ui/prefs-dialog-gtk2.glade.h:21
-#, fuzzy
 msgid "Draw Volume Meter on Tray Icon"
-msgstr "音量计颜色："
+msgstr "在托盘图标上绘制音量计"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:25
 #: ../data/ui/prefs-dialog-gtk2.glade.h:23
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Volume Meter Offset (%):"
 msgstr "音量计偏移："
 
@@ -370,7 +355,7 @@ msgstr "<b>音量计</b>"
 #: ../data/ui/prefs-dialog-gtk3.glade.h:28
 #: ../data/ui/prefs-dialog-gtk2.glade.h:26
 msgid "Use System Theme"
-msgstr ""
+msgstr "使用系统主题"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:29
 #: ../data/ui/prefs-dialog-gtk2.glade.h:27
@@ -395,17 +380,17 @@ msgstr "声道："
 #: ../data/ui/prefs-dialog-gtk3.glade.h:33
 #: ../data/ui/prefs-dialog-gtk2.glade.h:31
 msgid "Normalize Volume:"
-msgstr "开启音量均衡："
+msgstr "音量均衡："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:34
 #: ../data/ui/prefs-dialog-gtk2.glade.h:32
 msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr ""
+msgstr "调整音量时使用对数刻度，更符合人耳感知。"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:35
 #: ../data/ui/prefs-dialog-gtk2.glade.h:33
 msgid "<b>Sound Device</b>"
-msgstr "<b>声音设备</b>"
+msgstr "<b>音频设备</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:36
 #: ../data/ui/prefs-dialog-gtk2.glade.h:34
@@ -419,21 +404,18 @@ msgstr "<b>音量控制命令</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:38
 #: ../data/ui/prefs-dialog-gtk2.glade.h:36
-#, fuzzy
 msgid "Scroll Step:"
-msgstr "鼠标滚轮步长："
+msgstr "滚动步长："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:39
 #: ../data/ui/prefs-dialog-gtk2.glade.h:37
-#, fuzzy
 msgid "Fine Scroll Step:"
-msgstr "鼠标滚轮步长："
+msgstr "精细滚动步长："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:40
 #: ../data/ui/prefs-dialog-gtk2.glade.h:38
-#, fuzzy
 msgid "<b>Volume Scrolling</b>"
-msgstr "<b>音量计</b>"
+msgstr "<b>滚轮调整音量</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:41
 #: ../data/ui/prefs-dialog-gtk2.glade.h:39
@@ -453,7 +435,7 @@ msgstr "显示首选项"
 #: ../data/ui/prefs-dialog-gtk3.glade.h:46
 #: ../data/ui/prefs-dialog-gtk2.glade.h:44
 msgid "Custom (set below)"
-msgstr "自定义"
+msgstr "自定义（如下）"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:47
 #: ../data/ui/prefs-dialog-gtk2.glade.h:45
@@ -492,9 +474,8 @@ msgstr "降低音量："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:54
 #: ../data/ui/prefs-dialog-gtk2.glade.h:51
-#, fuzzy
 msgid "Double-click a HotKey to assign a new HotKey"
-msgstr "双击以分配一个新热键"
+msgstr "双击以分配新热键"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:55
 #: ../data/ui/prefs-dialog-gtk2.glade.h:53
@@ -520,146 +501,9 @@ msgid "_Volume Control"
 msgstr "音量控制 (_V)"
 
 #: ../data/ui/popup-menu-gtk2.glade.h:6
-#, fuzzy
 msgid "_Reload Sound"
-msgstr "重新加载 Alsa (_R)"
+msgstr "重新加载音频系统 (_R)"
 
 #: ../data/ui/prefs-dialog-gtk2.glade.h:4
 msgid "Notify for volume changes from:"
 msgstr "当音量因以下原因改变时发出通知："
-
-#, fuzzy
-#~ msgid ""
-#~ "%s (%s)\n"
-#~ "%s: %ld %%"
-#~ msgstr ""
-#~ "%s (%s)\n"
-#~ "音量: %d %%"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s (%s)\n"
-#~ "%s: %ld %%\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s (%s)\n"
-#~ "音量: %d %%"
-
-#~ msgid "PNMixer"
-#~ msgstr "PNMixer"
-
-#~ msgid ""
-#~ "PNMixer is free software; you can redistribute it and/or modify it under "
-#~ "the terms of the GNU General Public License as published by the Free "
-#~ "Software Foundation; either version 3 of the License, or (at your option) "
-#~ "any later version.\n"
-#~ "\n"
-#~ "PNMixer is distributed in the hope that it will be useful, but WITHOUT "
-#~ "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-#~ "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
-#~ "more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License along "
-#~ "with PNMixer; if not, write to the Free Software Foundation, Inc., 51 "
-#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
-#~ msgstr ""
-#~ "PNMixer is free software; you can redistribute it and/or modify it under "
-#~ "the terms of the GNU General Public License as published by the Free "
-#~ "Software Foundation; either version 3 of the License, or (at your option) "
-#~ "any later version.\n"
-#~ "\n"
-#~ "PNMixer is distributed in the hope that it will be useful, but WITHOUT "
-#~ "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-#~ "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
-#~ "more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License along "
-#~ "with PNMixer; if not, write to the Free Software Foundation, Inc., 51 "
-#~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
-
-#~ msgid ""
-#~ "French: Matthieu Bresson\n"
-#~ "German: Mario Blättermann\n"
-#~ "Italian: Mattia Bertoni\n"
-#~ "Russian: Pavel Serebryakov"
-#~ msgstr ""
-#~ "法语: Mario Blättermann\n"
-#~ "德语: Matthieu Bresson\n"
-#~ "意大利语: Mattia Bertoni\n"
-#~ "俄语: Pavel Serebryakov"
-
-#~ msgid "HotKey Volume Step:"
-#~ msgstr "音量调整步长"
-
-#~ msgid "<b>HotKeys</b>"
-#~ msgstr "<b>热键</b>"
-
-#, fuzzy
-#~ msgid "Timeout (ms)"
-#~ msgstr "超时 (ms)"
-
-#~ msgid ""
-#~ "Warning: Connection to sound system failed, you probably need to restart "
-#~ "pnmixer\n"
-#~ msgstr "警告: 无法链接到 sound system，你可能需要重启pnmixer\n"
-
-#~ msgid ""
-#~ "Can't find main user interface file. Please ensure PNMixer is installed "
-#~ "correctly. Exiting."
-#~ msgstr "找不到主用户接口文件，请确认 PNMixer 已被正确安装。程序退出。"
-
-#~ msgid ""
-#~ "Can't find about interface file. Please ensure PNMixer is installed "
-#~ "correctly."
-#~ msgstr "找不到主用户接口文件，请确认 PNMixer 已被正确安装。"
-
-#~ msgid ""
-#~ "%s (%s)\n"
-#~ "Volume: %d %%\n"
-#~ "Muted"
-#~ msgstr ""
-#~ "%s (%s)\n"
-#~ "音量: %d %%\n"
-#~ "已静音"
-
-#~ msgid "Couldn't find pixmap file: %s"
-#~ msgstr "找不到图片文件： %s"
-
-#~ msgid "Failed to load pixbuf file: %s: %s"
-#~ msgstr "载入 pixbuf 文件失败: %s: %s"
-
-#~ msgid "PNMixer Icons"
-#~ msgstr "PNMixer Icons"
-
-#~ msgid "Invalid color for volume meter in config file. Reverting to default."
-#~ msgstr "配置文件中音量计的颜色无效，使用默认值。"
-
-#~ msgid "Invalid widget passed to acquire_hotkey: %s"
-#~ msgstr "Invalid widget passed to acquire_hotkey: %s"
-
-#~ msgid ""
-#~ "Can't find preferences user interface file. Please ensure PNMixer is "
-#~ "installed correctly."
-#~ msgstr "找不到用户首选项文件，请确认 PNMixer 已 被正确安装。"
-
-#~ msgid "_Mute/Unmute"
-#~ msgstr "静音/取消静音 (_M)"
-
-#~ msgid "<b>Text</b>"
-#~ msgstr "<b>文本</b>"
-
-#~ msgid ""
-#~ "Draw Volume Meter on Tray Icon\n"
-#~ "(Will cause slightly higher CPU usage)"
-#~ msgstr ""
-#~ "在托盘图标上绘制音量计\n"
-#~ "（会占用更多的 CPU 资源）"
-
-#~ msgid "(Unknown)"
-#~ msgstr "(未知)"
-
-#~ msgid "Volume Control..."
-#~ msgstr "音量控制……"
-
-#~ msgid "Unable to load icon %s: %s\n"
-#~ msgstr "Symbol konnte nicht geladen werden: %s: %s\n"
