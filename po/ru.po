@@ -1,8 +1,8 @@
 # Russian translation for pnmixer.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pnmixer package.
-# Pavel Serebryakov <pshar@inbox.ru>, 2014.
 #
+# Pavel Serebryakov <pshar@inbox.ru>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
@@ -12,6 +12,7 @@ msgstr ""
 "Last-Translator: Pavel Roschin <rpg89(at)post(dot)ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

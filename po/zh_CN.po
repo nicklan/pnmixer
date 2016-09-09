@@ -1,8 +1,8 @@
 # Simplified Chinese translation for pnmixer.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pnmixer package.
-# Yuexuan Gu <lastavengers@outlook.com>, 2015.
 #
+# Yuexuan Gu <lastavengers@outlook.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
@@ -12,6 +12,7 @@ msgstr ""
 "Last-Translator: Shengyu Zhang <lastavengers@outlook.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
