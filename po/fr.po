@@ -1,27 +1,26 @@
 # French translation for pnmixer.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2016 PNMixer team (msgids)
 # This file is distributed under the same license as the pnmixer package.
 #
 # Matthieu Bresson <apoptose@talkr.im>, 2011.
-# El Boulangero <elboulangero@gmail.com>, 2015.
+# El Boulangero <elboulangero@gmail.com>, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-07 13:58+0700\n"
-"PO-Revision-Date: 2015-08-10 01:49+0200\n"
+"PO-Revision-Date: 2016-09-11 16:09+0700\n"
 "Last-Translator: El Boulangero <elboulangero@gmail.com>\n"
 "Language-Team: Français <gnome-fr@gnome.org>\n"
-"Language: Français\n"
+"Language: fr\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/hotkeys.c:172
-#, fuzzy
 msgid "Could not grab the following HotKeys"
-msgstr "Impossible d'assigner les touches suivantes :\n"
+msgstr "Impossible d'assigner les touches suivantes"
 
 #: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
 #: ../data/ui/prefs-dialog-gtk3.glade.h:43
@@ -40,7 +39,7 @@ msgstr "Diminuer le volume"
 #: ../src/main.c:69
 #, c-format
 msgid "Unable to run command: %s"
-msgstr "Impossible de lancer la commande \"%s\""
+msgstr "Impossible de lancer la commande : %s"
 
 #: ../src/main.c:89
 msgid ""
@@ -68,18 +67,16 @@ msgid "Warning: Connection to sound system failed."
 msgstr "Attention : la connection au système sonore a échoué."
 
 #: ../src/main.c:237
-#, fuzzy
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
 "If you do not, you will either need to restart PNMixer or select the 'Reload "
 "Audio' option in the right-click menu in order for PNMixer to function."
 msgstr ""
-"Voulez-vous ré-initialiser la connexion à Alsa ?\n"
+"Voulez-vous ré-initialiser la connexion audio ?\n"
 "\n"
-"Si vous ne le faites pas, vous aurez besoin de relancer PNMixer ou de "
-"cliquer sur 'Recharger Alsa' dans le menu clic droit pour que PNMixer puisse "
-"fonctionner correctement."
+"Si vous ne le faites pas, vous aurez besoin de relancer PNMixer ou de cliquer sur 'Recharger \n"
+"Audio' dans le menu clic droit pour que PNMixer puisse fonctionner correctement."
 
 #. Parse options
 #: ../src/main.c:328
@@ -89,23 +86,23 @@ msgstr "- Un mixeur audio pour la zone de notifications."
 #: ../src/main.c:336
 #, c-format
 msgid "%s version: %s\n"
-msgstr "%s en version %s.\n"
+msgstr "%s version: %s\n"
 
 #: ../src/notif.c:130
 msgid "No sound card"
-msgstr ""
+msgstr "Aucune carte son"
 
 #: ../src/notif.c:131
 msgid "No playable soundcard found"
-msgstr ""
+msgstr "Aucune carte son jouable trouvée"
 
 #: ../src/notif.c:136
 msgid "Soundcard disconnected"
-msgstr ""
+msgstr "Carte son déconnectée"
 
 #: ../src/notif.c:137
 msgid "Soundcard has been disconnected, reloading sound system..."
-msgstr ""
+msgstr "La carte son a été deconnectée, rechargement du système de son..."
 
 #: ../src/prefs.c:356
 #, c-format
@@ -123,56 +120,50 @@ msgid "Couldn't write preferences file: %s"
 msgstr "Impossible d'écrire dans le fichier des paramètres \"%s\"."
 
 #: ../src/prefs.c:411
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
-msgstr ""
-"Erreur : \"%s\" existe mais n'est pas un répertoire. Impossible de "
-"sauvegarder les paramètres."
+msgstr "'%s' existe mais n'est pas un répertoire, les paramètres ne pourront pas être sauvegardés."
 
 #: ../src/prefs.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Impossible de créer le dossier des paramètres : %s"
 
 #: ../src/ui-about-dialog.c:112
-#, fuzzy
 msgid "A mixer for the system tray"
-msgstr "Un mixeur audio pour la zone de notifications."
+msgstr "Un mixeur audio pour la zone de notifications"
 
 #: ../src/ui-about-dialog.c:113
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "Copyright © 2010-2016 Nick Lanham"
 
 #: ../src/ui-hotkey-dialog.c:48
-#, fuzzy, c-format
+#, c-format
 msgid "Set %s HotKey"
-msgstr "Assignation d'une touche"
+msgstr "Assignation de la touche %s"
 
 #: ../src/ui-hotkey-dialog.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Press new HotKey for <b>%s</b>"
-msgstr "Choisir la touche multimédia pour :"
+msgstr "Pressez une touche pour <b>%s</b>"
 
 #: ../src/ui-hotkey-dialog.c:150
 msgid "Could not grab the keyboard."
 msgstr "Impossible d'accéder au clavier."
 
 #: ../src/ui-prefs-dialog.c:370
-#, fuzzy
 msgid "None"
-msgstr "(Indéfini)"
+msgstr "Indéfini"
 
 #: ../src/ui-prefs-dialog.c:845
 msgid "Notifications"
 msgstr "Notifications"
 
 #: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
-#, fuzzy
 msgid "Volume"
-msgstr "Augmenter le volume"
+msgstr "Volume"
 
 #: ../src/ui-tray-icon.c:335
-#, fuzzy
 msgid "Muted"
 msgstr "Muet"
 
@@ -187,7 +178,7 @@ msgstr "Un Mixeur Audio pour la Zone de Notification"
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:2
 #: ../data/ui/hotkey-dialog-gtk2.glade.h:1
@@ -225,9 +216,8 @@ msgid "Preferences"
 msgstr "Paramètres"
 
 #: ../data/ui/popup-menu-gtk3.glade.h:6 ../data/ui/popup-menu-gtk2.glade.h:7
-#, fuzzy
 msgid "Reload Sound"
-msgstr "Recharger Alsa"
+msgstr "Recharger Audio"
 
 #: ../data/ui/popup-menu-gtk3.glade.h:7 ../data/ui/popup-menu-gtk2.glade.h:8
 msgid "About"
@@ -246,7 +236,6 @@ msgstr "Mixeur"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk2.glade.h:1
-#, fuzzy
 msgid "Notification support disabled at compile time."
 msgstr "Support des notifications désactivé lors de la compilation."
 
@@ -257,14 +246,13 @@ msgstr "Activer les notifications"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:3
 #: ../data/ui/prefs-dialog-gtk2.glade.h:3
-#, fuzzy
 msgid "Timeout (ms):"
-msgstr "durée"
+msgstr "Durée (ms) :"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:4
 #: ../data/ui/prefs-dialog-gtk2.glade.h:9
 msgid "<b>Notification Options</b>"
-msgstr "<p>Paramètres de notification</b>"
+msgstr "<b>Paramètres de notification</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:5
 #: ../data/ui/prefs-dialog-gtk2.glade.h:5
@@ -278,7 +266,6 @@ msgstr "Molette souris"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:7
 #: ../data/ui/prefs-dialog-gtk2.glade.h:7
-#, fuzzy
 msgid "Adjustment in Popups"
 msgstr "Modifications dans la fenêtre popup"
 
@@ -288,9 +275,8 @@ msgid "External Change"
 msgstr "Modifications externes"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:9
-#, fuzzy
 msgid "<b>Notify for volume changes from:</b>"
-msgstr "Notifier les changements de volumes pour :"
+msgstr "<b>Notifier les changements de volumes pour :</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:10
 #: ../data/ui/prefs-dialog-gtk2.glade.h:10
@@ -299,22 +285,22 @@ msgstr "Paramètres de PNMixer"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:12
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
 #: ../data/ui/prefs-dialog-gtk2.glade.h:11
 msgid "Slider Orientation:"
-msgstr ""
+msgstr "Orientation du slider"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
 #: ../data/ui/prefs-dialog-gtk2.glade.h:12
 msgid "Vertical"
-msgstr ""
+msgstr "Vertical"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:15
 #: ../data/ui/prefs-dialog-gtk2.glade.h:13
 msgid "Horizontal"
-msgstr ""
+msgstr "Horizontal"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:16
 #: ../data/ui/prefs-dialog-gtk2.glade.h:14
@@ -323,9 +309,8 @@ msgstr "Afficher un texte pour le volume sonore"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:17
 #: ../data/ui/prefs-dialog-gtk2.glade.h:15
-#, fuzzy
 msgid "Text Volume Position:"
-msgstr "Position du texte pour le volume sonore :"
+msgstr "Position du texte pour le volume :"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:18
 #: ../data/ui/prefs-dialog-gtk2.glade.h:16
@@ -349,21 +334,19 @@ msgstr "À droite"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:22
 #: ../data/ui/prefs-dialog-gtk2.glade.h:20
-#, fuzzy
 msgid "<b>Volume Popup</b>"
-msgstr "<b>Échelle du volume</b>"
+msgstr "<b>Fenêtre popup du volume</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:23
 #: ../data/ui/prefs-dialog-gtk2.glade.h:21
-#, fuzzy
 msgid "Draw Volume Meter on Tray Icon"
-msgstr "Couleur de l'échelle de volume :"
+msgstr "Dessiner l'échelle du volume sur l'icône de notification"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:25
 #: ../data/ui/prefs-dialog-gtk2.glade.h:23
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Volume Meter Offset (%):"
-msgstr "Décalage horizontal de l'échelle du volume :"
+msgstr "Décalage horizontal de l'échelle du volume (%) :"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:26
 #: ../data/ui/prefs-dialog-gtk2.glade.h:24
@@ -378,7 +361,7 @@ msgstr "<b>Échelle du volume</b>"
 #: ../data/ui/prefs-dialog-gtk3.glade.h:28
 #: ../data/ui/prefs-dialog-gtk2.glade.h:26
 msgid "Use System Theme"
-msgstr ""
+msgstr "Utiliser le thème système"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:29
 #: ../data/ui/prefs-dialog-gtk2.glade.h:27
@@ -408,7 +391,7 @@ msgstr "Normaliser le volume"
 #: ../data/ui/prefs-dialog-gtk3.glade.h:34
 #: ../data/ui/prefs-dialog-gtk2.glade.h:32
 msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr ""
+msgstr "Changer le volume sur une échelle logarithmique, plus proche de la perception humaine."
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:35
 #: ../data/ui/prefs-dialog-gtk2.glade.h:33
@@ -427,21 +410,18 @@ msgstr "<b>Commande pour le contrôle du volume</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:38
 #: ../data/ui/prefs-dialog-gtk2.glade.h:36
-#, fuzzy
 msgid "Scroll Step:"
-msgstr "Pas d'incrément du volume à la molette :"
+msgstr "Pas d'incrément :"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:39
 #: ../data/ui/prefs-dialog-gtk2.glade.h:37
-#, fuzzy
 msgid "Fine Scroll Step:"
-msgstr "Pas d'incrément du volume à la molette :"
+msgstr "Pas d'incrément fin :"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:40
 #: ../data/ui/prefs-dialog-gtk2.glade.h:38
-#, fuzzy
 msgid "<b>Volume Scrolling</b>"
-msgstr "<b>Échelle du volume</b>"
+msgstr "<b>Incrément du volume</b>"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:41
 #: ../data/ui/prefs-dialog-gtk2.glade.h:39
@@ -500,7 +480,6 @@ msgstr "Diminuer le volume"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:54
 #: ../data/ui/prefs-dialog-gtk2.glade.h:51
-#, fuzzy
 msgid "Double-click a HotKey to assign a new HotKey"
 msgstr "Double cliquer sur un raccourci pour l'assigner"
 
@@ -528,9 +507,8 @@ msgid "_Volume Control"
 msgstr "_Contrôle du volume"
 
 #: ../data/ui/popup-menu-gtk2.glade.h:6
-#, fuzzy
 msgid "_Reload Sound"
-msgstr "_Recharger Alsa"
+msgstr "_Recharger Audio"
 
 #: ../data/ui/prefs-dialog-gtk2.glade.h:4
 msgid "Notify for volume changes from:"
@@ -542,7 +520,7 @@ msgstr "Notifier les changements de volumes pour :"
 #~ "%s: %ld %%"
 #~ msgstr ""
 #~ "%s (%s)\n"
-#~ "Volume : %d %%"
+#~ "%s : %ld %%"
 
 #, fuzzy
 #~ msgid ""

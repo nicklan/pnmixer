@@ -105,10 +105,16 @@ When the translation is done, you can import the PO files with the command:
 
 	rsync -Lrtvz translationproject.org::tp/latest/pnmixer/ po/
 
+If you want to run PNMixer in another language, try a command such as:
+
+	LANGUAGE=fr ./src/pnmixer
+
+Your system might pickup the translation file installed on your system,
+rather than the local one. Please take care of that.
+
 At last, don't forget to update the translators list in the About dialog.
 If new languages have beend added, update the files `Changelog`, `po/LINGUAS`,
 and the variable `ALL_LINGUAS` in `configure.ac`.
-
 
 ## How to contribute
 
