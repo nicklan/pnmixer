@@ -58,7 +58,6 @@ static GKeyFile *keyFile;
  * Default volume commands.
  */
 static const gchar *vol_control_commands[] = {
-	"pavucontrol",
 	"gnome-alsamixer",
 	"xfce4-mixer",
 	"alsamixergui",
