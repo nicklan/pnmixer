@@ -238,11 +238,10 @@ static GdkPixbuf *
 vol_meter_draw(VolMeter *vol_meter, GdkPixbuf *pixbuf, int volume)
 {
 	int icon_width, icon_height;
-	int vol_meter_width;
-	int x, y, h;
-	gdouble div_factor;
+	int vm_width, vm_height;
+	int x, y;
 	int rowstride, i;
-	guchar *pixels, *p;
+	guchar *pixels;
 
 	/* Ensure the pixbuf is as expected */
 	g_assert(gdk_pixbuf_get_colorspace(pixbuf) == GDK_COLORSPACE_RGB);
@@ -258,36 +257,34 @@ vol_meter_draw(VolMeter *vol_meter, GdkPixbuf *pixbuf, int volume)
 		g_object_unref(vol_meter->pixbuf);
 	vol_meter->pixbuf = pixbuf = gdk_pixbuf_copy(pixbuf);
 
+	/* Volume meter coordinates */
+	vm_width = icon_width / 6;
+	x = vol_meter->x_offset_pct * (icon_width - vm_width) / 100;
+	g_assert(x >= 0 && x + vm_width <= icon_width);
+
+	y = vol_meter->y_offset_pct * icon_height / 100;
+	vm_height = (icon_height - (y * 2)) * (volume / 100.0);
+	g_assert(y >= 0 && y + vm_height <= icon_height);
+
 	/* Let's check if the icon width changed, in which case we
 	 * must reinit our internal row of pixels.
 	 */
-	vol_meter_width = icon_width / 6;
-	if (vol_meter_width != vol_meter->width) {
-		vol_meter->width = vol_meter_width;
+	if (vm_width != vol_meter->width) {
+		vol_meter->width = vm_width;
 		g_free(vol_meter->row);
 		vol_meter->row = NULL;
 	}
 
 	if (vol_meter->row == NULL) {
-		DEBUG("Allocating vol meter row (width %d)", vol_meter->width);
-		vol_meter->row = g_malloc(vol_meter->width * sizeof(guchar) * 4);
-		for (i = 0; i < vol_meter->width; i++) {
+		DEBUG("Allocating vol meter row (width %d)", vm_width);
+		vol_meter->row = g_malloc(vm_width * sizeof(guchar) * 4);
+		for (i = 0; i < vm_width; i++) {
 			vol_meter->row[i * 4 + 0] = vol_meter->red;
 			vol_meter->row[i * 4 + 1] = vol_meter->green;
 			vol_meter->row[i * 4 + 2] = vol_meter->blue;
 			vol_meter->row[i * 4 + 3] = 255;
 		}
 	}
-
-	/* Get the volume meter coordinates and height */
-	x = vol_meter->x_offset_pct * (icon_width - vol_meter_width) / 100;
-	y = vol_meter->y_offset_pct * icon_height / 100;
-
-	div_factor = (icon_height - (y * 2)) / 100.0;
-	h = volume * div_factor;
-
-	g_assert(x >= 0 && x < icon_width);
-	g_assert(y >= 0 && y + h < icon_height);
 
 	/* Draw the volume meter.
 	 * Rows in the image are stored top to bottom.
@@ -296,9 +293,15 @@ vol_meter_draw(VolMeter *vol_meter, GdkPixbuf *pixbuf, int volume)
 	rowstride = gdk_pixbuf_get_rowstride(pixbuf);
 	pixels = gdk_pixbuf_get_pixels(pixbuf);
 
-	for (i = 0; i < h; i++) {
-		p = pixels + (y - i) * rowstride + x * 4;
-		memcpy(p, vol_meter->row, vol_meter->width * 4);
+	for (i = 0; i < vm_height; i++) {
+		guchar *p;
+		guint row_offset, col_offset;
+
+		row_offset = y - i;
+		col_offset = x * 4;
+		p = pixels + (row_offset * rowstride) + col_offset;
+
+		memcpy(p, vol_meter->row, vm_width * 4);
 	}
 
 	return pixbuf;
