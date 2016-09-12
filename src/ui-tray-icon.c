@@ -145,7 +145,7 @@ pixbuf_array_new(int size)
 	GdkPixbuf *pixbufs[N_VOLUME_PIXBUFS];
 	gboolean system_theme;
 
-	DEBUG("Building pixbuf array for size %d", size);
+	DEBUG("Building pixbuf array (requesting size %d)", size);
 
 	system_theme = prefs_get_boolean("SystemTheme", FALSE);
 
