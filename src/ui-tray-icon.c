@@ -71,6 +71,8 @@ pixbuf_new_from_file(const gchar *filename)
 		return NULL;
 	}
 
+	DEBUG("Loading PNMixer icon '%s' from '%s'", filename, pathname);
+
 	pixbuf = gdk_pixbuf_new_from_file(pathname, &error);
 	if (!pixbuf) {
 		WARN("Could not create pixbuf from file '%s': %s",
@@ -85,26 +87,38 @@ pixbuf_new_from_file(const gchar *filename)
 /**
  * Looks up icons based on the currently selected theme.
  *
- * @param iconname icon name to look up
+ * @param icon_name icon name to look up
  * @param size size of the icon
  * @return the corresponding theme icon, NULL on failure,
  * use g_object_unref() to release the reference to the icon
  */
 static GdkPixbuf *
-pixbuf_new_from_stock(const gchar *iconname, gint size)
+pixbuf_new_from_stock(const gchar *icon_name, gint size)
 {
 	static GtkIconTheme *icon_theme = NULL;
 	GError *err = NULL;
+	GtkIconInfo *info = NULL;
 	GdkPixbuf *pixbuf = NULL;
 
 	if (icon_theme == NULL)
 		icon_theme = gtk_icon_theme_get_default();
 
-	pixbuf = gtk_icon_theme_load_icon(icon_theme, iconname, size, 0, &err);
-	if (!pixbuf) {
-		WARN("Unable to load icon '%s': %s", iconname, err->message);
+	info = gtk_icon_theme_lookup_icon(icon_theme, icon_name, size, 0);
+	if (info == NULL) {
+		WARN("Unable to lookup icon '%s'", icon_name);
+		return NULL;
+	}
+
+	DEBUG("Loading stock icon '%s' from '%s'", icon_name,
+	      gtk_icon_info_get_filename(info));
+
+	pixbuf = gtk_icon_info_load_icon(info, &err);
+	if (pixbuf == NULL) {
+		WARN("Unable to load icon '%s': %s", icon_name, err->message);
 		g_error_free(err);
 	}
+
+	g_object_unref(info);
 
 	return pixbuf;
 }
