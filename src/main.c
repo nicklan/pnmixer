@@ -112,37 +112,27 @@ run_custom_command(void)
 }
 
 /**
- * Brings up the preferences window.
+ * Bring up the preferences window.
  */
-void
-run_prefs_dialog(void)
+static void
+prefs_dialog_response_cb(PrefsDialog *this_dialog, gint response_id)
 {
-	gint resp;
+	g_assert(this_dialog == prefs_dialog);
 
-	/* Ensure there's no dialog already running */
-	if (prefs_dialog)
-		return;
-
-	/* Create the preferences dialog */
-	prefs_dialog = prefs_dialog_create(main_window, audio, hotkeys);
-	prefs_dialog_populate(prefs_dialog);
-
-	/* Run it */
-	resp = prefs_dialog_run(prefs_dialog);
-
-	if (resp == GTK_RESPONSE_OK)
+	/* Get values from the prefs dialog */
+	if (response_id == GTK_RESPONSE_OK)
 		prefs_dialog_retrieve(prefs_dialog);
 
-	/* Destroy it */
+	/* Now we can destroy it */
 	prefs_dialog_destroy(prefs_dialog);
 	prefs_dialog = NULL;
 
-	/* Now apply the new preferences.
-	 * It's safer to do that after destroying the preference dialog,
+	/* Apply the new preferences.
+	 * It's safer to do that after destroying the preferences dialog,
 	 * since it listens for some audio signals that will be emitted
 	 * while new prefs are applied.
 	 */
-	if (resp == GTK_RESPONSE_OK) {
+	if (response_id == GTK_RESPONSE_OK) {
 		/* Ask every instance to reload its preferences */
 		popup_window_reload(popup_window);
 		tray_icon_reload(tray_icon);
@@ -153,6 +143,20 @@ run_prefs_dialog(void)
 		/* Save preferences to file */
 		prefs_save();
 	}
+}
+
+void
+run_prefs_dialog(void)
+{
+	/* Create the prefs dialog if needed */
+	if (prefs_dialog == NULL) {
+		prefs_dialog = prefs_dialog_create(main_window, audio, hotkeys,
+		                                   prefs_dialog_response_cb);
+		prefs_dialog_populate(prefs_dialog);
+	}
+
+	/* Present it to user */
+	prefs_dialog_present(prefs_dialog);
 }
 
 /**
@@ -258,7 +262,7 @@ do_toggle_popup_window(void)
 	 * A simple way to solve that is just to forbid showing the popup window
 	 * when there's a modal dialog opened.
 	 */
-	if (prefs_dialog || about_dialog)
+	if (about_dialog)
 		return;
 
 	popup_window_toggle(popup_window);

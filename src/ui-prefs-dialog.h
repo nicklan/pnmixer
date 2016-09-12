@@ -21,10 +21,12 @@
 #include "hotkeys.h"
 
 typedef struct prefs_dialog PrefsDialog;
+typedef void (*PrefsDialogResponseCallback) (PrefsDialog *dialog, gint response_id);
 
-PrefsDialog *prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys);
+PrefsDialog *prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys,
+                                 PrefsDialogResponseCallback cb);
 void prefs_dialog_destroy(PrefsDialog *dialog);
-gint prefs_dialog_run(PrefsDialog *dialog);
+void prefs_dialog_present(PrefsDialog *dialog);
 
 void prefs_dialog_populate(PrefsDialog *dialog);
 void prefs_dialog_retrieve(PrefsDialog *dialog);

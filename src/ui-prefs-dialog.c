@@ -159,6 +159,9 @@ fill_card_combo(GtkComboBoxText *combo, Audio *audio)
 /* Public functions & signals handlers */
 
 struct prefs_dialog {
+	/* Dialog response handling (when OK/Cancel buttons are clicked) */
+	PrefsDialogResponseCallback response_user_cb;
+	gulong response_handler;
 	/* Audio system
 	 * We need it to display card/channel lists, and also to be notified
 	 * if something interesting happens (card disappearing, for example).
@@ -403,6 +406,21 @@ on_noti_enable_check_toggled(G_GNUC_UNUSED GtkToggleButton *button,
 {
 }
 #endif
+
+/**
+ * Handles the 'response' signal from the GtkDialog.
+ * Just invoke the user callback.
+ *
+ * @param widget the GtkDialog which emitted the signal
+ * @param response_id the id of the response
+ * @param dialog user data set when the signal handler was connected.
+ */
+static void
+on_prefs_dialog_response(G_GNUC_UNUSED GtkDialog *widget,
+                         gint response_id, PrefsDialog *dialog)
+{
+	dialog->response_user_cb(dialog, response_id);
+}
 
 /**
  * Handle signals from the audio subsystem.
@@ -774,20 +792,17 @@ prefs_dialog_populate(PrefsDialog *dialog)
 }
 
 /**
- * Runs the preferences dialog.
+ * Presents the preferences dialog.
  *
  * @param dialog a PrefsDialog instance.
- * @return a GtkResponse code.
  */
-gint
-prefs_dialog_run(PrefsDialog *dialog)
+void
+prefs_dialog_present(PrefsDialog *dialog)
 {
-	GtkDialog *prefs_dialog = GTK_DIALOG(dialog->prefs_dialog);
-	gint resp;
+	GtkWindow *prefs_window = GTK_WINDOW(dialog->prefs_dialog);
 
-	resp = gtk_dialog_run(prefs_dialog);
-
-	return resp;
+	/* Present the window */
+	gtk_window_present(prefs_window);
 }
 
 /**
@@ -798,6 +813,9 @@ prefs_dialog_run(PrefsDialog *dialog)
 void
 prefs_dialog_destroy(PrefsDialog *dialog)
 {
+	g_signal_handler_disconnect(GTK_WINDOW(dialog->prefs_dialog),
+	                            dialog->response_handler);
+
 	audio_signals_disconnect(dialog->audio, on_audio_changed, dialog);
 
 	if (dialog->hotkey_dialog)
@@ -813,10 +831,12 @@ prefs_dialog_destroy(PrefsDialog *dialog)
  * @param parent a GtkWindow to be used as the parent.
  * @param audio pointer to this audio subsystem.
  * @param hotkeys pointer to this hotkey subsystem.
+ * @param cb user callback to handle responses from the dialog
  * @return the newly created PrefsDialog instance.
  */
 PrefsDialog *
-prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys)
+prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys, 
+                    PrefsDialogResponseCallback cb)
 {
 	gchar *uifile = NULL;
 	GtkBuilder *builder = NULL;
@@ -908,6 +928,14 @@ prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys)
 
 	/* Connect audio signal handlers */
 	audio_signals_connect(audio, on_audio_changed, dialog);
+
+	/* Setup user callback */
+	dialog->response_user_cb = cb;
+	dialog->response_handler = g_signal_connect
+		(GTK_WINDOW(dialog->prefs_dialog),
+		 "response",
+		 G_CALLBACK(on_prefs_dialog_response),
+		 dialog);
 
 	/* Cleanup */
 	g_object_unref(G_OBJECT(builder));
