@@ -205,6 +205,8 @@ hotkey_dialog_run(HotkeyDialog *dialog)
 void
 hotkey_dialog_destroy(HotkeyDialog *dialog)
 {
+	DEBUG("Destroying");
+
 	gtk_widget_destroy(dialog->hotkey_dialog);
 	g_free(dialog);
 }

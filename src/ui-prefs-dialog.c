@@ -813,6 +813,8 @@ prefs_dialog_present(PrefsDialog *dialog)
 void
 prefs_dialog_destroy(PrefsDialog *dialog)
 {
+	DEBUG("Destroying");
+
 	g_signal_handler_disconnect(GTK_WINDOW(dialog->prefs_dialog),
 	                            dialog->response_handler);
 
