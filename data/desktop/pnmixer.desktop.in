@@ -2,6 +2,8 @@
 Name=PNMixer
 _GenericName=System Tray Mixer
 _Comment=An audio mixer for the system tray
+# TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+_Keywords=alsa;audio;mixer;sound;
 Exec=pnmixer
 TryExec=pnmixer
 Icon=pnmixer
