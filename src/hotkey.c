@@ -42,7 +42,7 @@ static char grab_error;
 
 /* Helpers */
 
-/* When an Xlib error occurs when grabing the hotkey, this function is called.
+/* When an Xlib error occurs when grabbing the hotkey, this function is called.
  * The error handler should not call any functions (directly or indirectly)
  * on the display that will generate protocol requests or that will look for
  * input events.
@@ -51,7 +51,7 @@ static char grab_error;
 static int
 grab_error_handler(G_GNUC_UNUSED Display *disp, G_GNUC_UNUSED XErrorEvent *ev)
 {
-	WARN("Error while grabing hotkey");
+	WARN("Error while grabbing hotkey");
 	grab_error = 1;
 	return 0;
 }
@@ -70,7 +70,7 @@ hotkey_ungrab(Hotkey *hotkey)
 	Display *disp;
 	guint i;
 
-	DEBUG("Ungrabing hotkey '%s'", hotkey->str);
+	DEBUG("Ungrabbing hotkey '%s'", hotkey->str);
 
 	disp = gdk_x11_get_default_xdisplay();
 
@@ -93,7 +93,7 @@ hotkey_grab(Hotkey *hotkey)
 	XErrorHandler old_hdlr;
 	guint i;
 
-	DEBUG("Grabing hotkey '%s'", hotkey->str);
+	DEBUG("Grabbing hotkey '%s'", hotkey->str);
 
 	disp = gdk_x11_get_default_xdisplay();
 
