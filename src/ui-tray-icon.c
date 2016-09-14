@@ -118,7 +118,11 @@ pixbuf_new_from_stock(const gchar *icon_name, gint size)
 		g_error_free(err);
 	}
 
+#ifdef WITH_GTK3
 	g_object_unref(info);
+#else
+	gtk_icon_info_free(info);
+#endif
 
 	return pixbuf;
 }
