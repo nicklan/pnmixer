@@ -280,6 +280,20 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton" id="apply_button">
+                <property name="label">gtk-apply</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -1228,6 +1242,7 @@
     <action-widgets>
       <action-widget response="-5">ok_button</action-widget>
       <action-widget response="-6">cancel_button</action-widget>
+      <action-widget response="-10">apply_button</action-widget>
     </action-widgets>
   </object>
 </interface>
