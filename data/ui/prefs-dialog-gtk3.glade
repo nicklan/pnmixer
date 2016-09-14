@@ -336,7 +336,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="GtkButton" id="apply_button">
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -345,6 +345,7 @@
                   <object class="GtkBox" id="box4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">center</property>
                     <child>
                       <object class="GtkImage" id="image4">
                         <property name="visible">True</property>
@@ -1286,7 +1287,7 @@
     <action-widgets>
       <action-widget response="-6">cancel_button</action-widget>
       <action-widget response="-5">ok_button</action-widget>
-      <action-widget response="-10">button1</action-widget>
+      <action-widget response="-10">apply_button</action-widget>
     </action-widgets>
   </object>
 </interface>
