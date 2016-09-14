@@ -120,19 +120,21 @@ prefs_dialog_response_cb(PrefsDialog *this_dialog, gint response_id)
 	g_assert(this_dialog == prefs_dialog);
 
 	/* Get values from the prefs dialog */
-	if (response_id == GTK_RESPONSE_OK)
+	if (response_id == GTK_RESPONSE_OK || response_id == GTK_RESPONSE_APPLY)
 		prefs_dialog_retrieve(prefs_dialog);
 
-	/* Now we can destroy it */
-	prefs_dialog_destroy(prefs_dialog);
-	prefs_dialog = NULL;
+	if (response_id != GTK_RESPONSE_APPLY) {
+		/* Now we can destroy it */
+		prefs_dialog_destroy(prefs_dialog);
+		prefs_dialog = NULL;
+	}
 
 	/* Apply the new preferences.
 	 * It's safer to do that after destroying the preferences dialog,
 	 * since it listens for some audio signals that will be emitted
 	 * while new prefs are applied.
 	 */
-	if (response_id == GTK_RESPONSE_OK) {
+	if (response_id == GTK_RESPONSE_OK || response_id == GTK_RESPONSE_APPLY) {
 		/* Ask every instance to reload its preferences */
 		popup_window_reload(popup_window);
 		tray_icon_reload(tray_icon);
