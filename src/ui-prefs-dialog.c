@@ -837,7 +837,7 @@ prefs_dialog_destroy(PrefsDialog *dialog)
  * @return the newly created PrefsDialog instance.
  */
 PrefsDialog *
-prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys, 
+prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys,
                     PrefsDialogResponseCallback cb)
 {
 	gchar *uifile = NULL;
@@ -934,10 +934,10 @@ prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys,
 	/* Setup user callback */
 	dialog->response_user_cb = cb;
 	dialog->response_handler = g_signal_connect
-		(GTK_WINDOW(dialog->prefs_dialog),
-		 "response",
-		 G_CALLBACK(on_prefs_dialog_response),
-		 dialog);
+	                           (GTK_WINDOW(dialog->prefs_dialog),
+	                            "response",
+	                            G_CALLBACK(on_prefs_dialog_response),
+	                            dialog);
 
 	/* Cleanup */
 	g_object_unref(G_OBJECT(builder));

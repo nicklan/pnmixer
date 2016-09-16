@@ -145,29 +145,29 @@ hotkey_dialog_run(HotkeyDialog *dialog)
 	device = gtk_get_current_event_device();
 	if (device == NULL) {
 		WARN("Couldn't get current device");
-                return NULL;
+		return NULL;
 	}
 
 	window = gtk_widget_get_window(GTK_WIDGET(hotkey_dialog));
 
 #if GTK_CHECK_VERSION(3,20,0)
 	grab_status = gdk_seat_grab
-		(gdk_device_get_seat(device),
-		 window,
-		 GDK_SEAT_CAPABILITY_KEYBOARD, TRUE,
-		 NULL, NULL, NULL, NULL);
+	              (gdk_device_get_seat(device),
+	               window,
+	               GDK_SEAT_CAPABILITY_KEYBOARD, TRUE,
+	               NULL, NULL, NULL, NULL);
 #else
 	grab_status = gdk_device_grab
-		(device,
-		 window,
-		 GDK_OWNERSHIP_APPLICATION, TRUE,
-		 GDK_KEY_PRESS_MASK, NULL, GDK_CURRENT_TIME);
+	              (device,
+	               window,
+	               GDK_OWNERSHIP_APPLICATION, TRUE,
+	               GDK_KEY_PRESS_MASK, NULL, GDK_CURRENT_TIME);
 #endif /*  GTK_CHECK_VERSION(3,20,0) */
 #else
 	window = gtk_widget_get_window(GTK_WIDGET(hotkey_dialog));
 
 	grab_status = gdk_keyboard_grab
-		(window, TRUE, GDK_CURRENT_TIME);
+	              (window, TRUE, GDK_CURRENT_TIME);
 #endif /* WITH_GTK3 */
 
 	if (grab_status != GDK_GRAB_SUCCESS) {

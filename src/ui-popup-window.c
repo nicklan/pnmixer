@@ -147,7 +147,7 @@ grab_devices(GtkWidget *window)
 	device = gtk_get_current_event_device();
 	if (device == NULL) {
 		WARN("Couldn't get current device");
-                return;
+		return;
 	}
 
 	/* Grab every seat capabilities */
@@ -170,7 +170,7 @@ grab_devices(GtkWidget *window)
 	pointer_dev = gtk_get_current_event_device();
 	if (pointer_dev == NULL) {
 		WARN("Couldn't get current device");
-                return;
+		return;
 	}
 
 	status = gdk_device_grab(pointer_dev,
@@ -187,8 +187,8 @@ grab_devices(GtkWidget *window)
 	keyboard_dev = gdk_device_get_associated_device(pointer_dev);
 	if (keyboard_dev == NULL) {
 		WARN("Couldn't get associated device");
-                return;
-        }
+		return;
+	}
 
 	status = gdk_device_grab(keyboard_dev,
 	                         gtk_widget_get_window(window),
@@ -350,7 +350,7 @@ on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
 	                  G_CALLBACK(on_mute_check_toggled), window, event->muted);
 
 
-	/* Update volume slider 
+	/* Update volume slider
 	 * If the user changes the volume through the popup window,
 	 * we MUST NOT update the slider value, it's been done already.
 	 * It means that, as long as the popup window is visible,

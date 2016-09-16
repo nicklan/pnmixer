@@ -97,12 +97,12 @@ about_dialog_create(GtkWindow *parent)
 	        "The Translation Project http://translationproject.org\n" \
 	        "Mario Blättermann (de)\n" \
 	        "Stéphane Aulery (fr)\n" \
-		"Božidar Putanec (hr)\n" \
+	        "Božidar Putanec (hr)\n" \
 	        "Mattia Bertoni (it)\n" \
-		"Benno Schulenberg (nl)\n" \
+	        "Benno Schulenberg (nl)\n" \
 	        "Pavel Roschin (ru)\n" \
-		"Yuri Chornoivan (uk)\n" \
-		"Trần Ngọc Quân (vi)\n" \
+	        "Yuri Chornoivan (uk)\n" \
+	        "Trần Ngọc Quân (vi)\n" \
 	        "Shengyu Zhang (zh_CN)";
 
 	/* Create about dialog */
