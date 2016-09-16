@@ -289,7 +289,7 @@ msgstr "确定"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
 #: ../data/ui/prefs-dialog-gtk2.glade.h:11

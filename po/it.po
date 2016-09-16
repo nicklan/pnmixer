@@ -307,7 +307,7 @@ msgstr ""
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
 msgid "Apply"
-msgstr ""
+msgstr "Applica"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
 #: ../data/ui/prefs-dialog-gtk2.glade.h:11
