@@ -96,7 +96,7 @@ about_dialog_create(GtkWindow *parent)
 	const gchar *translators =
 	        "The Translation Project http://translationproject.org\n" \
 	        "Mario Blättermann (de)\n" \
-	        "Matthieu Bresson (fr)\n" \
+	        "Stéphane Aulery (fr)\n" \
 		"Božidar Putanec (hr)\n" \
 	        "Mattia Bertoni (it)\n" \
 		"Benno Schulenberg (nl)\n" \
