@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer-0.7-rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 18:36+0700\n"
+"POT-Creation-Date: 2016-09-16 10:05+0700\n"
 "PO-Revision-Date: 2016-05-13 18:00+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -23,17 +23,17 @@ msgstr ""
 msgid "Could not grab the following HotKeys"
 msgstr "Kan de volgende sneltoetsen niet pakken"
 
-#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
-#: ../data/ui/prefs-dialog-gtk3.glade.h:43
+#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:339
+#: ../data/ui/prefs-dialog-gtk3.glade.h:44
 #: ../data/ui/prefs-dialog-gtk2.glade.h:41
 msgid "Mute/Unmute"
 msgstr "Dempen/ontdempen"
 
-#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:339
+#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:342
 msgid "Volume Up"
 msgstr "Harder"
 
-#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:342
+#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:345
 msgid "Volume Down"
 msgstr "Zachter"
 
@@ -43,87 +43,97 @@ msgid "Unable to run command: %s"
 msgstr "Kan opdracht niet uitvoeren: %s"
 
 #: ../src/main.c:89
-msgid "No mixer application was found on your system. Please open preferences and set the command you want to run for volume control."
-msgstr "Er is op uw systeem geen mixerprogramma gevonden.  Open de Voorkeuren en stel de opdracht in die u wilt gebruiken voor volumeregeling."
+msgid ""
+"No mixer application was found on your system. Please open preferences and "
+"set the command you want to run for volume control."
+msgstr ""
+"Er is op uw systeem geen mixerprogramma gevonden.  Open de Voorkeuren en "
+"stel de opdracht in die u wilt gebruiken voor volumeregeling."
 
 #: ../src/main.c:109
-msgid "You have not specified a custom command to run, please specify one in preferences."
-msgstr "U hebt geen aangepaste opdracht opgegeven; geef er een op in de Voorkeuren."
+msgid ""
+"You have not specified a custom command to run, please specify one in "
+"preferences."
+msgstr ""
+"U hebt geen aangepaste opdracht opgegeven; geef er een op in de Voorkeuren."
 
-#: ../src/main.c:204 ../src/main.c:242
+#: ../src/main.c:210 ../src/main.c:248
 msgid "PNMixer Error"
 msgstr "PNMixer-fout"
 
-#: ../src/main.c:233
+#: ../src/main.c:239
 msgid "Warning: Connection to sound system failed."
 msgstr "Waarschuwing: verbinding met geluidssysteem is mislukt."
 
-#: ../src/main.c:237
+#: ../src/main.c:243
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
-"If you do not, you will either need to restart PNMixer or select the 'Reload Audio' option in the right-click menu in order for PNMixer to function."
+"If you do not, you will either need to restart PNMixer or select the 'Reload "
+"Audio' option in the right-click menu in order for PNMixer to function."
 msgstr ""
 "Wilt u de audioverbinding herinitialiseren?\n"
 "\n"
-"Zo niet, dan zult u ofwel PNMixer moeten herstarten, ofwel 'Geluidsysteem herladen' in het rechtsklikmenu moeten kiezen om PNMixer te laten functioneren."
+"Zo niet, dan zult u ofwel PNMixer moeten herstarten, ofwel 'Geluidsysteem "
+"herladen' in het rechtsklikmenu moeten kiezen om PNMixer te laten "
+"functioneren."
 
 #. Parse options
-#: ../src/main.c:328
+#: ../src/main.c:334
 msgid "- A mixer for the system tray."
 msgstr "- Een mixer voor het systeemvak"
 
-#: ../src/main.c:336
+#: ../src/main.c:342
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s-versie: %s\n"
 
-#: ../src/notif.c:130
+#: ../src/notif.c:133
 msgid "No sound card"
 msgstr "Geen geluidskaart"
 
-#: ../src/notif.c:131
+#: ../src/notif.c:134
 msgid "No playable soundcard found"
 msgstr "Geen bruikbare geluidskaart gevonden"
 
-#: ../src/notif.c:136
+#: ../src/notif.c:139
 msgid "Soundcard disconnected"
 msgstr "Geluidskaart is niet verbonden"
 
-#: ../src/notif.c:137
+#: ../src/notif.c:140
 msgid "Soundcard has been disconnected, reloading sound system..."
 msgstr "Geluidskaart is niet meer verbonden; herladen van geluidssysteem..."
 
-#: ../src/prefs.c:356
+#: ../src/prefs.c:355
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "Kan voorkeurenbestand niet laden: %s"
 
-#: ../src/prefs.c:365
+#: ../src/prefs.c:364
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "Kan standaardvoorkeuren niet laden: %s"
 
-#: ../src/prefs.c:391
+#: ../src/prefs.c:390
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "Kan voorkeurenbestand niet schrijven: %s"
 
-#: ../src/prefs.c:411
+#: ../src/prefs.c:410
 #, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
 msgstr "'%s' bestaat al maar is geen map; zal voorkeuren niet op kunnen slaan"
 
-#: ../src/prefs.c:415
+#: ../src/prefs.c:414
 #, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Kan voorkeurenmap niet aanmaken: %s"
 
-#: ../src/ui-about-dialog.c:112
+#: ../src/ui-about-dialog.c:116
 msgid "A mixer for the system tray"
 msgstr "Een mixer voor het systeemvak"
 
-#: ../src/ui-about-dialog.c:113
+#: ../src/ui-about-dialog.c:117
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "Copyright © 2010-2016 Nick Lanham"
 
@@ -137,23 +147,23 @@ msgstr "Sneltoets voor %s instellen"
 msgid "Press new HotKey for <b>%s</b>"
 msgstr "Druk op nieuwe sneltoets voor <b>%s</b>."
 
-#: ../src/ui-hotkey-dialog.c:150
+#: ../src/ui-hotkey-dialog.c:174
 msgid "Could not grab the keyboard."
 msgstr "Kan toetsenbord niet pakken."
 
-#: ../src/ui-prefs-dialog.c:370
+#: ../src/ui-prefs-dialog.c:373
 msgid "None"
 msgstr "geen"
 
-#: ../src/ui-prefs-dialog.c:845
+#: ../src/ui-prefs-dialog.c:867
 msgid "Notifications"
 msgstr "Meldingen"
 
-#: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
+#: ../src/ui-tray-icon.c:353 ../src/ui-tray-icon.c:356
 msgid "Volume"
 msgstr "Volume"
 
-#: ../src/ui-tray-icon.c:335
+#: ../src/ui-tray-icon.c:356
 msgid "Muted"
 msgstr "Gedempt"
 
@@ -164,6 +174,11 @@ msgstr "Mixer voor systeemvak"
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "An audio mixer for the system tray"
 msgstr "Een geluidsmixer voor het systeemvak"
+
+#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/desktop/pnmixer.desktop.in.h:4
+msgid "alsa;audio;mixer;sound;"
+msgstr ""
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
@@ -197,8 +212,7 @@ msgid "Open Volume Control"
 msgstr "Volumeregeling openen"
 
 # Misschien is "Eigenschappenbalk" beter?
-#: ../data/ui/popup-menu-gtk3.glade.h:4
-#: ../data/ui/prefs-dialog-gtk3.glade.h:45
+#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:46
 #: ../data/ui/prefs-dialog-gtk2.glade.h:43
 msgid "Volume Control"
 msgstr "Volumeregeling"
@@ -228,48 +242,48 @@ msgid "Mixer"
 msgstr "Mixer"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk2.glade.h:1
-msgid "Notification support disabled at compile time."
-msgstr "Ondersteuning voor meldingen is uitgeschakeld bij het compileren."
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:2
 msgid "Enable Notifications"
 msgstr "Meldingen inschakelen"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:3
+#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:3
 msgid "Timeout (ms):"
 msgstr "Tijdslimiet (ms):"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:4
+#: ../data/ui/prefs-dialog-gtk3.glade.h:3
 #: ../data/ui/prefs-dialog-gtk2.glade.h:9
 msgid "<b>Notification Options</b>"
 msgstr "<b>Meldingsopties</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:5
+#: ../data/ui/prefs-dialog-gtk3.glade.h:4
 #: ../data/ui/prefs-dialog-gtk2.glade.h:5
 msgid "HotKeys"
 msgstr "Sneltoetsen"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:6
+#: ../data/ui/prefs-dialog-gtk3.glade.h:5
 #: ../data/ui/prefs-dialog-gtk2.glade.h:6
 msgid "Mouse Scroll"
 msgstr "Muiswiel"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:7
+#: ../data/ui/prefs-dialog-gtk3.glade.h:6
 #: ../data/ui/prefs-dialog-gtk2.glade.h:7
 msgid "Adjustment in Popups"
 msgstr "Aanpassing in pop-ups"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:8
+#: ../data/ui/prefs-dialog-gtk3.glade.h:7
 #: ../data/ui/prefs-dialog-gtk2.glade.h:8
 msgid "External Change"
 msgstr "Externe wijziging"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: ../data/ui/prefs-dialog-gtk3.glade.h:8
 msgid "<b>Notify for volume changes from:</b>"
 msgstr "<b>Melding geven van volumewijzigingen van:</b>"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: ../data/ui/prefs-dialog-gtk2.glade.h:1
+msgid "Notification support disabled at compile time."
+msgstr "Ondersteuning voor meldingen is uitgeschakeld bij het compileren."
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:10
 #: ../data/ui/prefs-dialog-gtk2.glade.h:10
@@ -281,212 +295,218 @@ msgid "Ok"
 msgstr "OK"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
-#: ../data/ui/prefs-dialog-gtk2.glade.h:11
-msgid "Slider Orientation:"
-msgstr "Oriëntatie van schuifregelaar:"
+msgid "Apply"
+msgstr ""
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
-#: ../data/ui/prefs-dialog-gtk2.glade.h:12
-msgid "Vertical"
-msgstr "verticaal"
+#: ../data/ui/prefs-dialog-gtk2.glade.h:11
+msgid "Card:"
+msgstr "Kaart:"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:15
-#: ../data/ui/prefs-dialog-gtk2.glade.h:13
-msgid "Horizontal"
-msgstr "horizontaal"
+#: ../data/ui/prefs-dialog-gtk2.glade.h:12
+msgid "Channel:"
+msgstr "Kanaal:"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:16
 #: ../data/ui/prefs-dialog-gtk2.glade.h:14
+msgid "Change volume on a logarithmic scale, closer to human perception."
+msgstr ""
+"Volume volgens logaritmische schaal wijzigen, dichter bij menselijke "
+"waarneming."
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:17
+#: ../data/ui/prefs-dialog-gtk2.glade.h:13
+msgid "Normalize Volume:"
+msgstr "Volume normaliseren:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:18
+#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+msgid "<b>Sound Device</b>"
+msgstr "<b>Geluidsapparaat</b>"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:19
+#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+msgid "Device"
+msgstr "Apparaat"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:20
+#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+msgid "Slider Orientation:"
+msgstr "Oriëntatie van schuifregelaar:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:21
+#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+msgid "Vertical"
+msgstr "verticaal"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:22
+#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+msgid "Horizontal"
+msgstr "horizontaal"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:23
+#: ../data/ui/prefs-dialog-gtk2.glade.h:20
 msgid "Display Text Volume"
 msgstr "Volumetekst tonen"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:17
-#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+#: ../data/ui/prefs-dialog-gtk3.glade.h:24
+#: ../data/ui/prefs-dialog-gtk2.glade.h:21
 msgid "Text Volume Position:"
 msgstr "Positie van volumetekst:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:18
-#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+#: ../data/ui/prefs-dialog-gtk3.glade.h:25
+#: ../data/ui/prefs-dialog-gtk2.glade.h:22
 msgid "Top"
 msgstr "bovenaan"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:19
-#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+#: ../data/ui/prefs-dialog-gtk3.glade.h:26
+#: ../data/ui/prefs-dialog-gtk2.glade.h:23
 msgid "Bottom"
 msgstr "onderaan"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:20
-#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+#: ../data/ui/prefs-dialog-gtk3.glade.h:27
+#: ../data/ui/prefs-dialog-gtk2.glade.h:24
 msgid "Left"
 msgstr "links"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:21
-#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+#: ../data/ui/prefs-dialog-gtk3.glade.h:28
+#: ../data/ui/prefs-dialog-gtk2.glade.h:25
 msgid "Right"
 msgstr "rechts"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:22
-#: ../data/ui/prefs-dialog-gtk2.glade.h:20
+#: ../data/ui/prefs-dialog-gtk3.glade.h:29
+#: ../data/ui/prefs-dialog-gtk2.glade.h:26
 msgid "<b>Volume Popup</b>"
 msgstr "<b>Volume-pop-up</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:23
-#: ../data/ui/prefs-dialog-gtk2.glade.h:21
+#: ../data/ui/prefs-dialog-gtk3.glade.h:30
+#: ../data/ui/prefs-dialog-gtk2.glade.h:27
 msgid "Draw Volume Meter on Tray Icon"
 msgstr "Volumemeter tonen in systeemvakpictogram"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:25
-#: ../data/ui/prefs-dialog-gtk2.glade.h:23
+#: ../data/ui/prefs-dialog-gtk3.glade.h:32
+#: ../data/ui/prefs-dialog-gtk2.glade.h:29
 #, no-c-format
 msgid "Volume Meter Offset (%):"
 msgstr "Volumemeterverspringing (%):"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:26
-#: ../data/ui/prefs-dialog-gtk2.glade.h:24
+#: ../data/ui/prefs-dialog-gtk3.glade.h:33
+#: ../data/ui/prefs-dialog-gtk2.glade.h:30
 msgid "Volume Meter Color:"
 msgstr "Volumemeterkleur:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:27
-#: ../data/ui/prefs-dialog-gtk2.glade.h:25
+#: ../data/ui/prefs-dialog-gtk3.glade.h:34
+#: ../data/ui/prefs-dialog-gtk2.glade.h:31
 msgid "<b>Volume Meter</b>"
 msgstr "<b>Volumemeter</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:28
-#: ../data/ui/prefs-dialog-gtk2.glade.h:26
+#: ../data/ui/prefs-dialog-gtk3.glade.h:35
+#: ../data/ui/prefs-dialog-gtk2.glade.h:32
 msgid "Use System Theme"
 msgstr "Systeemthema gebruiken"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:29
-#: ../data/ui/prefs-dialog-gtk2.glade.h:27
+#: ../data/ui/prefs-dialog-gtk3.glade.h:36
+#: ../data/ui/prefs-dialog-gtk2.glade.h:33
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Pictogramthema</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:30
-#: ../data/ui/prefs-dialog-gtk2.glade.h:28
+#: ../data/ui/prefs-dialog-gtk3.glade.h:37
+#: ../data/ui/prefs-dialog-gtk2.glade.h:34
 msgid "View"
 msgstr "Beeld"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:31
-#: ../data/ui/prefs-dialog-gtk2.glade.h:29
-msgid "Card:"
-msgstr "Kaart:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:32
-#: ../data/ui/prefs-dialog-gtk2.glade.h:30
-msgid "Channel:"
-msgstr "Kanaal:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:33
-#: ../data/ui/prefs-dialog-gtk2.glade.h:31
-msgid "Normalize Volume:"
-msgstr "Volume normaliseren:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:34
-#: ../data/ui/prefs-dialog-gtk2.glade.h:32
-msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr "Volume volgens logaritmische schaal wijzigen, dichter bij menselijke waarneming."
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:35
-#: ../data/ui/prefs-dialog-gtk2.glade.h:33
-msgid "<b>Sound Device</b>"
-msgstr "<b>Geluidsapparaat</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:36
-#: ../data/ui/prefs-dialog-gtk2.glade.h:34
-msgid "Device"
-msgstr "Apparaat"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:37
+#: ../data/ui/prefs-dialog-gtk3.glade.h:38
 #: ../data/ui/prefs-dialog-gtk2.glade.h:35
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Volumeregelingsopdracht</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:38
+#: ../data/ui/prefs-dialog-gtk3.glade.h:39
 #: ../data/ui/prefs-dialog-gtk2.glade.h:36
 msgid "Scroll Step:"
 msgstr "Scrollstap:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:39
+#: ../data/ui/prefs-dialog-gtk3.glade.h:40
 #: ../data/ui/prefs-dialog-gtk2.glade.h:37
 msgid "Fine Scroll Step:"
 msgstr "Fijne scrollstap:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:40
+#: ../data/ui/prefs-dialog-gtk3.glade.h:41
 #: ../data/ui/prefs-dialog-gtk2.glade.h:38
 msgid "<b>Volume Scrolling</b>"
 msgstr "<b>Volume-scrollen</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:41
+#: ../data/ui/prefs-dialog-gtk3.glade.h:42
 #: ../data/ui/prefs-dialog-gtk2.glade.h:39
 msgid "Middle Click Action:"
 msgstr "Midklik-actie:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:42
+#: ../data/ui/prefs-dialog-gtk3.glade.h:43
 #: ../data/ui/prefs-dialog-gtk2.glade.h:40
 msgid "Custom Command:"
 msgstr "Aangepaste opdracht:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:44
+#: ../data/ui/prefs-dialog-gtk3.glade.h:45
 #: ../data/ui/prefs-dialog-gtk2.glade.h:42
 msgid "Show Preferences"
 msgstr "Voorkeuren tonen"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:46
+#: ../data/ui/prefs-dialog-gtk3.glade.h:47
 #: ../data/ui/prefs-dialog-gtk2.glade.h:44
 msgid "Custom (set below)"
 msgstr "Aangepast (hieronder instellen)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:47
+#: ../data/ui/prefs-dialog-gtk3.glade.h:48
 #: ../data/ui/prefs-dialog-gtk2.glade.h:45
 msgid "<b>Mouse</b>"
 msgstr "<b>Muis</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:48
+#: ../data/ui/prefs-dialog-gtk3.glade.h:49
 #: ../data/ui/prefs-dialog-gtk2.glade.h:46
 msgid "Behavior"
 msgstr "Gedrag"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:49
+#: ../data/ui/prefs-dialog-gtk3.glade.h:50
 #: ../data/ui/prefs-dialog-gtk2.glade.h:47
 msgid "Enable HotKeys"
 msgstr "Sneltoetsen inschakelen"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:50
+#: ../data/ui/prefs-dialog-gtk3.glade.h:51
 #: ../data/ui/prefs-dialog-gtk2.glade.h:52
 msgid "Command"
 msgstr "Opdracht"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:51
+#: ../data/ui/prefs-dialog-gtk3.glade.h:52
 #: ../data/ui/prefs-dialog-gtk2.glade.h:48
 msgid "Mute/Unmute:"
 msgstr "Dempen/ontdempen:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:52
+#: ../data/ui/prefs-dialog-gtk3.glade.h:53
 #: ../data/ui/prefs-dialog-gtk2.glade.h:49
 msgid "Volume Up:"
 msgstr "Harder:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:53
+#: ../data/ui/prefs-dialog-gtk3.glade.h:54
 #: ../data/ui/prefs-dialog-gtk2.glade.h:50
 msgid "Volume Down:"
 msgstr "Zachter:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:54
+#: ../data/ui/prefs-dialog-gtk3.glade.h:55
 #: ../data/ui/prefs-dialog-gtk2.glade.h:51
 msgid "Double-click a HotKey to assign a new HotKey"
 msgstr "Dubbelklik op een sneltoets om een nieuwe sneltoets toe te wijzen."
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:55
+#: ../data/ui/prefs-dialog-gtk3.glade.h:56
 #: ../data/ui/prefs-dialog-gtk2.glade.h:53
 msgid "HotKey"
 msgstr "Sneltoets"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:56
+#: ../data/ui/prefs-dialog-gtk3.glade.h:57
 #: ../data/ui/prefs-dialog-gtk2.glade.h:54
 msgid "(None)"
 msgstr "(geen)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:57
+#: ../data/ui/prefs-dialog-gtk3.glade.h:58
 #: ../data/ui/prefs-dialog-gtk2.glade.h:55
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>Sneltoetsinstellingen</b>"

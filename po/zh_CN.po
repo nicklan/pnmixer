@@ -7,32 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-10 20:59+0800\n"
+"POT-Creation-Date: 2016-09-16 10:05+0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shengyu Zhang <lastavengers@outlook.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 1.8.3\n"
 
 #: ../src/hotkeys.c:172
 msgid "Could not grab the following HotKeys"
 msgstr "无法绑定以下热键"
 
-#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
-#: ../data/ui/prefs-dialog-gtk3.glade.h:43
+#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:339
+#: ../data/ui/prefs-dialog-gtk3.glade.h:44
 #: ../data/ui/prefs-dialog-gtk2.glade.h:41
 msgid "Mute/Unmute"
 msgstr "静音/取消静音"
 
-#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:339
+#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:342
 msgid "Volume Up"
 msgstr "提高音量"
 
-#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:342
+#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:345
 msgid "Volume Down"
 msgstr "降低音量"
 
@@ -53,15 +53,15 @@ msgid ""
 "preferences."
 msgstr "没有指定一个命令用于运行，请在首选项中设置。"
 
-#: ../src/main.c:204 ../src/main.c:242
+#: ../src/main.c:210 ../src/main.c:248
 msgid "PNMixer Error"
 msgstr "PNMixer 发生错误"
 
-#: ../src/main.c:233
+#: ../src/main.c:239
 msgid "Warning: Connection to sound system failed."
 msgstr "警告: 无法连接到音频系统。"
 
-#: ../src/main.c:237
+#: ../src/main.c:243
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
@@ -74,61 +74,61 @@ msgstr ""
 "PNmixer 继续工作。"
 
 #. Parse options
-#: ../src/main.c:328
+#: ../src/main.c:334
 msgid "- A mixer for the system tray."
 msgstr "- 一个运行在系统托盘上的混频器。"
 
-#: ../src/main.c:336
+#: ../src/main.c:342
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s 版本：%s\n"
 
-#: ../src/notif.c:130
+#: ../src/notif.c:133
 msgid "No sound card"
 msgstr "没有声卡"
 
-#: ../src/notif.c:131
+#: ../src/notif.c:134
 msgid "No playable soundcard found"
 msgstr "没有可用的声卡"
 
-#: ../src/notif.c:136
+#: ../src/notif.c:139
 msgid "Soundcard disconnected"
 msgstr "声卡未连接"
 
-#: ../src/notif.c:137
+#: ../src/notif.c:140
 msgid "Soundcard has been disconnected, reloading sound system..."
 msgstr "已和声卡失去连接，正在重新加载音频系统 ……"
 
-#: ../src/prefs.c:356
+#: ../src/prefs.c:355
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "无法载入默认配置文件：%s"
 
-#: ../src/prefs.c:365
+#: ../src/prefs.c:364
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "无法载入默认配置：%s"
 
-#: ../src/prefs.c:391
+#: ../src/prefs.c:390
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "无法写入配置文件： %s"
 
-#: ../src/prefs.c:411
+#: ../src/prefs.c:410
 #, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
 msgstr "错误：%s 已存在但不是一个目录，无法保存配置。"
 
-#: ../src/prefs.c:415
+#: ../src/prefs.c:414
 #, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "无法建立配置目录：%s"
 
-#: ../src/ui-about-dialog.c:112
+#: ../src/ui-about-dialog.c:116
 msgid "A mixer for the system tray"
 msgstr "一个运行在系统托盘上的混频器。"
 
-#: ../src/ui-about-dialog.c:113
+#: ../src/ui-about-dialog.c:117
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "版权所有 © 2010-2016 Nick Lanham"
 
@@ -142,23 +142,23 @@ msgstr "设置热键 %s"
 msgid "Press new HotKey for <b>%s</b>"
 msgstr "按下热键以设置 <b>%s</b>"
 
-#: ../src/ui-hotkey-dialog.c:150
+#: ../src/ui-hotkey-dialog.c:174
 msgid "Could not grab the keyboard."
 msgstr "Could not grab the keyboard."
 
-#: ../src/ui-prefs-dialog.c:370
+#: ../src/ui-prefs-dialog.c:373
 msgid "None"
 msgstr "空"
 
-#: ../src/ui-prefs-dialog.c:845
+#: ../src/ui-prefs-dialog.c:867
 msgid "Notifications"
 msgstr "通知"
 
-#: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
+#: ../src/ui-tray-icon.c:353 ../src/ui-tray-icon.c:356
 msgid "Volume"
 msgstr "音量"
 
-#: ../src/ui-tray-icon.c:335
+#: ../src/ui-tray-icon.c:356
 msgid "Muted"
 msgstr "静音"
 
@@ -169,6 +169,11 @@ msgstr "系统托盘混频器"
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "An audio mixer for the system tray"
 msgstr "一个运行在系统托盘上的音频混合器"
+
+#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/desktop/pnmixer.desktop.in.h:4
+msgid "alsa;audio;mixer;sound;"
+msgstr ""
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
@@ -201,7 +206,7 @@ msgstr "静音"
 msgid "Open Volume Control"
 msgstr "打开音量控制"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:45
+#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:46
 #: ../data/ui/prefs-dialog-gtk2.glade.h:43
 msgid "Volume Control"
 msgstr "音量控制"
@@ -230,48 +235,48 @@ msgid "Mixer"
 msgstr "混频器"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk2.glade.h:1
-msgid "Notification support disabled at compile time."
-msgstr "桌面通知的支持在编译时没有启用。"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:2
 msgid "Enable Notifications"
 msgstr "启用通知"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:3
+#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:3
 msgid "Timeout (ms):"
 msgstr "超时 (ms)："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:4
+#: ../data/ui/prefs-dialog-gtk3.glade.h:3
 #: ../data/ui/prefs-dialog-gtk2.glade.h:9
 msgid "<b>Notification Options</b>"
 msgstr "<b>通知选项</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:5
+#: ../data/ui/prefs-dialog-gtk3.glade.h:4
 #: ../data/ui/prefs-dialog-gtk2.glade.h:5
 msgid "HotKeys"
 msgstr "热键"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:6
+#: ../data/ui/prefs-dialog-gtk3.glade.h:5
 #: ../data/ui/prefs-dialog-gtk2.glade.h:6
 msgid "Mouse Scroll"
 msgstr "鼠标滚轮"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:7
+#: ../data/ui/prefs-dialog-gtk3.glade.h:6
 #: ../data/ui/prefs-dialog-gtk2.glade.h:7
 msgid "Adjustment in Popups"
 msgstr "在弹窗中调整"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:8
+#: ../data/ui/prefs-dialog-gtk3.glade.h:7
 #: ../data/ui/prefs-dialog-gtk2.glade.h:8
 msgid "External Change"
 msgstr "外部变化"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: ../data/ui/prefs-dialog-gtk3.glade.h:8
 msgid "<b>Notify for volume changes from:</b>"
 msgstr "<b>当音量因以下原因改变时发出通知：</b>"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: ../data/ui/prefs-dialog-gtk2.glade.h:1
+msgid "Notification support disabled at compile time."
+msgstr "桌面通知的支持在编译时没有启用。"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:10
 #: ../data/ui/prefs-dialog-gtk2.glade.h:10
@@ -283,212 +288,216 @@ msgid "Ok"
 msgstr "确定"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
-#: ../data/ui/prefs-dialog-gtk2.glade.h:11
-msgid "Slider Orientation:"
-msgstr "滑动条滑动方向"
+msgid "Apply"
+msgstr ""
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
-#: ../data/ui/prefs-dialog-gtk2.glade.h:12
-msgid "Vertical"
-msgstr "垂直"
+#: ../data/ui/prefs-dialog-gtk2.glade.h:11
+msgid "Card:"
+msgstr "声卡："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:15
-#: ../data/ui/prefs-dialog-gtk2.glade.h:13
-msgid "Horizontal"
-msgstr "水平"
+#: ../data/ui/prefs-dialog-gtk2.glade.h:12
+msgid "Channel:"
+msgstr "声道："
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:16
 #: ../data/ui/prefs-dialog-gtk2.glade.h:14
+msgid "Change volume on a logarithmic scale, closer to human perception."
+msgstr "调整音量时使用对数刻度，更符合人耳感知。"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:17
+#: ../data/ui/prefs-dialog-gtk2.glade.h:13
+msgid "Normalize Volume:"
+msgstr "音量均衡："
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:18
+#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+msgid "<b>Sound Device</b>"
+msgstr "<b>音频设备</b>"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:19
+#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+msgid "Device"
+msgstr "设备"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:20
+#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+msgid "Slider Orientation:"
+msgstr "滑动条滑动方向"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:21
+#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+msgid "Vertical"
+msgstr "垂直"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:22
+#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+msgid "Horizontal"
+msgstr "水平"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:23
+#: ../data/ui/prefs-dialog-gtk2.glade.h:20
 msgid "Display Text Volume"
 msgstr "以文本形式显示音量"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:17
-#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+#: ../data/ui/prefs-dialog-gtk3.glade.h:24
+#: ../data/ui/prefs-dialog-gtk2.glade.h:21
 msgid "Text Volume Position:"
 msgstr "文本位置："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:18
-#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+#: ../data/ui/prefs-dialog-gtk3.glade.h:25
+#: ../data/ui/prefs-dialog-gtk2.glade.h:22
 msgid "Top"
 msgstr "置顶"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:19
-#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+#: ../data/ui/prefs-dialog-gtk3.glade.h:26
+#: ../data/ui/prefs-dialog-gtk2.glade.h:23
 msgid "Bottom"
 msgstr "置底"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:20
-#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+#: ../data/ui/prefs-dialog-gtk3.glade.h:27
+#: ../data/ui/prefs-dialog-gtk2.glade.h:24
 msgid "Left"
 msgstr "居右"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:21
-#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+#: ../data/ui/prefs-dialog-gtk3.glade.h:28
+#: ../data/ui/prefs-dialog-gtk2.glade.h:25
 msgid "Right"
 msgstr "居右"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:22
-#: ../data/ui/prefs-dialog-gtk2.glade.h:20
+#: ../data/ui/prefs-dialog-gtk3.glade.h:29
+#: ../data/ui/prefs-dialog-gtk2.glade.h:26
 msgid "<b>Volume Popup</b>"
 msgstr "<b>音量弹窗</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:23
-#: ../data/ui/prefs-dialog-gtk2.glade.h:21
+#: ../data/ui/prefs-dialog-gtk3.glade.h:30
+#: ../data/ui/prefs-dialog-gtk2.glade.h:27
 msgid "Draw Volume Meter on Tray Icon"
 msgstr "在托盘图标上绘制音量计"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:25
-#: ../data/ui/prefs-dialog-gtk2.glade.h:23
+#: ../data/ui/prefs-dialog-gtk3.glade.h:32
+#: ../data/ui/prefs-dialog-gtk2.glade.h:29
 #, no-c-format
 msgid "Volume Meter Offset (%):"
 msgstr "音量计偏移："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:26
-#: ../data/ui/prefs-dialog-gtk2.glade.h:24
+#: ../data/ui/prefs-dialog-gtk3.glade.h:33
+#: ../data/ui/prefs-dialog-gtk2.glade.h:30
 msgid "Volume Meter Color:"
 msgstr "音量计颜色："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:27
-#: ../data/ui/prefs-dialog-gtk2.glade.h:25
+#: ../data/ui/prefs-dialog-gtk3.glade.h:34
+#: ../data/ui/prefs-dialog-gtk2.glade.h:31
 msgid "<b>Volume Meter</b>"
 msgstr "<b>音量计</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:28
-#: ../data/ui/prefs-dialog-gtk2.glade.h:26
+#: ../data/ui/prefs-dialog-gtk3.glade.h:35
+#: ../data/ui/prefs-dialog-gtk2.glade.h:32
 msgid "Use System Theme"
 msgstr "使用系统主题"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:29
-#: ../data/ui/prefs-dialog-gtk2.glade.h:27
+#: ../data/ui/prefs-dialog-gtk3.glade.h:36
+#: ../data/ui/prefs-dialog-gtk2.glade.h:33
 msgid "<b>Icon Theme</b>"
 msgstr "<b>图标</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:30
-#: ../data/ui/prefs-dialog-gtk2.glade.h:28
+#: ../data/ui/prefs-dialog-gtk3.glade.h:37
+#: ../data/ui/prefs-dialog-gtk2.glade.h:34
 msgid "View"
 msgstr "外观"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:31
-#: ../data/ui/prefs-dialog-gtk2.glade.h:29
-msgid "Card:"
-msgstr "声卡："
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:32
-#: ../data/ui/prefs-dialog-gtk2.glade.h:30
-msgid "Channel:"
-msgstr "声道："
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:33
-#: ../data/ui/prefs-dialog-gtk2.glade.h:31
-msgid "Normalize Volume:"
-msgstr "音量均衡："
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:34
-#: ../data/ui/prefs-dialog-gtk2.glade.h:32
-msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr "调整音量时使用对数刻度，更符合人耳感知。"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:35
-#: ../data/ui/prefs-dialog-gtk2.glade.h:33
-msgid "<b>Sound Device</b>"
-msgstr "<b>音频设备</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:36
-#: ../data/ui/prefs-dialog-gtk2.glade.h:34
-msgid "Device"
-msgstr "设备"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:37
+#: ../data/ui/prefs-dialog-gtk3.glade.h:38
 #: ../data/ui/prefs-dialog-gtk2.glade.h:35
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>音量控制命令</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:38
+#: ../data/ui/prefs-dialog-gtk3.glade.h:39
 #: ../data/ui/prefs-dialog-gtk2.glade.h:36
 msgid "Scroll Step:"
 msgstr "滚动步长："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:39
+#: ../data/ui/prefs-dialog-gtk3.glade.h:40
 #: ../data/ui/prefs-dialog-gtk2.glade.h:37
 msgid "Fine Scroll Step:"
 msgstr "精细滚动步长："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:40
+#: ../data/ui/prefs-dialog-gtk3.glade.h:41
 #: ../data/ui/prefs-dialog-gtk2.glade.h:38
 msgid "<b>Volume Scrolling</b>"
 msgstr "<b>滚轮调整音量</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:41
+#: ../data/ui/prefs-dialog-gtk3.glade.h:42
 #: ../data/ui/prefs-dialog-gtk2.glade.h:39
 msgid "Middle Click Action:"
 msgstr "中键点击动作："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:42
+#: ../data/ui/prefs-dialog-gtk3.glade.h:43
 #: ../data/ui/prefs-dialog-gtk2.glade.h:40
 msgid "Custom Command:"
 msgstr "自定义命令："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:44
+#: ../data/ui/prefs-dialog-gtk3.glade.h:45
 #: ../data/ui/prefs-dialog-gtk2.glade.h:42
 msgid "Show Preferences"
 msgstr "显示首选项"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:46
+#: ../data/ui/prefs-dialog-gtk3.glade.h:47
 #: ../data/ui/prefs-dialog-gtk2.glade.h:44
 msgid "Custom (set below)"
 msgstr "自定义（如下）"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:47
+#: ../data/ui/prefs-dialog-gtk3.glade.h:48
 #: ../data/ui/prefs-dialog-gtk2.glade.h:45
 msgid "<b>Mouse</b>"
 msgstr "<b>鼠标</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:48
+#: ../data/ui/prefs-dialog-gtk3.glade.h:49
 #: ../data/ui/prefs-dialog-gtk2.glade.h:46
 msgid "Behavior"
 msgstr "行为"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:49
+#: ../data/ui/prefs-dialog-gtk3.glade.h:50
 #: ../data/ui/prefs-dialog-gtk2.glade.h:47
 msgid "Enable HotKeys"
 msgstr "启用热键"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:50
+#: ../data/ui/prefs-dialog-gtk3.glade.h:51
 #: ../data/ui/prefs-dialog-gtk2.glade.h:52
 msgid "Command"
 msgstr "命令"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:51
+#: ../data/ui/prefs-dialog-gtk3.glade.h:52
 #: ../data/ui/prefs-dialog-gtk2.glade.h:48
 msgid "Mute/Unmute:"
 msgstr "静音/取消静音"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:52
+#: ../data/ui/prefs-dialog-gtk3.glade.h:53
 #: ../data/ui/prefs-dialog-gtk2.glade.h:49
 msgid "Volume Up:"
 msgstr "提高音量:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:53
+#: ../data/ui/prefs-dialog-gtk3.glade.h:54
 #: ../data/ui/prefs-dialog-gtk2.glade.h:50
 msgid "Volume Down:"
 msgstr "降低音量："
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:54
+#: ../data/ui/prefs-dialog-gtk3.glade.h:55
 #: ../data/ui/prefs-dialog-gtk2.glade.h:51
 msgid "Double-click a HotKey to assign a new HotKey"
 msgstr "双击以分配新热键"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:55
+#: ../data/ui/prefs-dialog-gtk3.glade.h:56
 #: ../data/ui/prefs-dialog-gtk2.glade.h:53
 msgid "HotKey"
 msgstr "热键"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:56
+#: ../data/ui/prefs-dialog-gtk3.glade.h:57
 #: ../data/ui/prefs-dialog-gtk2.glade.h:54
 msgid "(None)"
 msgstr "(空)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:57
+#: ../data/ui/prefs-dialog-gtk3.glade.h:58
 #: ../data/ui/prefs-dialog-gtk2.glade.h:55
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>热键设置</b>"

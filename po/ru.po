@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 13:58+0700\n"
+"POT-Creation-Date: 2016-09-16 10:05+0700\n"
 "PO-Revision-Date: 2016-06-23 19:30+0300\n"
 "Last-Translator: Pavel Roschin <rpg89(at)post(dot)ru>\n"
 "Language-Team: \n"
 "Language: ru\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 1.8.3\n"
 
 #: ../src/hotkeys.c:172
@@ -23,17 +23,17 @@ msgstr ""
 msgid "Could not grab the following HotKeys"
 msgstr "Не удалось записать следующие сочетания клавиш:\n"
 
-#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
-#: ../data/ui/prefs-dialog-gtk3.glade.h:43
+#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:339
+#: ../data/ui/prefs-dialog-gtk3.glade.h:44
 #: ../data/ui/prefs-dialog-gtk2.glade.h:41
 msgid "Mute/Unmute"
 msgstr "Вкл/выкл звук"
 
-#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:339
+#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:342
 msgid "Volume Up"
 msgstr "Увеличить громкость"
 
-#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:342
+#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:345
 msgid "Volume Down"
 msgstr "Уменьшить громкость"
 
@@ -57,15 +57,15 @@ msgid ""
 msgstr ""
 "Вы не задали команду для выполнения, пожалуйста, сделайте это в настройках."
 
-#: ../src/main.c:204 ../src/main.c:242
+#: ../src/main.c:210 ../src/main.c:248
 msgid "PNMixer Error"
 msgstr "Ошибка PNMixer"
 
-#: ../src/main.c:233
+#: ../src/main.c:239
 msgid "Warning: Connection to sound system failed."
 msgstr "Внимание: не удалось подключиться к звуковой подсистеме"
 
-#: ../src/main.c:237
+#: ../src/main.c:243
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
@@ -78,63 +78,63 @@ msgstr ""
 "опцию 'Перезагрузить звук' в меню правой кнопки, чтобы PNMixer работал."
 
 #. Parse options
-#: ../src/main.c:328
+#: ../src/main.c:334
 msgid "- A mixer for the system tray."
 msgstr "- Звуковой микшер для области уведомлений."
 
-#: ../src/main.c:336
+#: ../src/main.c:342
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s версия: %s\n"
 
-#: ../src/notif.c:130
+#: ../src/notif.c:133
 msgid "No sound card"
 msgstr "Нет звуковой карты"
 
-#: ../src/notif.c:131
+#: ../src/notif.c:134
 msgid "No playable soundcard found"
 msgstr "Не найдена звуковая карта для воспроизведения"
 
-#: ../src/notif.c:136
+#: ../src/notif.c:139
 msgid "Soundcard disconnected"
 msgstr "Звуковая карта отключена"
 
-#: ../src/notif.c:137
+#: ../src/notif.c:140
 msgid "Soundcard has been disconnected, reloading sound system..."
 msgstr "Звуковая карта была отключена, перезагружаем звуковую систему..."
 
-#: ../src/prefs.c:356
+#: ../src/prefs.c:355
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "Не удалось загрузить файл настроек: %s"
 
-#: ../src/prefs.c:365
+#: ../src/prefs.c:364
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "Не удалось загрузить настройки по умолчанию: %s"
 
-#: ../src/prefs.c:391
+#: ../src/prefs.c:390
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "Не удалось записать файл настроек: %s"
 
-#: ../src/prefs.c:411
+#: ../src/prefs.c:410
 #, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
 msgstr ""
 "Ошибка: %s существует, но не является каталогом, сохранить настройки не "
 "получится"
 
-#: ../src/prefs.c:415
+#: ../src/prefs.c:414
 #, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Не удалось создать каталог настроек: %s"
 
-#: ../src/ui-about-dialog.c:112
+#: ../src/ui-about-dialog.c:116
 msgid "A mixer for the system tray"
 msgstr "Звуковой микшер для панели уведомлений"
 
-#: ../src/ui-about-dialog.c:113
+#: ../src/ui-about-dialog.c:117
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "Авторские права © 2010-2016 Nick Lanham"
 
@@ -148,23 +148,23 @@ msgstr "Назначить горячую клавишу %s"
 msgid "Press new HotKey for <b>%s</b>"
 msgstr "Нажмите новую клавишу для <b>%s</b>"
 
-#: ../src/ui-hotkey-dialog.c:150
+#: ../src/ui-hotkey-dialog.c:174
 msgid "Could not grab the keyboard."
 msgstr "Не удалось захватить клавиатуру."
 
-#: ../src/ui-prefs-dialog.c:370
+#: ../src/ui-prefs-dialog.c:373
 msgid "None"
 msgstr "Пусто"
 
-#: ../src/ui-prefs-dialog.c:845
+#: ../src/ui-prefs-dialog.c:867
 msgid "Notifications"
 msgstr "Yведомления"
 
-#: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
+#: ../src/ui-tray-icon.c:353 ../src/ui-tray-icon.c:356
 msgid "Volume"
 msgstr "Громкость"
 
-#: ../src/ui-tray-icon.c:335
+#: ../src/ui-tray-icon.c:356
 msgid "Muted"
 msgstr "Выкл. звук"
 
@@ -175,6 +175,11 @@ msgstr "Микшер для панели уведомлений"
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "An audio mixer for the system tray"
 msgstr "Звуковой микшер для панели уведомлений"
+
+#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/desktop/pnmixer.desktop.in.h:4
+msgid "alsa;audio;mixer;sound;"
+msgstr ""
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
@@ -207,7 +212,7 @@ msgstr "Выкл. звук"
 msgid "Open Volume Control"
 msgstr "Настройки громкости"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:45
+#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:46
 #: ../data/ui/prefs-dialog-gtk2.glade.h:43
 msgid "Volume Control"
 msgstr "Управление громкостью"
@@ -236,52 +241,52 @@ msgid "Mixer"
 msgstr "Микшер"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk2.glade.h:1
-#, fuzzy
-msgid "Notification support disabled at compile time."
-msgstr "Поддержка уведомлений не была включена во время компиляции."
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:2
 msgid "Enable Notifications"
 msgstr "Включить уведомления"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:3
+#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:3
 #, fuzzy
 msgid "Timeout (ms):"
 msgstr "задержка (мс)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:4
+#: ../data/ui/prefs-dialog-gtk3.glade.h:3
 #: ../data/ui/prefs-dialog-gtk2.glade.h:9
 msgid "<b>Notification Options</b>"
 msgstr "<b>Опции уведомлений</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:5
+#: ../data/ui/prefs-dialog-gtk3.glade.h:4
 #: ../data/ui/prefs-dialog-gtk2.glade.h:5
 msgid "HotKeys"
 msgstr "Горячие клавиши"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:6
+#: ../data/ui/prefs-dialog-gtk3.glade.h:5
 #: ../data/ui/prefs-dialog-gtk2.glade.h:6
 msgid "Mouse Scroll"
 msgstr "Прокрутка колесом мыши"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:7
+#: ../data/ui/prefs-dialog-gtk3.glade.h:6
 #: ../data/ui/prefs-dialog-gtk2.glade.h:7
 #, fuzzy
 msgid "Adjustment in Popups"
 msgstr "Корректировка во всплывающем окне"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:8
+#: ../data/ui/prefs-dialog-gtk3.glade.h:7
 #: ../data/ui/prefs-dialog-gtk2.glade.h:8
 msgid "External Change"
 msgstr "Изменение извне"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: ../data/ui/prefs-dialog-gtk3.glade.h:8
 #, fuzzy
 msgid "<b>Notify for volume changes from:</b>"
 msgstr "Уведомлять об изменении громкости в:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: ../data/ui/prefs-dialog-gtk2.glade.h:1
+#, fuzzy
+msgid "Notification support disabled at compile time."
+msgstr "Поддержка уведомлений не была включена во время компиляции."
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:10
 #: ../data/ui/prefs-dialog-gtk2.glade.h:10
@@ -293,219 +298,223 @@ msgid "Ok"
 msgstr ""
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
-#: ../data/ui/prefs-dialog-gtk2.glade.h:11
-msgid "Slider Orientation:"
+msgid "Apply"
 msgstr ""
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:14
-#: ../data/ui/prefs-dialog-gtk2.glade.h:12
-msgid "Vertical"
-msgstr ""
+#: ../data/ui/prefs-dialog-gtk2.glade.h:11
+msgid "Card:"
+msgstr "Карта:"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:15
-#: ../data/ui/prefs-dialog-gtk2.glade.h:13
-msgid "Horizontal"
-msgstr ""
+#: ../data/ui/prefs-dialog-gtk2.glade.h:12
+msgid "Channel:"
+msgstr "Канал:"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:16
 #: ../data/ui/prefs-dialog-gtk2.glade.h:14
+msgid "Change volume on a logarithmic scale, closer to human perception."
+msgstr ""
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:17
+#: ../data/ui/prefs-dialog-gtk2.glade.h:13
+msgid "Normalize Volume:"
+msgstr "Нормализовать громкость:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:18
+#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+msgid "<b>Sound Device</b>"
+msgstr "<b>Звуковое устройство</b>"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:19
+#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+msgid "Device"
+msgstr "Устройство"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:20
+#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+msgid "Slider Orientation:"
+msgstr ""
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:21
+#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+msgid "Vertical"
+msgstr ""
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:22
+#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+msgid "Horizontal"
+msgstr ""
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:23
+#: ../data/ui/prefs-dialog-gtk2.glade.h:20
 msgid "Display Text Volume"
 msgstr "Отображать уровень громкости текстом"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:17
-#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+#: ../data/ui/prefs-dialog-gtk3.glade.h:24
+#: ../data/ui/prefs-dialog-gtk2.glade.h:21
 #, fuzzy
 msgid "Text Volume Position:"
 msgstr "Расположение текста громкости:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:18
-#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+#: ../data/ui/prefs-dialog-gtk3.glade.h:25
+#: ../data/ui/prefs-dialog-gtk2.glade.h:22
 msgid "Top"
 msgstr "Сверху"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:19
-#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+#: ../data/ui/prefs-dialog-gtk3.glade.h:26
+#: ../data/ui/prefs-dialog-gtk2.glade.h:23
 msgid "Bottom"
 msgstr "Снизу"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:20
-#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+#: ../data/ui/prefs-dialog-gtk3.glade.h:27
+#: ../data/ui/prefs-dialog-gtk2.glade.h:24
 msgid "Left"
 msgstr "Слева"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:21
-#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+#: ../data/ui/prefs-dialog-gtk3.glade.h:28
+#: ../data/ui/prefs-dialog-gtk2.glade.h:25
 msgid "Right"
 msgstr "Справа"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:22
-#: ../data/ui/prefs-dialog-gtk2.glade.h:20
+#: ../data/ui/prefs-dialog-gtk3.glade.h:29
+#: ../data/ui/prefs-dialog-gtk2.glade.h:26
 #, fuzzy
 msgid "<b>Volume Popup</b>"
 msgstr "<b>Измеритель громкости</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:23
-#: ../data/ui/prefs-dialog-gtk2.glade.h:21
+#: ../data/ui/prefs-dialog-gtk3.glade.h:30
+#: ../data/ui/prefs-dialog-gtk2.glade.h:27
 #, fuzzy
 msgid "Draw Volume Meter on Tray Icon"
 msgstr "Цвет измерителя громкости:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:25
-#: ../data/ui/prefs-dialog-gtk2.glade.h:23
+#: ../data/ui/prefs-dialog-gtk3.glade.h:32
+#: ../data/ui/prefs-dialog-gtk2.glade.h:29
 #, fuzzy, no-c-format
 msgid "Volume Meter Offset (%):"
 msgstr "Смещение измерителя громкости:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:26
-#: ../data/ui/prefs-dialog-gtk2.glade.h:24
+#: ../data/ui/prefs-dialog-gtk3.glade.h:33
+#: ../data/ui/prefs-dialog-gtk2.glade.h:30
 msgid "Volume Meter Color:"
 msgstr "Цвет измерителя громкости:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:27
-#: ../data/ui/prefs-dialog-gtk2.glade.h:25
+#: ../data/ui/prefs-dialog-gtk3.glade.h:34
+#: ../data/ui/prefs-dialog-gtk2.glade.h:31
 msgid "<b>Volume Meter</b>"
 msgstr "<b>Измеритель громкости</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:28
-#: ../data/ui/prefs-dialog-gtk2.glade.h:26
+#: ../data/ui/prefs-dialog-gtk3.glade.h:35
+#: ../data/ui/prefs-dialog-gtk2.glade.h:32
 msgid "Use System Theme"
 msgstr ""
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:29
-#: ../data/ui/prefs-dialog-gtk2.glade.h:27
+#: ../data/ui/prefs-dialog-gtk3.glade.h:36
+#: ../data/ui/prefs-dialog-gtk2.glade.h:33
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Тема иконок</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:30
-#: ../data/ui/prefs-dialog-gtk2.glade.h:28
+#: ../data/ui/prefs-dialog-gtk3.glade.h:37
+#: ../data/ui/prefs-dialog-gtk2.glade.h:34
 msgid "View"
 msgstr "Вид"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:31
-#: ../data/ui/prefs-dialog-gtk2.glade.h:29
-msgid "Card:"
-msgstr "Карта:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:32
-#: ../data/ui/prefs-dialog-gtk2.glade.h:30
-msgid "Channel:"
-msgstr "Канал:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:33
-#: ../data/ui/prefs-dialog-gtk2.glade.h:31
-msgid "Normalize Volume:"
-msgstr "Нормализовать громкость:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:34
-#: ../data/ui/prefs-dialog-gtk2.glade.h:32
-msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr ""
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:35
-#: ../data/ui/prefs-dialog-gtk2.glade.h:33
-msgid "<b>Sound Device</b>"
-msgstr "<b>Звуковое устройство</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:36
-#: ../data/ui/prefs-dialog-gtk2.glade.h:34
-msgid "Device"
-msgstr "Устройство"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:37
+#: ../data/ui/prefs-dialog-gtk3.glade.h:38
 #: ../data/ui/prefs-dialog-gtk2.glade.h:35
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Команда управления громкостью</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:38
+#: ../data/ui/prefs-dialog-gtk3.glade.h:39
 #: ../data/ui/prefs-dialog-gtk2.glade.h:36
 #, fuzzy
 msgid "Scroll Step:"
 msgstr "Шаг прокрутки колёсиком:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:39
+#: ../data/ui/prefs-dialog-gtk3.glade.h:40
 #: ../data/ui/prefs-dialog-gtk2.glade.h:37
 #, fuzzy
 msgid "Fine Scroll Step:"
 msgstr "Шаг прокрутки колёсиком:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:40
+#: ../data/ui/prefs-dialog-gtk3.glade.h:41
 #: ../data/ui/prefs-dialog-gtk2.glade.h:38
 #, fuzzy
 msgid "<b>Volume Scrolling</b>"
 msgstr "<b>Измеритель громкости</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:41
+#: ../data/ui/prefs-dialog-gtk3.glade.h:42
 #: ../data/ui/prefs-dialog-gtk2.glade.h:39
 msgid "Middle Click Action:"
 msgstr "Действие по клику колёсиком:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:42
+#: ../data/ui/prefs-dialog-gtk3.glade.h:43
 #: ../data/ui/prefs-dialog-gtk2.glade.h:40
 msgid "Custom Command:"
 msgstr "Пользовательская команда:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:44
+#: ../data/ui/prefs-dialog-gtk3.glade.h:45
 #: ../data/ui/prefs-dialog-gtk2.glade.h:42
 msgid "Show Preferences"
 msgstr "Показать параметры"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:46
+#: ../data/ui/prefs-dialog-gtk3.glade.h:47
 #: ../data/ui/prefs-dialog-gtk2.glade.h:44
 msgid "Custom (set below)"
 msgstr "Пользовательская (устанавливается ниже)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:47
+#: ../data/ui/prefs-dialog-gtk3.glade.h:48
 #: ../data/ui/prefs-dialog-gtk2.glade.h:45
 msgid "<b>Mouse</b>"
 msgstr "<b>Мышь</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:48
+#: ../data/ui/prefs-dialog-gtk3.glade.h:49
 #: ../data/ui/prefs-dialog-gtk2.glade.h:46
 msgid "Behavior"
 msgstr "Поведение"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:49
+#: ../data/ui/prefs-dialog-gtk3.glade.h:50
 #: ../data/ui/prefs-dialog-gtk2.glade.h:47
 msgid "Enable HotKeys"
 msgstr "Включить горячие клавиши"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:50
+#: ../data/ui/prefs-dialog-gtk3.glade.h:51
 #: ../data/ui/prefs-dialog-gtk2.glade.h:52
 msgid "Command"
 msgstr "Команда"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:51
+#: ../data/ui/prefs-dialog-gtk3.glade.h:52
 #: ../data/ui/prefs-dialog-gtk2.glade.h:48
 msgid "Mute/Unmute:"
 msgstr "Вкл/выкл звук"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:52
+#: ../data/ui/prefs-dialog-gtk3.glade.h:53
 #: ../data/ui/prefs-dialog-gtk2.glade.h:49
 msgid "Volume Up:"
 msgstr "Увеличить громкость"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:53
+#: ../data/ui/prefs-dialog-gtk3.glade.h:54
 #: ../data/ui/prefs-dialog-gtk2.glade.h:50
 msgid "Volume Down:"
 msgstr "Уменьшить громкость"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:54
+#: ../data/ui/prefs-dialog-gtk3.glade.h:55
 #: ../data/ui/prefs-dialog-gtk2.glade.h:51
 #, fuzzy
 msgid "Double-click a HotKey to assign a new HotKey"
 msgstr "Щёлкните дважды на горячую клавишу, чтобы назначить новую"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:55
+#: ../data/ui/prefs-dialog-gtk3.glade.h:56
 #: ../data/ui/prefs-dialog-gtk2.glade.h:53
 msgid "HotKey"
 msgstr "Горячая клавиша"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:56
+#: ../data/ui/prefs-dialog-gtk3.glade.h:57
 #: ../data/ui/prefs-dialog-gtk2.glade.h:54
 msgid "(None)"
 msgstr "(Пусто)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:57
+#: ../data/ui/prefs-dialog-gtk3.glade.h:58
 #: ../data/ui/prefs-dialog-gtk2.glade.h:55
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>Настройки горячих клавиш</b>"
