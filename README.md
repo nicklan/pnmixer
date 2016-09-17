@@ -88,3 +88,8 @@ To build the documentation, run:
 The documentation is built in `src/html`. To install it, run:
 
     make install-doc
+
+Known Bugs
+----------
+
+- On panel sizes of 21 and 22 pixels, the volume meter offset can be messed up (gtk3 only). This seems to be a gtk3 bug, not a PNMixer one. Also see [issue 136](https://github.com/nicklan/pnmixer/issues/136).
