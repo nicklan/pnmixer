@@ -5,7 +5,7 @@
 # Yuexuan Gu <lastavengers@outlook.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: pnmixer master\n"
+"Project-Id-Version: pnmixer 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-16 10:05+0700\n"
 "PO-Revision-Date: \n"

@@ -7,7 +7,7 @@
 # Stéphane Aulery <lkppo@free.fr>, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: pnmixer 0.7-rc1\n"
+"Project-Id-Version: pnmixer 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-16 10:05+0700\n"
 "PO-Revision-Date: 2016-09-15 21:10+0200\n"
