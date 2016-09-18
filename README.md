@@ -1,6 +1,18 @@
 PNMixer [![Build Status](https://travis-ci.org/nicklan/pnmixer.svg?branch=master)](https://travis-ci.org/nicklan/pnmixer)
 =======
 
+Table of Contents
+-----------------
+* [About](#about)
+* [Download](#download)
+* [Compilation and Install](#compilation-and-install)
+* [Icons](#icons)
+* [Translation](#translation)
+* [TODO/Help wanted](#todohelp-wanted)
+* [Known Bugs](#known-bugs)
+
+About
+-----
 PNMixer is a simple mixer application designed to run in your system
 tray. It integrates nicely into desktop environments that don't have
 a panel that supports applets and therefore can't run a mixer applet.
@@ -36,6 +48,45 @@ a number of additions. These include:
 
 Source and so on are at: <https://github.com/nicklan/pnmixer>
 
+Download
+--------
+Latest version can always be found at: <https://github.com/nicklan/pnmixer/releases>
+
+Compilation and Install
+-----------------------
+Dependencies:
+- build:
+	- autoconf (for bootstrapping)
+	- automake (for bootstrapping)
+	- doxygen (for documentation)
+	- graphviz (for documentation)
+	- gettext
+	- intltool
+	- pkg-config
+- build+runtime:
+	- alsa-lib (aka libasound on some distros)
+	- glib-2
+	- >=gtk+-3.12 (or >=gtk+-2.24 via `--without-gtk3`)
+	- libnotify (optional, disable via `--without-libnotify`)
+	- libX11
+- runtime suggestions (PNMixer can use a full mixer):
+	- alsamixergui
+	- gnome-alsamixer
+	- xfce4-mixer
+
+To install this program cd to this directory and run:
+
+    ./autogen.sh
+    make
+    make install
+
+To build/install the documentation run:
+
+	# build documentation in src/html
+    make doc
+	# install documentation
+    make install-doc
+
 Icons
 -----
 Icons are a slightly modified versions of the icons from Paul Davey's
@@ -51,56 +102,13 @@ with the relevant team on the TP.
 You can visit the PNMixer page on the TP at
 <http://translationproject.org/domain/pnmixer.html>.
 
-Download
---------
-Latest version can always be found at: <https://github.com/nicklan/pnmixer/releases>
+TODO/Help wanted
+---------------
 
-Compilation and Install
------------------------
-Dependencies:
-- build:
-	- autoconf (for bootstrapping)
-	- automake (for bootstrapping)
-	- doxygen  (for documentation)
-	- graphviz (for documentation)
-	- gettext
-	- intltool
-	- pkg-config
-- build+runtime:
-	- alsa-lib	(aka libasound on some distros)
-	- glib-2
-	- >=gtk+-3.12	(or >=gtk+-2.24 via `--without-gtk3`)
-	- libnotify	(optional, disable via `--without-libnotify`)
-	- libX11
-- runtime suggestions (PNMixer can use a full mixer):
-	- alsamixergui
-	- gnome-alsamixer
-	- xfce4-mixer
-
-To install this program cd to this directory and run:
-
-    ./autogen.sh
-    make
-    make install
-
-Documentation
--------------
-
-To build the documentation, make sure you have the [required dependencies](#compilation-and-install)
-and run:
-
-    make doc
-
-The documentation is built in `src/html`. To install it, run:
-
-    make install-doc
+- [Move away from deprecated GtkStatusIcon?](https://github.com/nicklan/pnmixer/issues/81)
 
 Known Bugs
 ----------
 
 - On panel sizes of 21 and 22 pixels, the volume meter offset can be messed up (gtk3 only). This seems to be a gtk3 bug, not a PNMixer one. Also see [issue 136](https://github.com/nicklan/pnmixer/issues/136).
 
-TODO/Help wanted
----------------
-
-- [Move away from deprecated GtkStatusIcon?](https://github.com/nicklan/pnmixer/issues/81)
