@@ -88,7 +88,7 @@ about_dialog_create(GtkWindow *parent)
 	const gchar *authors[] = {
 		"Brian Bidulock",
 		"El Boulangero <elboulangero@gmail.com>",
-		"Julian Ospald <hasufell@gentoo.org>",
+		"Julian Ospald <hasufell@posteo.de>",
 		"Nick Lanham",
 		"Steven Honeyman",
 		NULL
