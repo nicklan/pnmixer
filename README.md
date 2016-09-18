@@ -57,31 +57,37 @@ Latest version can always be found at: <https://github.com/nicklan/pnmixer/relea
 
 Compilation and Install
 -----------------------
-Needed dependencies:
-- >=gtk+-3.12	(or >=gtk+-2.24 via --without-gtk3)
-- glib-2
-- alsa-lib	(aka libasound on some distros)
-- libX11
-- libnotify	(optional, disable via --without-libnotify)
-- intltool	(build-time only)
-- gettext       (build-time only)
-- pkg-config	(build-time only)
-- autoconf	(build-time only)
-- automake	(build-time only)
+Dependencies:
+- build:
+	- autoconf (for bootstrapping)
+	- automake (for bootstrapping)
+	- doxygen  (for documentation)
+	- graphviz (for documentation)
+	- gettext
+	- intltool
+	- pkg-config
+- build+runtime:
+	- alsa-lib	(aka libasound on some distros)
+	- glib-2
+	- >=gtk+-3.12	(or >=gtk+-2.24 via `--without-gtk3`)
+	- libnotify	(optional, disable via `--without-libnotify`)
+	- libX11
+- runtime suggestions (PNMixer can use a full mixer):
+	- alsamixergui
+	- gnome-alsamixer
+	- xfce4-mixer
 
 To install this program cd to this directory and run:
 
     ./autogen.sh
     make
-    sudo make install
+    make install
 
 Documentation
 -------------
-Needed dependencies:
-- doxygen
-- graphviz
 
-To build the documentation, run:
+To build the documentation, make sure you have the [required dependencies](#compilation-and-install)
+and run:
 
     make doc
 
@@ -93,3 +99,8 @@ Known Bugs
 ----------
 
 - On panel sizes of 21 and 22 pixels, the volume meter offset can be messed up (gtk3 only). This seems to be a gtk3 bug, not a PNMixer one. Also see [issue 136](https://github.com/nicklan/pnmixer/issues/136).
+
+TODO/Help wanted
+---------------
+
+- [Move away from deprecated GtkStatusIcon?](https://github.com/nicklan/pnmixer/issues/81)
