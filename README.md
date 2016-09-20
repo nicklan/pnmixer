@@ -6,6 +6,8 @@ Table of Contents
 * [About](#about)
 * [Download](#download)
 * [Compilation and Install](#compilation-and-install)
+	* [Distro packages](#distro-packages)
+	* [Manual](#manual)
 * [Icons](#icons)
 * [Translation](#translation)
 * [TODO/Help wanted](#todohelp-wanted)
@@ -54,7 +56,20 @@ Latest version can always be found at: <https://github.com/nicklan/pnmixer/relea
 
 Compilation and Install
 -----------------------
-Dependencies:
+
+The best way to install most software is via your distribution. Only install
+manually if your distribution does not provide a package.
+
+### Distro packages
+
+* [Debian](https://packages.debian.org/search?keywords=pnmixer&searchon=names&suite=all&section=all)
+* [Gentoo](https://packages.gentoo.org/packages/media-sound/pnmixer)
+* [Exherbo](https://git.exherbo.org/summer/packages/media-sound/pnmixer/index.html)
+* [Arch Linux (unofficial, in AUR)](https://aur.archlinux.org/packages/?O=0&K=pnmixer)
+
+### Manual
+
+First, make sure you have the required __dependencies__:
 - build:
 	- autoconf (for bootstrapping)
 	- automake (for bootstrapping)
@@ -74,13 +89,13 @@ Dependencies:
 	- gnome-alsamixer
 	- xfce4-mixer
 
-To install this program cd to this directory and run:
+To __install__ this program cd to this directory and run:
 
     ./autogen.sh
     make
     make install
 
-To build/install the documentation run:
+To build/install the __documentation__ run:
 
 	# build documentation in src/html
     make doc
@@ -111,4 +126,6 @@ Known Bugs
 ----------
 
 - On panel sizes of 21 and 22 pixels, the volume meter offset can be messed up (gtk3 only). This seems to be a gtk3 bug, not a PNMixer one. Also see [issue 136](https://github.com/nicklan/pnmixer/issues/136).
+
+You can also skim through the [issue tracker](https://github.com/nicklan/pnmixer/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
 
