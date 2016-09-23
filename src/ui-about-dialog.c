@@ -23,12 +23,10 @@
 #include "support-intl.h"
 #include "ui-about-dialog.h"
 
-#ifndef WITH_GTK3
 #define LICENSE_GPL3 \
 	"PNMixer is free software; you can redistribute it and/or modify it "	\
-	"under the terms of the GNU General Public License as published by the " \
-	"Free Software Foundation; either version 3 of the License, or " \
-	"(at your option) any later version.\n" \
+	"under the terms of the GNU General Public License v3 as published " \
+	"by the Free Software Foundation.\n" \
 	"\n" \
 	"PNMixer is distributed in the hope that it will be useful, but " \
 	"WITHOUT ANY WARRANTY; without even the implied warranty of " \
@@ -38,7 +36,6 @@
 	"You should have received a copy of the GNU General Public License " \
 	"along with PNMixer; if not, write to the Free Software Foundation, "	\
 	"Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
-#endif
 
 /* Public functions */
 
@@ -115,12 +112,8 @@ about_dialog_create(GtkWindow *parent)
 	             "authors",            authors,
 	             "comments",           _("A mixer for the system tray"),
 	             "copyright",          _("Copyright © 2010-2016 Nick Lanham"),
-#ifdef WITH_GTK3
-	             "license-type",       GTK_LICENSE_GPL_3_0,
-#else
 	             "license",            LICENSE_GPL3,
 	             "wrap-license",       TRUE,
-#endif
 	             "logo-icon-name",     "pnmixer",
 	             "program-name",       "PNMixer",
 	             "translator-credits", translators,
