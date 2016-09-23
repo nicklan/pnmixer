@@ -112,7 +112,7 @@ Translation
 -----------
 PNMixer is translated through the [Translation Project](http://translationproject.org/).
 If you wish to make or update a translation for PNMixer, please get in touch
-with the relevant team on the TP.
+with the relevant team on the TP. Solo translations won't be accepted.
 
 You can visit the PNMixer page on the TP at
 <http://translationproject.org/domain/pnmixer.html>.
