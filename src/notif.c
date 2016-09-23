@@ -76,7 +76,7 @@ show_volume_notif(NotifyNotification *notification,
 	if (muted)
 		summary = g_strdup("Volume muted");
 	else
-		summary = g_strdup_printf("%s (%s)\nVolume: %ld%%\n",
+		summary = g_strdup_printf("%s (%s)\nVolume: %ld%%",
 		                          card, channel, lround(volume));
 
 	notify_notification_update(notification, summary, NULL, icon);
