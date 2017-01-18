@@ -208,8 +208,16 @@ void
 popup_menu_show(PopupMenu *menu, GtkMenuPositionFunc func, gpointer data,
                 guint button, guint activate_time)
 {
+#if GTK_CHECK_VERSION(3,22,0)
+	(void) func;
+	(void) data;
+	(void) button;
+	(void) activate_time;
+	gtk_menu_popup_at_pointer(GTK_MENU(menu->menu), NULL);
+#else
 	gtk_menu_popup(GTK_MENU(menu->menu), NULL, NULL,
 	               func, data, button, activate_time);
+#endif
 }
 
 /**
