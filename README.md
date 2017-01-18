@@ -18,8 +18,8 @@ About
 PNMixer is a simple mixer application designed to run in your system
 tray. It integrates nicely into desktop environments that don't have
 a panel that supports applets and therefore can't run a mixer applet.
-In particular it's been used quite a lot with fbpanel and tint2, but
-should run fine in any system tray.
+In particular it's been used quite a lot with [fbpanel][] and [tint2][],
+but should run fine in any system tray.
 
 PNMixer is designed to work on systems that use ALSA for sound management.
 Any other sound driver like OSS or FFADO are currently not supported
@@ -27,8 +27,7 @@ Any other sound driver like OSS or FFADO are currently not supported
 but it seems that PNMixer behaves quite well anyway when PA is running.
 Feel free to try and to give some feedback.
 
-PNMixer is a fork of [OBMixer](http://jpegserv.com/?page_id=282) with
-a number of additions. These include:
+PNMixer is a fork of [OBMixer][] with a number of additions. These include:
 
 - Volume adjustment with the scroll wheel
 - Select which ALSA device and channel to use
@@ -49,6 +48,10 @@ a number of additions. These include:
 	- drawing of volume level on tray icon
 
 Source and so on are at: <https://github.com/nicklan/pnmixer>
+
+[fbpanel]: https://github.com/aanatoly/fbpanel
+[tint2]:   https://gitlab.com/o9000/tint2
+[obmixer]: http://jpegserv.com/?page_id=282
 
 Download
 --------
