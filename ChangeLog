@@ -1,6 +1,9 @@
 Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
+version 0.8:
+ - New translations: Serbian
+
 version 0.7:
  - PNMixer went through a major rewrite !
    The new code share little with the previous 0.6 version.
