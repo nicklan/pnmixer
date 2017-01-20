@@ -205,14 +205,13 @@ popup_menu_get_window(PopupMenu *menu)
  * @param activate_time the time at which the activation event occurred.
  */
 void
-popup_menu_show(PopupMenu *menu, GtkMenuPositionFunc func, gpointer data,
-                guint button, guint activate_time)
+popup_menu_show(PopupMenu *menu,
+                GTK_3_22_UNUSED GtkMenuPositionFunc func,
+                GTK_3_22_UNUSED gpointer data,
+                GTK_3_22_UNUSED guint button,
+                GTK_3_22_UNUSED guint activate_time)
 {
 #if GTK_CHECK_VERSION(3,22,0)
-	(void) func;
-	(void) data;
-	(void) button;
-	(void) activate_time;
 	gtk_menu_popup_at_pointer(GTK_MENU(menu->menu), NULL);
 #else
 	gtk_menu_popup(GTK_MENU(menu->menu), NULL, NULL,

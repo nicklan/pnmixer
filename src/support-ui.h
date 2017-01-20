@@ -31,6 +31,13 @@ void gtk_combo_box_text_remove_all(GtkComboBoxText *combo_box);
 
 #endif
 
+#if GTK_CHECK_VERSION(3,22,0)
+#define GTK_3_22_UNUSED G_GNUC_UNUSED
+#else
+#define GTK_3_22_UNUSED
+#endif
+
+
 /*
  * Cast a pointer (that may be a function pointer) to a data pointer,
  * suppressing any warnings from the compilator.
