@@ -79,7 +79,6 @@ First, make sure you have the required __dependencies__:
 	- doxygen (for documentation)
 	- graphviz (for documentation)
 	- gettext
-	- intltool
 	- pkg-config
 - build+runtime:
 	- alsa-lib (aka libasound on some distros)
