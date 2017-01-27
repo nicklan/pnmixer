@@ -51,6 +51,7 @@
 
 #include "audio.h"
 #include "prefs.h"
+#include "support-intl.h"
 #include "support-log.h"
 #include "support-ui.h"
 #include "ui-popup-window.h"
@@ -113,7 +114,7 @@ configure_vol_increment(GtkAdjustment *vol_scale_adj)
 /* Update the mute checkbox according to the current audio state. */
 static void
 update_mute_check(GtkToggleButton *mute_check, GCallback handler_func,
-                  gpointer handler_data, gboolean muted)
+                  gpointer handler_data, gboolean has_mute, gboolean muted)
 {
 	gint n_blocked;
 
@@ -121,7 +122,15 @@ update_mute_check(GtkToggleButton *mute_check, GCallback handler_func,
 	            (G_OBJECT(mute_check), DATA_PTR(handler_func), handler_data);
 	g_assert(n_blocked == 1);
 
-	gtk_toggle_button_set_active(mute_check, muted);
+	if (has_mute == FALSE) {
+		gtk_toggle_button_set_active(mute_check, TRUE);
+		gtk_widget_set_sensitive(GTK_WIDGET(mute_check), FALSE);
+		gtk_widget_set_tooltip_text(GTK_WIDGET(mute_check),
+		                            _("Soundcard has no mute switch"));
+	} else {
+		gtk_toggle_button_set_active(mute_check, muted);
+		gtk_widget_set_tooltip_text(GTK_WIDGET(mute_check), NULL);
+	}
 
 	g_signal_handlers_unblock_by_func
 	(G_OBJECT(mute_check), DATA_PTR(handler_func), handler_data);
@@ -334,7 +343,7 @@ on_mixer_button_clicked(G_GNUC_UNUSED GtkButton *button, PopupWindow *window)
  * @param data user supplied data.
  */
 static void
-on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
+on_audio_changed(Audio *audio, AudioEvent *event, gpointer data)
 {
 	PopupWindow *window = (PopupWindow *) data;
 	GtkWidget *popup_window = window->popup_window;
@@ -347,8 +356,8 @@ on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
 
 	/* Update mute checkbox */
 	update_mute_check(GTK_TOGGLE_BUTTON(window->mute_check),
-	                  G_CALLBACK(on_mute_check_toggled), window, event->muted);
-
+	                  G_CALLBACK(on_mute_check_toggled), window,
+	                  event->has_mute, event->muted);
 
 	/* Update volume slider
 	 * If the user changes the volume through the popup window,
@@ -371,13 +380,14 @@ popup_window_show(PopupWindow *window)
 {
 	GtkWidget *popup_window = window->popup_window;
 	GtkWidget *vol_scale = window->vol_scale;
+	Audio *audio = window->audio;
 
 	/* Update window elements at first */
 	update_mute_check(GTK_TOGGLE_BUTTON(window->mute_check),
 	                  G_CALLBACK(on_mute_check_toggled), window,
-	                  audio_is_muted(window->audio));
+	                  audio_has_mute(audio), audio_is_muted(audio));
 	update_volume_slider(window->vol_scale_adj,
-	                     audio_get_volume(window->audio));
+	                     audio_get_volume(audio));
 
 	/* Show the window */
 	gtk_widget_show_now(popup_window);
