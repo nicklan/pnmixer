@@ -79,6 +79,8 @@ the naming convention.
 
 ## Translating
 
+TODO update me, now the pot file is versioned !
+
 In order to update the po files, run the following command:
 
 	cd po && make update-po
