@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkAdjustment" id="vol_scale_adj">
@@ -8,8 +8,8 @@
     <property name="page_increment">10</property>
   </object>
   <object class="GtkWindow" id="popup_window">
-    <property name="type">popup</property>
     <property name="can_focus">False</property>
+    <property name="type">popup</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
     <property name="type_hint">utility</property>
@@ -23,19 +23,20 @@
       <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="margin_start">8</property>
+        <property name="margin_end">8</property>
+        <property name="margin_top">8</property>
+        <property name="margin_bottom">8</property>
         <property name="orientation">vertical</property>
-        <property name="margin">8</property>
         <property name="spacing">12</property>
         <child>
           <object class="GtkScale" id="vol_scale">
+            <property name="width_request">200</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="orientation">horizontal</property>
             <property name="adjustment">vol_scale_adj</property>
-            <property name="inverted">False</property>
             <property name="round_digits">0</property>
             <property name="digits">0</property>
-            <property name="width_request">200</property>
             <signal name="value-changed" handler="on_vol_scale_value_changed" swapped="no"/>
           </object>
           <packing>

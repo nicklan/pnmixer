@@ -16,8 +16,11 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="valign">start</property>
+    <property name="margin_start">5</property>
+    <property name="margin_end">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
     <property name="orientation">vertical</property>
-    <property name="margin">5</property>
     <child>
       <object class="GtkFrame" id="frame9">
         <property name="visible">True</property>
@@ -199,8 +202,11 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="valign">start</property>
+    <property name="margin_start">5</property>
+    <property name="margin_end">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
     <property name="orientation">vertical</property>
-    <property name="margin">5</property>
     <child>
       <object class="GtkLabel" id="noti_disabled_label">
         <property name="visible">True</property>
@@ -361,7 +367,7 @@
                     <child>
                       <object class="GtkLabel" id="label30">
                         <property name="visible">True</property>
-			<property name="can_focus">False</property>
+                        <property name="can_focus">False</property>
                         <property name="margin_start">5</property>
                         <property name="label" translatable="yes">Apply</property>
                       </object>
@@ -397,8 +403,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame3">
                     <property name="visible">True</property>
@@ -529,8 +538,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame1">
                     <property name="visible">True</property>
@@ -808,8 +820,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame4">
                     <property name="visible">True</property>
@@ -1050,8 +1065,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame8">
                     <property name="visible">True</property>
