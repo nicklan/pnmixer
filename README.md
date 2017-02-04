@@ -74,6 +74,8 @@ manually if your distribution does not provide a package.
 
 First, make sure you have the required __dependencies__:
 - build:
+	- autopoint (for bootstrapping)
+	- autoreconf (for bootstrapping)
 	- autoconf (for bootstrapping)
 	- automake (for bootstrapping)
 	- doxygen (for documentation)
