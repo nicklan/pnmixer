@@ -343,7 +343,7 @@ on_mixer_button_clicked(G_GNUC_UNUSED GtkButton *button, PopupWindow *window)
  * @param data user supplied data.
  */
 static void
-on_audio_changed(Audio *audio, AudioEvent *event, gpointer data)
+on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
 {
 	PopupWindow *window = (PopupWindow *) data;
 	GtkWidget *popup_window = window->popup_window;
