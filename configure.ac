@@ -22,7 +22,7 @@ GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext Package])
 AC_SUBST([GETTEXT_PACKAGE])
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.19.7])
+AM_GNU_GETTEXT_VERSION([0.19.3])
 
 # ======================================================= #
 #                  Required packages                      #
