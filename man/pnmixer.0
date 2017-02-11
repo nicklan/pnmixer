@@ -2,6 +2,7 @@
 
 .SH NAME
 pnmixer \- a mixer for the system tray
+
 .SH SYNOPSIS
 .B pnmixer
 .RB [\| \fIOPTION\fP \|]
@@ -23,11 +24,11 @@ to work well with \fIPulseAudio\fP, but we lack feedback on this matter.
 \fBpnmixer\fP follow the usual GNU command line syntax, with long
 options starting with two dashes (`-').
 .TP
-.B \-d, \-\-debug
+.BR \-d ", " \-\-debug
 enable debug messages
 .TP
-.B \-h, \-\-help
+.BR \-h ", " \-\-help
 show summary of options and exit
 .TP
-.B \-v \-\-version
+.BR \-v ", " \-\-version
 show version information and exit
