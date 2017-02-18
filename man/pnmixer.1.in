@@ -1,4 +1,4 @@
-.TH PNMIXER 1 "!DATE!" "!VERSION!"
+.TH PNMIXER 1 "February 2017" "@PACKAGE_VERSION@"
 
 .SH NAME
 pnmixer \- a mixer for the system tray

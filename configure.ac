@@ -105,6 +105,7 @@ data/icons/Makefile
 data/pixmaps/Makefile
 data/ui/Makefile
 man/Makefile
+man/pnmixer.1
 po/Makefile.in
 src/Makefile
 ])
