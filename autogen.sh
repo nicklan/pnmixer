@@ -6,6 +6,14 @@ test -z "$srcdir" && srcdir=.
 
 DIE=0
 
+# Install the pre-commit hook
+if [ -f .githooks/pre-commit ] && [ ! -f .git/hooks/pre-commit ]; then
+        # This part is allowed to fail
+        cp -p .githooks/pre-commit .git/hooks/pre-commit && \
+        chmod +x .git/hooks/pre-commit && \
+        echo "Activated pre-commit hook." || :
+fi
+
 (test -f $srcdir/configure.ac) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
     echo " top-level package directory"
