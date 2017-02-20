@@ -54,8 +54,8 @@ if ! git diff-index --check --cached $against --; then
 fi
 
 # If the man page was modified, ensure the date was updated as well.
-man_file=$(git diff --cached --name-only | grep "pnmixer.1")
-if [ "$man_file" ]; then
+man_file=$(git rev-parse --show-toplevel)/man/pnmixer.1.in
+if ! git diff --cached --quiet --exit-code -- "${man_file}" ; then
 	cur_date="$(date +'%B %Y')"
 	man_date="$(head -n1 $man_file | cut -d' ' -f4-5 | tr -d '\"')"
 	if [ "$cur_date" != "$man_date" ]; then
