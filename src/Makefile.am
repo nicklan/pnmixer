@@ -25,5 +25,5 @@ pnmixer_SOURCES =					\
 	ui-prefs-dialog.c	ui-prefs-dialog.h	\
 	ui-tray-icon.c		ui-tray-icon.h
 
-pnmixer_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+pnmixer_LDADD = @PACKAGE_LIBS@
 

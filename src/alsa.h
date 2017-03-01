@@ -38,6 +38,7 @@ void alsa_card_install_callback(AlsaCard *card, AlsaCb callback, gpointer data);
 
 const char *alsa_card_get_name(AlsaCard *card);
 const char *alsa_card_get_channel(AlsaCard *card);
+gboolean alsa_card_has_mute(AlsaCard *card);
 gboolean alsa_card_is_muted(AlsaCard *card);
 void alsa_card_toggle_mute(AlsaCard *card);
 gdouble alsa_card_get_volume(AlsaCard *card);

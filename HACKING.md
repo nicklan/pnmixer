@@ -79,13 +79,15 @@ the naming convention.
 
 ## Translating
 
+TODO update me, now the pot file is versioned !
+
 In order to update the po files, run the following command:
 
-	cd po && make update-po 
+	cd po && make update-po
 
 Then, you need to build an archive of the project, containing the POT file,
 and give it to the [Translation Project](http://translationproject.org).
-The POT file (`po/pnmixer.pot`) is NOT versioned by git. 
+The POT file (`po/pnmixer.pot`) is NOT versioned by git.
 To make it available, you need to build an archive.
 
 	make dist

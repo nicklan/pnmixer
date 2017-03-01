@@ -47,6 +47,7 @@ typedef enum audio_user AudioUser;
 
 const char *audio_get_card(Audio *audio);
 const char *audio_get_channel(Audio *audio);
+gboolean audio_has_mute(Audio *audio);
 gboolean audio_is_muted(Audio *audio);
 void audio_toggle_mute(Audio *audio, AudioUser user);
 gdouble audio_get_volume(Audio *audio);
@@ -74,6 +75,7 @@ struct audio_event {
 	AudioUser user;
 	const gchar *card;
 	const gchar *channel;
+	gboolean has_mute;
 	gboolean muted;
 	gdouble volume;
 };

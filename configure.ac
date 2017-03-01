@@ -1,4 +1,4 @@
-dnl Process this file with autoconf to produce a configure script.
+# Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.60])
 AC_INIT([pnmixer], 0.7)
@@ -12,19 +12,17 @@ AC_CONFIG_HEADERS([src/config.h])
 # ===================================================== #
 AC_PROG_CC
 AC_PROG_INSTALL
-IT_PROG_INTLTOOL([0.40])
 # necessary for correct runtime behavior
 LDFLAGS="$LDFLAGS -rdynamic"
 
 # ======================================================= #
 #                  I18n support                           #
 # ======================================================= #
-GETTEXT_PACKAGE=pnmixer
-AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package.])
-# Add more languages here
-ALL_LINGUAS="de fr hr it nl ru sr uk vi zh_CN"
-AM_GLIB_GNU_GETTEXT
+GETTEXT_PACKAGE=AC_PACKAGE_NAME
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext Package])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.3])
 
 # ======================================================= #
 #                  Required packages                      #

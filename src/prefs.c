@@ -70,16 +70,17 @@ static const gchar *vol_control_commands[] = {
 static const gchar *
 find_vol_control_command(void)
 {
-	gchar buf[256];
 	const char **cmd;
 
 	DEBUG("Looking for a volume control command...");
 
 	cmd = vol_control_commands;
 	while (*cmd) {
-		snprintf(buf, 256, "which %s >/dev/null", *cmd);
-		if (system(buf) == 0) {
-			DEBUG("'%s' selected as the volume control command", *cmd);
+		gchar *absolute_path;
+
+		absolute_path = g_find_program_in_path(*cmd);
+		if (absolute_path) {
+			g_free(absolute_path);
 			return *cmd;
 		}
 		cmd++;
