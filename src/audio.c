@@ -100,6 +100,7 @@ audio_event_new(Audio *audio, AudioSignal signal, AudioUser user)
 	event->user = user;
 	event->card = audio_get_card(audio);
 	event->channel = audio_get_channel(audio);
+	event->has_mute = audio_has_mute(audio);
 	event->muted = audio_is_muted(audio);
 	event->volume = audio_get_volume(audio);
 
@@ -234,9 +235,9 @@ invoke_handlers(Audio *audio, AudioSignal signal, AudioUser user)
 	event = audio_event_new(audio, signal, user);
 
 	/* Invoke the various handlers around */
-	DEBUG("** Dispatching signal '%s' from '%s', vol=%lg, muted=%s",
+	DEBUG("** Dispatching signal '%s' from '%s', vol=%lg, has_mute=%s, muted=%s",
 	      audio_signal_to_str(signal), audio_user_to_str(user),
-	      event->volume, event->muted ? "yes" : "no");
+	      event->volume, event->has_mute ? "yes" : "no", event->muted ? "yes" : "no");
 
 	for (item = audio->handlers; item; item = item->next) {
 		AudioHandler *handler = item->data;
@@ -365,6 +366,23 @@ const char *
 audio_get_channel(Audio *audio)
 {
 	return audio->channel;
+}
+
+/**
+ * Whether the card has mute capabilities.
+ *
+ * @param audio an Audio instance.
+ * @return TRUE if the card can be muted, FALSE otherwise.
+ */
+gboolean
+audio_has_mute(Audio *audio)
+{
+	AlsaCard *soundcard = audio->soundcard;
+
+	if (!soundcard)
+		return FALSE;
+
+	return alsa_card_has_mute(soundcard);
 }
 
 /**

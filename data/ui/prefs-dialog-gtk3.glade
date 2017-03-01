@@ -16,8 +16,11 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="valign">start</property>
+    <property name="margin_start">5</property>
+    <property name="margin_end">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
     <property name="orientation">vertical</property>
-    <property name="margin">5</property>
     <child>
       <object class="GtkFrame" id="frame9">
         <property name="visible">True</property>
@@ -25,28 +28,13 @@
         <property name="label_xalign">0</property>
         <property name="shadow_type">none</property>
         <child>
-          <object class="GtkTable" id="table8">
+          <object class="GtkGrid" id="noti_options_grid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_start">12</property>
-            <property name="n_rows">2</property>
-            <property name="n_columns">2</property>
-            <property name="row_spacing">15</property>
-            <child>
-              <object class="GtkCheckButton" id="noti_enable_check">
-                <property name="label" translatable="yes">Enable Notifications</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
-                <signal name="toggled" handler="on_noti_enable_check_toggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="y_options">GTK_EXPAND</property>
-              </packing>
-            </child>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">12</property>
+            <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkLabel" id="noti_timeout_label">
                 <property name="visible">True</property>
@@ -55,9 +43,8 @@
                 <property name="label" translatable="yes">Timeout (ms):</property>
               </object>
               <packing>
+                <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-                <property name="y_options">GTK_EXPAND</property>
               </packing>
             </child>
             <child>
@@ -70,10 +57,23 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
                 <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-                <property name="y_options">GTK_EXPAND</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="noti_enable_check">
+                <property name="label" translatable="yes">Enable Notifications</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">start</property>
+                <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="on_noti_enable_check_toggled" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
               </packing>
             </child>
             <child>
@@ -199,8 +199,11 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="valign">start</property>
+    <property name="margin_start">5</property>
+    <property name="margin_end">5</property>
+    <property name="margin_top">5</property>
+    <property name="margin_bottom">5</property>
     <property name="orientation">vertical</property>
-    <property name="margin">5</property>
     <child>
       <object class="GtkLabel" id="noti_disabled_label">
         <property name="visible">True</property>
@@ -361,7 +364,7 @@
                     <child>
                       <object class="GtkLabel" id="label30">
                         <property name="visible">True</property>
-			<property name="can_focus">False</property>
+                        <property name="can_focus">False</property>
                         <property name="margin_start">5</property>
                         <property name="label" translatable="yes">Apply</property>
                       </object>
@@ -397,8 +400,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame3">
                     <property name="visible">True</property>
@@ -406,13 +412,13 @@
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
-                      <object class="GtkTable" id="table3">
+                      <object class="GtkGrid" id="device_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_start">12</property>
-                        <property name="n_rows">3</property>
-                        <property name="n_columns">2</property>
-                        <property name="row_spacing">15</property>
+                        <property name="row_spacing">6</property>
+                        <property name="column_spacing">12</property>
+                        <property name="column_homogeneous">True</property>
                         <child>
                           <object class="GtkLabel" id="label10">
                             <property name="visible">True</property>
@@ -421,7 +427,8 @@
                             <property name="label" translatable="yes">Card:</property>
                           </object>
                           <packing>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -432,9 +439,21 @@
                             <property name="label" translatable="yes">Channel:</property>
                           </object>
                           <packing>
+                            <property name="left_attach">0</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label23">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Change volume on a logarithmic scale, closer to human perception.</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Normalize Volume:</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
                           </packing>
                         </child>
                         <child>
@@ -445,8 +464,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -456,10 +474,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                         <child>
@@ -474,23 +489,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
                             <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="y_options">GTK_EXPAND</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label23">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Change volume on a logarithmic scale, closer to human perception.</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Normalize Volume:</property>
-                          </object>
-                          <packing>
-                            <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
                           </packing>
                         </child>
                       </object>
@@ -529,8 +528,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame1">
                     <property name="visible">True</property>
@@ -538,13 +540,13 @@
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
-                      <object class="GtkTable" id="table1">
+                      <object class="GtkGrid" id="volume_popup_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_start">12</property>
-                        <property name="n_rows">3</property>
-                        <property name="n_columns">2</property>
-                        <property name="row_spacing">15</property>
+                        <property name="row_spacing">6</property>
+                        <property name="column_spacing">12</property>
+                        <property name="column_homogeneous">True</property>
                         <child>
                           <object class="GtkLabel" id="label35">
                             <property name="visible">True</property>
@@ -553,23 +555,20 @@
                             <property name="label" translatable="yes">Slider Orientation:</property>
                           </object>
                           <packing>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="vol_orientation_combo">
+                          <object class="GtkLabel" id="vol_pos_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="active">0</property>
-                            <items>
-                              <item id="vertical" translatable="yes">Vertical</item>
-                              <item id="horizontal" translatable="yes">Horizontal</item>
-                            </items>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Text Volume Position:</property>
                           </object>
                           <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
                           </packing>
                         </child>
                         <child>
@@ -584,23 +583,23 @@
                             <signal name="toggled" handler="on_vol_text_check_toggled" swapped="no"/>
                           </object>
                           <packing>
-                            <property name="right_attach">2</property>
+                            <property name="left_attach">0</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="vol_pos_label">
+                          <object class="GtkComboBoxText" id="vol_orientation_combo">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Text Volume Position:</property>
+                            <property name="active">0</property>
+                            <items>
+                              <item id="vertical" translatable="yes">Vertical</item>
+                              <item id="horizontal" translatable="yes">Horizontal</item>
+                            </items>
                           </object>
                           <packing>
-                            <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -617,11 +616,11 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
                             <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
+                        </child>
+                        <child>
+                          <placeholder/>
                         </child>
                       </object>
                     </child>
@@ -649,27 +648,23 @@
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
-                      <object class="GtkTable" id="table2">
+                      <object class="GtkGrid" id="volume_meter_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_start">12</property>
-                        <property name="n_rows">3</property>
-                        <property name="n_columns">2</property>
-                        <property name="row_spacing">15</property>
+                        <property name="row_spacing">6</property>
+                        <property name="column_spacing">12</property>
+                        <property name="column_homogeneous">True</property>
                         <child>
-                          <object class="GtkCheckButton" id="vol_meter_draw_check">
-                            <property name="label" translatable="yes">Draw Volume Meter on Tray Icon</property>
-                            <property name="use_action_appearance">False</property>
+                          <object class="GtkLabel" id="vol_meter_color_label">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
+                            <property name="can_focus">False</property>
                             <property name="halign">start</property>
-                            <property name="draw_indicator">True</property>
-                            <signal name="toggled" handler="on_vol_meter_draw_check_toggled" swapped="no"/>
+                            <property name="label" translatable="yes">Volume Meter Color:</property>
                           </object>
                           <packing>
-                            <property name="right_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
                           </packing>
                         </child>
                         <child>
@@ -680,22 +675,21 @@
                             <property name="label" translatable="yes">Volume Meter Offset (%):</property>
                           </object>
                           <packing>
+                            <property name="left_attach">0</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="vol_meter_color_label">
+                          <object class="GtkColorButton" id="vol_meter_color_button">
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Volume Meter Color:</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="rgba">rgb(0,0,0)</property>
                           </object>
                           <packing>
+                            <property name="left_attach">1</property>
                             <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                         <child>
@@ -711,26 +705,24 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkColorButton" id="vol_meter_color_button">
+                          <object class="GtkCheckButton" id="vol_meter_draw_check">
+                            <property name="label" translatable="yes">Draw Volume Meter on Tray Icon</property>
                             <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="rgba">rgb(0,0,0)</property>
+                            <property name="receives_default">False</property>
+                            <property name="halign">start</property>
+                            <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="on_vol_meter_draw_check_toggled" swapped="no"/>
                           </object>
                           <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                            <property name="width">2</property>
                           </packing>
                         </child>
                       </object>
@@ -808,8 +800,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame4">
                     <property name="visible">True</property>
@@ -850,14 +845,13 @@
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
-                      <object class="GtkTable" id="table7">
+                      <object class="GtkGrid" id="volume_scrolling_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_start">12</property>
-                        <property name="n_rows">2</property>
-                        <property name="n_columns">2</property>
-                        <property name="column_spacing">5</property>
-                        <property name="row_spacing">15</property>
+                        <property name="row_spacing">6</property>
+                        <property name="column_spacing">12</property>
+                        <property name="column_homogeneous">True</property>
                         <child>
                           <object class="GtkLabel" id="label31">
                             <property name="visible">True</property>
@@ -866,7 +860,8 @@
                             <property name="label" translatable="yes">Scroll Step:</property>
                           </object>
                           <packing>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -877,9 +872,8 @@
                             <property name="label" translatable="yes">Fine Scroll Step:</property>
                           </object>
                           <packing>
+                            <property name="left_attach">0</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                         <child>
@@ -895,8 +889,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -912,10 +905,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                       </object>
@@ -944,25 +934,13 @@
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
                     <child>
-                      <object class="GtkTable" id="table4">
+                      <object class="GtkGrid" id="mouse_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_start">12</property>
-                        <property name="n_rows">2</property>
-                        <property name="n_columns">2</property>
-                        <property name="column_spacing">5</property>
-                        <property name="row_spacing">15</property>
-                        <child>
-                          <object class="GtkLabel" id="label15">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">Middle Click Action:</property>
-                          </object>
-                          <packing>
-                            <property name="y_options">GTK_EXPAND</property>
-                          </packing>
-                        </child>
+                        <property name="row_spacing">6</property>
+                        <property name="column_spacing">12</property>
+                        <property name="column_homogeneous">True</property>
                         <child>
                           <object class="GtkLabel" id="custom_label">
                             <property name="visible">True</property>
@@ -971,9 +949,20 @@
                             <property name="label" translatable="yes">Custom Command:</property>
                           </object>
                           <packing>
+                            <property name="left_attach">0</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="middle_click_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Middle Click Action:</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -990,8 +979,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
+                            <property name="top_attach">0</property>
                           </packing>
                         </child>
                         <child>
@@ -1004,10 +992,7 @@
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
                             <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_EXPAND</property>
                           </packing>
                         </child>
                       </object>
@@ -1050,8 +1035,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
+                <property name="margin_start">5</property>
+                <property name="margin_end">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
-                <property name="margin">5</property>
                 <child>
                   <object class="GtkFrame" id="frame8">
                     <property name="visible">True</property>
@@ -1083,13 +1071,12 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkTable" id="hotkeys_table">
+                          <object class="GtkGrid" id="hotkeys_grid">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_start">5</property>
-                            <property name="n_rows">5</property>
-                            <property name="n_columns">2</property>
-                            <property name="row_spacing">15</property>
+                            <property name="row_spacing">12</property>
+                            <property name="column_spacing">12</property>
+                            <property name="column_homogeneous">True</property>
                             <child>
                               <object class="GtkLabel" id="label20">
                                 <property name="visible">True</property>
@@ -1100,6 +1087,10 @@
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
                               </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                              </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="label7">
@@ -1109,8 +1100,8 @@
                                 <property name="label" translatable="yes">Mute/Unmute:</property>
                               </object>
                               <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
                               </packing>
                             </child>
                             <child>
@@ -1121,8 +1112,8 @@
                                 <property name="label" translatable="yes">Volume Up:</property>
                               </object>
                               <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
                               </packing>
                             </child>
                             <child>
@@ -1133,20 +1124,8 @@
                                 <property name="label" translatable="yes">Volume Down:</property>
                               </object>
                               <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label19">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Double-click a HotKey to assign a new HotKey</property>
-                              </object>
-                              <packing>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">4</property>
-                                <property name="bottom_attach">5</property>
                               </packing>
                             </child>
                             <child>
@@ -1160,7 +1139,7 @@
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
+                                <property name="top_attach">0</property>
                               </packing>
                             </child>
                             <child>
@@ -1181,9 +1160,7 @@
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
                                 <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
                               </packing>
                             </child>
                             <child>
@@ -1204,9 +1181,7 @@
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
                                 <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
                               </packing>
                             </child>
                             <child>
@@ -1227,16 +1202,25 @@
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
                                 <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label19">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Double-click a HotKey to assign a new HotKey</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">4</property>
+                                <property name="width">2</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="padding">5</property>
+                            <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
                         </child>

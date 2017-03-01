@@ -344,18 +344,30 @@ update_status_icon_pixbuf(GtkStatusIcon *status_icon,
 static void
 update_status_icon_tooltip(GtkStatusIcon *status_icon,
                            const gchar *card, const gchar *channel,
-                           gdouble volume, gboolean muted)
+                           gdouble volume, gboolean has_mute, gboolean muted)
 {
-	char tooltip[64];
+	gchar *card_info;
+	gchar *volume_info;
+	gchar *mute_info;
+	gchar *info;
 
-	if (!muted)
-		snprintf(tooltip, sizeof tooltip, "%s (%s)\n%s: %ld %%",
-		         card, channel, _("Volume"), lround(volume));
+	card_info = g_strdup_printf("%s (%s)", card, channel);
+	volume_info = g_strdup_printf("%s: %ld %%", _("Volume"), lround(volume));
+	if (has_mute == FALSE)
+		mute_info = g_strdup_printf(_("No mute switch"));
+	else if (muted)
+		mute_info = g_strdup_printf(_("Muted"));
 	else
-		snprintf(tooltip, sizeof tooltip, "%s (%s)\n%s: %ld %%\n%s",
-		         card, channel, _("Volume"), lround(volume), _("Muted"));
+		mute_info = NULL;
 
-	gtk_status_icon_set_tooltip_text(status_icon, tooltip);
+	info = g_strjoin("\n", card_info, volume_info, mute_info, NULL);
+
+	gtk_status_icon_set_tooltip_text(status_icon, info);
+
+	g_free(info);
+	g_free(mute_info);
+	g_free(volume_info);
+	g_free(card_info);
 }
 
 /* Public functions & signal handlers */
@@ -510,7 +522,7 @@ on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
 	update_status_icon_pixbuf(icon->status_icon, icon->pixbufs, icon->vol_meter,
 	                          event->volume, event->muted);
 	update_status_icon_tooltip(icon->status_icon, event->card, event->channel,
-	                           event->volume, event->muted);
+	                           event->volume, event->has_mute, event->muted);
 }
 
 /**
@@ -525,6 +537,7 @@ tray_icon_reload(TrayIcon *icon)
 {
 	const gchar *card, *channel;
 	gdouble volume;
+	gboolean has_mute;
 	gboolean muted;
 
 	pixbuf_array_free(icon->pixbufs);
@@ -536,10 +549,11 @@ tray_icon_reload(TrayIcon *icon)
 	card = audio_get_card(icon->audio);
 	channel = audio_get_channel(icon->audio);
 	volume = audio_get_volume(icon->audio);
+	has_mute = audio_has_mute(icon->audio);
 	muted = audio_is_muted(icon->audio);
 	update_status_icon_pixbuf(icon->status_icon, icon->pixbufs, icon->vol_meter,
 	                          volume, muted);
-	update_status_icon_tooltip(icon->status_icon, card, channel, volume, muted);
+	update_status_icon_tooltip(icon->status_icon, card, channel, volume, has_mute, muted);
 }
 
 /**

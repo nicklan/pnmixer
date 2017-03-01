@@ -43,14 +43,22 @@
 
 /* Updates the mute checkbox according to the current audio state. */
 static void
-update_mute_check(GtkToggleButton *mute_check, gboolean muted)
+update_mute_check(GtkToggleButton *mute_check, gboolean has_mute, gboolean muted)
 {
 	/* On Gtk3 version, we listen for the signal sent by the GtkMenuItem.
 	 * So, when we change the value of the GtkToggleButton, we don't have
 	 * to block the signal handlers, since there's nobody listening to the
 	 * GtkToggleButton anyway.
 	 */
-	gtk_toggle_button_set_active(mute_check, muted);
+	if (has_mute == FALSE) {
+		gtk_toggle_button_set_active(mute_check, TRUE);
+		gtk_widget_set_sensitive(GTK_WIDGET(mute_check), FALSE);
+		gtk_widget_set_tooltip_text(GTK_WIDGET(mute_check),
+		                            _("Soundcard has no mute switch"));
+	} else {
+		gtk_toggle_button_set_active(mute_check, muted);
+		gtk_widget_set_tooltip_text(GTK_WIDGET(mute_check), NULL);
+	}
 }
 
 #else
@@ -58,7 +66,7 @@ update_mute_check(GtkToggleButton *mute_check, gboolean muted)
 /* Updates the mute item according to the current audio state. */
 static void
 update_mute_item(GtkCheckMenuItem *mute_item, GCallback handler_func,
-                 gpointer handler_data, gboolean muted)
+                 gpointer handler_data, gboolean has_mute, gboolean muted)
 {
 	/* On Gtk2 version, we must block the signals sent by the GtkCheckMenuItem
 	 * before we update it manually.
@@ -69,7 +77,15 @@ update_mute_item(GtkCheckMenuItem *mute_item, GCallback handler_func,
 	            (G_OBJECT(mute_item), DATA_PTR(handler_func), handler_data);
 	g_assert(n_blocked == 1);
 
-	gtk_check_menu_item_set_active(mute_item, muted);
+	if (has_mute == FALSE) {
+		gtk_check_menu_item_set_active(mute_item, TRUE);
+		gtk_widget_set_sensitive(GTK_WIDGET(mute_item), FALSE);
+		gtk_widget_set_tooltip_text(GTK_WIDGET(mute_item),
+		                            _("Soundcard has no mute switch"));
+	} else {
+		gtk_check_menu_item_set_active(mute_item, muted);
+		gtk_widget_set_tooltip_text(GTK_WIDGET(mute_item), NULL);
+	}
 
 	g_signal_handlers_unblock_by_func
 	(G_OBJECT(mute_item),  DATA_PTR(handler_func), handler_data);
@@ -174,11 +190,12 @@ on_audio_changed(G_GNUC_UNUSED Audio *audio, AudioEvent *event, gpointer data)
 	PopupMenu *menu = (PopupMenu *) data;
 
 #ifdef WITH_GTK3
-	update_mute_check(GTK_TOGGLE_BUTTON(menu->mute_check), event->muted);
+	update_mute_check(GTK_TOGGLE_BUTTON(menu->mute_check),
+	                  event->has_mute, event->muted);
 #else
 	update_mute_item(GTK_CHECK_MENU_ITEM(menu->mute_item),
 	                 G_CALLBACK(on_mute_item_activate),
-	                 menu, event->muted);
+	                 menu, event->has_mute, event->muted);
 #endif
 }
 

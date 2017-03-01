@@ -254,6 +254,13 @@ elem_set_volume_normalized(const char *hctl, snd_mixer_elem_t *elem, double volu
 	return TRUE;
 }
 
+/* Whether the card can be muted */
+static gboolean
+elem_has_mute(G_GNUC_UNUSED const char *hctl, snd_mixer_elem_t *elem)
+{
+	return snd_mixer_selem_has_playback_switch(elem) ? TRUE : FALSE;
+}
+
 /* Get the mute state, either TRUE or FALSE */
 static gboolean
 elem_get_mute(const char *hctl, snd_mixer_elem_t *elem, gboolean *muted)
@@ -743,6 +750,18 @@ const char *
 alsa_card_get_channel(AlsaCard *card)
 {
 	return elem_get_name(card->mixer_elem);
+}
+
+/**
+ * Whether the card has mute capabilities.
+ *
+ * @param card a Card instance.
+ * @return TRUE if the card can be muted, FALSE otherwise.
+ */
+gboolean
+alsa_card_has_mute(AlsaCard *card)
+{
+	return elem_has_mute(card->hctl, card->mixer_elem);
 }
 
 /**
