@@ -8,17 +8,15 @@ Makefile.in
 
 .ycm_extra_conf.py
 .ycm_extra_conf.pyc
-/src/config.h
-/src/config.h.in
-/src/stamp-h1
 /data/desktop/pnmixer.desktop
 /data/man/pnmixer.1
-/mkinstalldirs
-/pixmaps/pnmixer.xcf
+/src/config.h
+/src/config.h.in
 /src/html
 /src/latex
-/src/TAGS
 /src/pnmixer
+/src/stamp-h1
+/src/TAGS
 /stamp-h1
 
 # M4 macros
