@@ -34,7 +34,7 @@ PNMixer is a fork of [OBMixer][] with a number of additions. These include:
 - Detect disconnect from sound system and re-connect if requested
 - Bind and use HotKeys for volume control
 - Textual display of volume level in popup window
-- Continous volume adjustment when dragging the slider (not just when you let go)
+- Continuous volume adjustment when dragging the slider (not just when you let go)
 - Draw a volume level onto system tray icon
 - Use system icon theme for icons and use mute/low/medium/high
   volume icons

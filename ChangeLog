@@ -72,7 +72,7 @@ version 0.2:
  - First release of forked project, adds:
 	- Volume adjustment with the scroll wheel
 	- Texual display of volume level in popup window
-	- Continous volume adjustment when dragging the slider (not just
+	- Continuous volume adjustment when dragging the slider (not just
 	  when you let go)
 	- Use system icon theme for icons and use mute/low/medium/high
 	  volume icons
@@ -81,7 +81,7 @@ version 0.2:
 		- volume text display
 		- volume text position
 		- icon theme
-		- amount to adjust per scoll
+		- amount to adjust per scroll
 		- middle click action
 
 

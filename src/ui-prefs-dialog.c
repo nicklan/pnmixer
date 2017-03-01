@@ -485,7 +485,7 @@ prefs_dialog_retrieve(PrefsDialog *dialog)
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dvc));
 	prefs_set_boolean("DrawVolMeter", active);
 
-	// volume meter positon
+	// volume meter position
 	GtkWidget *vmps = dialog->vol_meter_pos_spin;
 	gint vmpos = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(vmps));
 	prefs_set_integer("VolMeterPos", vmpos);
