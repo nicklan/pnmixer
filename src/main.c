@@ -339,7 +339,7 @@ main(int argc, char *argv[])
 
 	/* Print version and exit */
 	if (version) {
-		printf(_("%s version: %s\n"), PACKAGE, VERSION);
+		printf(_("%s version: %s\n"), PACKAGE, PACKAGE_VERSION);
 		exit(EXIT_SUCCESS);
 	}
 

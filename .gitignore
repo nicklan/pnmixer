@@ -1,52 +1,27 @@
-# For all subdirectories
-*~
+# compiled
 *.o
-.deps
-Makefile
-Makefile.in
 
+# temp
+*~
 
+# ycm
 .ycm_extra_conf.py
 .ycm_extra_conf.pyc
+
+# generated
 /data/desktop/pnmixer.desktop
 /data/man/pnmixer.1
 /src/config.h
-/src/config.h.in
 /src/html
 /src/latex
 /src/pnmixer
-/src/stamp-h1
-/src/TAGS
-/stamp-h1
-
-# M4 macros
-/m4/*
-
-# Autotools
-/INSTALL
-/aclocal.m4
-/autom4te.cache/
-/compile
-/config.guess
-/config.log
-/config.rpath
-/config.status
-/config.sub
-/configure
-/depcomp
-/install-sh
-/missing
-
-# I18n
-/ABOUT-NLS
+/src/Doxyfile
+# i18n
 /po/*.gmo
-/po/*.header
-/po/*.mo
-/po/*.sed
-/po/*.sin
-/po/Makefile.in.in
-/po/Makevars.template
-/po/POTFILES
-/po/Rules-quot
-/po/stamp-it
-/po/stamp-po
+
+# cmake
+/build/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake

@@ -11,10 +11,10 @@ To switch on debug messages, invoke PNMixer with the `-d` command-line option.
 
 In order to build the documentation, be sure to have
 [Doxygen](http://www.doxygen.org) and [Graphviz](htpp://www.graphviz.org)
-installed. Then run the following commands to build and view the doc.
+installed and have configured `BUILD_DOCUMENTATION=ON` in cmake.
+Then run the following command to view the doc.
 
-	make doc
-	x-www-browser ./src/html/index.html
+	x-www-browser ./build/src/html/index.html
 
 ## Design overview
 
@@ -79,18 +79,17 @@ the naming convention.
 
 ## Translating
 
-TODO update me, now the pot file is versioned !
-
 In order to update the po files, run the following command:
 
-	cd po && make update-po
+	make -C po update-po
 
 Then, you need to build an archive of the project, containing the POT file,
 and give it to the [Translation Project](http://translationproject.org).
-The POT file (`po/pnmixer.pot`) is NOT versioned by git.
-To make it available, you need to build an archive.
+To make it available, you need to create a release and build an archive
+from it.
 
-	make dist
+	git tag -a -m "Release 0.7.1" v0.7.1
+	git archive --format=tar.gz v0.7.1 pnmixer-0.7.1.tar.gz
 
 Then, on the github page of the project, create a new release, and attach
 the archive. Copy the link of this archive, and send a mail to the TP with

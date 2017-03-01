@@ -212,7 +212,7 @@ struct prefs_dialog {
 	GtkWidget *hotkeys_down_eventbox;
 	GtkWidget *hotkeys_down_label;
 	/* Notifications panel */
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 	GtkWidget *noti_vbox_enabled;
 	GtkWidget *noti_enable_check;
 	GtkWidget *noti_timeout_label;
@@ -387,7 +387,7 @@ on_hotkey_event_box_button_press_event(GtkWidget *widget, GdkEventButton *event,
  * @param button the button which received the signal.
  * @param dialog user data set when the signal handler was connected.
  */
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 void
 on_noti_enable_check_toggled(GtkToggleButton *button, PrefsDialog *dialog)
 {
@@ -581,7 +581,7 @@ prefs_dialog_retrieve(PrefsDialog *dialog)
 	prefs_set_integer("VolDownMods", mods);
 
 	// notifications
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 	GtkWidget *nc = dialog->noti_enable_check;
 	gint noti_spin;
 	active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(nc));
@@ -761,7 +761,7 @@ prefs_dialog_populate(PrefsDialog *dialog)
 	(GTK_TOGGLE_BUTTON(dialog->hotkeys_enable_check), dialog);
 
 	// notifications
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 	gtk_toggle_button_set_active
 	(GTK_TOGGLE_BUTTON(dialog->noti_enable_check),
 	 prefs_get_boolean("EnableNotifications", FALSE));
@@ -859,7 +859,7 @@ prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys,
 	 */
 	gtk_notebook_append_page
 	(GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook")),
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 	 GTK_WIDGET(gtk_builder_get_object(builder, "noti_vbox_enabled")),
 #else
 	 GTK_WIDGET(gtk_builder_get_object(builder, "noti_vbox_disabled")),
@@ -905,7 +905,7 @@ prefs_dialog_create(GtkWindow *parent, Audio *audio, Hotkeys *hotkeys,
 	assign_gtk_widget(builder, dialog, hotkeys_down_eventbox);
 	assign_gtk_widget(builder, dialog, hotkeys_down_label);
 	// Notifications panel
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 	assign_gtk_widget(builder, dialog, noti_vbox_enabled);
 	assign_gtk_widget(builder, dialog, noti_enable_check);
 	assign_gtk_widget(builder, dialog, noti_timeout_spin);

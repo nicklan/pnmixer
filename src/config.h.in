@@ -1,0 +1,22 @@
+/* always defined to indicate that i18n is enabled */
+#cmakedefine ENABLE_NLS
+
+/* Gettext package. */
+#define GETTEXT_PACKAGE "@PACKAGE@"
+
+/* Name of package */
+#define PACKAGE "@PACKAGE@"
+
+/* Define to the version of this package. */
+#define PACKAGE_VERSION @PACKAGE_VERSION@
+
+/* Gtk3 mode */
+#cmakedefine WITH_GTK3
+
+/* libnotify mode */
+#cmakedefine WITH_LIBNOTIFY
+
+#define PACKAGE_DATA_DIR "@CMAKE_INSTALL_FULL_DATADIR@"
+
+#define PACKAGE_LOCALE_DIR "@CMAKE_INSTALL_FULL_LOCALEDIR@"
+

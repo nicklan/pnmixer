@@ -72,19 +72,24 @@ manually if your distribution does not provide a package.
 
 ### Manual
 
+CMake Options:
+- `WITH_GTK3`: Use Gtk3 as toolkit (default on)
+- `WITH_LIBNOTIFY`: Enable sending of notifications (default on)
+- `ENABLE_NLS`: Enable building of translations (default on)
+- `BUILD_DOCUMENTATION`: Use Doxygen to create the HTML based API documentation (default off)
+
 First, make sure you have the required __dependencies__:
 - build:
-	- autoconf (for bootstrapping)
-	- automake (for bootstrapping)
-	- doxygen (for documentation)
-	- graphviz (for documentation)
-	- gettext
+	- cmake
+	- doxygen (when building documentation)
+	- graphviz (when building documentation)
+	- gettext (when building translations)
 	- pkg-config
 - build+runtime:
 	- alsa-lib (aka libasound on some distros)
 	- glib-2
-	- >=gtk+-3.12 (or >=gtk+-2.24 via `--without-gtk3`)
-	- libnotify (optional, disable via `--without-libnotify`)
+	- >=gtk+-3.12 (or >=gtk+-2.24 when disabling gtk3)
+	- libnotify (when enabling notifications)
 	- libX11
 - runtime suggestions (PNMixer can use a full mixer):
 	- alsamixergui
@@ -93,16 +98,11 @@ First, make sure you have the required __dependencies__:
 
 To __install__ this program cd to this directory and run:
 
-    ./autogen.sh
+    mkdir build
+    cd build
+    cmake ..
     make
     make install
-
-To build/install the __documentation__ run:
-
-	# build documentation in src/html
-    make doc
-	# install documentation
-    make install-doc
 
 Icons
 -----

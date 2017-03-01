@@ -22,7 +22,7 @@
 #include <math.h>
 #include <glib.h>
 
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 #include <libnotify/notify.h>
 #endif
 
@@ -34,7 +34,7 @@
 
 #include "main.h"
 
-#ifdef HAVE_LIBN
+#ifdef WITH_LIBNOTIFY
 
 #if NOTIFY_CHECK_VERSION (0, 7, 0)
 #define NOTIFICATION_NEW(summary, body, icon)	\
@@ -291,4 +291,4 @@ notif_reload(G_GNUC_UNUSED Notif *notif)
 {
 }
 
-#endif				// HAVE_LIBN
+#endif				// WITH_LIBNOTIFY
