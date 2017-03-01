@@ -99,11 +99,11 @@ AC_CONFIG_FILES([
 Makefile
 data/Makefile
 data/desktop/Makefile
+data/man/Makefile
+data/man/pnmixer.1
 data/icons/Makefile
 data/pixmaps/Makefile
 data/ui/Makefile
-man/Makefile
-man/pnmixer.1
 po/Makefile.in
 src/Makefile
 ])

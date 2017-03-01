@@ -12,7 +12,7 @@ Makefile.in
 /src/config.h.in
 /src/stamp-h1
 /data/desktop/pnmixer.desktop
-/man/pnmixer.1
+/data/man/pnmixer.1
 /mkinstalldirs
 /pixmaps/pnmixer.xcf
 /src/html

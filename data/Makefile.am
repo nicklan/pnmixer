@@ -1,1 +1,1 @@
-SUBDIRS = desktop icons pixmaps ui
+SUBDIRS = desktop man icons pixmaps ui
