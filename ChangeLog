@@ -1,10 +1,17 @@
 Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
-version 0.8:
+version 0.7.1:
+ - Improvements:
+	- Handle cards without mute switch by graying out the switch
+	- Replace deprecated GtkTable with GtkGrid
  - Translations:
 	- Use modern 'gettext' instead of 'intltool'
 	- New translations: Serbian
+ - Build infrastructure:
+	- Switch from Autotools to CMake
+	- Make the build reproducible
+	- Simplify travis build and only build on debian:unstable
 
 version 0.7:
  - PNMixer went through a major rewrite !
