@@ -12,8 +12,8 @@ include(PNMixer_macros)
 ## version and global project vars
 set(PNMixer_VERSION_MAJOR 0)
 set(PNMixer_VERSION_MINOR 7)
-# set (Pnmixer_VERSION_MICRO 0)
-set(PACKAGE_VERSION "${PNMixer_VERSION_MAJOR}.${PNMixer_VERSION_MINOR}")
+set(Pnmixer_VERSION_MICRO 1)
+set(PACKAGE_VERSION "${PNMixer_VERSION_MAJOR}.${PNMixer_VERSION_MINOR}.${Pnmixer_VERSION_MICRO}")
 set(PACKAGE "pnmixer")
 
 

@@ -8,7 +8,7 @@
 #define PACKAGE "@PACKAGE@"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION @PACKAGE_VERSION@
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
 /* Gtk3 mode */
 #cmakedefine WITH_GTK3
