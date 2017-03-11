@@ -85,25 +85,28 @@ struct hotkeys {
 static GdkFilterReturn
 key_filter(GdkXEvent *gdk_xevent, G_GNUC_UNUSED GdkEvent *event, gpointer data)
 {
-	gint type;
-	guint key, state;
 	XKeyEvent *xevent = (XKeyEvent *) gdk_xevent;
 	Hotkeys *hotkeys = (Hotkeys *) data;
+	Hotkey *mute_hotkey = hotkeys->mute_hotkey;
+	Hotkey *up_hotkey   = hotkeys->up_hotkey;
+	Hotkey *down_hotkey = hotkeys->down_hotkey;
 	Audio *audio = hotkeys->audio;
+	gint type;
+	guint key, state;
 
 	type = xevent->type;
+	if (type != KeyPress)
+		return GDK_FILTER_CONTINUE;
+
 	key = xevent->keycode;
 	state = xevent->state;
 
-	if (type == KeyPress) {
-		if (hotkey_matches(hotkeys->mute_hotkey, key, state))
-			audio_toggle_mute(audio, AUDIO_USER_HOTKEYS);
-		else if (hotkey_matches(hotkeys->up_hotkey, key, state))
-			audio_raise_volume(audio, AUDIO_USER_HOTKEYS);
-		else if (hotkey_matches(hotkeys->down_hotkey, key, state))
-			audio_lower_volume(audio, AUDIO_USER_HOTKEYS);
-		// just ignore unknown hotkeys
-	}
+	if (mute_hotkey && hotkey_matches(mute_hotkey, key, state))
+		audio_toggle_mute(audio, AUDIO_USER_HOTKEYS);
+	else if (up_hotkey && hotkey_matches(up_hotkey, key, state))
+		audio_raise_volume(audio, AUDIO_USER_HOTKEYS);
+	else if (down_hotkey && hotkey_matches(down_hotkey, key, state))
+		audio_lower_volume(audio, AUDIO_USER_HOTKEYS);
 
 	return GDK_FILTER_CONTINUE;
 }

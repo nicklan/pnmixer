@@ -70,6 +70,8 @@ hotkey_ungrab(Hotkey *hotkey)
 	Display *disp;
 	guint i;
 
+	g_return_if_fail(hotkey != NULL);
+
 	DEBUG("Ungrabbing hotkey '%s'", hotkey->str);
 
 	disp = gdk_x11_get_default_xdisplay();
@@ -92,6 +94,8 @@ hotkey_grab(Hotkey *hotkey)
 	Display *disp;
 	XErrorHandler old_hdlr;
 	guint i;
+
+	g_return_val_if_fail(hotkey != NULL, FALSE);
 
 	DEBUG("Grabbing hotkey '%s'", hotkey->str);
 
@@ -134,6 +138,8 @@ gboolean
 hotkey_matches(Hotkey *hotkey, guint code, GdkModifierType mods)
 {
 	guint i;
+
+	g_return_val_if_fail(hotkey != NULL, FALSE);
 
 	if (code != hotkey->code)
 		return FALSE;
