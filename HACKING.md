@@ -105,8 +105,10 @@ and give it to the [Translation Project](http://translationproject.org).
 To make it available, you need to create a release and build an archive
 from it.
 
-	git tag -a -m "Release 0.7.1" v0.7.1
-	git archive --format=tar.gz v0.7.1 pnmixer-0.7.1.tar.gz
+	export PN=pnmixer tag=v0.7.1
+	git tag -a -m "Release ${tag}" ${tag}
+	git archive --prefix=${PN}-${tag}/ --format=tar.gz -o ${PN}-${tag}.tar.gz ${tag}
+	unset PN tag
 
 Then, on the github page of the project, create a new release, and attach
 the archive. Copy the link of this archive, and send a mail to the TP with
