@@ -17,6 +17,7 @@ Getting Started
 At first, be sure to run PNMixer from the root directory, otherwise it won't
 find the data files.
 
+	cd build
 	./src/pnmixer
 
 To switch on debug messages, invoke PNMixer with the `-d` command-line option.
@@ -96,7 +97,8 @@ the naming convention.
 Translating
 -----------
 
-In order to update the po files, run the following command:
+In order to update the po files, run the following command from the `build`
+directory.
 
 	make -C po update-po
 
