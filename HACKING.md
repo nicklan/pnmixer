@@ -31,7 +31,7 @@ Then run the following command to view the doc.
 
 	x-www-browser ./build/src/html/index.html
 
-Design overview
+Design Overview
 ---------------
 
 The lowest level part of the code is the sound backend. Only Alsa is supported
@@ -58,7 +58,7 @@ and we must update the ui accordingly. So listening to changes from
 the audio subsystem (and therefore having a *signal-oriented* design)
 is the most obvious solution to solve that problem.
 
-Coding style
+Coding Style
 ------------
 
 This is more or less kernel coding style. Try to match the surroundings.
