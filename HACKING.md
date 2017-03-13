@@ -97,46 +97,63 @@ the naming convention.
 Translating
 -----------
 
-In order to update the po files, run the following command from the `build`
-directory.
+When a new version of PNMixer is about to be released, we need to inform the
+[Translation Project](http://translationproject.org) so that they can update
+the translations. The TP just needs to know where to download an up to date
+archive of PNMixer. This archive must contain an up to date POT file.
 
-	make -C po update-po
+The TP is considered as our upstream when it comes to the PO files. Our job
+is to provide them an updated version of the POT file before each new release,
+and their job is to provide us with freshly translated PO files. There should
+be no exception to this workflow. We should never modify the PO files ourselves,
+and we should never accept translations from another channel than the TP.
 
-Then, you need to build an archive of the project, containing the POT file,
-and give it to the [Translation Project](http://translationproject.org).
-To make it available, you need to create a release and build an archive
-from it.
+In order to update the POT file, one has to run the following command from the
+`build` directory.
 
-	export PN=pnmixer tag=v0.7.1
-	git tag -a -m "Release ${tag}" ${tag}
-	git archive --prefix=${PN}-${tag}/ --format=tar.gz -o ${PN}-${tag}.tar.gz ${tag}
-	unset PN tag
+	make -C po update-pot
+	# Then commit the new POT file
 
-Then, on the github page of the project, create a new release, and attach
-the archive. Copy the link of this archive, and send a mail to the TP with
-this link. More detailed information are available on the
-[maintainers](http://translationproject.org/html/maintainers.html)
-page of the TP.
+The procedure for announcing a new version of PNMixer to the TP is thoroughly
+described on the [maintainters](http://translationproject.org/html/maintainers.html)
+page. In a nutshell, send a mail to <coordinator@translationproject.org>, use
+`pnmixer-<version>.pot` as the subject, and include in the body the url of the
+new PNMixer archive.
 
-Furthermore, please notice that the TP will process a POT file only once,
-so another submission must use a newer VERSION. Therefore, before creating
-an archive, you should bump the version and tag the commit to something like
-`v0.7-rc1`. It makes things cleaner.
+So, let's sum up the steps to follow to update the translations.
 
-When the translation is done, you can import the PO files with the command:
+- update the pot file, commit.
+- tag a new version (don't forget to bump the version where need be), commit.
+- push the changes and the tags.
+- have a look on the GitHub release page, copy the url of the `tar.gz` archive.
+- send a mail to the TP with this url.
+
+Please note that the TP will process a POT file only once, so another submission
+must use a newer version.
+
+To know about the current translation status, visit the [pnmixer textual domain
+](https://translationproject.org/domain/pnmixer.html) page on the TP.
+Whenever translations are updated, we (elboulangero) get notified by email.
+
+The latest translations can be imported back in PNMixer at any time, using
+the following command.
 
 	rsync -Lrtvz translationproject.org::tp/latest/pnmixer/ po/
+	# Then commit the new PO files
 
-If you want to run PNMixer in another language, try a command such as:
+After importing translations, don't forget to:
+
+- update the translators list in the "About" dialog.
+- update the `ChangeLog`.
+- if new languages have been added, add them to the file `po/LINGUAS`.
+
+If you're curious to see how PNMixer looks like in another language, it's easy
+to check it out.
 
 	LANGUAGE=fr ./src/pnmixer
 
 Your system might pickup the translation file installed on your system,
 rather than the local one. Please take care of that.
-
-At last, don't forget to update the translators list in the About dialog.
-If new languages have beend added, update the files `Changelog`, `po/LINGUAS`,
-and the variable `ALL_LINGUAS` in `configure.ac`.
 
 How to Contribute
 -----------------
