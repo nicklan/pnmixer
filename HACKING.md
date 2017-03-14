@@ -138,8 +138,22 @@ Whenever translations are updated, we (elboulangero) get notified by email.
 The latest translations can be imported back in PNMixer at any time, using
 the following command.
 
-	rsync -Lrtvz translationproject.org::tp/latest/pnmixer/ po/
+	rsync -Lrtvz --exclude=ru.po --exclude=zh_CN.po \
+	    translationproject.org::tp/latest/pnmixer/ po/
 	# Then commit the new PO files
+
+As you can see, we exclude two translations. The reason is that I accepted these
+translations as solo patches some time ago, and afterwards got in touch with the
+TP about this matter, which resulted in having the two languages marked as external.
+Nobody will update it on the TP side, and our local versions are newer, so we must
+exclude it from the rsync.
+
+We can live with that, but if the authors of these two translations don't show up
+to provide up to date versions, we should get back in touch with the TP and try
+to sort that out. Ultimately, we want no exception of this kind, only translations
+from the TP.
+
+Anyway.
 
 After importing translations, don't forget to:
 
