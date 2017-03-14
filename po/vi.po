@@ -5,17 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pnmixer 0.7\n"
+"Project-Id-Version: pnmixer 0.7-rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-16 10:05+0700\n"
+"POT-Creation-Date: 2016-05-07 18:36+0700\n"
 "PO-Revision-Date: 2016-05-09 14:34+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
@@ -23,17 +23,17 @@ msgstr ""
 msgid "Could not grab the following HotKeys"
 msgstr "Không thể túm phím nóng sau đây"
 
-#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:339
-#: ../data/ui/prefs-dialog-gtk3.glade.h:44
+#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
+#: ../data/ui/prefs-dialog-gtk3.glade.h:43
 #: ../data/ui/prefs-dialog-gtk2.glade.h:41
 msgid "Mute/Unmute"
 msgstr "Câm/thôi câm"
 
-#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:342
+#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:339
 msgid "Volume Up"
 msgstr "Tăng âm lượng"
 
-#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:345
+#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:342
 msgid "Volume Down"
 msgstr "Giảm âm lượng"
 
@@ -43,99 +43,87 @@ msgid "Unable to run command: %s"
 msgstr "Không thể chạy lệnh: %s"
 
 #: ../src/main.c:89
-msgid ""
-"No mixer application was found on your system. Please open preferences and "
-"set the command you want to run for volume control."
-msgstr ""
-"Không tìm thấy ứng dụng trộn nào trên hệ thống của bạn. Vui lòng mở tùy "
-"thích và đặt lệnh mà bạn muốn chạy cho việc diều khiển âm lượng."
+msgid "No mixer application was found on your system. Please open preferences and set the command you want to run for volume control."
+msgstr "Không tìm thấy ứng dụng trộn nào trên hệ thống của bạn. Vui lòng mở tùy thích và đặt lệnh mà bạn muốn chạy cho việc diều khiển âm lượng."
 
 #: ../src/main.c:109
-msgid ""
-"You have not specified a custom command to run, please specify one in "
-"preferences."
-msgstr ""
-"Bạn chưa đưa ra lệnh tự chọn để chạy, vui lòng chỉ định một cái trong tùy "
-"thích."
+msgid "You have not specified a custom command to run, please specify one in preferences."
+msgstr "Bạn chưa đưa ra lệnh tự chọn để chạy, vui lòng chỉ định một cái trong tùy thích."
 
-#: ../src/main.c:210 ../src/main.c:248
+#: ../src/main.c:204 ../src/main.c:242
 msgid "PNMixer Error"
 msgstr "Lỗi PNMixer"
 
-#: ../src/main.c:239
+#: ../src/main.c:233
 msgid "Warning: Connection to sound system failed."
 msgstr "Cảnh báo: Kết nối đến hệ thống âm thanh gặp lỗi."
 
-#: ../src/main.c:243
+#: ../src/main.c:237
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
-"If you do not, you will either need to restart PNMixer or select the 'Reload "
-"Audio' option in the right-click menu in order for PNMixer to function."
+"If you do not, you will either need to restart PNMixer or select the 'Reload Audio' option in the right-click menu in order for PNMixer to function."
 msgstr ""
 "Bạn có thực sự muốn khởi tạo lại kết nối âm thanh?\n"
 "\n"
-"Nếu không, bạn sẽ hoặc là cần khởi động lại PNMixer hoặc là chọn tùy chọn "
-"“Tải lại âm thanh” trong trình đơn chuột phải để PNMixer thực hiện chức năng."
+"Nếu không, bạn sẽ hoặc là cần khởi động lại PNMixer hoặc là chọn tùy chọn “Tải lại âm thanh” trong trình đơn chuột phải để PNMixer thực hiện chức năng."
 
 #. Parse options
-#: ../src/main.c:334
+#: ../src/main.c:328
 msgid "- A mixer for the system tray."
 msgstr "- Một bộ trộn cho khay hệ thống."
 
-#: ../src/main.c:342
+#: ../src/main.c:336
 #, c-format
 msgid "%s version: %s\n"
 msgstr "%s phiên bản %s\n"
 
-#: ../src/notif.c:133
+#: ../src/notif.c:130
 msgid "No sound card"
 msgstr "Không có card âm thanh nào"
 
-#: ../src/notif.c:134
+#: ../src/notif.c:131
 msgid "No playable soundcard found"
 msgstr "Không tìm thấy card âm thanh nào phát được"
 
-#: ../src/notif.c:139
+#: ../src/notif.c:136
 msgid "Soundcard disconnected"
 msgstr "Card âm thanh đã ngắt kết nối"
 
-#: ../src/notif.c:140
+#: ../src/notif.c:137
 msgid "Soundcard has been disconnected, reloading sound system..."
 msgstr "Card âm thanh đã ngắt kết nối, đang tải lại hệ thống âm thanh…"
 
-#: ../src/prefs.c:355
+#: ../src/prefs.c:356
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "Không thể tải tập tin tùy thích: %s"
 
-#: ../src/prefs.c:364
+#: ../src/prefs.c:365
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "Không thể tải tùy thích mặc định: %s"
 
-#: ../src/prefs.c:390
+#: ../src/prefs.c:391
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "Không thể ghi tập tin tùy thích: %s"
 
-#: ../src/prefs.c:410
+#: ../src/prefs.c:411
 #, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
-msgstr ""
-"“%s” có tồn tại nhưng không phải là một thư mục, không thể ghi lại các tùy "
-"thích."
+msgstr "“%s” có tồn tại nhưng không phải là một thư mục, không thể ghi lại các tùy thích."
 
-#: ../src/prefs.c:414
+#: ../src/prefs.c:415
 #, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Không thể tạo thư mục cho tùy thích: %s"
 
-#: ../src/ui-about-dialog.c:116
+#: ../src/ui-about-dialog.c:112
 msgid "A mixer for the system tray"
 msgstr "Bộ trộn cho khay hệ thống"
 
-#: ../src/ui-about-dialog.c:117
+#: ../src/ui-about-dialog.c:113
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "Tác quyền © 2010-2016 Nick Lanham"
 
@@ -149,23 +137,23 @@ msgstr "Đặt phím nóng %s"
 msgid "Press new HotKey for <b>%s</b>"
 msgstr "Bấm phím nóng cho <b>%s</b>"
 
-#: ../src/ui-hotkey-dialog.c:174
+#: ../src/ui-hotkey-dialog.c:150
 msgid "Could not grab the keyboard."
 msgstr "Không thể túm được phím bấm."
 
-#: ../src/ui-prefs-dialog.c:373
+#: ../src/ui-prefs-dialog.c:370
 msgid "None"
 msgstr "Không"
 
-#: ../src/ui-prefs-dialog.c:867
+#: ../src/ui-prefs-dialog.c:845
 msgid "Notifications"
 msgstr "Thông báo"
 
-#: ../src/ui-tray-icon.c:353 ../src/ui-tray-icon.c:356
+#: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
 msgid "Volume"
 msgstr "Âm lượng"
 
-#: ../src/ui-tray-icon.c:356
+#: ../src/ui-tray-icon.c:335
 msgid "Muted"
 msgstr "Câm"
 
@@ -176,11 +164,6 @@ msgstr "Bộ trộn trên khay hệ thống"
 #: ../data/desktop/pnmixer.desktop.in.h:2
 msgid "An audio mixer for the system tray"
 msgstr "Một bộ trộn âm dành cho khay hệ thống"
-
-#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: ../data/desktop/pnmixer.desktop.in.h:4
-msgid "alsa;audio;mixer;sound;"
-msgstr ""
 
 #: ../data/ui/hotkey-dialog-gtk3.glade.h:1
 #: ../data/ui/prefs-dialog-gtk3.glade.h:11
@@ -213,7 +196,8 @@ msgstr "Câm"
 msgid "Open Volume Control"
 msgstr "Mở điều khiển âm lượng"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:46
+#: ../data/ui/popup-menu-gtk3.glade.h:4
+#: ../data/ui/prefs-dialog-gtk3.glade.h:45
 #: ../data/ui/prefs-dialog-gtk2.glade.h:43
 msgid "Volume Control"
 msgstr "Điều khiển âm lượng"
@@ -242,48 +226,48 @@ msgid "Mixer"
 msgstr "Trộn"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:1
+#: ../data/ui/prefs-dialog-gtk2.glade.h:1
+msgid "Notification support disabled at compile time."
+msgstr "Việc hỗ trợ thông báo bị tắt lúc biên dịch."
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:2
 #: ../data/ui/prefs-dialog-gtk2.glade.h:2
 msgid "Enable Notifications"
 msgstr "Bật thông báo"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:2
+#: ../data/ui/prefs-dialog-gtk3.glade.h:3
 #: ../data/ui/prefs-dialog-gtk2.glade.h:3
 msgid "Timeout (ms):"
 msgstr "Thời hạn (ms):"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:3
+#: ../data/ui/prefs-dialog-gtk3.glade.h:4
 #: ../data/ui/prefs-dialog-gtk2.glade.h:9
 msgid "<b>Notification Options</b>"
 msgstr "<b>Các tùy chọn cảnh báo</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:4
+#: ../data/ui/prefs-dialog-gtk3.glade.h:5
 #: ../data/ui/prefs-dialog-gtk2.glade.h:5
 msgid "HotKeys"
 msgstr "Phím nóng"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:5
+#: ../data/ui/prefs-dialog-gtk3.glade.h:6
 #: ../data/ui/prefs-dialog-gtk2.glade.h:6
 msgid "Mouse Scroll"
 msgstr "Cuộn chuột"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:6
+#: ../data/ui/prefs-dialog-gtk3.glade.h:7
 #: ../data/ui/prefs-dialog-gtk2.glade.h:7
 msgid "Adjustment in Popups"
 msgstr "Chỉnh trong trong trình đơn nhảy lên"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:7
+#: ../data/ui/prefs-dialog-gtk3.glade.h:8
 #: ../data/ui/prefs-dialog-gtk2.glade.h:8
 msgid "External Change"
 msgstr "Thay đổi bên ngoài"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:8
+#: ../data/ui/prefs-dialog-gtk3.glade.h:9
 msgid "<b>Notify for volume changes from:</b>"
 msgstr "<b>Thông báo các thay đổi âm lượng từ:</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:9
-#: ../data/ui/prefs-dialog-gtk2.glade.h:1
-msgid "Notification support disabled at compile time."
-msgstr "Việc hỗ trợ thông báo bị tắt lúc biên dịch."
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:10
 #: ../data/ui/prefs-dialog-gtk2.glade.h:10
@@ -295,216 +279,212 @@ msgid "Ok"
 msgstr "Được"
 
 #: ../data/ui/prefs-dialog-gtk3.glade.h:13
-msgid "Apply"
-msgstr "Áp dụng"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:14
 #: ../data/ui/prefs-dialog-gtk2.glade.h:11
-msgid "Card:"
-msgstr "Card:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:15
-#: ../data/ui/prefs-dialog-gtk2.glade.h:12
-msgid "Channel:"
-msgstr "Kênh:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:16
-#: ../data/ui/prefs-dialog-gtk2.glade.h:14
-msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr "Đổi âm lượng theo thang lô-ga-rít, gần với cảm nhận của con người."
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:17
-#: ../data/ui/prefs-dialog-gtk2.glade.h:13
-msgid "Normalize Volume:"
-msgstr "Thường hóa âm lượng:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:18
-#: ../data/ui/prefs-dialog-gtk2.glade.h:15
-msgid "<b>Sound Device</b>"
-msgstr "<b>Thiết bị âm thanh</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:19
-#: ../data/ui/prefs-dialog-gtk2.glade.h:16
-msgid "Device"
-msgstr "Thiết bị"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:20
-#: ../data/ui/prefs-dialog-gtk2.glade.h:17
 msgid "Slider Orientation:"
 msgstr "Hướng con trượt:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:21
-#: ../data/ui/prefs-dialog-gtk2.glade.h:18
+#: ../data/ui/prefs-dialog-gtk3.glade.h:14
+#: ../data/ui/prefs-dialog-gtk2.glade.h:12
 msgid "Vertical"
 msgstr "Dọc"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:22
-#: ../data/ui/prefs-dialog-gtk2.glade.h:19
+#: ../data/ui/prefs-dialog-gtk3.glade.h:15
+#: ../data/ui/prefs-dialog-gtk2.glade.h:13
 msgid "Horizontal"
 msgstr "Ngang"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:23
-#: ../data/ui/prefs-dialog-gtk2.glade.h:20
+#: ../data/ui/prefs-dialog-gtk3.glade.h:16
+#: ../data/ui/prefs-dialog-gtk2.glade.h:14
 msgid "Display Text Volume"
 msgstr "Hiển thị chữ âm lượng"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:24
-#: ../data/ui/prefs-dialog-gtk2.glade.h:21
+#: ../data/ui/prefs-dialog-gtk3.glade.h:17
+#: ../data/ui/prefs-dialog-gtk2.glade.h:15
 msgid "Text Volume Position:"
 msgstr "Vị trí chữ âm lượng:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:25
-#: ../data/ui/prefs-dialog-gtk2.glade.h:22
+#: ../data/ui/prefs-dialog-gtk3.glade.h:18
+#: ../data/ui/prefs-dialog-gtk2.glade.h:16
 msgid "Top"
 msgstr "Trên"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:26
-#: ../data/ui/prefs-dialog-gtk2.glade.h:23
+#: ../data/ui/prefs-dialog-gtk3.glade.h:19
+#: ../data/ui/prefs-dialog-gtk2.glade.h:17
 msgid "Bottom"
 msgstr "Dưới"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:27
-#: ../data/ui/prefs-dialog-gtk2.glade.h:24
+#: ../data/ui/prefs-dialog-gtk3.glade.h:20
+#: ../data/ui/prefs-dialog-gtk2.glade.h:18
 msgid "Left"
 msgstr "Trái"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:28
-#: ../data/ui/prefs-dialog-gtk2.glade.h:25
+#: ../data/ui/prefs-dialog-gtk3.glade.h:21
+#: ../data/ui/prefs-dialog-gtk2.glade.h:19
 msgid "Right"
 msgstr "Phải"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:29
-#: ../data/ui/prefs-dialog-gtk2.glade.h:26
+#: ../data/ui/prefs-dialog-gtk3.glade.h:22
+#: ../data/ui/prefs-dialog-gtk2.glade.h:20
 msgid "<b>Volume Popup</b>"
 msgstr "<b>Trình đơn âm lượng nổi lên</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:30
-#: ../data/ui/prefs-dialog-gtk2.glade.h:27
+#: ../data/ui/prefs-dialog-gtk3.glade.h:23
+#: ../data/ui/prefs-dialog-gtk2.glade.h:21
 msgid "Draw Volume Meter on Tray Icon"
 msgstr "Thước đo âm lượng trên biểu tượng khay dạng thô"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:32
-#: ../data/ui/prefs-dialog-gtk2.glade.h:29
+#: ../data/ui/prefs-dialog-gtk3.glade.h:25
+#: ../data/ui/prefs-dialog-gtk2.glade.h:23
 #, no-c-format
 msgid "Volume Meter Offset (%):"
 msgstr "Vị trí bù thước đo âm lượng (%):"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:33
-#: ../data/ui/prefs-dialog-gtk2.glade.h:30
+#: ../data/ui/prefs-dialog-gtk3.glade.h:26
+#: ../data/ui/prefs-dialog-gtk2.glade.h:24
 msgid "Volume Meter Color:"
 msgstr "Màu thước đo âm lượng:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:34
-#: ../data/ui/prefs-dialog-gtk2.glade.h:31
+#: ../data/ui/prefs-dialog-gtk3.glade.h:27
+#: ../data/ui/prefs-dialog-gtk2.glade.h:25
 msgid "<b>Volume Meter</b>"
 msgstr "<b>Thước đo âm lượng</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:35
-#: ../data/ui/prefs-dialog-gtk2.glade.h:32
+#: ../data/ui/prefs-dialog-gtk3.glade.h:28
+#: ../data/ui/prefs-dialog-gtk2.glade.h:26
 msgid "Use System Theme"
 msgstr "Dùng sắc thái hệ thống"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:36
-#: ../data/ui/prefs-dialog-gtk2.glade.h:33
+#: ../data/ui/prefs-dialog-gtk3.glade.h:29
+#: ../data/ui/prefs-dialog-gtk2.glade.h:27
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Chủ đề biểu tượng</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:37
-#: ../data/ui/prefs-dialog-gtk2.glade.h:34
+#: ../data/ui/prefs-dialog-gtk3.glade.h:30
+#: ../data/ui/prefs-dialog-gtk2.glade.h:28
 msgid "View"
 msgstr "Trình bày"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:38
+#: ../data/ui/prefs-dialog-gtk3.glade.h:31
+#: ../data/ui/prefs-dialog-gtk2.glade.h:29
+msgid "Card:"
+msgstr "Card:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:32
+#: ../data/ui/prefs-dialog-gtk2.glade.h:30
+msgid "Channel:"
+msgstr "Kênh:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:33
+#: ../data/ui/prefs-dialog-gtk2.glade.h:31
+msgid "Normalize Volume:"
+msgstr "Thường hóa âm lượng:"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:34
+#: ../data/ui/prefs-dialog-gtk2.glade.h:32
+msgid "Change volume on a logarithmic scale, closer to human perception."
+msgstr "Đổi âm lượng theo thang lô-ga-rít, gần với cảm nhận của con người."
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:35
+#: ../data/ui/prefs-dialog-gtk2.glade.h:33
+msgid "<b>Sound Device</b>"
+msgstr "<b>Thiết bị âm thanh</b>"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:36
+#: ../data/ui/prefs-dialog-gtk2.glade.h:34
+msgid "Device"
+msgstr "Thiết bị"
+
+#: ../data/ui/prefs-dialog-gtk3.glade.h:37
 #: ../data/ui/prefs-dialog-gtk2.glade.h:35
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Lệnh điều khiển âm lượng</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:39
+#: ../data/ui/prefs-dialog-gtk3.glade.h:38
 #: ../data/ui/prefs-dialog-gtk2.glade.h:36
 msgid "Scroll Step:"
 msgstr "Bước cuộn:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:40
+#: ../data/ui/prefs-dialog-gtk3.glade.h:39
 #: ../data/ui/prefs-dialog-gtk2.glade.h:37
 msgid "Fine Scroll Step:"
 msgstr "Bước cuộn mịn:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:41
+#: ../data/ui/prefs-dialog-gtk3.glade.h:40
 #: ../data/ui/prefs-dialog-gtk2.glade.h:38
 msgid "<b>Volume Scrolling</b>"
 msgstr "<b>Cuộn âm lượng</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:42
+#: ../data/ui/prefs-dialog-gtk3.glade.h:41
 #: ../data/ui/prefs-dialog-gtk2.glade.h:39
 msgid "Middle Click Action:"
 msgstr "Hành vi khi bấm nút giữa:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:43
+#: ../data/ui/prefs-dialog-gtk3.glade.h:42
 #: ../data/ui/prefs-dialog-gtk2.glade.h:40
 msgid "Custom Command:"
 msgstr "Lệnh tự chọn:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:45
+#: ../data/ui/prefs-dialog-gtk3.glade.h:44
 #: ../data/ui/prefs-dialog-gtk2.glade.h:42
 msgid "Show Preferences"
 msgstr "Hiển thị tùy thích"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:47
+#: ../data/ui/prefs-dialog-gtk3.glade.h:46
 #: ../data/ui/prefs-dialog-gtk2.glade.h:44
 msgid "Custom (set below)"
 msgstr "Tự chọn (đặt ở dưới)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:48
+#: ../data/ui/prefs-dialog-gtk3.glade.h:47
 #: ../data/ui/prefs-dialog-gtk2.glade.h:45
 msgid "<b>Mouse</b>"
 msgstr "<b>Con chuột</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:49
+#: ../data/ui/prefs-dialog-gtk3.glade.h:48
 #: ../data/ui/prefs-dialog-gtk2.glade.h:46
 msgid "Behavior"
 msgstr "Cách ứng xử"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:50
+#: ../data/ui/prefs-dialog-gtk3.glade.h:49
 #: ../data/ui/prefs-dialog-gtk2.glade.h:47
 msgid "Enable HotKeys"
 msgstr "Bật các phím nóng"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:51
+#: ../data/ui/prefs-dialog-gtk3.glade.h:50
 #: ../data/ui/prefs-dialog-gtk2.glade.h:52
 msgid "Command"
 msgstr "Lệnh"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:52
+#: ../data/ui/prefs-dialog-gtk3.glade.h:51
 #: ../data/ui/prefs-dialog-gtk2.glade.h:48
 msgid "Mute/Unmute:"
 msgstr "Câm/thôi câm:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:53
+#: ../data/ui/prefs-dialog-gtk3.glade.h:52
 #: ../data/ui/prefs-dialog-gtk2.glade.h:49
 msgid "Volume Up:"
 msgstr "Tăng âm lượng:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:54
+#: ../data/ui/prefs-dialog-gtk3.glade.h:53
 #: ../data/ui/prefs-dialog-gtk2.glade.h:50
 msgid "Volume Down:"
 msgstr "Giảm âm lượng:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:55
+#: ../data/ui/prefs-dialog-gtk3.glade.h:54
 #: ../data/ui/prefs-dialog-gtk2.glade.h:51
 msgid "Double-click a HotKey to assign a new HotKey"
 msgstr "Bấm đúp vào phím nóng để gán một phím mới"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:56
+#: ../data/ui/prefs-dialog-gtk3.glade.h:55
 #: ../data/ui/prefs-dialog-gtk2.glade.h:53
 msgid "HotKey"
 msgstr "Phím nóng"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:57
+#: ../data/ui/prefs-dialog-gtk3.glade.h:56
 #: ../data/ui/prefs-dialog-gtk2.glade.h:54
 msgid "(None)"
 msgstr "(Không)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:58
+#: ../data/ui/prefs-dialog-gtk3.glade.h:57
 #: ../data/ui/prefs-dialog-gtk2.glade.h:55
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>Cài đặt phím nóng</b>"

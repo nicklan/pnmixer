@@ -2,13 +2,13 @@
 # Copyright (C) 2016 PNMixer team (msgids)
 # This file is distributed under the same license as the pnmixer package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2016.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: pnmixer 0.7\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-16 10:05+0700\n"
-"PO-Revision-Date: 2016-05-08 18:53+0300\n"
+"Project-Id-Version: pnmixer 0.7.1-rc3\n"
+"Report-Msgid-Bugs-To: https://github.com/nicklan/pnmixer/issues\n"
+"POT-Creation-Date: 2017-03-13 21:25+0700\n"
+"PO-Revision-Date: 2017-03-13 20:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
 "Language: uk\n"
@@ -16,513 +16,470 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: ../src/hotkeys.c:172
+#: src/hotkeys.c:175
 msgid "Could not grab the following HotKeys"
 msgstr "Не вдалося перехопити вказані нижче комбінації клавіш"
 
-#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:339
-#: ../data/ui/prefs-dialog-gtk3.glade.h:44
-#: ../data/ui/prefs-dialog-gtk2.glade.h:41
+#: src/hotkeys.c:176 src/ui-prefs-dialog.c:339
+#: data/ui/prefs-dialog-gtk3.glade:973 data/ui/prefs-dialog-gtk2.glade:935
 msgid "Mute/Unmute"
 msgstr "Вимкнути/Увімкнути звук"
 
-#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:342
+#: src/hotkeys.c:178 src/ui-prefs-dialog.c:342
 msgid "Volume Up"
 msgstr "Гучніше"
 
-#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:345
+#: src/hotkeys.c:180 src/ui-prefs-dialog.c:345
 msgid "Volume Down"
 msgstr "Тихіше"
 
-#: ../src/main.c:69
+#: src/main.c:69
 #, c-format
 msgid "Unable to run command: %s"
 msgstr "Не вдалося виконати таку команду: %s"
 
-#: ../src/main.c:89
-msgid ""
-"No mixer application was found on your system. Please open preferences and "
-"set the command you want to run for volume control."
-msgstr ""
-"У вашій системі не виявлено програми для мікшування. Будь ласка, відкрийте "
-"вікно налаштувань програми і вкажіть команду, яку слід використовувати для "
-"керування гучністю."
+#: src/main.c:89
+msgid "No mixer application was found on your system. Please open preferences and set the command you want to run for volume control."
+msgstr "У вашій системі не виявлено програми для мікшування. Будь ласка, відкрийте вікно налаштувань програми і вкажіть команду, яку слід використовувати для керування гучністю."
 
-#: ../src/main.c:109
-msgid ""
-"You have not specified a custom command to run, please specify one in "
-"preferences."
-msgstr ""
-"Вами не вказано нетипової команди. Будь ласка, вкажіть її у налаштуваннях "
-"програми."
+#: src/main.c:109
+msgid "You have not specified a custom command to run, please specify one in preferences."
+msgstr "Вами не вказано нетипової команди. Будь ласка, вкажіть її у налаштуваннях програми."
 
-#: ../src/main.c:210 ../src/main.c:248
+#: src/main.c:210 src/main.c:248
 msgid "PNMixer Error"
 msgstr "Помилка PNMixer"
 
-#: ../src/main.c:239
+#: src/main.c:239
 msgid "Warning: Connection to sound system failed."
 msgstr "Попередження: не вдалося встановити зв’язок із звуковою підсистемою."
 
-#: ../src/main.c:243
+#: src/main.c:243
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
-"If you do not, you will either need to restart PNMixer or select the 'Reload "
-"Audio' option in the right-click menu in order for PNMixer to function."
+"If you do not, you will either need to restart PNMixer or select the 'Reload Audio' option in the right-click menu in order for PNMixer to function."
 msgstr ""
 "Хочете повторно ініціалізувати з’єднання зі звуковою підсистемою?\n"
 "\n"
-"Якщо ви цього не зробите, вам слід або перезавантажити PNMixer або "
-"скористатися пунктом «Перезавантажити звук» у контекстному меню, щоб змусити "
-"PNMixer працювати."
+"Якщо ви цього не зробите, вам слід або перезавантажити PNMixer або скористатися пунктом «Перезавантажити звук» у контекстному меню, щоб змусити PNMixer працювати."
 
-#. Parse options
-#: ../src/main.c:334
+#: src/main.c:334
 msgid "- A mixer for the system tray."
 msgstr "- Мікшер у системному лотку."
 
-#: ../src/main.c:342
+#: src/main.c:342
 #, c-format
 msgid "%s version: %s\n"
 msgstr "Версія %s: %s\n"
 
-#: ../src/notif.c:133
+#: src/notif.c:77
+msgid "Volume muted"
+msgstr "Звук вимкнено"
+
+#: src/notif.c:82 src/ui-tray-icon.c:355
+msgid "Volume"
+msgstr "Гучність"
+
+#: src/notif.c:135
 msgid "No sound card"
 msgstr "Немає звукової картки"
 
-#: ../src/notif.c:134
+#: src/notif.c:136
 msgid "No playable soundcard found"
 msgstr "Не знайдено звукової картки, яка могла б відтворювати звук"
 
-#: ../src/notif.c:139
+#: src/notif.c:141
 msgid "Soundcard disconnected"
 msgstr "Звукову картку від’єднано"
 
-#: ../src/notif.c:140
+#: src/notif.c:142
 msgid "Soundcard has been disconnected, reloading sound system..."
 msgstr "Звукову картку від’єднано, перезавантажуємо звукову підсистему…"
 
-#: ../src/prefs.c:355
+#: src/prefs.c:356
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "Не вдалося завантажити файл налаштувань: %s"
 
-#: ../src/prefs.c:364
+#: src/prefs.c:365
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "Не вдалося завантажити типові налаштування: %s"
 
-#: ../src/prefs.c:390
+#: src/prefs.c:391
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "Не вдалося записати файл налаштувань: %s"
 
-#: ../src/prefs.c:410
+#: src/prefs.c:411
 #, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
 msgstr "«%s» існує, але не є каталогом. Зберегти налаштування не вдасться."
 
-#: ../src/prefs.c:414
+#: src/prefs.c:415
 #, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Не вдалося створити каталог для зберігання налаштувань: %s"
 
-#: ../src/ui-about-dialog.c:116
+#: src/ui-about-dialog.c:114
 msgid "A mixer for the system tray"
 msgstr "Мікшер у системному лотку"
 
-#: ../src/ui-about-dialog.c:117
+#: src/ui-about-dialog.c:115
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "© Nick Lanham, 2010–2016"
 
-#: ../src/ui-hotkey-dialog.c:48
+#: src/ui-hotkey-dialog.c:48
 #, c-format
 msgid "Set %s HotKey"
 msgstr "Встановити скорочення %s"
 
-#: ../src/ui-hotkey-dialog.c:52
+#: src/ui-hotkey-dialog.c:52
 #, c-format
 msgid "Press new HotKey for <b>%s</b>"
 msgstr "Натисніть нову комбінацію клавіш для дії <b>%s</b>"
 
-#: ../src/ui-hotkey-dialog.c:174
+#: src/ui-hotkey-dialog.c:174
 msgid "Could not grab the keyboard."
 msgstr "Не вдалося перехопити дані клавіатури."
 
-#: ../src/ui-prefs-dialog.c:373
+#: src/ui-popup-menu.c:57 src/ui-popup-menu.c:84 src/ui-popup-window.c:129
+msgid "Soundcard has no mute switch"
+msgstr "У звукової картки немає перемикача вимикання звуку"
+
+#: src/ui-prefs-dialog.c:373
 msgid "None"
 msgstr "Немає"
 
-#: ../src/ui-prefs-dialog.c:867
+#: src/ui-prefs-dialog.c:867
 msgid "Notifications"
 msgstr "Сповіщення"
 
-#: ../src/ui-tray-icon.c:353 ../src/ui-tray-icon.c:356
-msgid "Volume"
-msgstr "Гучність"
+#: src/ui-tray-icon.c:357
+msgid "No mute switch"
+msgstr "Немає перемикача вимикання"
 
-#: ../src/ui-tray-icon.c:356
+#: src/ui-tray-icon.c:359
 msgid "Muted"
 msgstr "Вимкнено"
 
-#: ../data/desktop/pnmixer.desktop.in.h:1
+#: data/desktop/pnmixer.desktop.in:3
+msgid "PNMixer"
+msgstr "PNMixer"
+
+#: data/desktop/pnmixer.desktop.in:4
 msgid "System Tray Mixer"
 msgstr "Мікшер у системному лотку"
 
-#: ../data/desktop/pnmixer.desktop.in.h:2
+#: data/desktop/pnmixer.desktop.in:5
 msgid "An audio mixer for the system tray"
 msgstr "Звуковий мікшер у системному лотку"
 
 #. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: ../data/desktop/pnmixer.desktop.in.h:4
+#: data/desktop/pnmixer.desktop.in:7
 msgid "alsa;audio;mixer;sound;"
-msgstr ""
+msgstr "alsa;audio;mixer;sound;алса;звук;аудіо;мікшер;"
 
-#: ../data/ui/hotkey-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk3.glade.h:11
+#. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/desktop/pnmixer.desktop.in:11
+msgid "pnmixer"
+msgstr "pnmixer"
+
+#: data/ui/hotkey-dialog-gtk3.glade:55 data/ui/prefs-dialog-gtk3.glade:279
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: ../data/ui/hotkey-dialog-gtk3.glade.h:2
-#: ../data/ui/hotkey-dialog-gtk2.glade.h:1
+#: data/ui/hotkey-dialog-gtk3.glade:109 data/ui/hotkey-dialog-gtk2.glade:49
 msgid "Defining HotKey"
 msgstr "Визначаємо скорочення"
 
-#: ../data/ui/hotkey-dialog-gtk3.glade.h:3
-#: ../data/ui/hotkey-dialog-gtk2.glade.h:2
+#: data/ui/hotkey-dialog-gtk3.glade:124 data/ui/hotkey-dialog-gtk2.glade:65
 msgid "(press <Ctrl>C to reset)"
 msgstr "(натисніть <Ctrl>C, щоб скинути)"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:1 ../data/ui/popup-menu-gtk2.glade.h:2
+#: data/ui/popup-menu-gtk3.glade:33 data/ui/popup-menu-gtk2.glade:49
 msgid "Mute/Unmute Volume"
 msgstr "Вимкнути/Увімкнути звук"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:2
-#: ../data/ui/popup-window-horizontal-gtk3.glade.h:1
-#: ../data/ui/popup-window-vertical-gtk3.glade.h:1
-#: ../data/ui/popup-window-horizontal-gtk2.glade.h:1
-#: ../data/ui/popup-window-vertical-gtk2.glade.h:1
+#: data/ui/popup-menu-gtk3.glade:58
+#: data/ui/popup-window-horizontal-gtk3.glade:54
+#: data/ui/popup-window-vertical-gtk3.glade:58
+#: data/ui/popup-window-horizontal-gtk2.glade:56
+#: data/ui/popup-window-vertical-gtk2.glade:58
 msgid "Mute"
 msgstr "Вимкнути звук"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:3 ../data/ui/popup-menu-gtk2.glade.h:4
+#: data/ui/popup-menu-gtk3.glade:73 data/ui/popup-menu-gtk2.glade:60
 msgid "Open Volume Control"
 msgstr "Відкрити вікно керування гучністю"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:4 ../data/ui/prefs-dialog-gtk3.glade.h:46
-#: ../data/ui/prefs-dialog-gtk2.glade.h:43
+#: data/ui/popup-menu-gtk3.glade:95 data/ui/prefs-dialog-gtk3.glade:975
+#: data/ui/prefs-dialog-gtk2.glade:937
 msgid "Volume Control"
 msgstr "Регулятор гучності"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:5 ../data/ui/popup-menu-gtk2.glade.h:5
+#: data/ui/popup-menu-gtk3.glade:110 data/ui/popup-menu-gtk3.glade:133
+#: data/ui/popup-menu-gtk2.glade:73
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:6 ../data/ui/popup-menu-gtk2.glade.h:7
+#: data/ui/popup-menu-gtk3.glade:148 data/ui/popup-menu-gtk3.glade:171
+#: data/ui/popup-menu-gtk2.glade:85
 msgid "Reload Sound"
 msgstr "Перезавантажити звук"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:7 ../data/ui/popup-menu-gtk2.glade.h:8
+#: data/ui/popup-menu-gtk3.glade:186 data/ui/popup-menu-gtk3.glade:209
+#: data/ui/popup-menu-gtk2.glade:98
 msgid "About"
 msgstr "Про програму"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:8 ../data/ui/popup-menu-gtk2.glade.h:9
+#: data/ui/popup-menu-gtk3.glade:231 data/ui/popup-menu-gtk3.glade:254
+#: data/ui/popup-menu-gtk2.glade:117
 msgid "Quit"
 msgstr "Вийти"
 
-#: ../data/ui/popup-window-horizontal-gtk3.glade.h:2
-#: ../data/ui/popup-window-vertical-gtk3.glade.h:2
-#: ../data/ui/popup-window-horizontal-gtk2.glade.h:2
-#: ../data/ui/popup-window-vertical-gtk2.glade.h:2
+#: data/ui/popup-window-horizontal-gtk3.glade:81
+#: data/ui/popup-window-vertical-gtk3.glade:74
+#: data/ui/popup-window-horizontal-gtk2.glade:72
+#: data/ui/popup-window-vertical-gtk2.glade:74
 msgid "Mixer"
 msgstr "Мікшер"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk2.glade.h:2
-msgid "Enable Notifications"
-msgstr "Увімкнути сповіщення"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:2
-#: ../data/ui/prefs-dialog-gtk2.glade.h:3
+#: data/ui/prefs-dialog-gtk3.glade:43 data/ui/prefs-dialog-gtk2.glade:68
 msgid "Timeout (ms):"
 msgstr "Час очікування (мс):"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:3
-#: ../data/ui/prefs-dialog-gtk2.glade.h:9
+#: data/ui/prefs-dialog-gtk3.glade:65 data/ui/prefs-dialog-gtk2.glade:46
+msgid "Enable Notifications"
+msgstr "Увімкнути сповіщення"
+
+#: data/ui/prefs-dialog-gtk3.glade:89 data/ui/prefs-dialog-gtk2.glade:210
 msgid "<b>Notification Options</b>"
 msgstr "<b>Параметри сповіщення</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:4
-#: ../data/ui/prefs-dialog-gtk2.glade.h:5
+#: data/ui/prefs-dialog-gtk3.glade:116 data/ui/prefs-dialog-gtk3.glade:1255
+#: data/ui/prefs-dialog-gtk2.glade:125 data/ui/prefs-dialog-gtk2.glade:1225
 msgid "HotKeys"
 msgstr "Клавіатурні скорочення"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:5
-#: ../data/ui/prefs-dialog-gtk2.glade.h:6
+#: data/ui/prefs-dialog-gtk3.glade:132 data/ui/prefs-dialog-gtk2.glade:146
 msgid "Mouse Scroll"
 msgstr "Прокручування коліщатка миші"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:6
-#: ../data/ui/prefs-dialog-gtk2.glade.h:7
+#: data/ui/prefs-dialog-gtk3.glade:148 data/ui/prefs-dialog-gtk2.glade:167
 msgid "Adjustment in Popups"
 msgstr "Коригування у контекстних вікнах"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:7
-#: ../data/ui/prefs-dialog-gtk2.glade.h:8
+#: data/ui/prefs-dialog-gtk3.glade:164 data/ui/prefs-dialog-gtk2.glade:188
 msgid "External Change"
 msgstr "Зовнішня зміна"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:8
+#: data/ui/prefs-dialog-gtk3.glade:185
 msgid "<b>Notify for volume changes from:</b>"
 msgstr "<b>Сповіщення щодо зміни гучності від:</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:9
-#: ../data/ui/prefs-dialog-gtk2.glade.h:1
+#: data/ui/prefs-dialog-gtk3.glade:212 data/ui/prefs-dialog-gtk2.glade:12
 msgid "Notification support disabled at compile time."
 msgstr "Підтримку сповіщень було вимкнено під час збирання програми."
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:10
-#: ../data/ui/prefs-dialog-gtk2.glade.h:10
+#: data/ui/prefs-dialog-gtk3.glade:236 data/ui/prefs-dialog-gtk2.glade:241
 msgid "PNMixer Preferences"
 msgstr "Налаштування PNMixer"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:12
+#: data/ui/prefs-dialog-gtk3.glade:324
 msgid "Ok"
 msgstr "Гаразд"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:13
+#: data/ui/prefs-dialog-gtk3.glade:369
 msgid "Apply"
 msgstr "Застосувати"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:14
-#: ../data/ui/prefs-dialog-gtk2.glade.h:11
+#: data/ui/prefs-dialog-gtk3.glade:427 data/ui/prefs-dialog-gtk2.glade:338
 msgid "Card:"
 msgstr "Картка:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:15
-#: ../data/ui/prefs-dialog-gtk2.glade.h:12
+#: data/ui/prefs-dialog-gtk3.glade:439 data/ui/prefs-dialog-gtk2.glade:349
 msgid "Channel:"
 msgstr "Канал:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:16
-#: ../data/ui/prefs-dialog-gtk2.glade.h:14
+#: data/ui/prefs-dialog-gtk3.glade:450 data/ui/prefs-dialog-gtk2.glade:409
 msgid "Change volume on a logarithmic scale, closer to human perception."
-msgstr ""
-"Змінювати гучність у логарифмічній шкалі, близько до людського сприйняття."
+msgstr "Змінювати гучність у логарифмічній шкалі, близько до людського сприйняття."
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:17
-#: ../data/ui/prefs-dialog-gtk2.glade.h:13
+#: data/ui/prefs-dialog-gtk3.glade:452 data/ui/prefs-dialog-gtk2.glade:408
 msgid "Normalize Volume:"
 msgstr "Нормалізація гучності:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:18
-#: ../data/ui/prefs-dialog-gtk2.glade.h:15
+#: data/ui/prefs-dialog-gtk3.glade:502 data/ui/prefs-dialog-gtk2.glade:425
 msgid "<b>Sound Device</b>"
 msgstr "<b>Звуковий пристрій</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:19
-#: ../data/ui/prefs-dialog-gtk2.glade.h:16
+#: data/ui/prefs-dialog-gtk3.glade:520 data/ui/prefs-dialog-gtk2.glade:443
 msgid "Device"
 msgstr "Пристрій"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:20
-#: ../data/ui/prefs-dialog-gtk2.glade.h:17
+#: data/ui/prefs-dialog-gtk3.glade:555 data/ui/prefs-dialog-gtk2.glade:477
 msgid "Slider Orientation:"
 msgstr "Орієнтація повзунка:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:21
-#: ../data/ui/prefs-dialog-gtk2.glade.h:18
-msgid "Vertical"
-msgstr "Вертикальна"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:22
-#: ../data/ui/prefs-dialog-gtk2.glade.h:19
-msgid "Horizontal"
-msgstr "Горизонтальна"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:23
-#: ../data/ui/prefs-dialog-gtk2.glade.h:20
-msgid "Display Text Volume"
-msgstr "Показувати гучність текстом"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:24
-#: ../data/ui/prefs-dialog-gtk2.glade.h:21
+#: data/ui/prefs-dialog-gtk3.glade:567 data/ui/prefs-dialog-gtk2.glade:520
 msgid "Text Volume Position:"
 msgstr "Розташування тексту гучності:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:25
-#: ../data/ui/prefs-dialog-gtk2.glade.h:22
+#: data/ui/prefs-dialog-gtk3.glade:576 data/ui/prefs-dialog-gtk2.glade:501
+msgid "Display Text Volume"
+msgstr "Показувати гучність текстом"
+
+#: data/ui/prefs-dialog-gtk3.glade:596 data/ui/prefs-dialog-gtk2.glade:489
+msgid "Vertical"
+msgstr "Вертикальна"
+
+#: data/ui/prefs-dialog-gtk3.glade:597 data/ui/prefs-dialog-gtk2.glade:490
+msgid "Horizontal"
+msgstr "Горизонтальна"
+
+#: data/ui/prefs-dialog-gtk3.glade:611 data/ui/prefs-dialog-gtk2.glade:534
 msgid "Top"
 msgstr "Вгорі"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:26
-#: ../data/ui/prefs-dialog-gtk2.glade.h:23
+#: data/ui/prefs-dialog-gtk3.glade:612 data/ui/prefs-dialog-gtk2.glade:535
 msgid "Bottom"
 msgstr "Внизу"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:27
-#: ../data/ui/prefs-dialog-gtk2.glade.h:24
+#: data/ui/prefs-dialog-gtk3.glade:613 data/ui/prefs-dialog-gtk2.glade:536
 msgid "Left"
 msgstr "Ліворуч"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:28
-#: ../data/ui/prefs-dialog-gtk2.glade.h:25
+#: data/ui/prefs-dialog-gtk3.glade:614 data/ui/prefs-dialog-gtk2.glade:537
 msgid "Right"
 msgstr "Праворуч"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:29
-#: ../data/ui/prefs-dialog-gtk2.glade.h:26
+#: data/ui/prefs-dialog-gtk3.glade:632 data/ui/prefs-dialog-gtk2.glade:556
 msgid "<b>Volume Popup</b>"
 msgstr "<b>Контекстне вікно гучності</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:30
-#: ../data/ui/prefs-dialog-gtk2.glade.h:27
-msgid "Draw Volume Meter on Tray Icon"
-msgstr "Показувати індикатор гучності на піктограмі лотка"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:32
-#: ../data/ui/prefs-dialog-gtk2.glade.h:29
-#, no-c-format
-msgid "Volume Meter Offset (%):"
-msgstr "Зсув індикатора гучності (%):"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:33
-#: ../data/ui/prefs-dialog-gtk2.glade.h:30
+#: data/ui/prefs-dialog-gtk3.glade:663 data/ui/prefs-dialog-gtk2.glade:619
 msgid "Volume Meter Color:"
 msgstr "Колір індикатора гучності:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:34
-#: ../data/ui/prefs-dialog-gtk2.glade.h:31
+#: data/ui/prefs-dialog-gtk3.glade:675 data/ui/prefs-dialog-gtk2.glade:606
+msgid "Volume Meter Offset (%):"
+msgstr "Зсув індикатора гучності (%):"
+
+#: data/ui/prefs-dialog-gtk3.glade:713 data/ui/prefs-dialog-gtk2.glade:589
+msgid "Draw Volume Meter on Tray Icon"
+msgstr "Показувати індикатор гучності на піктограмі лотка"
+
+#: data/ui/prefs-dialog-gtk3.glade:735 data/ui/prefs-dialog-gtk2.glade:672
 msgid "<b>Volume Meter</b>"
 msgstr "<b>Індикатор гучності</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:35
-#: ../data/ui/prefs-dialog-gtk2.glade.h:32
+#: data/ui/prefs-dialog-gtk3.glade:755 data/ui/prefs-dialog-gtk2.glade:699
 msgid "Use System Theme"
 msgstr "Використовувати загальносистемну тему"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:36
-#: ../data/ui/prefs-dialog-gtk2.glade.h:33
+#: data/ui/prefs-dialog-gtk3.glade:770 data/ui/prefs-dialog-gtk2.glade:712
 msgid "<b>Icon Theme</b>"
 msgstr "<b>Тема піктограм</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:37
-#: ../data/ui/prefs-dialog-gtk2.glade.h:34
+#: data/ui/prefs-dialog-gtk3.glade:791 data/ui/prefs-dialog-gtk2.glade:732
 msgid "View"
 msgstr "Перегляд"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:38
-#: ../data/ui/prefs-dialog-gtk2.glade.h:35
+#: data/ui/prefs-dialog-gtk3.glade:829 data/ui/prefs-dialog-gtk2.glade:772
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Команда керування гучністю</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:39
-#: ../data/ui/prefs-dialog-gtk2.glade.h:36
+#: data/ui/prefs-dialog-gtk3.glade:860 data/ui/prefs-dialog-gtk2.glade:808
 msgid "Scroll Step:"
 msgstr "Крок гортання"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:40
-#: ../data/ui/prefs-dialog-gtk2.glade.h:37
+#: data/ui/prefs-dialog-gtk3.glade:872 data/ui/prefs-dialog-gtk2.glade:819
 msgid "Fine Scroll Step:"
 msgstr "Підкрок гортання:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:41
-#: ../data/ui/prefs-dialog-gtk2.glade.h:38
+#: data/ui/prefs-dialog-gtk3.glade:918 data/ui/prefs-dialog-gtk2.glade:875
 msgid "<b>Volume Scrolling</b>"
 msgstr "<b>Регулювання гучності гортанням</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:42
-#: ../data/ui/prefs-dialog-gtk2.glade.h:39
-msgid "Middle Click Action:"
-msgstr "Дія за клацанням середньою:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:43
-#: ../data/ui/prefs-dialog-gtk2.glade.h:40
+#: data/ui/prefs-dialog-gtk3.glade:949 data/ui/prefs-dialog-gtk2.glade:922
 msgid "Custom Command:"
 msgstr "Нетипова команда:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:45
-#: ../data/ui/prefs-dialog-gtk2.glade.h:42
+#: data/ui/prefs-dialog-gtk3.glade:961 data/ui/prefs-dialog-gtk2.glade:911
+msgid "Middle Click Action:"
+msgstr "Дія за клацанням середньою:"
+
+#: data/ui/prefs-dialog-gtk3.glade:974 data/ui/prefs-dialog-gtk2.glade:936
 msgid "Show Preferences"
 msgstr "Показати налаштування"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:47
-#: ../data/ui/prefs-dialog-gtk2.glade.h:44
+#: data/ui/prefs-dialog-gtk3.glade:976 data/ui/prefs-dialog-gtk2.glade:938
 msgid "Custom (set below)"
 msgstr "Нетипова (вкажіть нижче)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:48
-#: ../data/ui/prefs-dialog-gtk2.glade.h:45
+#: data/ui/prefs-dialog-gtk3.glade:1005 data/ui/prefs-dialog-gtk2.glade:974
 msgid "<b>Mouse</b>"
 msgstr "<b>Миша</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:49
-#: ../data/ui/prefs-dialog-gtk2.glade.h:46
+#: data/ui/prefs-dialog-gtk3.glade:1026 data/ui/prefs-dialog-gtk2.glade:995
 msgid "Behavior"
 msgstr "Поведінка"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:50
-#: ../data/ui/prefs-dialog-gtk2.glade.h:47
+#: data/ui/prefs-dialog-gtk3.glade:1057 data/ui/prefs-dialog-gtk2.glade:1025
 msgid "Enable HotKeys"
 msgstr "Увімкнути клавіатурні скорочення"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:51
-#: ../data/ui/prefs-dialog-gtk2.glade.h:52
+#: data/ui/prefs-dialog-gtk3.glade:1085 data/ui/prefs-dialog-gtk2.glade:1099
 msgid "Command"
 msgstr "Команда"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:52
-#: ../data/ui/prefs-dialog-gtk2.glade.h:48
+#: data/ui/prefs-dialog-gtk3.glade:1100 data/ui/prefs-dialog-gtk2.glade:1052
 msgid "Mute/Unmute:"
 msgstr "Вимкнути/Увімкнути звук:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:53
-#: ../data/ui/prefs-dialog-gtk2.glade.h:49
+#: data/ui/prefs-dialog-gtk3.glade:1112 data/ui/prefs-dialog-gtk2.glade:1064
 msgid "Volume Up:"
 msgstr "Гучніше:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:54
-#: ../data/ui/prefs-dialog-gtk2.glade.h:50
+#: data/ui/prefs-dialog-gtk3.glade:1124 data/ui/prefs-dialog-gtk2.glade:1076
 msgid "Volume Down:"
 msgstr "Тихіше:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:55
-#: ../data/ui/prefs-dialog-gtk2.glade.h:51
-msgid "Double-click a HotKey to assign a new HotKey"
-msgstr "Двічі клацніть на скороченні, щоб призначити нове"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:56
-#: ../data/ui/prefs-dialog-gtk2.glade.h:53
+#: data/ui/prefs-dialog-gtk3.glade:1135 data/ui/prefs-dialog-gtk2.glade:1109
 msgid "HotKey"
 msgstr "Скорочення"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:57
-#: ../data/ui/prefs-dialog-gtk2.glade.h:54
+#: data/ui/prefs-dialog-gtk3.glade:1154 data/ui/prefs-dialog-gtk3.glade:1175
+#: data/ui/prefs-dialog-gtk3.glade:1196 data/ui/prefs-dialog-gtk2.glade:1128
+#: data/ui/prefs-dialog-gtk2.glade:1151 data/ui/prefs-dialog-gtk2.glade:1174
 msgid "(None)"
 msgstr "(Немає)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:58
-#: ../data/ui/prefs-dialog-gtk2.glade.h:55
+#: data/ui/prefs-dialog-gtk3.glade:1212 data/ui/prefs-dialog-gtk2.glade:1087
+msgid "Double-click a HotKey to assign a new HotKey"
+msgstr "Двічі клацніть на скороченні, щоб призначити нове"
+
+#: data/ui/prefs-dialog-gtk3.glade:1234 data/ui/prefs-dialog-gtk2.glade:1204
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>Параметри скорочень</b>"
 
-#: ../data/ui/popup-menu-gtk2.glade.h:1
+#: data/ui/popup-menu-gtk2.glade:45
 msgid "_Mute"
 msgstr "В_имкнути звук"
 
-#: ../data/ui/popup-menu-gtk2.glade.h:3
+#: data/ui/popup-menu-gtk2.glade:56
 msgid "_Volume Control"
 msgstr "Керування _гучністю"
 
-#: ../data/ui/popup-menu-gtk2.glade.h:6
+#: data/ui/popup-menu-gtk2.glade:81
 msgid "_Reload Sound"
 msgstr "_Перезавантажити звук"
 
-#: ../data/ui/prefs-dialog-gtk2.glade.h:4
+#: data/ui/prefs-dialog-gtk2.glade:106
 msgid "Notify for volume changes from:"
 msgstr "Сповіщення щодо зміни гучності від:"
