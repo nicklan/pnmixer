@@ -25,3 +25,8 @@ CMakeFiles/
 CMakeCache.txt
 Makefile
 cmake_install.cmake
+
+# release stuff
+/pnmixer_signify.*
+/SHA256*
+/*.tar.gz
