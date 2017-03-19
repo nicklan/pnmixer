@@ -30,3 +30,4 @@ cmake_install.cmake
 /pnmixer_signify.*
 /SHA256*
 /*.tar.gz
+/*.asc

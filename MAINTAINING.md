@@ -25,11 +25,13 @@ The procedure looks like that.
 	git archive --prefix=pnmixer-${tag}/ --format=tar.gz -o pnmixer-${tag}.tar.gz ${tag}
 	sha256sum --tag pnmixer-${tag}.tar.gz > SHA256
 	gpg --armor --detach-sig SHA256
+	gpg --armor --detach-sig pnmixer-${tag}.tar.gz
 	signify -S -s pnmixer_signify.sec  -e -m SHA256
 	unset tag
 
-Then upload the files `SHA256`, `SHA256.asc`, `SHA256.sig` and
-`pnmixer-${tag}.tar.gz` to the github release page.
+Then upload the files `SHA256`, `SHA256.asc`, `SHA256.sig`,
+`pnmixer-${tag}.tar.gz` and `pnmixer-${tag}.tar.gz` to the github
+release page.
 
 Translating
 -----------

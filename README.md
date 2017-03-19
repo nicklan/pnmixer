@@ -69,6 +69,9 @@ same directory, then run:
 signify -V -p pnmixer_signify.pub -m SHA256
 ```
 
+Alternatively you can just GPG-verify the tarball with the detached
+signature.
+
 Compilation and Install
 -----------------------
 
