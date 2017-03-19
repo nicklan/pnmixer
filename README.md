@@ -57,6 +57,18 @@ Download
 --------
 Latest version can always be found at: <https://github.com/nicklan/pnmixer/releases>
 
+### Verifying a release tarball
+
+Releases can be verified via [signify](https://github.com/aperezdc/signify).
+Get the [pubkey](https://github.com/nicklan/pnmixer/wiki/signify_keys/pnmixer_signify.pub) and [verify](https://github.com/nicklan/pnmixer/wiki/signify_keys/pnmixer_signify.pub.asc) it against the GPG key
+`0x511B62C09D50CD28`.
+Download the static tarball and `SHA256` as well as `SHA256.sig` into the
+same directory, then run:
+
+```sh
+signify -V -p pnmixer_signify.pub -m SHA256
+```
+
 Compilation and Install
 -----------------------
 
