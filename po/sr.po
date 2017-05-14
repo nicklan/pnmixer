@@ -1,62 +1,61 @@
 # Serbian translation for pnmixer.
-# Copyright (C) 2016 PNMixer team (msgids)
+# Copyright © 2016 PNMixer team (msgids)
 # This file is distributed under the same license as the pnmixer package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2016.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2016—2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: pnmixer-0.7-rc1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 18:36+0700\n"
-"PO-Revision-Date: 2016-12-12 20:04+0200\n"
+"Project-Id-Version: pnmixer-0.7.1-rc3\n"
+"Report-Msgid-Bugs-To: https://github.com/nicklan/pnmixer/issues\n"
+"POT-Creation-Date: 2017-03-13 21:25+0700\n"
+"PO-Revision-Date: 2017-05-07 18:36+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
-#: ../src/hotkeys.c:172
+#: src/hotkeys.c:175
 msgid "Could not grab the following HotKeys"
 msgstr "Не могу да захватим следеће пречице"
 
-#: ../src/hotkeys.c:173 ../src/ui-prefs-dialog.c:336
-#: ../data/ui/prefs-dialog-gtk3.glade.h:43
-#: ../data/ui/prefs-dialog-gtk2.glade.h:41
+#: src/hotkeys.c:176 src/ui-prefs-dialog.c:339
+#: data/ui/prefs-dialog-gtk3.glade:973 data/ui/prefs-dialog-gtk2.glade:935
 msgid "Mute/Unmute"
 msgstr "Утишај/Појачај"
 
-#: ../src/hotkeys.c:175 ../src/ui-prefs-dialog.c:339
+#: src/hotkeys.c:178 src/ui-prefs-dialog.c:342
 msgid "Volume Up"
 msgstr "Гласније"
 
-#: ../src/hotkeys.c:177 ../src/ui-prefs-dialog.c:342
+#: src/hotkeys.c:180 src/ui-prefs-dialog.c:345
 msgid "Volume Down"
 msgstr "Тише"
 
-#: ../src/main.c:69
+#: src/main.c:69
 #, c-format
 msgid "Unable to run command: %s"
 msgstr "Не могу да покренем наредбу: %s"
 
-#: ../src/main.c:89
+#: src/main.c:89
 msgid "No mixer application was found on your system. Please open preferences and set the command you want to run for volume control."
 msgstr "Нисам нашао програм мешача на вашем систему. Отворите поставке и подесите наредбу ако желите да покренете управљање гласноћом."
 
-#: ../src/main.c:109
+#: src/main.c:109
 msgid "You have not specified a custom command to run, please specify one in preferences."
 msgstr "Нисте навели произвољну наредбу за покретање, наведите неку у поставкама."
 
-#: ../src/main.c:204 ../src/main.c:242
+#: src/main.c:210 src/main.c:248
 msgid "PNMixer Error"
 msgstr "Грешка ПНМешача"
 
-#: ../src/main.c:233
+#: src/main.c:239
 msgid "Warning: Connection to sound system failed."
 msgstr "Упозорење: Веза до система звука није успела."
 
-#: ../src/main.c:237
+#: src/main.c:243
 msgid ""
 "Do you want to re-initialize the audio connection ?\n"
 "\n"
@@ -66,439 +65,419 @@ msgstr ""
 "\n"
 "Ако не желите, мораћете поново да покренете ПНМешача или да изаберете опцију „Поново учитај звук“ у изборнику десног клика да би ПНМешач радио."
 
-#. Parse options
-#: ../src/main.c:328
+#: src/main.c:334
 msgid "- A mixer for the system tray."
 msgstr "— Мешач за системску фиоку."
 
-#: ../src/main.c:336
+#: src/main.c:342
 #, c-format
 msgid "%s version: %s\n"
 msgstr "„%s“ издање: %s\n"
 
-#: ../src/notif.c:130
+#: src/notif.c:77
+msgid "Volume muted"
+msgstr "Звук је утишан"
+
+#: src/notif.c:82 src/ui-tray-icon.c:355
+msgid "Volume"
+msgstr "Гласноћа"
+
+#: src/notif.c:135
 msgid "No sound card"
 msgstr "Нема звучне картице"
 
-#: ../src/notif.c:131
+#: src/notif.c:136
 msgid "No playable soundcard found"
 msgstr "Нисам нашао звучну картицу за пуштање"
 
-#: ../src/notif.c:136
+#: src/notif.c:141
 msgid "Soundcard disconnected"
 msgstr "Звучна картица је искључена"
 
-#: ../src/notif.c:137
+#: src/notif.c:142
 msgid "Soundcard has been disconnected, reloading sound system..."
 msgstr "Звучна картица је искључена, поново учитавам систем звука..."
 
-#: ../src/prefs.c:356
+#: src/prefs.c:356
 #, c-format
 msgid "Couldn't load preferences file: %s"
 msgstr "Не могу да учитам датотеку подешавања: %s"
 
-#: ../src/prefs.c:365
+#: src/prefs.c:365
 #, c-format
 msgid "Couldn't load default preferences: %s"
 msgstr "Не могу да учитам основне поставке: %s"
 
-#: ../src/prefs.c:391
+#: src/prefs.c:391
 #, c-format
 msgid "Couldn't write preferences file: %s"
 msgstr "Не могу да запишем датотеку подешавања: %s"
 
-#: ../src/prefs.c:411
+#: src/prefs.c:411
 #, c-format
 msgid "'%s' exists but is not a directory, won't be able to save preferences."
 msgstr "„%s“ постоји али није директоријум, нећу моћи да сачувам поставке."
 
-#: ../src/prefs.c:415
+#: src/prefs.c:415
 #, c-format
 msgid "Couldn't make preferences directory: %s"
 msgstr "Не могу да направим датотеку подешавања: %s"
 
-#: ../src/ui-about-dialog.c:112
+#: src/ui-about-dialog.c:114
 msgid "A mixer for the system tray"
 msgstr "Мешач за системску фиоку"
 
-#: ../src/ui-about-dialog.c:113
+#: src/ui-about-dialog.c:115
 msgid "Copyright © 2010-2016 Nick Lanham"
 msgstr "Ауторска права © 2010-2016 Ник Ланам"
 
-#: ../src/ui-hotkey-dialog.c:48
+#: src/ui-hotkey-dialog.c:48
 #, c-format
 msgid "Set %s HotKey"
 msgstr "Подесите „%s“ пречицу"
 
-#: ../src/ui-hotkey-dialog.c:52
+#: src/ui-hotkey-dialog.c:52
 #, c-format
 msgid "Press new HotKey for <b>%s</b>"
 msgstr "Притисните нову пречицу за „<b>%s</b>“"
 
-#: ../src/ui-hotkey-dialog.c:150
+#: src/ui-hotkey-dialog.c:174
 msgid "Could not grab the keyboard."
 msgstr "Не могу да добавим тастатуру."
 
-#: ../src/ui-prefs-dialog.c:370
+#: src/ui-popup-menu.c:57 src/ui-popup-menu.c:84 src/ui-popup-window.c:129
+msgid "Soundcard has no mute switch"
+msgstr "Звучна картица нема дугме за утишање"
+
+#: src/ui-prefs-dialog.c:373
 msgid "None"
 msgstr "Ништа"
 
-#: ../src/ui-prefs-dialog.c:845
+#: src/ui-prefs-dialog.c:867
 msgid "Notifications"
 msgstr "Обавештења"
 
-#: ../src/ui-tray-icon.c:332 ../src/ui-tray-icon.c:335
-msgid "Volume"
-msgstr "Гласноћа"
+#: src/ui-tray-icon.c:357
+msgid "No mute switch"
+msgstr "Нема дугмета за утишавање"
 
-#: ../src/ui-tray-icon.c:335
+#: src/ui-tray-icon.c:359
 msgid "Muted"
 msgstr "Утишано"
 
-#: ../data/desktop/pnmixer.desktop.in.h:1
+#: data/desktop/pnmixer.desktop.in:3
+msgid "PNMixer"
+msgstr "ПН_мешач"
+
+#: data/desktop/pnmixer.desktop.in:4
 msgid "System Tray Mixer"
 msgstr "Мешач системске фиоке"
 
-#: ../data/desktop/pnmixer.desktop.in.h:2
+#: data/desktop/pnmixer.desktop.in:5
 msgid "An audio mixer for the system tray"
 msgstr "Мешач звука за системску фиоку"
 
-#: ../data/ui/hotkey-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk3.glade.h:11
+#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/desktop/pnmixer.desktop.in:7
+msgid "alsa;audio;mixer;sound;"
+msgstr "алса;звук;мешач;миксер;аудио;"
+
+#. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/desktop/pnmixer.desktop.in:11
+msgid "pnmixer"
+msgstr "пнмешач"
+
+#: data/ui/hotkey-dialog-gtk3.glade:55 data/ui/prefs-dialog-gtk3.glade:279
 msgid "Cancel"
 msgstr "Откажи"
 
-#: ../data/ui/hotkey-dialog-gtk3.glade.h:2
-#: ../data/ui/hotkey-dialog-gtk2.glade.h:1
+#: data/ui/hotkey-dialog-gtk3.glade:109 data/ui/hotkey-dialog-gtk2.glade:49
 msgid "Defining HotKey"
 msgstr "Одређујем пречицу"
 
-#: ../data/ui/hotkey-dialog-gtk3.glade.h:3
-#: ../data/ui/hotkey-dialog-gtk2.glade.h:2
+#: data/ui/hotkey-dialog-gtk3.glade:124 data/ui/hotkey-dialog-gtk2.glade:65
 msgid "(press <Ctrl>C to reset)"
 msgstr "(притисните <Ктрл>Ц да поново поставите)"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:1 ../data/ui/popup-menu-gtk2.glade.h:2
+#: data/ui/popup-menu-gtk3.glade:33 data/ui/popup-menu-gtk2.glade:49
 msgid "Mute/Unmute Volume"
 msgstr "Утишајте/Појачајте звук"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:2
-#: ../data/ui/popup-window-horizontal-gtk3.glade.h:1
-#: ../data/ui/popup-window-vertical-gtk3.glade.h:1
-#: ../data/ui/popup-window-horizontal-gtk2.glade.h:1
-#: ../data/ui/popup-window-vertical-gtk2.glade.h:1
+#: data/ui/popup-menu-gtk3.glade:58
+#: data/ui/popup-window-horizontal-gtk3.glade:54
+#: data/ui/popup-window-vertical-gtk3.glade:58
+#: data/ui/popup-window-horizontal-gtk2.glade:56
+#: data/ui/popup-window-vertical-gtk2.glade:58
 msgid "Mute"
 msgstr "Утишај"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:3 ../data/ui/popup-menu-gtk2.glade.h:4
+#: data/ui/popup-menu-gtk3.glade:73 data/ui/popup-menu-gtk2.glade:60
 msgid "Open Volume Control"
 msgstr "Отворите управљање гласноћом"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:4
-#: ../data/ui/prefs-dialog-gtk3.glade.h:45
-#: ../data/ui/prefs-dialog-gtk2.glade.h:43
+#: data/ui/popup-menu-gtk3.glade:95 data/ui/prefs-dialog-gtk3.glade:975
+#: data/ui/prefs-dialog-gtk2.glade:937
 msgid "Volume Control"
 msgstr "Управљање гласноћом"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:5 ../data/ui/popup-menu-gtk2.glade.h:5
+#: data/ui/popup-menu-gtk3.glade:110 data/ui/popup-menu-gtk3.glade:133
+#: data/ui/popup-menu-gtk2.glade:73
 msgid "Preferences"
 msgstr "Поставке"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:6 ../data/ui/popup-menu-gtk2.glade.h:7
+#: data/ui/popup-menu-gtk3.glade:148 data/ui/popup-menu-gtk3.glade:171
+#: data/ui/popup-menu-gtk2.glade:85
 msgid "Reload Sound"
 msgstr "Поново учитај звук"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:7 ../data/ui/popup-menu-gtk2.glade.h:8
+#: data/ui/popup-menu-gtk3.glade:186 data/ui/popup-menu-gtk3.glade:209
+#: data/ui/popup-menu-gtk2.glade:98
 msgid "About"
 msgstr "О програму"
 
-#: ../data/ui/popup-menu-gtk3.glade.h:8 ../data/ui/popup-menu-gtk2.glade.h:9
+#: data/ui/popup-menu-gtk3.glade:231 data/ui/popup-menu-gtk3.glade:254
+#: data/ui/popup-menu-gtk2.glade:117
 msgid "Quit"
 msgstr "Изађи"
 
-#: ../data/ui/popup-window-horizontal-gtk3.glade.h:2
-#: ../data/ui/popup-window-vertical-gtk3.glade.h:2
-#: ../data/ui/popup-window-horizontal-gtk2.glade.h:2
-#: ../data/ui/popup-window-vertical-gtk2.glade.h:2
+#: data/ui/popup-window-horizontal-gtk3.glade:81
+#: data/ui/popup-window-vertical-gtk3.glade:74
+#: data/ui/popup-window-horizontal-gtk2.glade:72
+#: data/ui/popup-window-vertical-gtk2.glade:74
 msgid "Mixer"
 msgstr "Мешач"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:1
-#: ../data/ui/prefs-dialog-gtk2.glade.h:1
-msgid "Notification support disabled at compile time."
-msgstr "Подршка обавештавања је искључена за време превођења програма."
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:2
-#: ../data/ui/prefs-dialog-gtk2.glade.h:2
-msgid "Enable Notifications"
-msgstr "Укључи обавешења"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:3
-#: ../data/ui/prefs-dialog-gtk2.glade.h:3
+#: data/ui/prefs-dialog-gtk3.glade:43 data/ui/prefs-dialog-gtk2.glade:68
 msgid "Timeout (ms):"
 msgstr "Време истека (ms):"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:4
-#: ../data/ui/prefs-dialog-gtk2.glade.h:9
+#: data/ui/prefs-dialog-gtk3.glade:65 data/ui/prefs-dialog-gtk2.glade:46
+msgid "Enable Notifications"
+msgstr "Укључи обавешења"
+
+#: data/ui/prefs-dialog-gtk3.glade:89 data/ui/prefs-dialog-gtk2.glade:210
 msgid "<b>Notification Options</b>"
 msgstr "<b>Опције обавештавања</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:5
-#: ../data/ui/prefs-dialog-gtk2.glade.h:5
+#: data/ui/prefs-dialog-gtk3.glade:116 data/ui/prefs-dialog-gtk3.glade:1255
+#: data/ui/prefs-dialog-gtk2.glade:125 data/ui/prefs-dialog-gtk2.glade:1225
 msgid "HotKeys"
 msgstr "Пречице"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:6
-#: ../data/ui/prefs-dialog-gtk2.glade.h:6
+#: data/ui/prefs-dialog-gtk3.glade:132 data/ui/prefs-dialog-gtk2.glade:146
 msgid "Mouse Scroll"
 msgstr "Премицање миша"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:7
-#: ../data/ui/prefs-dialog-gtk2.glade.h:7
+#: data/ui/prefs-dialog-gtk3.glade:148 data/ui/prefs-dialog-gtk2.glade:167
 msgid "Adjustment in Popups"
 msgstr "Дотеривање у облачићима"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:8
-#: ../data/ui/prefs-dialog-gtk2.glade.h:8
+#: data/ui/prefs-dialog-gtk3.glade:164 data/ui/prefs-dialog-gtk2.glade:188
 msgid "External Change"
 msgstr "Спољна промена"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:9
+#: data/ui/prefs-dialog-gtk3.glade:185
 msgid "<b>Notify for volume changes from:</b>"
 msgstr "<b>Обавести о променама гласноће са:</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:10
-#: ../data/ui/prefs-dialog-gtk2.glade.h:10
+#: data/ui/prefs-dialog-gtk3.glade:212 data/ui/prefs-dialog-gtk2.glade:12
+msgid "Notification support disabled at compile time."
+msgstr "Подршка обавештавања је искључена за време превођења програма."
+
+#: data/ui/prefs-dialog-gtk3.glade:236 data/ui/prefs-dialog-gtk2.glade:241
 msgid "PNMixer Preferences"
 msgstr "Поставке ПНМешача"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:12
+#: data/ui/prefs-dialog-gtk3.glade:324
 msgid "Ok"
 msgstr "У реду"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:13
-#: ../data/ui/prefs-dialog-gtk2.glade.h:11
-msgid "Slider Orientation:"
-msgstr "Усмерење клизача:"
+#: data/ui/prefs-dialog-gtk3.glade:369
+msgid "Apply"
+msgstr "Примени"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:14
-#: ../data/ui/prefs-dialog-gtk2.glade.h:12
-msgid "Vertical"
-msgstr "Усправно"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:15
-#: ../data/ui/prefs-dialog-gtk2.glade.h:13
-msgid "Horizontal"
-msgstr "Положено"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:16
-#: ../data/ui/prefs-dialog-gtk2.glade.h:14
-msgid "Display Text Volume"
-msgstr "Прикажи текст гласноће"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:17
-#: ../data/ui/prefs-dialog-gtk2.glade.h:15
-msgid "Text Volume Position:"
-msgstr "Положај текста гласноће:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:18
-#: ../data/ui/prefs-dialog-gtk2.glade.h:16
-msgid "Top"
-msgstr "Горе"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:19
-#: ../data/ui/prefs-dialog-gtk2.glade.h:17
-msgid "Bottom"
-msgstr "Доле"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:20
-#: ../data/ui/prefs-dialog-gtk2.glade.h:18
-msgid "Left"
-msgstr "Лево"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:21
-#: ../data/ui/prefs-dialog-gtk2.glade.h:19
-msgid "Right"
-msgstr "Десно"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:22
-#: ../data/ui/prefs-dialog-gtk2.glade.h:20
-msgid "<b>Volume Popup</b>"
-msgstr "<b>Облачић гласноће</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:23
-#: ../data/ui/prefs-dialog-gtk2.glade.h:21
-msgid "Draw Volume Meter on Tray Icon"
-msgstr "Исцртај мерач гласноће на иконици фиоке"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:25
-#: ../data/ui/prefs-dialog-gtk2.glade.h:23
-#, no-c-format
-msgid "Volume Meter Offset (%):"
-msgstr "Померај мерача гласноће (%):"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:26
-#: ../data/ui/prefs-dialog-gtk2.glade.h:24
-msgid "Volume Meter Color:"
-msgstr "Боја мерача гласноће:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:27
-#: ../data/ui/prefs-dialog-gtk2.glade.h:25
-msgid "<b>Volume Meter</b>"
-msgstr "<b>Мерач гласноће</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:28
-#: ../data/ui/prefs-dialog-gtk2.glade.h:26
-msgid "Use System Theme"
-msgstr "Користи системску тему"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:29
-#: ../data/ui/prefs-dialog-gtk2.glade.h:27
-msgid "<b>Icon Theme</b>"
-msgstr "<b>Тема иконице</b>"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:30
-#: ../data/ui/prefs-dialog-gtk2.glade.h:28
-msgid "View"
-msgstr "Преглед"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:31
-#: ../data/ui/prefs-dialog-gtk2.glade.h:29
+#: data/ui/prefs-dialog-gtk3.glade:427 data/ui/prefs-dialog-gtk2.glade:338
 msgid "Card:"
 msgstr "Картица:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:32
-#: ../data/ui/prefs-dialog-gtk2.glade.h:30
+#: data/ui/prefs-dialog-gtk3.glade:439 data/ui/prefs-dialog-gtk2.glade:349
 msgid "Channel:"
 msgstr "Канал:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:33
-#: ../data/ui/prefs-dialog-gtk2.glade.h:31
-msgid "Normalize Volume:"
-msgstr "Нормализуј гласноће:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:34
-#: ../data/ui/prefs-dialog-gtk2.glade.h:32
+#: data/ui/prefs-dialog-gtk3.glade:450 data/ui/prefs-dialog-gtk2.glade:409
 msgid "Change volume on a logarithmic scale, closer to human perception."
 msgstr "Промени гласноћу на логаритамској скали, ближе људској перцепцији."
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:35
-#: ../data/ui/prefs-dialog-gtk2.glade.h:33
+#: data/ui/prefs-dialog-gtk3.glade:452 data/ui/prefs-dialog-gtk2.glade:408
+msgid "Normalize Volume:"
+msgstr "Нормализуј гласноће:"
+
+#: data/ui/prefs-dialog-gtk3.glade:502 data/ui/prefs-dialog-gtk2.glade:425
 msgid "<b>Sound Device</b>"
 msgstr "<b>Звучни уређај</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:36
-#: ../data/ui/prefs-dialog-gtk2.glade.h:34
+#: data/ui/prefs-dialog-gtk3.glade:520 data/ui/prefs-dialog-gtk2.glade:443
 msgid "Device"
 msgstr "Уређај"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:37
-#: ../data/ui/prefs-dialog-gtk2.glade.h:35
+#: data/ui/prefs-dialog-gtk3.glade:555 data/ui/prefs-dialog-gtk2.glade:477
+msgid "Slider Orientation:"
+msgstr "Усмерење клизача:"
+
+#: data/ui/prefs-dialog-gtk3.glade:567 data/ui/prefs-dialog-gtk2.glade:520
+msgid "Text Volume Position:"
+msgstr "Положај текста гласноће:"
+
+#: data/ui/prefs-dialog-gtk3.glade:576 data/ui/prefs-dialog-gtk2.glade:501
+msgid "Display Text Volume"
+msgstr "Прикажи текст гласноће"
+
+#: data/ui/prefs-dialog-gtk3.glade:596 data/ui/prefs-dialog-gtk2.glade:489
+msgid "Vertical"
+msgstr "Усправно"
+
+#: data/ui/prefs-dialog-gtk3.glade:597 data/ui/prefs-dialog-gtk2.glade:490
+msgid "Horizontal"
+msgstr "Положено"
+
+#: data/ui/prefs-dialog-gtk3.glade:611 data/ui/prefs-dialog-gtk2.glade:534
+msgid "Top"
+msgstr "Горе"
+
+#: data/ui/prefs-dialog-gtk3.glade:612 data/ui/prefs-dialog-gtk2.glade:535
+msgid "Bottom"
+msgstr "Доле"
+
+#: data/ui/prefs-dialog-gtk3.glade:613 data/ui/prefs-dialog-gtk2.glade:536
+msgid "Left"
+msgstr "Лево"
+
+#: data/ui/prefs-dialog-gtk3.glade:614 data/ui/prefs-dialog-gtk2.glade:537
+msgid "Right"
+msgstr "Десно"
+
+#: data/ui/prefs-dialog-gtk3.glade:632 data/ui/prefs-dialog-gtk2.glade:556
+msgid "<b>Volume Popup</b>"
+msgstr "<b>Облачић гласноће</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:663 data/ui/prefs-dialog-gtk2.glade:619
+msgid "Volume Meter Color:"
+msgstr "Боја мерача гласноће:"
+
+#: data/ui/prefs-dialog-gtk3.glade:675 data/ui/prefs-dialog-gtk2.glade:606
+msgid "Volume Meter Offset (%):"
+msgstr "Померај мерача гласноће (%):"
+
+#: data/ui/prefs-dialog-gtk3.glade:713 data/ui/prefs-dialog-gtk2.glade:589
+msgid "Draw Volume Meter on Tray Icon"
+msgstr "Исцртај мерач гласноће на иконици фиоке"
+
+#: data/ui/prefs-dialog-gtk3.glade:735 data/ui/prefs-dialog-gtk2.glade:672
+msgid "<b>Volume Meter</b>"
+msgstr "<b>Мерач гласноће</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:755 data/ui/prefs-dialog-gtk2.glade:699
+msgid "Use System Theme"
+msgstr "Користи системску тему"
+
+#: data/ui/prefs-dialog-gtk3.glade:770 data/ui/prefs-dialog-gtk2.glade:712
+msgid "<b>Icon Theme</b>"
+msgstr "<b>Тема иконице</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:791 data/ui/prefs-dialog-gtk2.glade:732
+msgid "View"
+msgstr "Преглед"
+
+#: data/ui/prefs-dialog-gtk3.glade:829 data/ui/prefs-dialog-gtk2.glade:772
 msgid "<b>Volume Control Command</b>"
 msgstr "<b>Наредба контроле гласноће</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:38
-#: ../data/ui/prefs-dialog-gtk2.glade.h:36
+#: data/ui/prefs-dialog-gtk3.glade:860 data/ui/prefs-dialog-gtk2.glade:808
 msgid "Scroll Step:"
 msgstr "Корак премицања:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:39
-#: ../data/ui/prefs-dialog-gtk2.glade.h:37
+#: data/ui/prefs-dialog-gtk3.glade:872 data/ui/prefs-dialog-gtk2.glade:819
 msgid "Fine Scroll Step:"
 msgstr "Фини корак премицања:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:40
-#: ../data/ui/prefs-dialog-gtk2.glade.h:38
+#: data/ui/prefs-dialog-gtk3.glade:918 data/ui/prefs-dialog-gtk2.glade:875
 msgid "<b>Volume Scrolling</b>"
 msgstr "<b>Премицање гласноће</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:41
-#: ../data/ui/prefs-dialog-gtk2.glade.h:39
-msgid "Middle Click Action:"
-msgstr "Радња средњег клика:"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:42
-#: ../data/ui/prefs-dialog-gtk2.glade.h:40
+#: data/ui/prefs-dialog-gtk3.glade:949 data/ui/prefs-dialog-gtk2.glade:922
 msgid "Custom Command:"
 msgstr "Произвољна радња:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:44
-#: ../data/ui/prefs-dialog-gtk2.glade.h:42
+#: data/ui/prefs-dialog-gtk3.glade:961 data/ui/prefs-dialog-gtk2.glade:911
+msgid "Middle Click Action:"
+msgstr "Радња средњег клика:"
+
+#: data/ui/prefs-dialog-gtk3.glade:974 data/ui/prefs-dialog-gtk2.glade:936
 msgid "Show Preferences"
 msgstr "Прикажи поставке"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:46
-#: ../data/ui/prefs-dialog-gtk2.glade.h:44
+#: data/ui/prefs-dialog-gtk3.glade:976 data/ui/prefs-dialog-gtk2.glade:938
 msgid "Custom (set below)"
 msgstr "Произвољно (подешено испод)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:47
-#: ../data/ui/prefs-dialog-gtk2.glade.h:45
+#: data/ui/prefs-dialog-gtk3.glade:1005 data/ui/prefs-dialog-gtk2.glade:974
 msgid "<b>Mouse</b>"
 msgstr "<b>Миш</b>"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:48
-#: ../data/ui/prefs-dialog-gtk2.glade.h:46
+#: data/ui/prefs-dialog-gtk3.glade:1026 data/ui/prefs-dialog-gtk2.glade:995
 msgid "Behavior"
 msgstr "Понашање"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:49
-#: ../data/ui/prefs-dialog-gtk2.glade.h:47
+#: data/ui/prefs-dialog-gtk3.glade:1057 data/ui/prefs-dialog-gtk2.glade:1025
 msgid "Enable HotKeys"
 msgstr "Укључи пречице"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:50
-#: ../data/ui/prefs-dialog-gtk2.glade.h:52
+#: data/ui/prefs-dialog-gtk3.glade:1085 data/ui/prefs-dialog-gtk2.glade:1099
 msgid "Command"
 msgstr "Наредба"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:51
-#: ../data/ui/prefs-dialog-gtk2.glade.h:48
+#: data/ui/prefs-dialog-gtk3.glade:1100 data/ui/prefs-dialog-gtk2.glade:1052
 msgid "Mute/Unmute:"
 msgstr "Утишај/Појачај:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:52
-#: ../data/ui/prefs-dialog-gtk2.glade.h:49
+#: data/ui/prefs-dialog-gtk3.glade:1112 data/ui/prefs-dialog-gtk2.glade:1064
 msgid "Volume Up:"
 msgstr "Гласније:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:53
-#: ../data/ui/prefs-dialog-gtk2.glade.h:50
+#: data/ui/prefs-dialog-gtk3.glade:1124 data/ui/prefs-dialog-gtk2.glade:1076
 msgid "Volume Down:"
 msgstr "Тише:"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:54
-#: ../data/ui/prefs-dialog-gtk2.glade.h:51
-msgid "Double-click a HotKey to assign a new HotKey"
-msgstr "Кликните два пута на пречицу да доделите нову"
-
-#: ../data/ui/prefs-dialog-gtk3.glade.h:55
-#: ../data/ui/prefs-dialog-gtk2.glade.h:53
+#: data/ui/prefs-dialog-gtk3.glade:1135 data/ui/prefs-dialog-gtk2.glade:1109
 msgid "HotKey"
 msgstr "Пречица"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:56
-#: ../data/ui/prefs-dialog-gtk2.glade.h:54
+#: data/ui/prefs-dialog-gtk3.glade:1154 data/ui/prefs-dialog-gtk3.glade:1175
+#: data/ui/prefs-dialog-gtk3.glade:1196 data/ui/prefs-dialog-gtk2.glade:1128
+#: data/ui/prefs-dialog-gtk2.glade:1151 data/ui/prefs-dialog-gtk2.glade:1174
 msgid "(None)"
 msgstr "(Ништа)"
 
-#: ../data/ui/prefs-dialog-gtk3.glade.h:57
-#: ../data/ui/prefs-dialog-gtk2.glade.h:55
+#: data/ui/prefs-dialog-gtk3.glade:1212 data/ui/prefs-dialog-gtk2.glade:1087
+msgid "Double-click a HotKey to assign a new HotKey"
+msgstr "Кликните два пута на пречицу да доделите нову"
+
+#: data/ui/prefs-dialog-gtk3.glade:1234 data/ui/prefs-dialog-gtk2.glade:1204
 msgid "<b>HotKey Settings</b>"
 msgstr "<b>Подешавања пречица</b>"
 
-#: ../data/ui/popup-menu-gtk2.glade.h:1
+#: data/ui/popup-menu-gtk2.glade:45
 msgid "_Mute"
 msgstr "_Утишај"
 
-#: ../data/ui/popup-menu-gtk2.glade.h:3
+#: data/ui/popup-menu-gtk2.glade:56
 msgid "_Volume Control"
 msgstr "_Управљај гласноћом"
 
-#: ../data/ui/popup-menu-gtk2.glade.h:6
+#: data/ui/popup-menu-gtk2.glade:81
 msgid "_Reload Sound"
 msgstr "_Поново учитај звук"
 
-#: ../data/ui/prefs-dialog-gtk2.glade.h:4
+#: data/ui/prefs-dialog-gtk2.glade:106
 msgid "Notify for volume changes from:"
 msgstr "Обавести о променама гласноће са:"
