@@ -30,7 +30,7 @@ The procedure looks like that.
 	unset tag
 
 Then upload the files `SHA256`, `SHA256.asc`, `SHA256.sig`,
-`pnmixer-${tag}.tar.gz` and `pnmixer-${tag}.tar.gz` to the github
+`pnmixer-${tag}.tar.gz` and `pnmixer-${tag}.tar.gz.asc` to the GitHub
 release page.
 
 Translating
