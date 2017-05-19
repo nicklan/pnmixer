@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pnmixer 0.7.1\n"
 "Report-Msgid-Bugs-To: https://github.com/nicklan/pnmixer/issues\n"
-"POT-Creation-Date: 2017-03-13 21:25+0700\n"
+"POT-Creation-Date: 2017-05-19 11:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgid "A mixer for the system tray"
 msgstr ""
 
 #: src/ui-about-dialog.c:115
-msgid "Copyright © 2010-2016 Nick Lanham"
+msgid "Copyright © 2010-2017 Nick Lanham"
 msgstr ""
 
 #: src/ui-hotkey-dialog.c:48

@@ -112,7 +112,7 @@ about_dialog_create(GtkWindow *parent)
 	             "artists",            artists,
 	             "authors",            authors,
 	             "comments",           _("A mixer for the system tray"),
-	             "copyright",          _("Copyright © 2010-2016 Nick Lanham"),
+	             "copyright",          _("Copyright © 2010-2017 Nick Lanham"),
 	             "license",            LICENSE_GPL3,
 	             "wrap-license",       TRUE,
 	             "logo-icon-name",     "pnmixer",
