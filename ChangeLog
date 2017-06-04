@@ -1,6 +1,9 @@
 Entries are sorted chronologically from oldest to youngest.  Starting with
 PNMixer entries are labeled with release version.
 
+version 0.7.3:
+ - New translations: Swedish.
+
 version 0.7.2:
  - The manual page is now installed in the right place (`man1`).
 

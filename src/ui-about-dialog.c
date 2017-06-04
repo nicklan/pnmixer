@@ -99,6 +99,7 @@ about_dialog_create(GtkWindow *parent)
 	        "Benno Schulenberg (nl)\n" \
 	        "Pavel Roschin (ru)\n" \
 	        "Мирослав Николић (sr)\n" \
+		"Anders Jonsson (sv)\n" \
 	        "Yuri Chornoivan (uk)\n" \
 	        "Trần Ngọc Quân (vi)\n" \
 	        "Shengyu Zhang (zh_CN)";
