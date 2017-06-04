@@ -37,7 +37,7 @@ Translating
 -----------
 
 When a new version of PNMixer is about to be released, we need to inform the
-[Translation Project](http://translationproject.org) so that they can update
+[Translation Project](https://translationproject.org) so that they can update
 the translations. The TP just needs to know where to download an up to date
 archive of PNMixer. This archive must contain an up to date POT file.
 
@@ -54,7 +54,7 @@ In order to update the POT file, one has to run the following command from the
 	# Then commit the new POT file
 
 The procedure for announcing a new version of PNMixer to the TP is thoroughly
-described on the [maintainters](http://translationproject.org/html/maintainers.html)
+described on the [maintainters](https://translationproject.org/html/maintainers.html)
 page. In a nutshell, send a mail to <coordinator@translationproject.org>, use
 `pnmixer-<version>.pot` as the subject, and include in the body the url of the
 new PNMixer archive.
