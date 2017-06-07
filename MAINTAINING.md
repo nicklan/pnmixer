@@ -20,17 +20,18 @@ For final releases, we want to create an archive manually, additionaly to the
 tag. This is to ensure that we have a persistent archive for a given version.
 The procedure looks like that.
 
-	export tag=v0.7.1
+	export version=0.7.2
+	export tag=v${version}
 	git tag -s -m "Release ${tag}" ${tag}
-	git archive --prefix=pnmixer-${tag}/ --format=tar.gz -o pnmixer-${tag}.tar.gz ${tag}
-	sha256sum --tag pnmixer-${tag}.tar.gz > SHA256
+	git archive --prefix=pnmixer-${version}/ --format=tar.gz -o pnmixer-${version}.tar.gz ${tag}
+	sha256sum --tag pnmixer-${version}.tar.gz > SHA256
 	gpg --armor --detach-sig SHA256
-	gpg --armor --detach-sig pnmixer-${tag}.tar.gz
+	gpg --armor --detach-sig pnmixer-${version}.tar.gz
 	signify -S -s pnmixer_signify.sec  -e -m SHA256
-	unset tag
+	unset tag version
 
 Then upload the files `SHA256`, `SHA256.asc`, `SHA256.sig`,
-`pnmixer-${tag}.tar.gz` and `pnmixer-${tag}.tar.gz.asc` to the GitHub
+`pnmixer-${version}.tar.gz` and `pnmixer-${version}.tar.gz.asc` to the GitHub
 release page.
 
 Translating
