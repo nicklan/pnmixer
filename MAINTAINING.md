@@ -17,7 +17,7 @@ When we enter RC stage...
 - RC releases can be created simply with git tags (preferably signed)
 
 For final releases, we want to create an archive manually, additionaly to the
-tag. This is to ensure that we have an persistent archive for a given version.
+tag. This is to ensure that we have a persistent archive for a given version.
 The procedure looks like that.
 
 	export tag=v0.7.1
