@@ -437,11 +437,22 @@ gdouble
 audio_get_volume(Audio *audio)
 {
 	AlsaCard *soundcard = audio->soundcard;
+	gdouble volume;
 
 	if (!soundcard)
 		return 0;
 
-	return alsa_card_get_volume(soundcard);
+	volume = alsa_card_get_volume(soundcard);
+
+	/* With PulseAudio, it is perfectly possible for the volume to go above 100%.
+	 * Since we don't really expect or handle that, let's clip it right now.
+	 */
+	if (volume < 0)
+		volume = 0;
+	if (volume > 100)
+		volume = 100;
+
+	return volume;
 }
 
 /**
