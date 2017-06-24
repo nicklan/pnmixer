@@ -2,18 +2,16 @@ sudo: required
 services:
   - docker
 
-language: c
-
 env:
     - CC=gcc WITH_GTK3=OFF WITH_LIBNOTIFY=OFF ENABLE_NLS=OFF CMAKE_GENERATOR="Ninja"
     - CC=gcc WITH_GTK3=OFF WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Unix Makefiles"
     - CC=gcc WITH_GTK3=ON WITH_LIBNOTIFY=OFF ENABLE_NLS=OFF CMAKE_GENERATOR="Unix Makefiles"
     - CC=gcc WITH_GTK3=ON WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Ninja"
-    - CC=clang WITH_GTK3=ON WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Ninja"
+    - CC=clang WITH_GTK3=ON WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Unix Makefiles"
 
 before_install:
     - docker pull debian:unstable
 
 script:
-    - docker run -ti -v "`pwd`":/pnmixer debian:unstable sh -c "apt-get update && apt-get install -y clang cmake doxygen gettext libasound2-dev libgtk-3-dev libgtk2.0-dev libnotify-dev ninja-build && cd /pnmixer && mkdir build && cd build && cmake -DWITH_GTK3=${WITH_GTK3} -DWITH_LIBNOTIFY=${WITH_LIBNOTIFY} -DENABLE_NLS=${ENABLE_NLS} -DBUILD_DOCUMENTATION=ON -G \"${CMAKE_GENERATOR}\" -DCMAKE_C_COMPILER=\"${CC}\" .. && if [ \"${CMAKE_GENERATOR}\" = \"Ninja\" ] ; then ninja && DESTDIR=`pwd`/install ninja install ; else make && make DESTDIR=`pwd`/install install ; fi"
+    - docker run -ti -e CC=${CC} -e WITH_GTK3=${WITH_GTK3} -e WITH_LIBNOTIFY=${WITH_LIBNOTIFY} -e ENABLE_NLS=${ENABLE_NLS} -e CMAKE_GENERATOR="${CMAKE_GENERATOR}" -v "`pwd`":/pnmixer debian:unstable /pnmixer/.travis/script.sh
 
