@@ -1,4 +1,8 @@
-PNMixer [![Build Status](https://travis-ci.org/nicklan/pnmixer.svg?branch=master)](https://travis-ci.org/nicklan/pnmixer)
+[![GitHub release](https://img.shields.io/github/release/nicklan/pnmixer.svg)](https://github.com/nicklan/pnmixer/releases)
+[![Build Status](https://travis-ci.org/nicklan/pnmixer.svg?branch=master)](https://travis-ci.org/nicklan/pnmixer)
+[![license](https://img.shields.io/github/license/nicklan/pnmixer.svg)](COPYING)
+
+PNMixer
 =======
 
 Table of Contents
@@ -83,7 +87,7 @@ manually if your distribution does not provide a package.
 * [Debian](https://packages.debian.org/search?keywords=pnmixer&searchon=names&suite=all&section=all)
 * [Gentoo](https://packages.gentoo.org/packages/media-sound/pnmixer)
 * [Exherbo](https://git.exherbo.org/summer/packages/media-sound/pnmixer/index.html)
-* [Arch Linux (unofficial, in AUR)](https://aur.archlinux.org/packages/?O=0&K=pnmixer)
+* [![AUR](https://img.shields.io/aur/version/pnmixer.svg)](https://aur.archlinux.org/packages/pnmixer/)
 
 ### Manual
 
