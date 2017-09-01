@@ -16,7 +16,7 @@ When we enter RC stage...
 - translations should be updated (see below)
 - RC releases can be created simply with git tags (preferably signed)
 
-For final releases, we want to create an archive manually, additionaly to the
+For final releases, we want to create an archive manually, additionally to the
 tag. This is to ensure that we have a persistent archive for a given version.
 The procedure looks like that.
 
