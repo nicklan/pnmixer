@@ -87,27 +87,47 @@ pixbuf_new_from_file(const gchar *filename)
 /**
  * Looks up icons based on the currently selected theme.
  *
- * @param icon_name icon name to look up
+ * @param icon_names NULL terminated array of icon names to look up, the first
+ * valid one will be picked
  * @param size size of the icon
  * @return the corresponding theme icon, NULL on failure,
  * use g_object_unref() to release the reference to the icon
  */
 static GdkPixbuf *
-pixbuf_new_from_stock(const gchar *icon_name, gint size)
+pixbuf_new_from_stock(const gchar **icon_names, gint size)
 {
 	static GtkIconTheme *icon_theme = NULL;
 	GError *err = NULL;
 	GtkIconInfo *info = NULL;
 	GdkPixbuf *pixbuf = NULL;
+	const gchar *icon_name = NULL;
 
 	if (icon_theme == NULL)
 		icon_theme = gtk_icon_theme_get_default();
 
-	info = gtk_icon_theme_lookup_icon(icon_theme, icon_name, size, 0);
-	if (info == NULL) {
-		WARN("Unable to lookup icon '%s'", icon_name);
+	if (icon_names == NULL) {
+		ERROR("Internal error, ptr icon_names is NULL");
 		return NULL;
 	}
+
+	while (*icon_names != NULL) {
+		icon_name = *icon_names;
+
+		info = gtk_icon_theme_lookup_icon(icon_theme, icon_name, size, 0);
+		if (info == NULL) {
+			DEBUG("Unable to lookup icon '%s', trying next (if any)", icon_name);
+		} else {
+			break;
+		}
+
+		icon_names++; // next icon
+	}
+
+	if (info == NULL) {
+		WARN("Unable to find a suitable icon");
+		return NULL;
+	}
+
 
 	DEBUG("Loading stock icon '%s' from '%s'", icon_name,
 	      gtk_icon_info_get_filename(info));
@@ -154,18 +174,26 @@ pixbuf_array_new(int size)
 	system_theme = prefs_get_boolean("SystemTheme", FALSE);
 
 	if (system_theme) {
-		pixbufs[VOLUME_MUTED] = pixbuf_new_from_stock("audio-volume-muted", size);
-		pixbufs[VOLUME_OFF] = pixbuf_new_from_stock("audio-volume-off", size);
-		pixbufs[VOLUME_LOW] = pixbuf_new_from_stock("audio-volume-low", size);
-		pixbufs[VOLUME_MEDIUM] = pixbuf_new_from_stock("audio-volume-medium", size);
-		pixbufs[VOLUME_HIGH] = pixbuf_new_from_stock("audio-volume-high", size);
-		/* 'audio-volume-off' is not available in every icon set.
-		 * Check freedesktop standard for more info:
-		 *   http://standards.freedesktop.org/icon-naming-spec/
-		 *   icon-naming-spec-latest.html
-		 */
-		if (pixbufs[VOLUME_OFF] == NULL)
-			pixbufs[VOLUME_OFF] = pixbuf_new_from_stock("audio-volume-low", size);
+		pixbufs[VOLUME_MUTED] = pixbuf_new_from_stock(
+		(const gchar*[]) {
+			"audio-volume-muted-panel", "audio-volume-muted", NULL
+		}, size);
+		pixbufs[VOLUME_OFF] = pixbuf_new_from_stock(
+		(const gchar*[]) {
+			"audio-volume-off-panel", "audio-volume-off", "audio-volume-low-zero-panel", "audio-volume-low-zero", "audio-volume-low-panel", "audio-volume-low", NULL
+		}, size);
+		pixbufs[VOLUME_LOW] = pixbuf_new_from_stock(
+		(const gchar*[]) {
+			"audio-volume-low-panel", "audio-volume-low", NULL
+		}, size);
+		pixbufs[VOLUME_MEDIUM] = pixbuf_new_from_stock(
+		(const gchar*[]) {
+			"audio-volume-medium-panel", "audio-volume-medium", NULL
+		}, size);
+		pixbufs[VOLUME_HIGH] = pixbuf_new_from_stock(
+		(const gchar*[]) {
+			"audio-volume-high-panel", "audio-volume-high", NULL
+		}, size);
 	} else {
 		pixbufs[VOLUME_MUTED] = pixbuf_new_from_file("pnmixer-muted.png");
 		pixbufs[VOLUME_OFF] = pixbuf_new_from_file("pnmixer-off.png");
