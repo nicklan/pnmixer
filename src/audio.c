@@ -208,6 +208,9 @@ struct audio {
 	gchar *channel;
 	/* Last action performed (volume/mute change) */
 	gint64 last_action_timestamp;
+	/* True if we're not working with the preferred card */
+	gboolean fallback;
+	gint64 fallback_last_check;
 	/* User signal handlers.
 	 * To be invoked when the audio status changes.
 	 */
@@ -343,6 +346,48 @@ audio_signals_connect(Audio *audio, AudioCallback callback, gpointer data)
 }
 
 /**
+ * Whether the audio should be reloaded. In other words, if we're in fallback
+ * mode (aka we're not operating on the preferred soundcard because it's not
+ * available), we should check if the preferred soundcard is available, and
+ * reload the audio in case it is. We don't want to do that too often, so we
+ * maintain a timestamp of the last time we checked.
+ *
+ * @param audio an Audio instance.
+ * @return TRUE if the audio should be reloaded, FALSE otherwise.
+ */
+static gboolean
+audio_should_reload(Audio *audio)
+{
+	gboolean ret = FALSE;
+	gint64 last, now;
+
+	/* If we're not in fallback mode, bail out */
+	if (audio->fallback == FALSE)
+		return FALSE;
+
+	/* Check only if the last check was done more than 10 secs ago */
+	last = audio->fallback_last_check;
+	now = g_get_monotonic_time();
+	if (now - last > 10000000) {
+		gchar *cardname = prefs_get_string("AlsaCard", NULL);
+		GSList *cards = alsa_list_cards();
+		GSList *item = g_slist_find_custom(cards, cardname,
+						   (GCompareFunc) g_strcmp0);
+
+		if (item) {
+			DEBUG("Preferred card available, audio should be reloaded");
+			ret = TRUE;
+		}
+		g_free(cardname);
+		g_slist_free_full(cards, g_free);
+
+		audio->fallback_last_check = now;
+	}
+
+	return ret;
+}
+
+/**
  * Get the name of the card currently hooked.
  * This is an internal string that shouldn't be modified.
  *
@@ -377,8 +422,12 @@ audio_get_channel(Audio *audio)
 gboolean
 audio_has_mute(Audio *audio)
 {
-	AlsaCard *soundcard = audio->soundcard;
+	AlsaCard *soundcard;
 
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
 	if (!soundcard)
 		return FALSE;
 
@@ -394,8 +443,12 @@ audio_has_mute(Audio *audio)
 gboolean
 audio_is_muted(Audio *audio)
 {
-	AlsaCard *soundcard = audio->soundcard;
+	AlsaCard *soundcard;
 
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
 	if (!soundcard)
 		return TRUE;
 
@@ -411,9 +464,12 @@ audio_is_muted(Audio *audio)
 void
 audio_toggle_mute(Audio *audio, AudioUser user)
 {
-	AlsaCard *soundcard = audio->soundcard;
+	AlsaCard *soundcard;
 
-	/* Discard if no soundcard available */
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
 	if (!soundcard)
 		return;
 
@@ -436,9 +492,13 @@ audio_toggle_mute(Audio *audio, AudioUser user)
 gdouble
 audio_get_volume(Audio *audio)
 {
-	AlsaCard *soundcard = audio->soundcard;
+	AlsaCard *soundcard;
 	gdouble volume;
 
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
 	if (!soundcard)
 		return 0;
 
@@ -470,10 +530,6 @@ _audio_set_volume(Audio *audio, AudioUser user, gdouble cur_volume,
                   gdouble new_volume, gint dir)
 {
 	AlsaCard *soundcard = audio->soundcard;
-
-	/* Discard if no soundcard available */
-	if (!soundcard)
-		return;
 
 	/* Set the volume */
 	DEBUG("Setting volume from %lg to %lg (dir: %d)",
@@ -510,8 +566,15 @@ _audio_set_volume(Audio *audio, AudioUser user, gdouble cur_volume,
 void
 audio_set_volume(Audio *audio, AudioUser user, gdouble new_volume, gint dir)
 {
-	AlsaCard *soundcard = audio->soundcard;
+	AlsaCard *soundcard;
 	gdouble cur_volume;
+
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
+	if (!soundcard)
+		return;
 
 	cur_volume = alsa_card_get_volume(soundcard);
 	_audio_set_volume(audio, user, cur_volume, new_volume, dir);
@@ -526,12 +589,18 @@ audio_set_volume(Audio *audio, AudioUser user, gdouble new_volume, gint dir)
 void
 audio_lower_volume(Audio *audio, AudioUser user)
 {
-	AlsaCard *soundcard = audio->soundcard;
-	gdouble scroll_step = audio->scroll_step;
+	AlsaCard *soundcard;
 	gdouble cur_volume, new_volume;
 
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
+	if (!soundcard)
+		return;
+
 	cur_volume = alsa_card_get_volume(soundcard);
-	new_volume = cur_volume - scroll_step;
+	new_volume = cur_volume - audio->scroll_step;
 	if (new_volume < 0)
 		new_volume = 0;
 	_audio_set_volume(audio, user, cur_volume, new_volume, -1);
@@ -546,12 +615,18 @@ audio_lower_volume(Audio *audio, AudioUser user)
 void
 audio_raise_volume(Audio *audio, AudioUser user)
 {
-	AlsaCard *soundcard = audio->soundcard;
-	gdouble scroll_step = audio->scroll_step;
+	AlsaCard *soundcard;
 	gdouble cur_volume, new_volume;
 
+	if (audio_should_reload(audio))
+		audio_reload(audio);
+
+	soundcard = audio->soundcard;
+	if (!soundcard)
+		return;
+
 	cur_volume = alsa_card_get_volume(soundcard);
-	new_volume = cur_volume + scroll_step;
+	new_volume = cur_volume + audio->scroll_step;
 	if (new_volume > 100)
 		new_volume = 100;
 	_audio_set_volume(audio, user, cur_volume, new_volume, +1);
@@ -598,13 +673,16 @@ audio_hook_soundcard(Audio *audio)
 	DEBUG("Hooking soundcard '%s (%s)' to the audio system", audio->card, audio->channel);
 
 	soundcard = alsa_card_new(audio->card, audio->channel, audio->normalize);
-	if (soundcard)
+	if (soundcard) {
+		audio->fallback = FALSE;
 		goto end;
+	}
 
 	/* On failure, try to create the card from the list of available cards.
 	 * We don't try with the card name that just failed.
 	 */
 	DEBUG("Could not hook soundcard, trying every card available");
+	audio->fallback = TRUE;
 
 	card_list = alsa_list_cards();
 	item = g_slist_find_custom(card_list, audio->card, (GCompareFunc) g_strcmp0);
