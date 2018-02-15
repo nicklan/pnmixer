@@ -16,7 +16,7 @@ edo cd build
 
 # for clang, do static analysis
 if [[ ${CC} == "clang" ]] ; then
-	clang_ver="3.8"
+	clang_ver="4.0"
 	build_wrapper="scan-build-${clang_ver} --status-bugs --use-analyzer=/usr/bin/clang-${clang_ver}"
 	export CC="/usr/lib/llvm-${clang_ver}/libexec/ccc-analyzer"
 else
