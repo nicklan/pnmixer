@@ -10,6 +10,7 @@ edo() {
 edo apt-get update
 edo apt-get install -y clang-5.0 cmake doxygen graphviz gettext libasound2-dev libgtk-3-dev libgtk2.0-dev libnotify-dev ninja-build
 
+edo /usr/share/clang/scan-build-5.0/libexec/ccc-analyzer --help
 edo /usr/lib/llvm-5.0/libexec/ccc-analyzer --help
 
 edo cd /pnmixer
