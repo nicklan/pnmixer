@@ -8,7 +8,7 @@ edo() {
 }
 
 edo apt-get update
-edo apt-get install -y clang cmake doxygen graphviz gettext libasound2-dev libgtk-3-dev libgtk2.0-dev libnotify-dev ninja-build
+edo apt-get install -y clang-5.0 cmake doxygen graphviz gettext libasound2-dev libgtk-3-dev libgtk2.0-dev libnotify-dev ninja-build
 
 edo cd /pnmixer
 edo mkdir build
@@ -16,7 +16,7 @@ edo cd build
 
 # for clang, do static analysis
 if [[ ${CC} == "clang" ]] ; then
-	clang_ver="4.0"
+	clang_ver="5.0"
 	build_wrapper="scan-build-${clang_ver} --status-bugs --use-analyzer=/usr/bin/clang-${clang_ver}"
 	export CC="/usr/lib/llvm-${clang_ver}/libexec/ccc-analyzer"
 else
