@@ -143,10 +143,12 @@ TODO/Help wanted
 
 - [Move away from deprecated GtkStatusIcon?](https://github.com/nicklan/pnmixer/issues/81)
 
-Known Bugs
-----------
+Known Bugs/Glitches
+-------------------
 
 - On panel sizes of 21 and 22 pixels, the volume meter offset can be messed up (gtk3 only). This seems to be a gtk3 bug, not a PNMixer one. Also see [issue 136](https://github.com/nicklan/pnmixer/issues/136).
+
+- volume slider popup window overlaps desktop panel, see [issue 71](https://github.com/nicklan/pnmixer/issues/71)
 
 You can also skim through the [issue tracker](https://github.com/nicklan/pnmixer/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
 
