@@ -3,13 +3,10 @@ services:
   - docker
 
 env:
-    - CC=gcc WITH_GTK3=OFF WITH_LIBNOTIFY=OFF ENABLE_NLS=OFF CMAKE_GENERATOR="Ninja"
-    - CC=gcc WITH_GTK3=OFF WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Unix Makefiles"
-    - CC=gcc WITH_GTK3=ON WITH_LIBNOTIFY=OFF ENABLE_NLS=OFF CMAKE_GENERATOR="Unix Makefiles"
-    - CC=gcc WITH_GTK3=ON WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Ninja"
     - CC=clang WITH_GTK3=ON WITH_LIBNOTIFY=ON ENABLE_NLS=ON CMAKE_GENERATOR="Unix Makefiles"
 
 before_install:
+    - find /usr/local/clang-5.0.0/bin
     - docker pull debian:unstable
 
 script:
