@@ -166,8 +166,10 @@ pixbuf_array_free(GdkPixbuf **pixbufs)
 static GdkPixbuf **
 pixbuf_array_new(int size)
 {
-	GdkPixbuf *pixbufs[N_VOLUME_PIXBUFS];
+	GdkPixbuf **pixbufs;
 	gboolean system_theme;
+
+	pixbufs = g_new0(GdkPixbuf *, N_VOLUME_PIXBUFS);
 
 	DEBUG("Building pixbuf array (requesting size %d)", size);
 
@@ -202,7 +204,7 @@ pixbuf_array_new(int size)
 		pixbufs[VOLUME_HIGH] = pixbuf_new_from_file("pnmixer-high.png");
 	}
 
-	return g_memdup(pixbufs, sizeof pixbufs);
+	return pixbufs;
 }
 
 /* Tray icon volume meter */
