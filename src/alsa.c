@@ -336,6 +336,7 @@ mixer_get_poll_descriptors(const char *hctl, snd_mixer_t *mixer)
 	err = snd_mixer_poll_descriptors(mixer, fds, count);
 	if (err < 0) {
 		ALSA_CARD_ERR(hctl, err, "Couldn't get poll descriptors");
+		g_free(fds);
 		return NULL;
 	}
 
