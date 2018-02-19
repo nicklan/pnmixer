@@ -344,7 +344,7 @@ vol_meter_draw(VolMeter *vol_meter, GdkPixbuf *pixbuf, int volume)
 /* Update the tray icon pixbuf according to the current audio state. */
 static void
 update_status_icon_pixbuf(GtkStatusIcon *status_icon,
-                          GdkPixbuf **pixbufs, VolMeter *vol_meter,
+                          GdkPixbuf *pixbufs[N_VOLUME_PIXBUFS], VolMeter *vol_meter,
                           gdouble volume, gboolean muted)
 {
 	GdkPixbuf *pixbuf;
