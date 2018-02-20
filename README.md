@@ -143,12 +143,16 @@ TODO/Help wanted
 
 - [Move away from deprecated GtkStatusIcon?](https://github.com/nicklan/pnmixer/issues/81)
 
+- **PulseAudio support:** this needs to be implemented from scratch and **will likely not happen**. The structure of how PulseAudio works is fundamentally different from Alsa and doesn't seem to play well with the current design of PNMixer. Either we'd need two completely divergent codepaths or try really hard to abstract over both Alsa and PulseAudio, which in itself is kind of weird (since PulseAudio is supposed to abstract over Alsa etc.).
+
 Known Bugs/Glitches
 -------------------
 
 - On panel sizes of 21 and 22 pixels, the volume meter offset can be messed up (gtk3 only). This seems to be a gtk3 bug, not a PNMixer one. Also see [issue 136](https://github.com/nicklan/pnmixer/issues/136).
 
 - volume slider popup window overlaps desktop panel, see [issue 71](https://github.com/nicklan/pnmixer/issues/71)
+
+- There are various problems with PulseAudio, since there is **no PulseAudio** backend. One specific issue is the unmute functionality misbehaving, also see [issue 70](https://github.com/nicklan/pnmixer/issues/70).
 
 You can also skim through the [issue tracker](https://github.com/nicklan/pnmixer/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
 
