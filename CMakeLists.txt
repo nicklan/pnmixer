@@ -22,6 +22,14 @@ option(WITH_GTK3 "Use Gtk3 as toolkit" ON)
 option(WITH_LIBNOTIFY "Enable sending of notifications" ON)
 option(ENABLE_NLS "Enable building of translations" ON)
 option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
+# https://github.com/nicklan/pnmixer/issues/178
+if (CMAKE_BUILD_TYPE STREQUAL Release)
+	set(DATA_IN_CWD_default OFF)
+else()
+	set(DATA_IN_CWD_default ON)
+endif()
+option(DATA_IN_CWD "Whether to also look for data files in the current directory" ${DATA_IN_CWD_default})
+
 
 
 ## packages required across multiple subdirectories

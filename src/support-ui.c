@@ -22,7 +22,7 @@
 
 /**
  * Gets the path to a data file.
- * Looks first in ./data/[path], and then in
+ * May first look in ./data/[path], and then in
  * PACKAGE_DATA_DIR/PACKAGE/[path].
  *
  * @param path of the file
@@ -33,10 +33,12 @@ get_data_file(const char *pathname)
 {
 	gchar *path;
 
+#ifdef DATA_IN_CWD
 	path = g_build_filename(".", "data", pathname, NULL);
 	if (g_file_test(path, G_FILE_TEST_EXISTS))
 		return path;
 	g_free(path);
+#endif
 
 	path = g_build_filename(PACKAGE_DATA_DIR, PACKAGE, pathname, NULL);
 	if (g_file_test(path, G_FILE_TEST_EXISTS))
@@ -78,7 +80,7 @@ gtk_combo_box_text_remove_all(GtkComboBoxText *combo_box)
 
 /**
  * Gets the path to an ui file.
- * Looks first in ./data/ui/[file], and then in
+ * May first look in ./data/ui/[file], and then in
  * PACKAGE_DATA_DIR/PACKAGE/ui/[file].
  *
  * @param filename the name of the ui file
@@ -96,7 +98,7 @@ get_ui_file(const char *uifilename)
 
 /**
  * Gets the path to a pixmap file.
- * Looks first in ./data/pixmaps/[file], and then in
+ * May first look in ./data/pixmaps/[file], and then in
  * PACKAGE_DATA_DIR/PACKAGE/ui/[file].
  *
  * @param filename the pixmap file to find
