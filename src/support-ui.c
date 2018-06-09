@@ -20,6 +20,35 @@
 #include "support-log.h"
 #include "support-intl.h"
 
+/**
+ * Gets the path to a data file.
+ * Looks first in ./data/[path], and then in
+ * PACKAGE_DATA_DIR/PACKAGE/[path].
+ *
+ * @param path of the file
+ * @return path to the file or NULL on failure. Must be freed.
+ */
+static gchar *
+get_data_file(const char *pathname)
+{
+	gchar *path;
+
+	path = g_build_filename(".", "data", pathname, NULL);
+	if (g_file_test(path, G_FILE_TEST_EXISTS))
+		return path;
+	g_free(path);
+
+	path = g_build_filename(PACKAGE_DATA_DIR, PACKAGE, pathname, NULL);
+	if (g_file_test(path, G_FILE_TEST_EXISTS))
+		return path;
+	g_free(path);
+
+	WARN("Could not find data file '%s'", pathname);
+
+	return NULL;
+}
+
+
 #ifndef WITH_GTK3
 GtkBuilder *
 gtk_builder_new_from_file (const gchar *filename)
@@ -46,6 +75,7 @@ gtk_combo_box_text_remove_all(GtkComboBoxText *combo_box)
 }
 #endif
 
+
 /**
  * Gets the path to an ui file.
  * Looks first in ./data/ui/[file], and then in
@@ -55,47 +85,29 @@ gtk_combo_box_text_remove_all(GtkComboBoxText *combo_box)
  * @return path to the ui file or NULL on failure. Must be freed.
  */
 gchar *
-get_ui_file(const char *filename)
+get_ui_file(const char *uifilename)
 {
-	gchar *path;
+	gchar *filename = g_build_filename("ui", uifilename, NULL);
+	gchar *filepath = get_data_file(filename);
 
-	path = g_build_filename(".", "data", "ui", filename, NULL);
-	if (g_file_test(path, G_FILE_TEST_EXISTS))
-		return path;
-	g_free(path);
-
-	path = g_build_filename(PACKAGE_DATA_DIR, PACKAGE, "ui", filename, NULL);
-	if (g_file_test(path, G_FILE_TEST_EXISTS))
-		return path;
-	g_free(path);
-
-	WARN("Could not find ui file '%s'", filename);
-	return NULL;
+	g_free(filename);
+	return filepath;
 }
 
 /**
  * Gets the path to a pixmap file.
- * Looks first in ./data/ui/[file], and then in
+ * Looks first in ./data/pixmaps/[file], and then in
  * PACKAGE_DATA_DIR/PACKAGE/ui/[file].
  *
  * @param filename the pixmap file to find
  * @return path to the ui file or NULL on failure. Must be freed.
  */
 gchar *
-get_pixmap_file(const gchar *filename)
+get_pixmap_file(const gchar *pixfilename)
 {
-	gchar *path;
+	gchar *filename = g_build_filename("pixmaps", pixfilename, NULL);
+	gchar *filepath = get_data_file(filename);
 
-	path = g_build_filename(".", "data", "pixmaps", filename, NULL);
-	if (g_file_test(path, G_FILE_TEST_EXISTS))
-		return path;
-	g_free(path);
-
-	path = g_build_filename(PACKAGE_DATA_DIR, PACKAGE, "pixmaps", filename, NULL);
-	if (g_file_test(path, G_FILE_TEST_EXISTS))
-		return path;
-	g_free(path);
-
-	WARN("Could not find pixmap file '%s'", filename);
-	return NULL;
+	g_free(filename);
+	return filepath;
 }
