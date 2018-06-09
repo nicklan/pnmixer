@@ -109,4 +109,7 @@ How to Contribute
 Tips and Tricks
 ---------------
 
-* if you use vim with [youcompleteme](http://valloric.github.io/YouCompleteMe/), you can use the following [.ycm_extra_conf.py](https://gist.github.com/hasufell/0a97cc13de3ef2f061bb)
+* if you use vim with [youcompleteme](http://valloric.github.io/YouCompleteMe/), you can use the provided project `.ycm_extra_conf.py`
+* if you use vim with [ALE](https://github.com/w0rp/ale) you can use the provided local `_vimrc_local.vim` to set gcc/clang cflags
+	- you might have to install [local_vimrc](https://github.com/LucHermitte/local_vimrc)
+	- use `cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=yes`, because it generates [compile_commands.json](https://clang.llvm.org/docs/JSONCompilationDatabase.html), which can be used by ALEs `clangtidy` and `cppcheck` linters
