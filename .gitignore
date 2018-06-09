@@ -4,10 +4,6 @@
 # temp
 *~
 
-# ycm
-.ycm_extra_conf.py
-.ycm_extra_conf.pyc
-
 # generated
 /data/desktop/pnmixer.desktop
 /data/man/pnmixer.1
