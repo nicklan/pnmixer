@@ -16,6 +16,9 @@
 /* libnotify mode */
 #cmakedefine WITH_LIBNOTIFY
 
+/* whether to also look for data in the current working directory */
+#cmakedefine DATA_IN_CWD
+
 #define PACKAGE_DATA_DIR "@CMAKE_INSTALL_FULL_DATADIR@"
 
 #define PACKAGE_LOCALE_DIR "@CMAKE_INSTALL_FULL_LOCALEDIR@"
