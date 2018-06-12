@@ -13,10 +13,17 @@ Table of Contents
 Getting Started
 ---------------
 
-At first, be sure to run PNMixer from the root directory, otherwise it won't
+Build PNMixer:
+
+    mkdir build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Debug ..
+    make
+
+Be sure to run PNMixer from the build directory, otherwise it won't
 find the data files.
 
-	cd build
+	cd build # if you haven't already
 	./src/pnmixer
 
 To switch on debug messages, invoke PNMixer with the `-d` command-line option.

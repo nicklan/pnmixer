@@ -119,7 +119,7 @@ To __install__ this program cd to this directory and run:
 
     mkdir build
     cd build
-    cmake ..
+    cmake -DCMAKE_BUILD_TYPE=Release ..
     make
     make install
 
