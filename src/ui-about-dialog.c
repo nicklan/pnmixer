@@ -92,7 +92,8 @@ about_dialog_create(GtkWindow *parent)
 	};
 	const gchar *translators =
 	        "The Translation Project https://translationproject.org\n" \
-	        "Mario Blättermann (de)\n" \
+		"Joe Hansen (da)\n" \
+		"Mario Blättermann (de)\n" \
 	        "Stéphane Aulery (fr)\n" \
 	        "Božidar Putanec (hr)\n" \
 	        "Mattia Bertoni (it)\n" \

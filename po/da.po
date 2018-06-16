@@ -1,0 +1,483 @@
+# Danish translation pnmixer
+# Copyright (C) 2018 PNMixer team (msgids)
+# This file is distributed under the same license as the pnmixer package.
+# Joe Hansen <joedalton2@yahoo.dk>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pnmixer 0.7.1-rc3\n"
+"Report-Msgid-Bugs-To: https://github.com/nicklan/pnmixer/issues\n"
+"POT-Creation-Date: 2017-03-13 21:25+0700\n"
+"PO-Revision-Date: 2018-06-06 20:58+0200\n"
+"Last-Translator: joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/hotkeys.c:175
+msgid "Could not grab the following HotKeys"
+msgstr "Kunne ikke fange de følgende genveje"
+
+#: src/hotkeys.c:176 src/ui-prefs-dialog.c:339
+#: data/ui/prefs-dialog-gtk3.glade:973 data/ui/prefs-dialog-gtk2.glade:935
+msgid "Mute/Unmute"
+msgstr "Tænd/sluk"
+
+#: src/hotkeys.c:178 src/ui-prefs-dialog.c:342
+msgid "Volume Up"
+msgstr "Lydstyrke op"
+
+#: src/hotkeys.c:180 src/ui-prefs-dialog.c:345
+msgid "Volume Down"
+msgstr "Lydstyrke ned"
+
+#: src/main.c:69
+#, c-format
+msgid "Unable to run command: %s"
+msgstr "Kan ikke køre kommando: %s"
+
+#: src/main.c:89
+msgid "No mixer application was found on your system. Please open preferences and set the command you want to run for volume control."
+msgstr "Intet mixer-program blev fundet på dit system. Åbn præferencer og angiv kommandoen du ønsker at køre for lydstyrkekontrol."
+
+#: src/main.c:109
+msgid "You have not specified a custom command to run, please specify one in preferences."
+msgstr "Du har ikke angivet en tilpasset kommando at afvikle, specificer en i præferencer."
+
+#: src/main.c:210 src/main.c:248
+msgid "PNMixer Error"
+msgstr "PNMixer-fejl"
+
+#: src/main.c:239
+msgid "Warning: Connection to sound system failed."
+msgstr "Advarsel: Forbindelse til lydsystem mislykkedes."
+
+#: src/main.c:243
+msgid ""
+"Do you want to re-initialize the audio connection ?\n"
+"\n"
+"If you do not, you will either need to restart PNMixer or select the 'Reload Audio' option in the right-click menu in order for PNMixer to function."
+msgstr ""
+"Ønsker du at initialisere lydforbindelsen igen?\n"
+"\n"
+"Hvis du ikke gør det, skal du enten genstarte PNMixer eller vælge »Genindlæs lyd«-indstillingen i højrekliksmenuen for at PNMixer fungerer korrekt igen."
+
+#: src/main.c:334
+msgid "- A mixer for the system tray."
+msgstr "- En mixer for statusfeltet."
+
+#: src/main.c:342
+#, c-format
+msgid "%s version: %s\n"
+msgstr "%s version: %s\n"
+
+#: src/notif.c:77
+msgid "Volume muted"
+msgstr "Lyden er slukket"
+
+#: src/notif.c:82 src/ui-tray-icon.c:355
+msgid "Volume"
+msgstr "Lydstyrke"
+
+#: src/notif.c:135
+msgid "No sound card"
+msgstr "Intet lydkort"
+
+#: src/notif.c:136
+msgid "No playable soundcard found"
+msgstr "Intet lydkort til afspilning fundet"
+
+#: src/notif.c:141
+msgid "Soundcard disconnected"
+msgstr "Lydkort er ikke forbundet"
+
+#: src/notif.c:142
+msgid "Soundcard has been disconnected, reloading sound system..."
+msgstr "Lydkortet er blevet afbrudt, genindlæser lydsystem ..."
+
+#: src/prefs.c:356
+#, c-format
+msgid "Couldn't load preferences file: %s"
+msgstr "Kunne ikke indlæse præferencefilen: %s"
+
+#: src/prefs.c:365
+#, c-format
+msgid "Couldn't load default preferences: %s"
+msgstr "Kunne ikke indlæse standardpræferencer: %s"
+
+#: src/prefs.c:391
+#, c-format
+msgid "Couldn't write preferences file: %s"
+msgstr "Kunne ikke skrive præferencefilen: %s"
+
+#: src/prefs.c:411
+#, c-format
+msgid "'%s' exists but is not a directory, won't be able to save preferences."
+msgstr "»%s« findes men er ikke en mappe. Vil ikke kunne gemme præferencer."
+
+#: src/prefs.c:415
+#, c-format
+msgid "Couldn't make preferences directory: %s"
+msgstr "Kunne ikke oprette præferencemappen: %s"
+
+#: src/ui-about-dialog.c:114
+msgid "A mixer for the system tray"
+msgstr "En mixer for statusfeltet"
+
+#: src/ui-about-dialog.c:115
+msgid "Copyright © 2010-2016 Nick Lanham"
+msgstr "Ophavsret 2010-2016 Nick Lanham"
+
+#: src/ui-hotkey-dialog.c:48
+#, c-format
+msgid "Set %s HotKey"
+msgstr "Angiv %s-genvej"
+
+#: src/ui-hotkey-dialog.c:52
+#, c-format
+msgid "Press new HotKey for <b>%s</b>"
+msgstr "Tryk på ny genvej for <b>%s</b>"
+
+#: src/ui-hotkey-dialog.c:174
+msgid "Could not grab the keyboard."
+msgstr "Kunne ikke fange tastaturet."
+
+#: src/ui-popup-menu.c:57 src/ui-popup-menu.c:84 src/ui-popup-window.c:129
+msgid "Soundcard has no mute switch"
+msgstr "Lydkortet har ingen kontakt til at slukke for lyden"
+
+#: src/ui-prefs-dialog.c:373
+msgid "None"
+msgstr "Ingen"
+
+#: src/ui-prefs-dialog.c:867
+msgid "Notifications"
+msgstr "Påmindelser"
+
+#: src/ui-tray-icon.c:357
+msgid "No mute switch"
+msgstr "Ingen kontakt til at slukke lyden"
+
+#: src/ui-tray-icon.c:359
+msgid "Muted"
+msgstr "Lyd slukket"
+
+#: data/desktop/pnmixer.desktop.in:3
+msgid "PNMixer"
+msgstr "PNMixer"
+
+#: data/desktop/pnmixer.desktop.in:4
+msgid "System Tray Mixer"
+msgstr "Statusfeltmixer"
+
+#: data/desktop/pnmixer.desktop.in:5
+msgid "An audio mixer for the system tray"
+msgstr "En lydmixer for statusfeltet"
+
+#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/desktop/pnmixer.desktop.in:7
+msgid "alsa;audio;mixer;sound;"
+msgstr "alsa;lyd;audio;mixer;mikser;sound;"
+
+#. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/desktop/pnmixer.desktop.in:11
+msgid "pnmixer"
+msgstr "pnmixer"
+
+#: data/ui/hotkey-dialog-gtk3.glade:55 data/ui/prefs-dialog-gtk3.glade:279
+msgid "Cancel"
+msgstr "Afbryd"
+
+#: data/ui/hotkey-dialog-gtk3.glade:109 data/ui/hotkey-dialog-gtk2.glade:49
+msgid "Defining HotKey"
+msgstr "Definitation af genvej"
+
+#: data/ui/hotkey-dialog-gtk3.glade:124 data/ui/hotkey-dialog-gtk2.glade:65
+msgid "(press <Ctrl>C to reset)"
+msgstr "(tryk <Ctrl>C for at nulstille)"
+
+#: data/ui/popup-menu-gtk3.glade:33 data/ui/popup-menu-gtk2.glade:49
+msgid "Mute/Unmute Volume"
+msgstr "Sluk/tænd for lyden"
+
+#: data/ui/popup-menu-gtk3.glade:58
+#: data/ui/popup-window-horizontal-gtk3.glade:54
+#: data/ui/popup-window-vertical-gtk3.glade:58
+#: data/ui/popup-window-horizontal-gtk2.glade:56
+#: data/ui/popup-window-vertical-gtk2.glade:58
+msgid "Mute"
+msgstr "Sluk for lyden"
+
+#: data/ui/popup-menu-gtk3.glade:73 data/ui/popup-menu-gtk2.glade:60
+msgid "Open Volume Control"
+msgstr "Åbn lydstyrkehåndtering"
+
+#: data/ui/popup-menu-gtk3.glade:95 data/ui/prefs-dialog-gtk3.glade:975
+#: data/ui/prefs-dialog-gtk2.glade:937
+msgid "Volume Control"
+msgstr "Lydstyrkehåndtering"
+
+#: data/ui/popup-menu-gtk3.glade:110 data/ui/popup-menu-gtk3.glade:133
+#: data/ui/popup-menu-gtk2.glade:73
+msgid "Preferences"
+msgstr "Præferencer"
+
+#: data/ui/popup-menu-gtk3.glade:148 data/ui/popup-menu-gtk3.glade:171
+#: data/ui/popup-menu-gtk2.glade:85
+msgid "Reload Sound"
+msgstr "Genindlæs lyd"
+
+#: data/ui/popup-menu-gtk3.glade:186 data/ui/popup-menu-gtk3.glade:209
+#: data/ui/popup-menu-gtk2.glade:98
+msgid "About"
+msgstr "Om"
+
+#: data/ui/popup-menu-gtk3.glade:231 data/ui/popup-menu-gtk3.glade:254
+#: data/ui/popup-menu-gtk2.glade:117
+msgid "Quit"
+msgstr "Afslut"
+
+#: data/ui/popup-window-horizontal-gtk3.glade:81
+#: data/ui/popup-window-vertical-gtk3.glade:74
+#: data/ui/popup-window-horizontal-gtk2.glade:72
+#: data/ui/popup-window-vertical-gtk2.glade:74
+msgid "Mixer"
+msgstr "Mixer"
+
+#: data/ui/prefs-dialog-gtk3.glade:43 data/ui/prefs-dialog-gtk2.glade:68
+msgid "Timeout (ms):"
+msgstr "Tidsudløb (ms):"
+
+#: data/ui/prefs-dialog-gtk3.glade:65 data/ui/prefs-dialog-gtk2.glade:46
+msgid "Enable Notifications"
+msgstr "Aktiver påmindelser"
+
+#: data/ui/prefs-dialog-gtk3.glade:89 data/ui/prefs-dialog-gtk2.glade:210
+msgid "<b>Notification Options</b>"
+msgstr "<b>Påmindelsesindstillinger</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:116 data/ui/prefs-dialog-gtk3.glade:1255
+#: data/ui/prefs-dialog-gtk2.glade:125 data/ui/prefs-dialog-gtk2.glade:1225
+msgid "HotKeys"
+msgstr "Genveje"
+
+#: data/ui/prefs-dialog-gtk3.glade:132 data/ui/prefs-dialog-gtk2.glade:146
+msgid "Mouse Scroll"
+msgstr "Muserul"
+
+#: data/ui/prefs-dialog-gtk3.glade:148 data/ui/prefs-dialog-gtk2.glade:167
+msgid "Adjustment in Popups"
+msgstr "Justering i pop op'er"
+
+#: data/ui/prefs-dialog-gtk3.glade:164 data/ui/prefs-dialog-gtk2.glade:188
+msgid "External Change"
+msgstr "Ekstern ændring"
+
+#: data/ui/prefs-dialog-gtk3.glade:185
+msgid "<b>Notify for volume changes from:</b>"
+msgstr "<b>Påmind om lydstyrkeændringer fra:</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:212 data/ui/prefs-dialog-gtk2.glade:12
+msgid "Notification support disabled at compile time."
+msgstr "Påmindelsesunderstøttelse er deaktiveret på kompileringstidspunktet."
+
+#: data/ui/prefs-dialog-gtk3.glade:236 data/ui/prefs-dialog-gtk2.glade:241
+msgid "PNMixer Preferences"
+msgstr "PNMixer-præferencer"
+
+#: data/ui/prefs-dialog-gtk3.glade:324
+msgid "Ok"
+msgstr "O.k."
+
+#: data/ui/prefs-dialog-gtk3.glade:369
+msgid "Apply"
+msgstr "Anvend"
+
+#: data/ui/prefs-dialog-gtk3.glade:427 data/ui/prefs-dialog-gtk2.glade:338
+msgid "Card:"
+msgstr "Kort:"
+
+#: data/ui/prefs-dialog-gtk3.glade:439 data/ui/prefs-dialog-gtk2.glade:349
+msgid "Channel:"
+msgstr "Kanal:"
+
+#: data/ui/prefs-dialog-gtk3.glade:450 data/ui/prefs-dialog-gtk2.glade:409
+msgid "Change volume on a logarithmic scale, closer to human perception."
+msgstr "Ændr lydstyrke på en logaritmisk skala, tættere på menneskelig opfattelse."
+
+#: data/ui/prefs-dialog-gtk3.glade:452 data/ui/prefs-dialog-gtk2.glade:408
+msgid "Normalize Volume:"
+msgstr "Normaliser lydstyrke:"
+
+#: data/ui/prefs-dialog-gtk3.glade:502 data/ui/prefs-dialog-gtk2.glade:425
+msgid "<b>Sound Device</b>"
+msgstr "<b>Lydenhed</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:520 data/ui/prefs-dialog-gtk2.glade:443
+msgid "Device"
+msgstr "Enhed"
+
+#: data/ui/prefs-dialog-gtk3.glade:555 data/ui/prefs-dialog-gtk2.glade:477
+msgid "Slider Orientation:"
+msgstr "Skyderretning:"
+
+#: data/ui/prefs-dialog-gtk3.glade:567 data/ui/prefs-dialog-gtk2.glade:520
+msgid "Text Volume Position:"
+msgstr "Tekstlydstyrkeposition:"
+
+#: data/ui/prefs-dialog-gtk3.glade:576 data/ui/prefs-dialog-gtk2.glade:501
+msgid "Display Text Volume"
+msgstr "Vis tekstlydstyrke"
+
+#: data/ui/prefs-dialog-gtk3.glade:596 data/ui/prefs-dialog-gtk2.glade:489
+msgid "Vertical"
+msgstr "Lodret"
+
+#: data/ui/prefs-dialog-gtk3.glade:597 data/ui/prefs-dialog-gtk2.glade:490
+msgid "Horizontal"
+msgstr "Vandret"
+
+#: data/ui/prefs-dialog-gtk3.glade:611 data/ui/prefs-dialog-gtk2.glade:534
+msgid "Top"
+msgstr "Øverst"
+
+#: data/ui/prefs-dialog-gtk3.glade:612 data/ui/prefs-dialog-gtk2.glade:535
+msgid "Bottom"
+msgstr "Nederst"
+
+#: data/ui/prefs-dialog-gtk3.glade:613 data/ui/prefs-dialog-gtk2.glade:536
+msgid "Left"
+msgstr "Venstre"
+
+#: data/ui/prefs-dialog-gtk3.glade:614 data/ui/prefs-dialog-gtk2.glade:537
+msgid "Right"
+msgstr "Højre"
+
+#: data/ui/prefs-dialog-gtk3.glade:632 data/ui/prefs-dialog-gtk2.glade:556
+msgid "<b>Volume Popup</b>"
+msgstr "<b>Lydstyrke-pop op</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:663 data/ui/prefs-dialog-gtk2.glade:619
+msgid "Volume Meter Color:"
+msgstr "Farve på lydstyrkemåler:"
+
+#: data/ui/prefs-dialog-gtk3.glade:675 data/ui/prefs-dialog-gtk2.glade:606
+msgid "Volume Meter Offset (%):"
+msgstr "Forskydning på lydstyrkemåler (%)"
+
+#: data/ui/prefs-dialog-gtk3.glade:713 data/ui/prefs-dialog-gtk2.glade:589
+msgid "Draw Volume Meter on Tray Icon"
+msgstr "Tegn lydstyrkemåler på statusikon"
+
+#: data/ui/prefs-dialog-gtk3.glade:735 data/ui/prefs-dialog-gtk2.glade:672
+msgid "<b>Volume Meter</b>"
+msgstr "<b>Lydstyrkemåler</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:755 data/ui/prefs-dialog-gtk2.glade:699
+msgid "Use System Theme"
+msgstr "Brug systemtema"
+
+#: data/ui/prefs-dialog-gtk3.glade:770 data/ui/prefs-dialog-gtk2.glade:712
+msgid "<b>Icon Theme</b>"
+msgstr "<b>Ikontema</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:791 data/ui/prefs-dialog-gtk2.glade:732
+msgid "View"
+msgstr "Vis"
+
+#: data/ui/prefs-dialog-gtk3.glade:829 data/ui/prefs-dialog-gtk2.glade:772
+msgid "<b>Volume Control Command</b>"
+msgstr "<b>Kommando for lydstyrkestyring</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:860 data/ui/prefs-dialog-gtk2.glade:808
+msgid "Scroll Step:"
+msgstr "Rul-trin:"
+
+#: data/ui/prefs-dialog-gtk3.glade:872 data/ui/prefs-dialog-gtk2.glade:819
+msgid "Fine Scroll Step:"
+msgstr "Fint rul-trin:"
+
+#: data/ui/prefs-dialog-gtk3.glade:918 data/ui/prefs-dialog-gtk2.glade:875
+msgid "<b>Volume Scrolling</b>"
+msgstr "<b>Lydstyrkerulning</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:949 data/ui/prefs-dialog-gtk2.glade:922
+msgid "Custom Command:"
+msgstr "Tilpasset kommando:"
+
+#: data/ui/prefs-dialog-gtk3.glade:961 data/ui/prefs-dialog-gtk2.glade:911
+msgid "Middle Click Action:"
+msgstr "Midterste klikhandling:"
+
+#: data/ui/prefs-dialog-gtk3.glade:974 data/ui/prefs-dialog-gtk2.glade:936
+msgid "Show Preferences"
+msgstr "Vis præferencer"
+
+#: data/ui/prefs-dialog-gtk3.glade:976 data/ui/prefs-dialog-gtk2.glade:938
+msgid "Custom (set below)"
+msgstr "Tilpasset (se nedenfor)"
+
+#: data/ui/prefs-dialog-gtk3.glade:1005 data/ui/prefs-dialog-gtk2.glade:974
+msgid "<b>Mouse</b>"
+msgstr "<b>Mus</b>"
+
+#: data/ui/prefs-dialog-gtk3.glade:1026 data/ui/prefs-dialog-gtk2.glade:995
+msgid "Behavior"
+msgstr "Opførsel"
+
+#: data/ui/prefs-dialog-gtk3.glade:1057 data/ui/prefs-dialog-gtk2.glade:1025
+msgid "Enable HotKeys"
+msgstr "Aktiver genveje"
+
+#: data/ui/prefs-dialog-gtk3.glade:1085 data/ui/prefs-dialog-gtk2.glade:1099
+msgid "Command"
+msgstr "Kommando"
+
+#: data/ui/prefs-dialog-gtk3.glade:1100 data/ui/prefs-dialog-gtk2.glade:1052
+msgid "Mute/Unmute:"
+msgstr "Tænd/sluk for lyden:"
+
+#: data/ui/prefs-dialog-gtk3.glade:1112 data/ui/prefs-dialog-gtk2.glade:1064
+msgid "Volume Up:"
+msgstr "Lydstyrke op:"
+
+#: data/ui/prefs-dialog-gtk3.glade:1124 data/ui/prefs-dialog-gtk2.glade:1076
+msgid "Volume Down:"
+msgstr "Lydstyrke ned:"
+
+#: data/ui/prefs-dialog-gtk3.glade:1135 data/ui/prefs-dialog-gtk2.glade:1109
+msgid "HotKey"
+msgstr "Genvek"
+
+#: data/ui/prefs-dialog-gtk3.glade:1154 data/ui/prefs-dialog-gtk3.glade:1175
+#: data/ui/prefs-dialog-gtk3.glade:1196 data/ui/prefs-dialog-gtk2.glade:1128
+#: data/ui/prefs-dialog-gtk2.glade:1151 data/ui/prefs-dialog-gtk2.glade:1174
+msgid "(None)"
+msgstr "(Ingen)"
+
+#: data/ui/prefs-dialog-gtk3.glade:1212 data/ui/prefs-dialog-gtk2.glade:1087
+msgid "Double-click a HotKey to assign a new HotKey"
+msgstr "Dobbeltklik på en genvej for at tildele en ny genvej"
+
+#: data/ui/prefs-dialog-gtk3.glade:1234 data/ui/prefs-dialog-gtk2.glade:1204
+msgid "<b>HotKey Settings</b>"
+msgstr "<b>Genvejsindstillinger</b>"
+
+#: data/ui/popup-menu-gtk2.glade:45
+msgid "_Mute"
+msgstr "_Sluk lyden"
+
+#: data/ui/popup-menu-gtk2.glade:56
+msgid "_Volume Control"
+msgstr "_Lydstyrkestyring"
+
+#: data/ui/popup-menu-gtk2.glade:81
+msgid "_Reload Sound"
+msgstr "_Genindlæs lyd"
+
+#: data/ui/prefs-dialog-gtk2.glade:106
+msgid "Notify for volume changes from:"
+msgstr "Påmind om lydstyrkeændringer fra:"
