@@ -58,6 +58,8 @@ audio_signal_to_str(AudioSignal signal)
 		return "card disconnected";
 	case AUDIO_CARD_ERROR:
 		return "card error";
+	case AUDIO_CARD_RELOAD:
+		return "card to be reloaded";
 	case AUDIO_VALUES_CHANGED:
 		return "values changed";
 	default:
@@ -304,6 +306,9 @@ on_alsa_event(enum alsa_event event, gpointer data)
 		break;
 	case ALSA_CARD_VALUES_CHANGED:
 		invoke_handlers(audio, AUDIO_VALUES_CHANGED, AUDIO_USER_UNKNOWN);
+		break;
+	case ALSA_CARD_RELOAD:
+		invoke_handlers(audio, AUDIO_CARD_RELOAD, AUDIO_USER_UNKNOWN);
 		break;
 	default:
 		WARN("Unhandled alsa event: %d", event);

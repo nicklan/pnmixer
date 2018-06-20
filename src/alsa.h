@@ -30,7 +30,8 @@ void alsa_card_free(AlsaCard *card);
 enum alsa_event {
 	ALSA_CARD_ERROR,
 	ALSA_CARD_DISCONNECTED,
-	ALSA_CARD_VALUES_CHANGED
+	ALSA_CARD_VALUES_CHANGED,
+	ALSA_CARD_RELOAD,
 };
 
 typedef void (*AlsaCb) (enum alsa_event event, gpointer data);

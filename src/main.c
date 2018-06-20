@@ -298,6 +298,8 @@ on_audio_changed(Audio *audio, AudioEvent *event, G_GNUC_UNUSED gpointer data)
 		if (run_audio_error_dialog() == GTK_RESPONSE_YES)
 			audio_reload(audio);
 		break;
+	case AUDIO_CARD_RELOAD:
+		audio_reload(audio);
 	default:
 		break;
 	}

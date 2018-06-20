@@ -699,9 +699,9 @@ poll_watch_cb(GIOChannel *source, GIOCondition condition, AlsaCard *card)
 
 		case G_IO_STATUS_NORMAL:
 			/* Actually bad, alsa failed to clear channel */
-			ERROR("Alsa failed to clear the channel");
+			WARN("Alsa failed to clear the channel");
 			if (callback)
-				callback(ALSA_CARD_ERROR, data);
+				callback(ALSA_CARD_RELOAD, data);
 			break;
 
 		case G_IO_STATUS_ERROR:

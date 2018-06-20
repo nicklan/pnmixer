@@ -66,6 +66,7 @@ enum audio_signal {
 	AUDIO_CARD_DISCONNECTED,
 	AUDIO_CARD_ERROR,
 	AUDIO_VALUES_CHANGED,
+	AUDIO_CARD_RELOAD,
 };
 
 typedef enum audio_signal AudioSignal;
